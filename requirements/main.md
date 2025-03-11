@@ -108,7 +108,7 @@
 - Receptionist : can access and edit everything but cannot approve time sheets
 - Employee : can only access Projects, Clients, Quotes and can edit timesheet and space reserved to clients (they will upload files there)
 - Accountant : can only access Projects, Clients, Quotes, space reserved to clients and can edit timesheet
-- Clients : can only access their space reserved and download files
+- Client : can only access their space reserved and download files
 
 ## Additional info:
 

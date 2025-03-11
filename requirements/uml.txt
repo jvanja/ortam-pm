@@ -1,0 +1,127 @@
+@startuml
+
+class Quote {
+  - id: uuid
+  - projectType: string
+  - quoteLanguage: Language
+  - projectAddress: string
+  - budget: float
+  - salesRepresentativeName: string
+  - quoteStatus: QuoteStatus
+  - clientId: uuid
+  + createQuote(): void
+  + updateQuoteStatus(status: QuoteStatus): void
+  + convertToProject(): Project
+}
+
+class Project {
+  - id: uuid
+  - projectType: string
+  - department: string
+  - projectManager: string
+  - projectLanguage: Language
+  - projectAddress: string
+  - budget: float
+  - salesRepresentativeName: string
+  - projectStatus: ProjectStatus
+  - projectOpeningDate: date
+  - deadline: date
+  - invoices: Invoice[*]
+  - tasks: Task
+  - clients: Client[*]
+  + createProject(): void
+  + updateProjectStatus(status: ProjectStatus): void
+  + addInvoice(amount: float): Invoice
+}
+
+class Client {
+  - id: uuid
+  - companyName: string
+  - contactPerson: string
+  - address: string
+  - phone: string
+  - email: string
+  - quotes: Quote[*]
+  - projects: Project[*]
+  + addClient(): void
+  + updateClientInfo(): void
+  + submitQuote(): Quote
+  + viewReports(): void
+}
+
+class Employee {
+  - id: uuid
+  - username: string
+  - password: string
+  - firstName: string
+  - lastName: string
+  - department: string
+  - entryDate: date
+  + addEmployee(): void
+  + updateEmployeeInfo(): void
+  + logTimeSheet(task: Task, projectId: uuid, duration: float): TimeSheet
+}
+
+class TimeSheet {
+  - id: uuid
+  - taskPerformed: Task
+  - projectId: uuid
+  - workedDuration: float
+  + createTimeSheet(): void
+  + getTotalHours(): float
+}
+
+class Workload {
+  - id: uuid
+  - ongoingProjects: Project[*]
+  - deadlines: date[*]
+  + visualizeWorkload(): GanttChart
+  + updateWorkload(project: Project): void
+}
+
+class Invoice {
+  - id: uuid
+  - projectId: uuid
+  - amount: float
+  - paid: boolean
+  + createInvoice(amount: float): void
+  + markAsPaid(): void
+}
+
+enum Language {
+  English
+  French
+}
+
+enum QuoteStatus {
+  InPreparation
+  Sent
+  Approved
+  Rejected
+}
+
+enum ProjectStatus {
+  Ongoing
+  Completed
+  Canceled
+}
+
+enum Task {
+  Visit
+  Research
+  Fieldwork
+  Reporrt
+}
+
+' Relationships with Cardinality
+Quote "1" --> "0..1" Project : "converts to"
+Client "1" --> "1" Quote : "has"
+Client "1" --> "0..*" Project : "has"
+Employee "1" --> "0..*" TimeSheet : "records"
+Project "1" --> "0..*" TimeSheet : "tracked by"
+Employee "1" --> "0..*" Project : "works on"
+Employee "1" --> "1" Workload : "visualized in"
+Project "0..*" --> "0..*" Workload : "contributes to"
+Project "1" --> "0..*" Invoice : "generates"
+
+@enduml

@@ -8,8 +8,7 @@ use App\Enums\Language;
 use App\Enums\QuoteStatus;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Quote extends Model
-{
+class Quote extends Model {
     use HasUuids;
 
     protected $fillable = [
@@ -29,28 +28,23 @@ class Quote extends Model
         'budget' => 'float',
     ];
 
-    public function client()
-    {
+    public function client() {
         return $this->belongsTo(Client::class);
     }
 
-    public function project(): HasOne
-    {
+    public function project(): HasOne {
         return $this->hasOne(Project::class);
     }
 
-    public function createQuote(): void
-    {
+    public function createQuote(): void {
         // TODO: Implement createQuote() method.
     }
 
-    public function updateQuoteStatus(QuoteStatus $status): void
-    {
+    public function updateQuoteStatus(QuoteStatus $status): void {
         // TODO: Implement updateQuoteStatus() method.
     }
 
-    public function convertToProject(): Project
-    {
+    public function convertToProject(): Project {
         // TODO: Implement convertToProject() method.
     }
 }

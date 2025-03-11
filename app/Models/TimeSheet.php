@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class TimeSheet extends Model
-{
+class TimeSheet extends Model {
     use HasUuids;
 
     protected $fillable = [
@@ -23,23 +22,19 @@ class TimeSheet extends Model
         'worked_duration' => 'float',
     ];
 
-   public function employee(): BelongsTo
-    {
-        return $this->belongsTo(Employee::class);
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 
-    public function project(): BelongsTo
-    {
+    public function project(): BelongsTo {
         return $this->belongsTo(Project::class);
     }
 
-    public function createTimeSheet(): void
-    {
+    public function createTimeSheet(): void {
         // TODO: Implement createTimeSheet() method.
     }
 
-    public function getTotalHours(): float
-    {
+    public function getTotalHours(): float {
         // TODO: Implement getTotalHours() method.
     }
 }

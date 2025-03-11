@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Workload extends Model
@@ -24,15 +25,15 @@ class Workload extends Model
         return $this->belongsToMany(Project::class);
     }
 
-    public function employee(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(Employee::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function visualizeWorkload(): GanttChart
-    {
-        // TODO: Implement visualizeWorkload() method.
-    }
+    // public function visualizeWorkload(): GanttChart
+    // {
+    //     // TODO: Implement visualizeWorkload() method.
+    // }
 
     public function updateWorkload(Project $project): void
     {

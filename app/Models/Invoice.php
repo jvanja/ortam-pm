@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Invoice extends Model
-{
+class Invoice extends Model {
     use HasUuids;
 
     protected $fillable = [
@@ -22,18 +21,15 @@ class Invoice extends Model
         'paid' => 'boolean',
     ];
 
-    public function project(): BelongsTo
-    {
+    public function project(): BelongsTo {
         return $this->belongsTo(Project::class);
     }
+    // public function createInvoice(float $amount): void {
+    //     // TODO: Implement createInvoice() method.
+    // }
 
-    public function createInvoice(float $amount): void
-    {
-        // TODO: Implement createInvoice() method.
-    }
-
-    public function markAsPaid(): void
-    {
+    public function markAsPaid(): void {
         // TODO: Implement markAsPaid() method.
+        $this->paid = true;
     }
 }

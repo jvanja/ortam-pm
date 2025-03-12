@@ -36,15 +36,7 @@ class Quote extends Model {
         return $this->hasOne(Project::class);
     }
 
-    public function createQuote(): void {
-        // TODO: Implement createQuote() method.
-    }
-
     public function updateQuoteStatus(QuoteStatus $status): void {
-        // TODO: Implement updateQuoteStatus() method.
-    }
-
-    public function convertToProject(): Project {
-        // TODO: Implement convertToProject() method.
+        $this->quote_status = $status;
     }
 }

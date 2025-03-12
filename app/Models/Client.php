@@ -30,14 +30,6 @@ class Client extends Model {
         return $this->belongsToMany(Project::class);
     }
 
-    public function addClient(): void {
-        // TODO: Implement addClient() method.
-    }
-
-    public function updateClientInfo(): void {
-        // TODO: Implement updateClientInfo() method.
-    }
-
     public function submitQuote(): Quote {
         // TODO: Implement submitQuote() method.
     }

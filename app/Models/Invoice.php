@@ -24,12 +24,8 @@ class Invoice extends Model {
     public function project(): BelongsTo {
         return $this->belongsTo(Project::class);
     }
-    // public function createInvoice(float $amount): void {
-    //     // TODO: Implement createInvoice() method.
-    // }
 
     public function markAsPaid(): void {
-        // TODO: Implement markAsPaid() method.
         $this->paid = true;
     }
 }

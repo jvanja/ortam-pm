@@ -55,10 +55,6 @@ class Project extends Model {
         return $this->belongsTo(Quote::class);
     }
 
-    public function createProject(): void {
-        // TODO: Implement createProject() method.
-    }
-
     public function updateProjectStatus(ProjectStatus $status): void {
         $this->project_status = $status;
     }

@@ -30,11 +30,7 @@ class TimeSheet extends Model {
         return $this->belongsTo(Project::class);
     }
 
-    public function createTimeSheet(): void {
-        // TODO: Implement createTimeSheet() method.
-    }
-
     public function getTotalHours(): float {
-        // TODO: Implement getTotalHours() method.
+        return $this->worked_duration;
     }
 }

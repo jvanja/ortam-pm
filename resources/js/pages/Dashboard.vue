@@ -13,6 +13,14 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
 ];
+
+const $props = defineProps({
+    projects: {
+        type: Array,
+        required: true,
+    },
+});
+console.log($props.projects);
 </script>
 
 <template>
@@ -20,11 +28,15 @@ const breadcrumbs: BreadcrumbItem[] = [
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-            <div class="p-4 flex flex-col gap-4">
+            <div class="flex flex-col gap-4 p-4">
                 <Heading title="Projects" description="These are your latest projects" />
                 <div class="flex flex-col gap-2">
-                    <div v-for="index in [...Array(3).keys()]" :key="index" class="flex justify-between  rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
-                        <div class="text-sm font-medium px-4 py-2">Project name</div>
+                    <div
+                        v-for="project in projects"
+                        :key="project.id"
+                        class="flex justify-between rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800"
+                    >
+                        <div class="px-4 py-2 text-sm font-medium">{{ project.project_type }}</div>
                         <div class="flex gap-2">
                             <Button variant="default">Edit</Button>
                             <Button variant="destructive">Delete</Button>

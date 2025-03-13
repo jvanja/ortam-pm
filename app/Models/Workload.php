@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Workload extends Model
-{
+class Workload extends Model {
     use HasUuids;
 
     protected $fillable = [
@@ -20,13 +19,11 @@ class Workload extends Model
         'deadlines' => 'array',
     ];
 
-    public function projects(): BelongsToMany
-    {
+    public function projects(): BelongsToMany {
         return $this->belongsToMany(Project::class);
     }
 
-    public function user(): BelongsTo
-    {
+    public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
 
@@ -35,8 +32,7 @@ class Workload extends Model
     //     // TODO: Implement visualizeWorkload() method.
     // }
 
-    public function updateWorkload(Project $project): void
-    {
+    public function updateWorkload(Project $project): void {
         // TODO: Implement updateWorkload() method.
     }
 }

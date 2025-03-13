@@ -9,7 +9,7 @@ class ProjectController extends Controller {
     public function index() {
         $projects = Project::all();
 
-        return Inertia::render('Dashboard', [
+        return Inertia::render('projects/Index', [
             'projects' => $projects,
         ]);
     }
@@ -19,6 +19,14 @@ class ProjectController extends Controller {
 
         return Inertia::render('Dashboard', [
             'projects' => $latestProjects,
+        ]);
+    }
+
+    public function show($id) {
+        $project = Project::findOrFail($id); // Or handle not found
+
+        return Inertia::render('projects/Show', [
+            'project' => $project,
         ]);
     }
 }

@@ -13626,6 +13626,30 @@ export interface model_has_rolesEntity {
   'model_type': string;
   'role_id': string;
 }
+export interface p_c_a_reportsEntity {
+  'basement': any;
+  'building': string;
+  'created_at'?: Date | null;
+  'fondation': string;
+  'id'?: string;
+  'name': string;
+  'non_residential_units'?: number;
+  'numbers_of_floors': number;
+  
+  /* Percentage of total lot area */
+  'occupation_of_the_building': number;
+  'occupation_of_the_property': string;
+  'residential_units': number;
+  'structure': string;
+  
+  /* Measured in square meters */
+  'surface_area_of_the_building': number;
+  
+  /* Measured in square meters */
+  'total_site_area': number;
+  'updated_at'?: Date | null;
+  'year_of_construction': number;
+}
 export interface password_reset_tokensEntity {
   'created_at'?: Date | null;
   'email': string;

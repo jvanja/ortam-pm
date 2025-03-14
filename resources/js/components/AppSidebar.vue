@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
+import { Contact, Folder, Clipboard, LayoutGrid } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -15,6 +15,11 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
+        title: 'PCA Reports',
+        href: '/pca-reports',
+        icon: Clipboard,
+    },
+    {
         title: 'Projects',
         href: '/projects',
         icon: Folder,
@@ -22,7 +27,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Clients',
         href: '/clients',
-        icon: BookOpen,
+        icon: Contact,
     },
 ];
 

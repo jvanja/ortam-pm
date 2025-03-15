@@ -29,5 +29,8 @@ Route::get('/set-locale/{locale}', function ($locale, Request $request) {
     return redirect()->back();
 });
 
+require base_path('routes/projects.php');
+require base_path('routes/pca.php');
+
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

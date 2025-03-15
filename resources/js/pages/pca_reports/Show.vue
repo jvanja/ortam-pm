@@ -6,6 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'vue-sonner';
+
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
@@ -33,11 +36,17 @@ const form = useForm({
   occupation_of_the_property: props.pca_report.occupation_of_the_property,
 });
 
-  // console.warn("DEBUGPRINT[3]: Show.vue:31: form=", form)
-
 const submit = () => {
-  form.patch(route('pca_reports.update',  props.pca_report.id), {
-      preserveScroll: true,
+  form.patch(route('pca_reports.update', props.pca_report.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Report has been updated successfully!', {
+        style: {
+          background: '#6ee7b7',
+          color: '#000'
+        },
+      });
+    },
   });
 };
 </script>
@@ -69,4 +78,5 @@ const submit = () => {
       </div>
     </div>
   </AppLayout>
+  <Toaster />
 </template>

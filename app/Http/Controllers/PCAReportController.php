@@ -57,11 +57,12 @@ class PCAReportController extends Controller {
    */
   public function update(Request $request, int $id) {
     $validatedData = $request->validate([
+      'name' => 'required',
       'occupation_of_the_property' => 'required',
     ]);
+    dd($request);
     $pcaReport = PCAReport::findOrFail($id);
     $pcaReport->update($validatedData);
-    // dd($validatedData);
     return redirect()->back()->with('success', 'PCA Report updated successfully!');
   }
 

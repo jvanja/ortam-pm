@@ -8,14 +8,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'vue-sonner';
-
-import AppLayout from '@/layouts/AppLayout.vue';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import useSidebar from '@/composables/useSidebar';
+import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { ref, onMounted, onUnmounted } from 'vue';
-
+import { onMounted, onUnmounted, ref } from 'vue';
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { route } from 'ziggy-js';
+import Interior from '@/components/PCAReport/Interior.vue';
 
 const props = defineProps<{
   pca_report: p_c_a_reportsEntity;
@@ -35,20 +34,29 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const { setSidebarMenu } = useSidebar();
-const currentTab = ref('summary')
+const currentTab = ref('summary');
 
+const newForm = ref(props.pca_report);
 const form = useForm({
-  occupation_of_the_property: props.pca_report.occupation_of_the_property,
+  name: newForm.value.name,
+  occupation_of_the_property: newForm.value.occupation_of_the_property,
 });
 
 const submit = () => {
-  form.patch(route('pca_reports.update', props.pca_report.id), {
+  form
+  .transform((data) => ({
+    ...data,
+    ...newForm.value,
+  }))
+    /* @ts-expect-error This is fine */
+  .patch(route('pca_reports.update', props.pca_report.id), {
     preserveScroll: true,
     onSuccess: () => {
+        console.log(form)
       toast.success('Report has been updated successfully!', {
         style: {
           background: '#6ee7b7',
-          color: '#000'
+          color: '#000',
         },
       });
     },
@@ -56,29 +64,29 @@ const submit = () => {
 };
 
 const mainNavItems = [
-    { title: 'Summary', href: '#summary', },
-    { title: 'Introduction', href: '#introduction', },
-    { title: 'Structure', href: '#structure', },
-    { title: 'Exterior', href: '#exterior', },
-    { title: 'Roofing', href: '#roofing', },
-    { title: 'Electrical', href: '#electrical', },
-    { title: 'Mechanical Systems', href: '#mechanical-systems', },
-    { title: 'Plumbing', href: '#plumbing', },
-    { title: 'Interior', href: '#interior', },
-    { title: 'Conclusion', href: '#conclusion', },
+  { title: 'Summary', href: '#summary' },
+  { title: 'Introduction', href: '#introduction' },
+  { title: 'Structure', href: '#structure' },
+  { title: 'Exterior', href: '#exterior' },
+  { title: 'Roofing', href: '#roofing' },
+  { title: 'Electrical', href: '#electrical' },
+  { title: 'Mechanical Systems', href: '#mechanical-systems' },
+  { title: 'Plumbing', href: '#plumbing' },
+  { title: 'Interior', href: '#interior' },
+  { title: 'Conclusion', href: '#conclusion' },
 ];
 
 const changeTab = (newTab: string) => {
-  console.log(newTab)
-}
+  currentTab.value = newTab;
+};
 onMounted(() => {
   setSidebarMenu(mainNavItems);
-  changeTab(location.hash)
-})
+  changeTab(location.hash.replace(/#/g, ''));
+});
 
 onUnmounted(() => {
   setSidebarMenu();
-})
+});
 </script>
 <template>
   <Head title="PCA Report" />
@@ -93,12 +101,17 @@ onUnmounted(() => {
           </CardHeader>
           <CardContent>
             <form @submit.prevent="submit" class="space-y-6">
-              <div class="grid w-full items-center gap-4">
-                <div class="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Occupation of the property</Label>
-                  <Input v-model="form.occupation_of_the_property" id="name" :placeholder="report.occupation_of_the_property" />
-                </div>
-              </div>
+              <Tabs :default-value="currentTab" v-model="currentTab">
+                <TabsContent value="summary">
+                  <div class="grid w-full items-center gap-4">
+                    <div class="flex flex-col space-y-1.5">
+                      <Label htmlFor="name">Occupation of the property</Label>
+                      <Input v-model="form.occupation_of_the_property" id="name" :placeholder="report.occupation_of_the_property" />
+                    </div>
+                  </div>
+                </TabsContent>
+                <TabsContent value="interior"><Interior v-model:form="newForm" /></TabsContent>
+              </Tabs>
               <div class="flex w-full justify-end">
                 <Button :disabled="form.processing">Save</Button>
               </div>

@@ -12,7 +12,8 @@ import { toast } from 'vue-sonner';
 import AppLayout from '@/layouts/AppLayout.vue';
 import useSidebar from '@/composables/useSidebar';
 import { Head, useForm } from '@inertiajs/vue3';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
+
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { route } from 'ziggy-js';
 
@@ -34,6 +35,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const { setSidebarMenu } = useSidebar();
+const currentTab = ref('summary')
 
 const form = useForm({
   occupation_of_the_property: props.pca_report.occupation_of_the_property,
@@ -54,20 +56,28 @@ const submit = () => {
 };
 
 const mainNavItems = [
-    { title: 'Summary', href: '/dashboard', },
-    { title: 'Introduction', href: '/pca-reports', },
-    { title: 'Structure', href: '/pca-reports', },
-    { title: 'Exterior', href: '/pca-reports', },
-    { title: 'Roofing', href: '/pca-reports', },
-    { title: 'Electrical', href: '/pca-reports', },
-    { title: 'Mechanical Systems', href: '/pca-reports', },
-    { title: 'Plumbing', href: '/pca-reports', },
-    { title: 'Interior', href: '/pca-reports', },
-    { title: 'Conclusion', href: '/pca-reports', },
+    { title: 'Summary', href: '#summary', },
+    { title: 'Introduction', href: '#introduction', },
+    { title: 'Structure', href: '#structure', },
+    { title: 'Exterior', href: '#exterior', },
+    { title: 'Roofing', href: '#roofing', },
+    { title: 'Electrical', href: '#electrical', },
+    { title: 'Mechanical Systems', href: '#mechanical-systems', },
+    { title: 'Plumbing', href: '#plumbing', },
+    { title: 'Interior', href: '#interior', },
+    { title: 'Conclusion', href: '#conclusion', },
 ];
+
+const changeTab = (newTab: string) => {
+  console.log(newTab)
+}
 onMounted(() => {
   setSidebarMenu(mainNavItems);
+  changeTab(location.hash)
+})
 
+onUnmounted(() => {
+  setSidebarMenu();
 })
 </script>
 <template>

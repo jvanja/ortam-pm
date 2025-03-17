@@ -27,8 +27,9 @@ const mainNavItems: NavItem[] = [
 const sidebarMenu = ref(mainNavItems);
 
 export default function useSidebar() {
-  const setSidebarMenu = (newMenu: NavItem[]) => {
-    sidebarMenu.value = newMenu;
+  const setSidebarMenu = (newMenu?: NavItem[]) => {
+    if(newMenu) sidebarMenu.value = newMenu;
+    else sidebarMenu.value = mainNavItems;
   };
 
   return {

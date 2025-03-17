@@ -10,8 +10,9 @@ import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'vue-sonner';
 
 import AppLayout from '@/layouts/AppLayout.vue';
+import useSidebar from '@/composables/useSidebar';
 import { Head, useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { route } from 'ziggy-js';
 
@@ -24,13 +25,15 @@ const report = ref(props.pca_report);
 const breadcrumbs: BreadcrumbItem[] = [
   {
     title: 'PCA Reports',
-    href: '/pca_reports',
+    href: '/pca-reports',
   },
   {
     title: props.pca_report.name,
     href: props.pca_report.id!,
   },
 ];
+
+const { setSidebarMenu } = useSidebar();
 
 const form = useForm({
   occupation_of_the_property: props.pca_report.occupation_of_the_property,
@@ -49,6 +52,23 @@ const submit = () => {
     },
   });
 };
+
+const mainNavItems = [
+    { title: 'Summary', href: '/dashboard', },
+    { title: 'Introduction', href: '/pca-reports', },
+    { title: 'Structure', href: '/pca-reports', },
+    { title: 'Exterior', href: '/pca-reports', },
+    { title: 'Roofing', href: '/pca-reports', },
+    { title: 'Electrical', href: '/pca-reports', },
+    { title: 'Mechanical Systems', href: '/pca-reports', },
+    { title: 'Plumbing', href: '/pca-reports', },
+    { title: 'Interior', href: '/pca-reports', },
+    { title: 'Conclusion', href: '/pca-reports', },
+];
+onMounted(() => {
+  setSidebarMenu(mainNavItems);
+
+})
 </script>
 <template>
   <Head title="PCA Report" />

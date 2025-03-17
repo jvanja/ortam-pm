@@ -3,33 +3,13 @@
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { Contact, Folder, Clipboard, LayoutGrid } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
+import useSidebar from '@/composables/useSidebar';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: '/dashboard',
-        icon: LayoutGrid,
-    },
-    {
-        title: 'PCA Reports',
-        href: '/pca-reports',
-        icon: Clipboard,
-    },
-    {
-        title: 'Projects',
-        href: '/projects',
-        icon: Folder,
-    },
-    {
-        title: 'Clients',
-        href: '/clients',
-        icon: Contact,
-    },
-];
+const { sidebarMenu } = useSidebar();
+
+const mainNavItems = sidebarMenu
 
 // const footerNavItems: NavItem[] = [ ];
 </script>

@@ -14,8 +14,8 @@ const props = defineProps<{
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'pca_reports',
-        href: '/pca_reports',
+        title: 'PCA Reports',
+        href: '/pca-reports',
     },
 ];
 

@@ -8,11 +8,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Toaster } from '@/components/ui/sonner';
-import { Tabs, TabsContent } from '@/components/ui/tabs';
-import useSidebar from '@/composables/useSidebar';
+import { Tabs, TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { ref } from 'vue';
 import { toast } from 'vue-sonner';
 
 const props = defineProps<{ pca_report: p_c_a_reportsEntity }>();
@@ -20,7 +19,6 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'PCA Reports', href: '/pca-reports' },
   { title: props.pca_report.name, href: props.pca_report.id! },
 ];
-const { setSidebarMenu } = useSidebar();
 const currentTab = ref('summary');
 const form = useForm({ ...props.pca_report });
 
@@ -40,32 +38,18 @@ const submit = () => {
   });
 };
 
-const mainNavItems = [
-  { title: 'Summary', href: '#summary' },
-  { title: 'Introduction', href: '#introduction' },
-  { title: 'Structure', href: '#structure' },
-  { title: 'Exterior', href: '#exterior' },
-  { title: 'Roofing', href: '#roofing' },
-  { title: 'Electrical', href: '#electrical' },
-  { title: 'Mechanical Systems', href: '#mechanical-systems' },
-  { title: 'Plumbing', href: '#plumbing' },
-  { title: 'Interior', href: '#interior' },
-  { title: 'Conclusion', href: '#conclusion' },
+const tabsMenu = [
+  { title: 'Summary', tab: 'summary' },
+  { title: 'Introduction', tab: 'introduction' },
+  { title: 'Structure', tab: 'structure' },
+  { title: 'Exterior', tab: 'exterior' },
+  { title: 'Roofing', tab: 'roofing' },
+  { title: 'Electrical', tab: 'electrical' },
+  { title: 'Mechanical Systems', tab: 'mechanical-systems' },
+  { title: 'Plumbing', tab: 'plumbing' },
+  { title: 'Interior', tab: 'interior' },
+  { title: 'Conclusion', tab: 'conclusion' },
 ];
-
-const changeTab = (newTab: string) => {
-  newTab = newTab === '' ? 'summary' : newTab;
-  currentTab.value = newTab;
-};
-
-onMounted(() => {
-  setSidebarMenu(mainNavItems);
-  changeTab(location.hash.replace(/#/g, ''));
-});
-
-onUnmounted(() => {
-  setSidebarMenu();
-});
 </script>
 <template>
   <Head title="PCA Report" />
@@ -81,6 +65,9 @@ onUnmounted(() => {
           <CardContent>
             <form @submit.prevent="submit" class="space-y-6">
               <Tabs :default-value="currentTab" v-model="currentTab">
+                <TabsList aria-label="tabs example">
+                  <TabsTrigger v-for="tab in tabsMenu" :value="tab.tab" :key="tab.tab">{{tab.title}}</TabsTrigger>
+                </TabsList>
                 <TabsContent value="summary">
                   <div class="grid w-full items-center gap-4">
                     <div class="flex flex-col space-y-1.5">

@@ -63,7 +63,7 @@ const tabsMenu = [
                   <TabsTrigger v-for="tab in tabsMenu" :value="tab.to" :key="tab.to">{{tab.title}}</TabsTrigger>
                 </TabsList>
 
-                <TabsContent v-for="tab in tabsMenu" :value="tab.to" :key="tab.to">
+                <TabsContent v-for="tab in tabsMenu" :value="tab.to" :key="tab.to" class="py-8">
                   <component :is="tab.component" :form="pca_report" @update:form="handleFormUpdate" />
                 </TabsContent>
               </Tabs>

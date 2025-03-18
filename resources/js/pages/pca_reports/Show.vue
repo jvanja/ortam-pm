@@ -2,8 +2,7 @@
 import { type BreadcrumbItem } from '@/types';
 import { type p_c_a_reportsEntity } from '@/types/DatabaseModels';
 
-import Interior from '@/components/PCAReport/Interior.vue';
-import Summary from '@/components/PCAReport/Summary.vue';
+import { Summary, Interior } from '@/components/PCAReport';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Toaster } from '@/components/ui/sonner';
@@ -65,7 +64,6 @@ const tabsMenu = [
                 </TabsList>
 
                 <TabsContent v-for="tab in tabsMenu" :value="tab.to" :key="tab.to">
-                  {{ tab.to }}
                   <component :is="tab.component" :form="pca_report" @update:form="handleFormUpdate" />
                 </TabsContent>
               </Tabs>

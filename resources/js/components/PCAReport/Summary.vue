@@ -23,27 +23,28 @@ watch(
 </script>
 
 <template>
-  <div>
+    <div class="grid grid-cols-2 gap-4">
+
     <Label htmlFor="o-prop">Occupation of the property</Label>
     <Input id="o-prop" v-model="localForm.occupation_of_the_property"></Input>
 
-    <Label htmlFor="name">Total Site area:</Label>
-    <Input v-model="localForm.total_site_area"></Input>
+    <Label htmlFor="siteArea">Total Site area:</Label>
+    <Input id="siteArea" v-model="localForm.total_site_area"></Input>
 
-    <Label htmlFor="name">Surface area of the building (Approx.)</Label>
-    <Input v-model="localForm.surface_area_of_the_building"></Input>
+    <Label htmlFor="buildingArea">Surface area of the building (Approx.)</Label>
+    <Input id="buildingArea" v-model="localForm.surface_area_of_the_building"></Input>
 
-    <Label htmlFor="name">Occupation of the building</Label>
-    <Input v-model="localForm.occupation_of_the_building"></Input>
+    <Label htmlFor="buildingOccupation">Occupation of the building</Label>
+    <Input id="buildingOccupation" v-model="localForm.occupation_of_the_building"></Input>
 
-    <Label htmlFor="name">Year of construction</Label>
-    <Input v-model="localForm.year_of_construction"></Input>
+    <Label htmlFor="yearConstr">Year of construction</Label>
+    <Input id="yearConstr" v-model="localForm.year_of_construction"></Input>
 
-    <Label htmlFor="name">Building</Label>
-    <Input v-model="localForm.building"></Input>
+    <Label htmlFor="building">Building</Label>
+    <Input id="building" v-model="localForm.building"></Input>
 
-    <Label htmlFor="name">Number of floors:</Label>
-    <Input v-model="localForm.numbers_of_floors"></Input>
+    <Label htmlFor="floors">Number of floors:</Label>
+    <Input id="floors" v-model="localForm.numbers_of_floors"></Input>
 
     <Label htmlFor="basement">Basement</Label>
     <RadioGroup id="basement" :default-value="localForm.basement.toString()" :orientation="'vertical'">
@@ -57,10 +58,10 @@ watch(
       </div>
     </RadioGroup>
 
-    <Label htmlFor="name">Non-residential units</Label>
-    <Input v-model="localForm.non_residential_units"></Input>
+    <Label htmlFor="nonResidentalUnits">Non-residential units</Label>
+    <Input id="nonResidentalUnits" v-model="localForm.non_residential_units"></Input>
 
-    <Label htmlFor="name">Residential units</Label>
-    <Input v-model="localForm.residential_units"></Input>
+    <Label htmlFor="residentialUnits">Residential units</Label>
+    <Input id="residentialUnits" v-model="localForm.residential_units"></Input>
   </div>
 </template>

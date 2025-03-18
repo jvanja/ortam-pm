@@ -18,38 +18,34 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'PCA Reports', href: '/pca-reports' },
   { title: props.pca_report.name, href: props.pca_report.id! },
 ];
-const currentTab = ref('summary');
+const currentTab = ref('Summary');
 const form = useForm({ ...props.pca_report });
-
-const handleFormUpdate = (newForm: p_c_a_reportsEntity) => {
-  Object.assign(form, newForm);
-};
+const handleFormUpdate = (newForm: p_c_a_reportsEntity) => Object.assign(form, newForm);
 const submit = () => {
   /* @ts-expect-error This is fine */
   form.patch(route('pca_reports.update', props.pca_report.id), {
     preserveScroll: true,
     onSuccess: () => {
-      console.log(form);
-      toast.success('Report has been updated successfully!', {
-        style: { background: '#6ee7b7', color: '#000' },
-      });
+      toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });
     },
   });
 };
 
 const tabsMenu = [
-  { title: 'Summary', tab: 'summary' },
-  { title: 'Introduction', tab: 'introduction' },
-  { title: 'Structure', tab: 'structure' },
-  { title: 'Exterior', tab: 'exterior' },
-  { title: 'Roofing', tab: 'roofing' },
-  { title: 'Electrical', tab: 'electrical' },
-  { title: 'Mechanical Systems', tab: 'mechanical-systems' },
-  { title: 'Plumbing', tab: 'plumbing' },
-  { title: 'Interior', tab: 'interior' },
-  { title: 'Conclusion', tab: 'conclusion' },
+  { title: 'Summary', to: 'Summary', component: Summary},
+  { title: 'Introduction', to: 'Introduction' },
+  { title: 'Structure', to: 'Structure' },
+  { title: 'Exterior', to: 'Exterior' },
+  { title: 'Roofing', to: 'Roofing' },
+  { title: 'Electrical', to: 'Electrical' },
+  { title: 'Mechanical Systems', to: 'MechanicalSystems' },
+  { title: 'Plumbing', to: 'Plumbing' },
+  { title: 'Interior', to: 'Interior', component: Interior },
+  { title: 'Conclusion', to: 'Conclusion' },
 ];
+
 </script>
+
 <template>
   <Head title="PCA Report" />
 
@@ -63,12 +59,15 @@ const tabsMenu = [
           </CardHeader>
           <CardContent>
             <form @submit.prevent="submit" class="space-y-6">
-              <Tabs :default-value="currentTab" v-model="currentTab">
+              <Tabs default-value="Summary" v-model="currentTab">
                 <TabsList aria-label="tabs example">
-                  <TabsTrigger v-for="tab in tabsMenu" :value="tab.tab" :key="tab.tab">{{tab.title}}</TabsTrigger>
+                  <TabsTrigger v-for="tab in tabsMenu" :value="tab.to" :key="tab.to">{{tab.title}}</TabsTrigger>
                 </TabsList>
-                <TabsContent value="summary"><Summary :form="pca_report" @update:form="handleFormUpdate" /></TabsContent>
-                <TabsContent value="interior"><Interior :form="pca_report" @update:form="handleFormUpdate" /></TabsContent>
+
+                <TabsContent v-for="tab in tabsMenu" :value="tab.to" :key="tab.to">
+                  {{ tab.to }}
+                  <component :is="tab.component" :form="pca_report" @update:form="handleFormUpdate" />
+                </TabsContent>
               </Tabs>
               <div class="flex w-full justify-end">
                 <Button :disabled="form.processing">Save</Button>

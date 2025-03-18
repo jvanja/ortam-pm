@@ -15,9 +15,9 @@ const localForm = reactive({ ...props.form });
 // Watch for changes and emit updates
 watch(
   localForm,
-  (newVal) => {
-    emit('update:form', { ...newVal });
-  },
+  // - TODO:
+  // Handle radio button changes to mimick te database boolean
+  (newVal) => { emit('update:form', { ...newVal }); },
   { deep: true },
 );
 </script>

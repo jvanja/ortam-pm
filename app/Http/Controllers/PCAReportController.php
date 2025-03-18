@@ -60,7 +60,7 @@ class PCAReportController extends Controller {
       'name' => 'required',
       'occupation_of_the_property' => 'required',
     ]);
-    dd($request);
+    // dd($request);
     $pcaReport = PCAReport::findOrFail($id);
     $pcaReport->update($validatedData);
     return redirect()->back()->with('success', 'PCA Report updated successfully!');

@@ -54,6 +54,7 @@ const tabsMenu = [
         <Card>
           <CardHeader>
             <CardTitle>{{ pca_report.name }}</CardTitle>
+            <h1>{{ pca_report.basement }}</h1>
             <CardDescription>{{ pca_report.year_of_construction }}</CardDescription>
           </CardHeader>
           <CardContent>

@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
 import { type p_c_a_reportsEntity } from '@/types/DatabaseModels';
-import { reactive, watch } from 'vue';
+import { reactive, watch, computed } from 'vue';
 
 const props = defineProps<{ form: p_c_a_reportsEntity }>();
 
@@ -12,11 +12,17 @@ const emit = defineEmits(['update:form']);
 
 const localForm = reactive({ ...props.form });
 
+// Computed property for basement value
+const basementValue = computed({
+  get: () => localForm.basement ? 'true' : 'false',
+  set: (val: string) => {
+    localForm.basement = val === 'true';
+  }
+});
+
 // Watch for changes and emit updates
 watch(
   localForm,
-  // - TODO:
-  // Handle radio button changes to mimick te database boolean
   (newVal) => { emit('update:form', { ...newVal }); },
   { deep: true },
 );
@@ -47,7 +53,7 @@ watch(
     <Input id="floors" v-model="localForm.numbers_of_floors"></Input>
 
     <Label htmlFor="basement">Basement</Label>
-    <RadioGroup id="basement" :default-value="localForm.basement.toString()" :orientation="'vertical'">
+    <RadioGroup id="basement" :default-value="basementValue" v-model="basementValue" :orientation="'vertical'">
       <div class="flex items-center space-x-2">
         <RadioGroupItem id="r1" value="true" />
         <Label for="r1">Yes</Label>

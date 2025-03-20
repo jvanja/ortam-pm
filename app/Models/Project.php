@@ -26,6 +26,7 @@ class Project extends Model {
         'project_status',
         'project_opening_date',
         'deadline',
+        'client_id',
     ];
 
     protected $casts = [

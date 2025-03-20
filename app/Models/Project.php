@@ -45,8 +45,8 @@ class Project extends Model {
         return $this->hasMany(TimeSheet::class);
     }
 
-    public function clients(): BelongsToMany {
-        return $this->belongsToMany(Client::class);
+    public function client(): BelongsTo {
+        return $this->belongsTo(Client::class);
     }
 
     public function workload(): BelongsToMany {

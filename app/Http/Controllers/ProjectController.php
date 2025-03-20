@@ -6,27 +6,28 @@ use App\Models\Project;
 use Inertia\Inertia;
 
 class ProjectController extends Controller {
-    public function index() {
-        $projects = Project::all();
+  public function index() {
+    $projects = Project::all();
 
-        return Inertia::render('projects/Index', [
-            'projects' => $projects,
-        ]);
-    }
+    return Inertia::render('projects/Index', [
+      'projects' => $projects,
+    ]);
+  }
 
-    public function latestProjects() {
-        $latestProjects = Project::latest()->take(3)->get();
+  public function latestProjects() {
+    $latestProjects = Project::latest()->take(3)->get();
 
-        return Inertia::render('Dashboard', [
-            'projects' => $latestProjects,
-        ]);
-    }
+    return Inertia::render('Dashboard', [
+      'projects' => $latestProjects,
+    ]);
+  }
 
-    public function show($id) {
-        $project = Project::findOrFail($id); // Or handle not found
+  public function show($id) {
+    $project = Project::with('client')->find($id);
 
-        return Inertia::render('projects/Show', [
-            'project' => $project,
-        ]);
-    }
+
+    return Inertia::render('projects/Show', [
+      'project' => $project,
+    ]);
+  }
 }

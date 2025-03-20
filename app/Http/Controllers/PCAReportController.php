@@ -59,10 +59,21 @@ class PCAReportController extends Controller {
     $validatedData = $request->validate([
       'name' => 'required',
       'occupation_of_the_property' => 'required',
+      'total_site_area' => ['required', 'numeric'],
+      'surface_area_of_the_building' => ['required', 'numeric'],
+      'occupation_of_the_building' => ['required', 'numeric'],
+      'year_of_construction' => ['required', 'digits:4'],
+      'structure' => 'required',
+      'fondation' => 'required',
+      'building' => 'nullable',
+      'numbers_of_floors' => ['nullable', 'numberic'],
+      'basement' => 'boolean',
+      'residential_units' => ['nullable', 'numeric'],
+      'non_residential_units' => ['nullable', 'numeric'],
     ]);
-    // dd($request);
+
     $pcaReport = PCAReport::findOrFail($id);
-    $pcaReport->update($validatedData);
+    $pcaReport->fill($validatedData)->save();
     return redirect()->back()->with('success', 'PCA Report updated successfully!');
   }
 

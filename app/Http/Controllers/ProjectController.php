@@ -59,8 +59,6 @@ class ProjectController extends Controller {
       'client_id' => 'nullable|exists:clients,id'
     ]);
 
-    dd($validated);
-    
     $project = Project::create($validated);
 
     return redirect()->route('projects.show', $project->id)

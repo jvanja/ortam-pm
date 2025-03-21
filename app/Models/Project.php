@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Enums\Language;
 use App\Enums\ProjectStatus;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+// use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+// use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model {
   use HasUuids;
@@ -38,34 +38,33 @@ class Project extends Model {
     'budget' => 'float',
   ];
 
-  public function invoices(): HasMany {
-    return $this->hasMany(Invoice::class);
-  }
-
-  public function timeSheets(): HasMany {
-    return $this->hasMany(TimeSheet::class);
-  }
-
   public function client(): BelongsTo {
     return $this->belongsTo(Client::class);
-  }
-
-  public function workload(): BelongsToMany {
-    return $this->belongsToMany(Workload::class);
-  }
-
-  public function quote(): BelongsTo {
-    return $this->belongsTo(Quote::class);
   }
 
   public function updateProjectStatus(ProjectStatus $status): void {
     $this->project_status = $status;
   }
 
-  public function addInvoice(float $amount): Invoice {
-    $invoice = Invoice::create([
-      'amount' => $amount,
-    ]);
-    return $invoice;
-  }
+  // public function workload(): BelongsToMany {
+  //   return $this->belongsToMany(Workload::class);
+  // }
+  //
+  // public function invoices(): HasMany {
+  //   return $this->hasMany(Invoice::class);
+  // }
+  //
+  // public function timeSheets(): HasMany {
+  //   return $this->hasMany(TimeSheet::class);
+  // }
+  // public function quote(): BelongsTo {
+  //   return $this->belongsTo(Quote::class);
+  // }
+  //
+  // public function addInvoice(float $amount): Invoice {
+  //   $invoice = Invoice::create([
+  //     'amount' => $amount,
+  //   ]);
+  //   return $invoice;
+  // }
 }

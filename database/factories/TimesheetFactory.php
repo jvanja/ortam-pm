@@ -3,14 +3,15 @@
 namespace Database\Factories;
 
 use App\Enums\Language;
-use App\Enums\QuoteStatus;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Enums\Task;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Quote>
  */
-class QuoteFactory extends Factory
+class TimesheetFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,13 +21,10 @@ class QuoteFactory extends Factory
     public function definition(): array
     {
         return [
-            'project_type' => fake()->jobTitle(),
-            'quote_language' => fake()->randomElement(Language::cases()),
-            'project_address' => fake()->address(),
-            'budget' => fake()->randomFloat(2, 1000, 10000),
-            'sales_representative_name' => fake()->name(),
-            'quote_status' => fake()->randomElement(QuoteStatus::cases()),
+            'task_performed' => fake()->randomElement(Task::cases()),
+            'worked_duration' => fake()->randomNumber(2),
             'project_id' => Project::factory(),
+            'user_id' => User::factory(),
         ];
     }
 }

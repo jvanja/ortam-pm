@@ -14,17 +14,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('quotes', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('project_type');
             $table->enum('quote_language', [Language::English->value, Language::French->value]);
             $table->string('project_address');
             $table->float('budget');
             $table->string('sales_representative_name');
             $table->enum('quote_status', [QuoteStatus::InPreparation->value, QuoteStatus::Sent->value, QuoteStatus::Approved->value, QuoteStatus::Rejected->value]);
-            $table->uuid('project_id');
+            $table->foreignId('project_id')->constrained();
             $table->timestamps();
 
-            $table->foreign('project_id')->references('id')->on('projects');
         });
     }
 

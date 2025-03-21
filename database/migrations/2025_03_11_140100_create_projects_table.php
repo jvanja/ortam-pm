@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('project_type');
             $table->string('department');
             $table->string('project_manager');
@@ -25,10 +25,8 @@ return new class extends Migration
             $table->enum('project_status', [ProjectStatus::Ongoing->value, ProjectStatus::Completed->value, ProjectStatus::Canceled->value]);
             $table->date('project_opening_date');
             $table->date('deadline');
-            $table->uuid('client_id');
+            $table->foreignId('client_id')->constrained();
             $table->timestamps();
-
-            $table->foreign('client_id')->references('id')->on('clients');
         });
     }
 

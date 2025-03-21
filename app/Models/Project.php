@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\Language;
 use App\Enums\ProjectStatus;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-// use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-// use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model {
-  use HasUuids;
   use HasFactory;
 
   protected $fillable = [

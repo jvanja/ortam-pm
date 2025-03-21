@@ -13,14 +13,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('time_sheets', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->enum('task_performed', [Task::Visit->value, Task::Research->value, Task::Fieldwork->value, Task::Report->value]);
-            $table->uuid('project_id');
             $table->float('worked_duration');
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('project_id')->constrained();
+
+            // $table->uuid('project_id');
             $table->timestamps();
 
-            $table->foreign('project_id')->references('id')->on('projects');
+            // $table->foreign('project_id')->references('id')->on('projects');
         });
     }
 

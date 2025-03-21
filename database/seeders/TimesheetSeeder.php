@@ -2,14 +2,14 @@
 
 namespace Database\Seeders;
 
-use App\Models\Client;
+use App\Models\TimeSheet;
 use Illuminate\Database\Seeder;
 
-class ClientSeeder extends Seeder {
+class TimesheetSeeder extends Seeder {
   /**
    * Run the database seeds.
    */
   public function run(): void {
-    Client::factory(10)->create();
+    Timesheet::factory(10)->create();
   }
 }

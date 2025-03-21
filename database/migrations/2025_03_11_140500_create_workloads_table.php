@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void {
         Schema::create('workloads', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->json('deadlines');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

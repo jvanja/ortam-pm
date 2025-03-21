@@ -10,13 +10,11 @@ return new class extends Migration {
    */
   public function up(): void {
     Schema::create('invoices', function (Blueprint $table) {
-      $table->uuid('id')->primary();
-      $table->uuid('project_id');
+      $table->id();
       $table->float('amount');
       $table->boolean('paid');
+      $table->foreignId('project_id')->constrained();
       $table->timestamps();
-
-      $table->foreign('project_id')->references('id')->on('projects');
     });
   }
 

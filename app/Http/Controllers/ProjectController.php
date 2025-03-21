@@ -60,9 +60,9 @@ class ProjectController extends Controller {
     ]);
 
     dd($validated);
+    
     $project = Project::create($validated);
 
-    // return redirect()->back()->with('success', 'Project created successfully');
     return redirect()->route('projects.show', $project->id)
       ->with('message', 'Project created successfully');
   }

@@ -60,6 +60,7 @@ class ProjectController extends Controller {
 
     $project = Project::create($validated);
 
+    // return redirect()->back()->with('success', 'Project created successfully');
     return redirect()->route('projects.show', $project->id)
       ->with('message', 'Project created successfully');
   }
@@ -86,8 +87,7 @@ class ProjectController extends Controller {
 
     $project->update($validated);
 
-    return redirect()->route('projects.show', $project->id)
-      ->with('message', 'Project updated successfully');
+    return redirect()->back()->with('success', 'Project updated successfully');
   }
 
   /**
@@ -97,7 +97,6 @@ class ProjectController extends Controller {
     $project = Project::findOrFail($id);
     $project->delete();
 
-    return redirect()->route('projects.index')
-      ->with('message', 'Project deleted successfully');
+    return redirect()->back()->with('success', 'Project deleted successfully');
   }
 }

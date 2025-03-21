@@ -25,10 +25,10 @@ return new class extends Migration
             $table->enum('project_status', [ProjectStatus::Ongoing->value, ProjectStatus::Completed->value, ProjectStatus::Canceled->value]);
             $table->date('project_opening_date');
             $table->date('deadline');
-            $table->uuid('quote_id')->nullable();
+            $table->uuid('client_id');
             $table->timestamps();
 
-            $table->foreign('quote_id')->references('id')->on('quotes');
+            $table->foreign('client_id')->references('id')->on('clients');
         });
     }
 

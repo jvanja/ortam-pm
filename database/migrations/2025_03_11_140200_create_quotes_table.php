@@ -21,10 +21,10 @@ return new class extends Migration
             $table->float('budget');
             $table->string('sales_representative_name');
             $table->enum('quote_status', [QuoteStatus::InPreparation->value, QuoteStatus::Sent->value, QuoteStatus::Approved->value, QuoteStatus::Rejected->value]);
-            $table->uuid('client_id');
+            $table->uuid('project_id');
             $table->timestamps();
 
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('project_id')->references('id')->on('projects');
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
 use App\Enums\Language;
 use App\Enums\ProjectStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -29,6 +30,7 @@ class ProjectFactory extends Factory
             'project_status' => fake()->randomElement(ProjectStatus::cases()),
             'project_opening_date' => fake()->date(),
             'deadline' => fake()->dateTimeBetween('now', '+1 year'),
+            'client_id' => Client::factory(),
         ];
     }
 }

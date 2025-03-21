@@ -7,38 +7,34 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\Language;
 use App\Enums\QuoteStatus;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Quote extends Model {
-    use HasUuids;
-    use HasFactory;
+  use HasUuids;
+  use HasFactory;
 
-    protected $fillable = [
-        'project_type',
-        'quote_language',
-        'project_address',
-        'budget',
-        'sales_representative_name',
-        'quote_status',
-        'client_id',
-    ];
+  protected $fillable = [
+    'project_type',
+    'quote_language',
+    'project_address',
+    'budget',
+    'sales_representative_name',
+    'quote_status',
+    'project_id',
+  ];
 
-    protected $casts = [
-        'id' => 'string',
-        'quote_language' => Language::class,
-        'quote_status' => QuoteStatus::class,
-        'budget' => 'float',
-    ];
+  protected $casts = [
+    'id' => 'string',
+    'quote_language' => Language::class,
+    'quote_status' => QuoteStatus::class,
+    'budget' => 'float',
+  ];
 
-    public function client() {
-        return $this->belongsTo(Client::class);
-    }
+  public function project(): BelongsTo {
+    return $this->belongsTo(Project::class);
+  }
 
-    public function project(): HasOne {
-        return $this->hasOne(Project::class);
-    }
-
-    public function updateQuoteStatus(QuoteStatus $status): void {
-        $this->quote_status = $status;
-    }
+  public function updateQuoteStatus(QuoteStatus $status): void {
+    $this->quote_status = $status;
+  }
 }

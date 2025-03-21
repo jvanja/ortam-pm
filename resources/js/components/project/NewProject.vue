@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'vue-sonner';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
 
 const form = useForm({
   project_type: '',
@@ -20,11 +21,11 @@ const form = useForm({
 });
 
 const submit = () => {
-  form.post(route('project.store'), {
+  form.post(route('projects.store'), {
     preserveScroll: true,
     onSuccess: () => {
-      toast.success('Project created successfully!', { 
-        style: { background: '#6ee7b7', color: '#000' } 
+      toast.success('Project created successfully!', {
+        style: { background: '#6ee7b7', color: '#000' }
       });
     },
   });

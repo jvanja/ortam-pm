@@ -40,6 +40,7 @@ class ProjectController extends Controller {
       'project' => $project,
     ]);
   }
+
   /**
    * Store a newly created resource in storage.
    */
@@ -58,6 +59,7 @@ class ProjectController extends Controller {
       'client_id' => 'nullable|exists:clients,id'
     ]);
 
+    dd($validated);
     $project = Project::create($validated);
 
     // return redirect()->back()->with('success', 'Project created successfully');

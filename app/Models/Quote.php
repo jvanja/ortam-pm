@@ -30,11 +30,11 @@ class Quote extends Model {
     'budget' => 'float',
   ];
 
-  public function project(): BelongsTo {
-    return $this->belongsTo(Project::class);
-  }
-
   public function updateQuoteStatus(QuoteStatus $status): void {
     $this->quote_status = $status;
+  }
+
+  public function project(): BelongsTo {
+    return $this->belongsTo(Project::class);
   }
 }

@@ -8,26 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Invoice extends Model {
-    use HasUuids;
-    use HasFactory;
+  use HasUuids;
+  use HasFactory;
 
-    protected $fillable = [
-        'project_id',
-        'amount',
-        'paid',
-    ];
+  protected $fillable = [
+    'project_id',
+    'amount',
+    'paid',
+  ];
 
-    protected $casts = [
-        'id' => 'string',
-        'amount' => 'float',
-        'paid' => 'boolean',
-    ];
+  protected $casts = [
+    'id' => 'string',
+    'amount' => 'float',
+    'paid' => 'boolean',
+  ];
 
-    public function project(): BelongsTo {
-        return $this->belongsTo(Project::class);
-    }
+  public function project(): BelongsTo {
+    return $this->belongsTo(Project::class);
+  }
 
-    public function markAsPaid(): void {
-        $this->paid = true;
-    }
+  public function markAsPaid(): void {
+    $this->paid = true;
+  }
 }

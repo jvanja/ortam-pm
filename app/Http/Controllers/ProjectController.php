@@ -6,6 +6,9 @@ use App\Models\Project;
 use Inertia\Inertia;
 
 class ProjectController extends Controller {
+  /**
+   * Display a listing of the resource.
+   */
   public function index() {
     $projects = Project::all();
 
@@ -14,6 +17,9 @@ class ProjectController extends Controller {
     ]);
   }
 
+  /**
+   * Get the latest 3 projects for the dashboard
+   */
   public function latestProjects() {
     $latestProjects = Project::latest()->take(3)->get();
 
@@ -22,6 +28,9 @@ class ProjectController extends Controller {
     ]);
   }
 
+  /**
+   * Display the specified resource.
+   */
   public function show($id) {
     $project = Project::with('client')->find($id);
 
@@ -29,5 +38,11 @@ class ProjectController extends Controller {
     return Inertia::render('projects/Show', [
       'project' => $project,
     ]);
+  }
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(Request $request) {
+    //
   }
 }

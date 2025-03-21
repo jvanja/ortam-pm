@@ -44,6 +44,7 @@ const breadcrumbs: BreadcrumbItem[] = [
       <Button>Add new</Button>
     </div>
     <div v-else class="flex flex-col gap-4 p-8">
+      <Heading title="Projects" description="You currently have no projects" />
       Let's create some
       <NewProject></NewProject>
     </div>

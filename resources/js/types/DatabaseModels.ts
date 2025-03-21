@@ -13569,7 +13569,7 @@ export interface clientsEntity {
   'contact_person': string;
   'created_at'?: Date | null;
   'email': string;
-  'id': string;
+  'id'?: string;
   'phone': string;
   'updated_at'?: Date | null;
 }
@@ -13585,7 +13585,7 @@ export interface failed_jobsEntity {
 export interface invoicesEntity {
   'amount': number;
   'created_at'?: Date | null;
-  'id': string;
+  'id'?: string;
   'paid': any;
   'project_id': string;
   'updated_at'?: Date | null;
@@ -13626,6 +13626,12 @@ export interface model_has_rolesEntity {
   'model_type': string;
   'role_id': string;
 }
+export interface organizationsEntity {
+  'created_at'?: Date | null;
+  'id'?: string;
+  'name': string;
+  'updated_at'?: Date | null;
+}
 export interface p_c_a_reportsEntity {
   'basement': any;
   'building': string;
@@ -13664,27 +13670,26 @@ export interface permissionsEntity {
 }
 export interface projectsEntity {
   'budget': number;
-  'client_id'?: string | null;
+  'client_id': string;
   'created_at'?: Date | null;
   'deadline': Date;
   'department': string;
-  'id': string;
+  'id'?: string;
   'project_address': string;
   'project_language': 'english' | 'french';
   'project_manager': string;
   'project_opening_date': Date;
   'project_status': 'ongoing' | 'completed' | 'canceled';
   'project_type': string;
-  'quote_id'?: string | null;
   'sales_representative_name': string;
   'updated_at'?: Date | null;
 }
 export interface quotesEntity {
   'budget': number;
-  'client_id': string;
   'created_at'?: Date | null;
-  'id': string;
+  'id'?: string;
   'project_address': string;
+  'project_id': string;
   'project_type': string;
   'quote_language': 'english' | 'french';
   'quote_status': 'in_preparation' | 'sent' | 'approved' | 'rejected';
@@ -13712,7 +13717,7 @@ export interface sessionsEntity {
 }
 export interface time_sheetsEntity {
   'created_at'?: Date | null;
-  'id': string;
+  'id'?: string;
   'project_id': string;
   'task_performed': 'visit' | 'research' | 'fieldwork' | 'report';
   'updated_at'?: Date | null;
@@ -13725,9 +13730,17 @@ export interface usersEntity {
   'email_verified_at'?: Date | null;
   'id'?: string;
   'name': string;
+  'organization_id': string;
   'password': string;
   'remember_token'?: string | null;
   'updated_at'?: Date | null;
+}
+export interface workloadsEntity {
+  'created_at'?: Date | null;
+  'deadlines': Object;
+  'id'?: string;
+  'updated_at'?: Date | null;
+  'user_id': string;
 }
 export interface clippingsEntity {
   'date'?: number | null;
@@ -15519,6 +15532,198 @@ export interface wp_actionscheduler_actionsEntity {
   'extended_args'?: string | null;
   'group_id'?: string;
   'hook': string;
+  'last_attempt_gmt'?: Date | null;
+  'last_attempt_local'?: Date | null;
+  'priority'?: number;
+  'schedule'?: string | null;
+  'scheduled_date_gmt'?: Date | null;
+  'scheduled_date_local'?: Date | null;
+  'status': string;
+}
+export interface wp_actionscheduler_claimsEntity {
+  'claim_id'?: string;
+  'date_created_gmt'?: Date | null;
+}
+export interface wp_actionscheduler_groupsEntity {
+  'group_id'?: string;
+  'slug': string;
+}
+export interface wp_actionscheduler_logsEntity {
+  'action_id': string;
+  'log_date_gmt'?: Date | null;
+  'log_date_local'?: Date | null;
+  'log_id'?: string;
+  'message': string;
+}
+export interface wp_commentmetaEntity {
+  'comment_id'?: string;
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+}
+export interface wp_commentsEntity {
+  'comment_agent'?: string;
+  'comment_approved'?: string;
+  'comment_author': string;
+  'comment_author_email'?: string;
+  'comment_author_IP'?: string;
+  'comment_author_url'?: string;
+  'comment_content': string;
+  'comment_date'?: Date;
+  'comment_date_gmt'?: Date;
+  'comment_ID'?: string;
+  'comment_karma'?: number;
+  'comment_parent'?: string;
+  'comment_post_ID'?: string;
+  'comment_type'?: string;
+  'user_id'?: string;
+}
+export interface wp_linksEntity {
+  'link_description'?: string;
+  'link_id'?: string;
+  'link_image'?: string;
+  'link_name'?: string;
+  'link_notes': string;
+  'link_owner'?: string;
+  'link_rating'?: number;
+  'link_rel'?: string;
+  'link_rss'?: string;
+  'link_target'?: string;
+  'link_updated'?: Date;
+  'link_url'?: string;
+  'link_visible'?: string;
+}
+export interface wp_optionsEntity {
+  'autoload'?: string;
+  'option_id'?: string;
+  'option_name'?: string;
+  'option_value': string;
+}
+export interface wp_postmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'post_id'?: string;
+}
+export interface wp_postsEntity {
+  'comment_count'?: string;
+  'comment_status'?: string;
+  'guid'?: string;
+  'ID'?: string;
+  'menu_order'?: number;
+  'ping_status'?: string;
+  'pinged': string;
+  'post_author'?: string;
+  'post_content': string;
+  'post_content_filtered': string;
+  'post_date'?: Date;
+  'post_date_gmt'?: Date;
+  'post_excerpt': string;
+  'post_mime_type'?: string;
+  'post_modified'?: Date;
+  'post_modified_gmt'?: Date;
+  'post_name'?: string;
+  'post_parent'?: string;
+  'post_password'?: string;
+  'post_status'?: string;
+  'post_title': string;
+  'post_type'?: string;
+  'to_ping': string;
+}
+export interface wp_term_relationshipsEntity {
+  'object_id'?: string;
+  'term_order'?: number;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_term_taxonomyEntity {
+  'count'?: string;
+  'description': string;
+  'parent'?: string;
+  'taxonomy'?: string;
+  'term_id'?: string;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_termmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'term_id'?: string;
+}
+export interface wp_termsEntity {
+  'name'?: string;
+  'slug'?: string;
+  'term_group'?: string;
+  'term_id'?: string;
+}
+export interface wp_usermetaEntity {
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'umeta_id'?: string;
+  'user_id'?: string;
+}
+export interface wp_usersEntity {
+  'display_name'?: string;
+  'ID'?: string;
+  'user_activation_key'?: string;
+  'user_email'?: string;
+  'user_login'?: string;
+  'user_nicename'?: string;
+  'user_pass'?: string;
+  'user_registered'?: Date;
+  'user_status'?: number;
+  'user_url'?: string;
+}
+export interface wp_wpforms_logsEntity {
+  'create_at': Date;
+  'entry_id'?: string | null;
+  'form_id'?: string | null;
+  'id'?: string;
+  'message': string;
+  'title': string;
+  'types': string;
+  'user_id'?: string | null;
+}
+export interface wp_wpforms_payment_metaEntity {
+  'id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'payment_id': string;
+}
+export interface wp_wpforms_paymentsEntity {
+  'currency'?: string;
+  'customer_id'?: string;
+  'date_created_gmt': Date;
+  'date_updated_gmt': Date;
+  'discount_amount'?: number;
+  'entry_id'?: string;
+  'form_id': string;
+  'gateway'?: string;
+  'id'?: string;
+  'is_published'?: any;
+  'mode'?: string;
+  'status'?: string;
+  'subscription_id'?: string;
+  'subscription_status'?: string;
+  'subtotal_amount'?: number;
+  'title'?: string;
+  'total_amount'?: number;
+  'transaction_id'?: string;
+  'type'?: string;
+}
+export interface wp_wpforms_tasks_metaEntity {
+  'action': string;
+  'data': string;
+  'date': Date;
+  'id'?: string;
+}
+export interface wp_actionscheduler_actionsEntity {
+  'action_id'?: string;
+  'args'?: string | null;
+  'attempts'?: number;
+  'claim_id'?: string;
+  'extended_args'?: string | null;
+  'group_id'?: string;
+  'hook': string;
   'last_attempt_gmt'?: Date;
   'last_attempt_local'?: Date;
   'schedule'?: string | null;
@@ -15905,901 +16110,6 @@ export interface wp_yoast_seo_metaEntity {
   'incoming_link_count'?: number | null;
   'internal_link_count'?: number | null;
   'object_id': string;
-}
-export interface wp_actionscheduler_actionsEntity {
-  'action_id'?: string;
-  'args'?: string | null;
-  'attempts'?: number;
-  'claim_id'?: string;
-  'extended_args'?: string | null;
-  'group_id'?: string;
-  'hook': string;
-  'last_attempt_gmt'?: Date | null;
-  'last_attempt_local'?: Date | null;
-  'schedule'?: string | null;
-  'scheduled_date_gmt'?: Date | null;
-  'scheduled_date_local'?: Date | null;
-  'status': string;
-}
-export interface wp_actionscheduler_claimsEntity {
-  'claim_id'?: string;
-  'date_created_gmt'?: Date | null;
-}
-export interface wp_actionscheduler_groupsEntity {
-  'group_id'?: string;
-  'slug': string;
-}
-export interface wp_actionscheduler_logsEntity {
-  'action_id': string;
-  'log_date_gmt'?: Date | null;
-  'log_date_local'?: Date | null;
-  'log_id'?: string;
-  'message': string;
-}
-export interface wp_commentmetaEntity {
-  'comment_id'?: string;
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-}
-export interface wp_commentsEntity {
-  'comment_agent'?: string;
-  'comment_approved'?: string;
-  'comment_author': string;
-  'comment_author_email'?: string;
-  'comment_author_IP'?: string;
-  'comment_author_url'?: string;
-  'comment_content': string;
-  'comment_date'?: Date;
-  'comment_date_gmt'?: Date;
-  'comment_ID'?: string;
-  'comment_karma'?: number;
-  'comment_parent'?: string;
-  'comment_post_ID'?: string;
-  'comment_type'?: string;
-  'user_id'?: string;
-}
-export interface wp_linksEntity {
-  'link_description'?: string;
-  'link_id'?: string;
-  'link_image'?: string;
-  'link_name'?: string;
-  'link_notes': string;
-  'link_owner'?: string;
-  'link_rating'?: number;
-  'link_rel'?: string;
-  'link_rss'?: string;
-  'link_target'?: string;
-  'link_updated'?: Date;
-  'link_url'?: string;
-  'link_visible'?: string;
-}
-export interface wp_optionsEntity {
-  'autoload'?: string;
-  'option_id'?: string;
-  'option_name'?: string;
-  'option_value': string;
-}
-export interface wp_postmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'post_id'?: string;
-}
-export interface wp_postsEntity {
-  'comment_count'?: string;
-  'comment_status'?: string;
-  'guid'?: string;
-  'ID'?: string;
-  'menu_order'?: number;
-  'ping_status'?: string;
-  'pinged': string;
-  'post_author'?: string;
-  'post_content': string;
-  'post_content_filtered': string;
-  'post_date'?: Date;
-  'post_date_gmt'?: Date;
-  'post_excerpt': string;
-  'post_mime_type'?: string;
-  'post_modified'?: Date;
-  'post_modified_gmt'?: Date;
-  'post_name'?: string;
-  'post_parent'?: string;
-  'post_password'?: string;
-  'post_status'?: string;
-  'post_title': string;
-  'post_type'?: string;
-  'to_ping': string;
-}
-export interface wp_term_relationshipsEntity {
-  'object_id'?: string;
-  'term_order'?: number;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_term_taxonomyEntity {
-  'count'?: string;
-  'description': string;
-  'parent'?: string;
-  'taxonomy'?: string;
-  'term_id'?: string;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_termmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'term_id'?: string;
-}
-export interface wp_termsEntity {
-  'name'?: string;
-  'slug'?: string;
-  'term_group'?: string;
-  'term_id'?: string;
-}
-export interface wp_usermetaEntity {
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'umeta_id'?: string;
-  'user_id'?: string;
-}
-export interface wp_usersEntity {
-  'display_name'?: string;
-  'ID'?: string;
-  'user_activation_key'?: string;
-  'user_email'?: string;
-  'user_login'?: string;
-  'user_nicename'?: string;
-  'user_pass'?: string;
-  'user_registered'?: Date;
-  'user_status'?: number;
-  'user_url'?: string;
-}
-export interface wp_wpforms_tasks_metaEntity {
-  'action': string;
-  'data': string;
-  'date': Date;
-  'id'?: string;
-}
-export interface wp_actionscheduler_actionsEntity {
-  'action_id'?: string;
-  'args'?: string | null;
-  'attempts'?: number;
-  'claim_id'?: string;
-  'extended_args'?: string | null;
-  'group_id'?: string;
-  'hook': string;
-  'last_attempt_gmt'?: Date;
-  'last_attempt_local'?: Date;
-  'schedule'?: string | null;
-  'scheduled_date_gmt'?: Date;
-  'scheduled_date_local'?: Date;
-  'status': string;
-}
-export interface wp_actionscheduler_claimsEntity {
-  'claim_id'?: string;
-  'date_created_gmt'?: Date;
-}
-export interface wp_actionscheduler_groupsEntity {
-  'group_id'?: string;
-  'slug': string;
-}
-export interface wp_actionscheduler_logsEntity {
-  'action_id': string;
-  'log_date_gmt'?: Date;
-  'log_date_local'?: Date;
-  'log_id'?: string;
-  'message': string;
-}
-export interface wp_commentmetaEntity {
-  'comment_id'?: string;
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-}
-export interface wp_commentsEntity {
-  'comment_agent'?: string;
-  'comment_approved'?: string;
-  'comment_author': string;
-  'comment_author_email'?: string;
-  'comment_author_IP'?: string;
-  'comment_author_url'?: string;
-  'comment_content': string;
-  'comment_date'?: Date;
-  'comment_date_gmt'?: Date;
-  'comment_ID'?: string;
-  'comment_karma'?: number;
-  'comment_parent'?: string;
-  'comment_post_ID'?: string;
-  'comment_type'?: string;
-  'user_id'?: string;
-}
-export interface wp_linksEntity {
-  'link_description'?: string;
-  'link_id'?: string;
-  'link_image'?: string;
-  'link_name'?: string;
-  'link_notes': string;
-  'link_owner'?: string;
-  'link_rating'?: number;
-  'link_rel'?: string;
-  'link_rss'?: string;
-  'link_target'?: string;
-  'link_updated'?: Date;
-  'link_url'?: string;
-  'link_visible'?: string;
-}
-export interface wp_nextend2_image_storageEntity {
-  'hash': string;
-  'id'?: number;
-  'image': string;
-  'value': string;
-}
-export interface wp_nextend2_section_storageEntity {
-  'application': string;
-  'editable'?: number;
-  'id'?: number;
-  'referencekey': string;
-  'section': string;
-  'system'?: number;
-  'value': string;
-}
-export interface wp_nextend2_smartslider3_generatorsEntity {
-  'group': string;
-  'id'?: number;
-  'params': string;
-  'type': string;
-}
-export interface wp_nextend2_smartslider3_slidersEntity {
-  'alias'?: string | null;
-  'id'?: number;
-  'ordering'?: number;
-  'params': string;
-  'status'?: string;
-  'thumbnail': string;
-  'time': Date;
-  'title': string;
-  'type': string;
-}
-export interface wp_nextend2_smartslider3_sliders_xrefEntity {
-  'group_id': number;
-  'ordering'?: number;
-  'slider_id': number;
-}
-export interface wp_nextend2_smartslider3_slidesEntity {
-  'description': string;
-  'first': number;
-  'generator_id': number;
-  'id'?: number;
-  'ordering': number;
-  'params': string;
-  'publish_down'?: Date;
-  'publish_up'?: Date;
-  'published': any;
-  'slide'?: string | null;
-  'slider': number;
-  'thumbnail': string;
-  'title': string;
-}
-export interface wp_nf3_action_metaEntity {
-  'id'?: number;
-  'key': string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'parent_id': number;
-  'value'?: string | null;
-}
-export interface wp_nf3_actionsEntity {
-  'active'?: any | null;
-  'created_at'?: Date;
-  'id'?: number;
-  'key'?: string | null;
-  'label'?: string | null;
-  'parent_id': number;
-  'title'?: string | null;
-  'type'?: string | null;
-  'updated_at'?: Date | null;
-}
-export interface wp_nf3_chunksEntity {
-  'id'?: number;
-  'name'?: string | null;
-  'value'?: string | null;
-}
-export interface wp_nf3_field_metaEntity {
-  'id'?: number;
-  'key': string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'parent_id': number;
-  'value'?: string | null;
-}
-export interface wp_nf3_fieldsEntity {
-  'created_at'?: Date;
-  'default_value'?: string | null;
-  'field_key'?: string | null;
-  'field_label'?: string | null;
-  'id'?: number;
-  'key'?: string | null;
-  'label'?: string | null;
-  'label_pos'?: string | null;
-  'order'?: number | null;
-  'parent_id': number;
-  'personally_identifiable'?: boolean | null;
-  'required'?: boolean | null;
-  'type'?: string | null;
-  'updated_at'?: Date | null;
-}
-export interface wp_nf3_form_metaEntity {
-  'id'?: number;
-  'key': string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'parent_id': number;
-  'value'?: string | null;
-}
-export interface wp_nf3_formsEntity {
-  'clear_complete'?: boolean | null;
-  'created_at'?: Date;
-  'default_label_pos'?: string | null;
-  'form_title'?: string | null;
-  'hide_complete'?: boolean | null;
-  'id'?: number;
-  'key'?: string | null;
-  'logged_in'?: boolean | null;
-  'seq_num'?: number | null;
-  'show_title'?: boolean | null;
-  'subs'?: number | null;
-  'title'?: string | null;
-  'updated_at'?: Date | null;
-  'views'?: number | null;
-}
-export interface wp_nf3_object_metaEntity {
-  'id'?: number;
-  'key': string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'parent_id': number;
-  'value'?: string | null;
-}
-export interface wp_nf3_objectsEntity {
-  'created_at'?: Date;
-  'id'?: number;
-  'object_title'?: string | null;
-  'title'?: string | null;
-  'type'?: string | null;
-  'updated_at'?: Date | null;
-}
-export interface wp_nf3_relationshipsEntity {
-  'child_id': number;
-  'child_type': string;
-  'created_at'?: Date;
-  'id'?: number;
-  'parent_id': number;
-  'parent_type': string;
-  'updated_at'?: Date | null;
-}
-export interface wp_nf3_upgradesEntity {
-  'cache'?: string | null;
-  'id': number;
-  'maintenance'?: boolean | null;
-  'stage'?: number;
-}
-export interface wp_optionsEntity {
-  'autoload'?: string;
-  'option_id'?: string;
-  'option_name'?: string;
-  'option_value': string;
-}
-export interface wp_postmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'post_id'?: string;
-}
-export interface wp_postsEntity {
-  'comment_count'?: string;
-  'comment_status'?: string;
-  'guid'?: string;
-  'ID'?: string;
-  'menu_order'?: number;
-  'ping_status'?: string;
-  'pinged': string;
-  'post_author'?: string;
-  'post_content': string;
-  'post_content_filtered': string;
-  'post_date'?: Date;
-  'post_date_gmt'?: Date;
-  'post_excerpt': string;
-  'post_mime_type'?: string;
-  'post_modified'?: Date;
-  'post_modified_gmt'?: Date;
-  'post_name'?: string;
-  'post_parent'?: string;
-  'post_password'?: string;
-  'post_status'?: string;
-  'post_title': string;
-  'post_type'?: string;
-  'to_ping': string;
-}
-export interface wp_term_relationshipsEntity {
-  'object_id'?: string;
-  'term_order'?: number;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_term_taxonomyEntity {
-  'count'?: string;
-  'description': string;
-  'parent'?: string;
-  'taxonomy'?: string;
-  'term_id'?: string;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_termmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'term_id'?: string;
-}
-export interface wp_termsEntity {
-  'name'?: string;
-  'slug'?: string;
-  'term_group'?: string;
-  'term_id'?: string;
-}
-export interface wp_usermetaEntity {
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'umeta_id'?: string;
-  'user_id'?: string;
-}
-export interface wp_usersEntity {
-  'display_name'?: string;
-  'ID'?: string;
-  'user_activation_key'?: string;
-  'user_email'?: string;
-  'user_login'?: string;
-  'user_nicename'?: string;
-  'user_pass'?: string;
-  'user_registered'?: Date;
-  'user_status'?: number;
-  'user_url'?: string;
-}
-export interface wp_wpforms_tasks_metaEntity {
-  'action': string;
-  'data': string;
-  'date': Date;
-  'id'?: string;
-}
-export interface wp_actionscheduler_actionsEntity {
-  'action_id'?: string;
-  'args'?: string | null;
-  'attempts'?: number;
-  'claim_id'?: string;
-  'extended_args'?: string | null;
-  'group_id'?: string;
-  'hook': string;
-  'last_attempt_gmt'?: Date | null;
-  'last_attempt_local'?: Date | null;
-  'priority'?: number;
-  'schedule'?: string | null;
-  'scheduled_date_gmt'?: Date | null;
-  'scheduled_date_local'?: Date | null;
-  'status': string;
-}
-export interface wp_actionscheduler_claimsEntity {
-  'claim_id'?: string;
-  'date_created_gmt'?: Date | null;
-}
-export interface wp_actionscheduler_groupsEntity {
-  'group_id'?: string;
-  'slug': string;
-}
-export interface wp_actionscheduler_logsEntity {
-  'action_id': string;
-  'log_date_gmt'?: Date | null;
-  'log_date_local'?: Date | null;
-  'log_id'?: string;
-  'message': string;
-}
-export interface wp_commentmetaEntity {
-  'comment_id'?: string;
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-}
-export interface wp_commentsEntity {
-  'comment_agent'?: string;
-  'comment_approved'?: string;
-  'comment_author': string;
-  'comment_author_email'?: string;
-  'comment_author_IP'?: string;
-  'comment_author_url'?: string;
-  'comment_content': string;
-  'comment_date'?: Date;
-  'comment_date_gmt'?: Date;
-  'comment_ID'?: string;
-  'comment_karma'?: number;
-  'comment_parent'?: string;
-  'comment_post_ID'?: string;
-  'comment_type'?: string;
-  'user_id'?: string;
-}
-export interface wp_linksEntity {
-  'link_description'?: string;
-  'link_id'?: string;
-  'link_image'?: string;
-  'link_name'?: string;
-  'link_notes': string;
-  'link_owner'?: string;
-  'link_rating'?: number;
-  'link_rel'?: string;
-  'link_rss'?: string;
-  'link_target'?: string;
-  'link_updated'?: Date;
-  'link_url'?: string;
-  'link_visible'?: string;
-}
-export interface wp_optionsEntity {
-  'autoload'?: string;
-  'option_id'?: string;
-  'option_name'?: string;
-  'option_value': string;
-}
-export interface wp_postmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'post_id'?: string;
-}
-export interface wp_postsEntity {
-  'comment_count'?: string;
-  'comment_status'?: string;
-  'guid'?: string;
-  'ID'?: string;
-  'menu_order'?: number;
-  'ping_status'?: string;
-  'pinged': string;
-  'post_author'?: string;
-  'post_content': string;
-  'post_content_filtered': string;
-  'post_date'?: Date;
-  'post_date_gmt'?: Date;
-  'post_excerpt': string;
-  'post_mime_type'?: string;
-  'post_modified'?: Date;
-  'post_modified_gmt'?: Date;
-  'post_name'?: string;
-  'post_parent'?: string;
-  'post_password'?: string;
-  'post_status'?: string;
-  'post_title': string;
-  'post_type'?: string;
-  'to_ping': string;
-}
-export interface wp_term_relationshipsEntity {
-  'object_id'?: string;
-  'term_order'?: number;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_term_taxonomyEntity {
-  'count'?: string;
-  'description': string;
-  'parent'?: string;
-  'taxonomy'?: string;
-  'term_id'?: string;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_termmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'term_id'?: string;
-}
-export interface wp_termsEntity {
-  'name'?: string;
-  'slug'?: string;
-  'term_group'?: string;
-  'term_id'?: string;
-}
-export interface wp_usermetaEntity {
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'umeta_id'?: string;
-  'user_id'?: string;
-}
-export interface wp_usersEntity {
-  'display_name'?: string;
-  'ID'?: string;
-  'user_activation_key'?: string;
-  'user_email'?: string;
-  'user_login'?: string;
-  'user_nicename'?: string;
-  'user_pass'?: string;
-  'user_registered'?: Date;
-  'user_status'?: number;
-  'user_url'?: string;
-}
-export interface wp_wpforms_logsEntity {
-  'create_at': Date;
-  'entry_id'?: string | null;
-  'form_id'?: string | null;
-  'id'?: string;
-  'message': string;
-  'title': string;
-  'types': string;
-  'user_id'?: string | null;
-}
-export interface wp_wpforms_payment_metaEntity {
-  'id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'payment_id': string;
-}
-export interface wp_wpforms_paymentsEntity {
-  'currency'?: string;
-  'customer_id'?: string;
-  'date_created_gmt': Date;
-  'date_updated_gmt': Date;
-  'discount_amount'?: number;
-  'entry_id'?: string;
-  'form_id': string;
-  'gateway'?: string;
-  'id'?: string;
-  'is_published'?: any;
-  'mode'?: string;
-  'status'?: string;
-  'subscription_id'?: string;
-  'subscription_status'?: string;
-  'subtotal_amount'?: number;
-  'title'?: string;
-  'total_amount'?: number;
-  'transaction_id'?: string;
-  'type'?: string;
-}
-export interface wp_wpforms_tasks_metaEntity {
-  'action': string;
-  'data': string;
-  'date': Date;
-  'id'?: string;
-}
-export interface wp_actionscheduler_actionsEntity {
-  'action_id'?: string;
-  'args'?: string | null;
-  'attempts'?: number;
-  'claim_id'?: string;
-  'extended_args'?: string | null;
-  'group_id'?: string;
-  'hook': string;
-  'last_attempt_gmt'?: Date | null;
-  'last_attempt_local'?: Date | null;
-  'priority'?: number;
-  'schedule'?: string | null;
-  'scheduled_date_gmt'?: Date | null;
-  'scheduled_date_local'?: Date | null;
-  'status': string;
-}
-export interface wp_actionscheduler_claimsEntity {
-  'claim_id'?: string;
-  'date_created_gmt'?: Date | null;
-}
-export interface wp_actionscheduler_groupsEntity {
-  'group_id'?: string;
-  'slug': string;
-}
-export interface wp_actionscheduler_logsEntity {
-  'action_id': string;
-  'log_date_gmt'?: Date | null;
-  'log_date_local'?: Date | null;
-  'log_id'?: string;
-  'message': string;
-}
-export interface wp_commentmetaEntity {
-  'comment_id'?: string;
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-}
-export interface wp_commentsEntity {
-  'comment_agent'?: string;
-  'comment_approved'?: string;
-  'comment_author': string;
-  'comment_author_email'?: string;
-  'comment_author_IP'?: string;
-  'comment_author_url'?: string;
-  'comment_content': string;
-  'comment_date'?: Date;
-  'comment_date_gmt'?: Date;
-  'comment_ID'?: string;
-  'comment_karma'?: number;
-  'comment_parent'?: string;
-  'comment_post_ID'?: string;
-  'comment_type'?: string;
-  'user_id'?: string;
-}
-export interface wp_linksEntity {
-  'link_description'?: string;
-  'link_id'?: string;
-  'link_image'?: string;
-  'link_name'?: string;
-  'link_notes': string;
-  'link_owner'?: string;
-  'link_rating'?: number;
-  'link_rel'?: string;
-  'link_rss'?: string;
-  'link_target'?: string;
-  'link_updated'?: Date;
-  'link_url'?: string;
-  'link_visible'?: string;
-}
-export interface wp_ngg_albumEntity {
-  'albumdesc'?: string | null;
-  'extras_post_id'?: string;
-  'id'?: string;
-  'name': string;
-  'pageid'?: string;
-  'previewpic'?: string;
-  'slug': string;
-  'sortorder': string;
-}
-export interface wp_ngg_galleryEntity {
-  'author'?: string;
-  'extras_post_id'?: string;
-  'galdesc'?: string | null;
-  'gid'?: string;
-  'name': string;
-  'pageid'?: string;
-  'path'?: string | null;
-  'previewpic'?: string;
-  'slug': string;
-  'title'?: string | null;
-}
-export interface wp_ngg_picturesEntity {
-  'alttext'?: string | null;
-  'description'?: string | null;
-  'exclude'?: number | null;
-  'extras_post_id'?: string;
-  'filename': string;
-  'galleryid'?: string;
-  'image_slug': string;
-  'imagedate'?: Date;
-  'meta_data'?: string | null;
-  'pid'?: string;
-  'post_id'?: string;
-  'sortorder'?: string;
-  'updated_at'?: string | null;
-}
-export interface wp_optionsEntity {
-  'autoload'?: string;
-  'option_id'?: string;
-  'option_name'?: string | null;
-  'option_value': string;
-}
-export interface wp_postmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'post_id'?: string;
-}
-export interface wp_postsEntity {
-  'comment_count'?: string;
-  'comment_status'?: string;
-  'guid'?: string;
-  'ID'?: string;
-  'menu_order'?: number;
-  'ping_status'?: string;
-  'pinged': string;
-  'post_author'?: string;
-  'post_content': string;
-  'post_content_filtered': string;
-  'post_date'?: Date;
-  'post_date_gmt'?: Date;
-  'post_excerpt': string;
-  'post_mime_type'?: string;
-  'post_modified'?: Date;
-  'post_modified_gmt'?: Date;
-  'post_name'?: string;
-  'post_parent'?: string;
-  'post_password'?: string;
-  'post_status'?: string;
-  'post_title': string;
-  'post_type'?: string;
-  'to_ping': string;
-}
-export interface wp_term_relationshipsEntity {
-  'object_id'?: string;
-  'term_order'?: number;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_term_taxonomyEntity {
-  'count'?: string;
-  'description': string;
-  'parent'?: string;
-  'taxonomy'?: string;
-  'term_id'?: string;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_termmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'term_id'?: string;
-}
-export interface wp_termsEntity {
-  'name'?: string;
-  'slug'?: string;
-  'term_group'?: string;
-  'term_id'?: string;
-}
-export interface wp_toolset_associationsEntity {
-  'child_id': string;
-  'id'?: string;
-  'intermediary_id': string;
-  'parent_id': string;
-  'relationship_id': string;
-}
-export interface wp_toolset_connected_elementsEntity {
-  'domain'?: string;
-  'element_id': string;
-  'group_id': string;
-  'id'?: string;
-  'lang_code'?: string | null;
-  'wpml_trid'?: string | null;
-}
-export interface wp_toolset_post_guid_idEntity {
-  'guid'?: string;
-  'post_id'?: string | null;
-}
-export interface wp_toolset_relationshipsEntity {
-  'autodelete_intermediary'?: any;
-  'cardinality_child_max'?: number;
-  'cardinality_child_min'?: number;
-  'cardinality_parent_max'?: number;
-  'cardinality_parent_min'?: number;
-  'child_domain'?: string;
-  'child_types'?: string;
-  'display_name_plural'?: string;
-  'display_name_singular'?: string;
-  'driver'?: string;
-  'id'?: string;
-  'intermediary_type'?: string;
-  'is_active'?: any;
-  'is_distinct'?: any;
-  'needs_legacy_support'?: any;
-  'origin'?: string;
-  'ownership'?: string;
-  'parent_domain'?: string;
-  'parent_types'?: string;
-  'role_label_child_plural'?: string;
-  'role_label_child_singular'?: string;
-  'role_label_parent_plural'?: string;
-  'role_label_parent_singular'?: string;
-  'role_name_child'?: string;
-  'role_name_intermediary'?: string;
-  'role_name_parent'?: string;
-  'scope': string;
-  'slug'?: string;
-}
-export interface wp_toolset_type_setsEntity {
-  'id'?: string;
-  'set_id': string;
-  'type'?: string;
-}
-export interface wp_usermetaEntity {
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'umeta_id'?: string;
-  'user_id'?: string;
-}
-export interface wp_usersEntity {
-  'display_name'?: string;
-  'ID'?: string;
-  'user_activation_key'?: string;
-  'user_email'?: string;
-  'user_login'?: string;
-  'user_nicename'?: string;
-  'user_pass'?: string;
-  'user_registered'?: Date;
-  'user_status'?: number;
-  'user_url'?: string;
 }
 export interface wp_actionscheduler_actionsEntity {
   'action_id'?: string;
@@ -17529,6 +16839,709 @@ export interface wp_yoast_seo_linksEntity {
   'type'?: string | null;
   'url'?: string | null;
   'width'?: number | null;
+}
+export interface wp_actionscheduler_actionsEntity {
+  'action_id'?: string;
+  'args'?: string | null;
+  'attempts'?: number;
+  'claim_id'?: string;
+  'extended_args'?: string | null;
+  'group_id'?: string;
+  'hook': string;
+  'last_attempt_gmt'?: Date | null;
+  'last_attempt_local'?: Date | null;
+  'priority'?: number;
+  'schedule'?: string | null;
+  'scheduled_date_gmt'?: Date | null;
+  'scheduled_date_local'?: Date | null;
+  'status': string;
+}
+export interface wp_actionscheduler_claimsEntity {
+  'claim_id'?: string;
+  'date_created_gmt'?: Date | null;
+}
+export interface wp_actionscheduler_groupsEntity {
+  'group_id'?: string;
+  'slug': string;
+}
+export interface wp_actionscheduler_logsEntity {
+  'action_id': string;
+  'log_date_gmt'?: Date | null;
+  'log_date_local'?: Date | null;
+  'log_id'?: string;
+  'message': string;
+}
+export interface wp_commentmetaEntity {
+  'comment_id'?: string;
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+}
+export interface wp_commentsEntity {
+  'comment_agent'?: string;
+  'comment_approved'?: string;
+  'comment_author': string;
+  'comment_author_email'?: string;
+  'comment_author_IP'?: string;
+  'comment_author_url'?: string;
+  'comment_content': string;
+  'comment_date'?: Date;
+  'comment_date_gmt'?: Date;
+  'comment_ID'?: string;
+  'comment_karma'?: number;
+  'comment_parent'?: string;
+  'comment_post_ID'?: string;
+  'comment_type'?: string;
+  'user_id'?: string;
+}
+export interface wp_linksEntity {
+  'link_description'?: string;
+  'link_id'?: string;
+  'link_image'?: string;
+  'link_name'?: string;
+  'link_notes': string;
+  'link_owner'?: string;
+  'link_rating'?: number;
+  'link_rel'?: string;
+  'link_rss'?: string;
+  'link_target'?: string;
+  'link_updated'?: Date;
+  'link_url'?: string;
+  'link_visible'?: string;
+}
+export interface wp_ngg_albumEntity {
+  'albumdesc'?: string | null;
+  'extras_post_id'?: string;
+  'id'?: string;
+  'name': string;
+  'pageid'?: string;
+  'previewpic'?: string;
+  'slug': string;
+  'sortorder': string;
+}
+export interface wp_ngg_galleryEntity {
+  'author'?: string;
+  'extras_post_id'?: string;
+  'galdesc'?: string | null;
+  'gid'?: string;
+  'name': string;
+  'pageid'?: string;
+  'path'?: string | null;
+  'previewpic'?: string;
+  'slug': string;
+  'title'?: string | null;
+}
+export interface wp_ngg_picturesEntity {
+  'alttext'?: string | null;
+  'description'?: string | null;
+  'exclude'?: number | null;
+  'extras_post_id'?: string;
+  'filename': string;
+  'galleryid'?: string;
+  'image_slug': string;
+  'imagedate'?: Date;
+  'meta_data'?: string | null;
+  'pid'?: string;
+  'post_id'?: string;
+  'sortorder'?: string;
+  'updated_at'?: string | null;
+}
+export interface wp_optionsEntity {
+  'autoload'?: string;
+  'option_id'?: string;
+  'option_name'?: string | null;
+  'option_value': string;
+}
+export interface wp_postmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'post_id'?: string;
+}
+export interface wp_postsEntity {
+  'comment_count'?: string;
+  'comment_status'?: string;
+  'guid'?: string;
+  'ID'?: string;
+  'menu_order'?: number;
+  'ping_status'?: string;
+  'pinged': string;
+  'post_author'?: string;
+  'post_content': string;
+  'post_content_filtered': string;
+  'post_date'?: Date;
+  'post_date_gmt'?: Date;
+  'post_excerpt': string;
+  'post_mime_type'?: string;
+  'post_modified'?: Date;
+  'post_modified_gmt'?: Date;
+  'post_name'?: string;
+  'post_parent'?: string;
+  'post_password'?: string;
+  'post_status'?: string;
+  'post_title': string;
+  'post_type'?: string;
+  'to_ping': string;
+}
+export interface wp_term_relationshipsEntity {
+  'object_id'?: string;
+  'term_order'?: number;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_term_taxonomyEntity {
+  'count'?: string;
+  'description': string;
+  'parent'?: string;
+  'taxonomy'?: string;
+  'term_id'?: string;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_termmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'term_id'?: string;
+}
+export interface wp_termsEntity {
+  'name'?: string;
+  'slug'?: string;
+  'term_group'?: string;
+  'term_id'?: string;
+}
+export interface wp_toolset_associationsEntity {
+  'child_id': string;
+  'id'?: string;
+  'intermediary_id': string;
+  'parent_id': string;
+  'relationship_id': string;
+}
+export interface wp_toolset_connected_elementsEntity {
+  'domain'?: string;
+  'element_id': string;
+  'group_id': string;
+  'id'?: string;
+  'lang_code'?: string | null;
+  'wpml_trid'?: string | null;
+}
+export interface wp_toolset_post_guid_idEntity {
+  'guid'?: string;
+  'post_id'?: string | null;
+}
+export interface wp_toolset_relationshipsEntity {
+  'autodelete_intermediary'?: any;
+  'cardinality_child_max'?: number;
+  'cardinality_child_min'?: number;
+  'cardinality_parent_max'?: number;
+  'cardinality_parent_min'?: number;
+  'child_domain'?: string;
+  'child_types'?: string;
+  'display_name_plural'?: string;
+  'display_name_singular'?: string;
+  'driver'?: string;
+  'id'?: string;
+  'intermediary_type'?: string;
+  'is_active'?: any;
+  'is_distinct'?: any;
+  'needs_legacy_support'?: any;
+  'origin'?: string;
+  'ownership'?: string;
+  'parent_domain'?: string;
+  'parent_types'?: string;
+  'role_label_child_plural'?: string;
+  'role_label_child_singular'?: string;
+  'role_label_parent_plural'?: string;
+  'role_label_parent_singular'?: string;
+  'role_name_child'?: string;
+  'role_name_intermediary'?: string;
+  'role_name_parent'?: string;
+  'scope': string;
+  'slug'?: string;
+}
+export interface wp_toolset_type_setsEntity {
+  'id'?: string;
+  'set_id': string;
+  'type'?: string;
+}
+export interface wp_usermetaEntity {
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'umeta_id'?: string;
+  'user_id'?: string;
+}
+export interface wp_usersEntity {
+  'display_name'?: string;
+  'ID'?: string;
+  'user_activation_key'?: string;
+  'user_email'?: string;
+  'user_login'?: string;
+  'user_nicename'?: string;
+  'user_pass'?: string;
+  'user_registered'?: Date;
+  'user_status'?: number;
+  'user_url'?: string;
+}
+export interface wp_actionscheduler_actionsEntity {
+  'action_id'?: string;
+  'args'?: string | null;
+  'attempts'?: number;
+  'claim_id'?: string;
+  'extended_args'?: string | null;
+  'group_id'?: string;
+  'hook': string;
+  'last_attempt_gmt'?: Date | null;
+  'last_attempt_local'?: Date | null;
+  'schedule'?: string | null;
+  'scheduled_date_gmt'?: Date | null;
+  'scheduled_date_local'?: Date | null;
+  'status': string;
+}
+export interface wp_actionscheduler_claimsEntity {
+  'claim_id'?: string;
+  'date_created_gmt'?: Date | null;
+}
+export interface wp_actionscheduler_groupsEntity {
+  'group_id'?: string;
+  'slug': string;
+}
+export interface wp_actionscheduler_logsEntity {
+  'action_id': string;
+  'log_date_gmt'?: Date | null;
+  'log_date_local'?: Date | null;
+  'log_id'?: string;
+  'message': string;
+}
+export interface wp_commentmetaEntity {
+  'comment_id'?: string;
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+}
+export interface wp_commentsEntity {
+  'comment_agent'?: string;
+  'comment_approved'?: string;
+  'comment_author': string;
+  'comment_author_email'?: string;
+  'comment_author_IP'?: string;
+  'comment_author_url'?: string;
+  'comment_content': string;
+  'comment_date'?: Date;
+  'comment_date_gmt'?: Date;
+  'comment_ID'?: string;
+  'comment_karma'?: number;
+  'comment_parent'?: string;
+  'comment_post_ID'?: string;
+  'comment_type'?: string;
+  'user_id'?: string;
+}
+export interface wp_linksEntity {
+  'link_description'?: string;
+  'link_id'?: string;
+  'link_image'?: string;
+  'link_name'?: string;
+  'link_notes': string;
+  'link_owner'?: string;
+  'link_rating'?: number;
+  'link_rel'?: string;
+  'link_rss'?: string;
+  'link_target'?: string;
+  'link_updated'?: Date;
+  'link_url'?: string;
+  'link_visible'?: string;
+}
+export interface wp_optionsEntity {
+  'autoload'?: string;
+  'option_id'?: string;
+  'option_name'?: string;
+  'option_value': string;
+}
+export interface wp_postmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'post_id'?: string;
+}
+export interface wp_postsEntity {
+  'comment_count'?: string;
+  'comment_status'?: string;
+  'guid'?: string;
+  'ID'?: string;
+  'menu_order'?: number;
+  'ping_status'?: string;
+  'pinged': string;
+  'post_author'?: string;
+  'post_content': string;
+  'post_content_filtered': string;
+  'post_date'?: Date;
+  'post_date_gmt'?: Date;
+  'post_excerpt': string;
+  'post_mime_type'?: string;
+  'post_modified'?: Date;
+  'post_modified_gmt'?: Date;
+  'post_name'?: string;
+  'post_parent'?: string;
+  'post_password'?: string;
+  'post_status'?: string;
+  'post_title': string;
+  'post_type'?: string;
+  'to_ping': string;
+}
+export interface wp_term_relationshipsEntity {
+  'object_id'?: string;
+  'term_order'?: number;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_term_taxonomyEntity {
+  'count'?: string;
+  'description': string;
+  'parent'?: string;
+  'taxonomy'?: string;
+  'term_id'?: string;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_termmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'term_id'?: string;
+}
+export interface wp_termsEntity {
+  'name'?: string;
+  'slug'?: string;
+  'term_group'?: string;
+  'term_id'?: string;
+}
+export interface wp_usermetaEntity {
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'umeta_id'?: string;
+  'user_id'?: string;
+}
+export interface wp_usersEntity {
+  'display_name'?: string;
+  'ID'?: string;
+  'user_activation_key'?: string;
+  'user_email'?: string;
+  'user_login'?: string;
+  'user_nicename'?: string;
+  'user_pass'?: string;
+  'user_registered'?: Date;
+  'user_status'?: number;
+  'user_url'?: string;
+}
+export interface wp_wpforms_tasks_metaEntity {
+  'action': string;
+  'data': string;
+  'date': Date;
+  'id'?: string;
+}
+export interface wp_actionscheduler_actionsEntity {
+  'action_id'?: string;
+  'args'?: string | null;
+  'attempts'?: number;
+  'claim_id'?: string;
+  'extended_args'?: string | null;
+  'group_id'?: string;
+  'hook': string;
+  'last_attempt_gmt'?: Date;
+  'last_attempt_local'?: Date;
+  'schedule'?: string | null;
+  'scheduled_date_gmt'?: Date;
+  'scheduled_date_local'?: Date;
+  'status': string;
+}
+export interface wp_actionscheduler_claimsEntity {
+  'claim_id'?: string;
+  'date_created_gmt'?: Date;
+}
+export interface wp_actionscheduler_groupsEntity {
+  'group_id'?: string;
+  'slug': string;
+}
+export interface wp_actionscheduler_logsEntity {
+  'action_id': string;
+  'log_date_gmt'?: Date;
+  'log_date_local'?: Date;
+  'log_id'?: string;
+  'message': string;
+}
+export interface wp_commentmetaEntity {
+  'comment_id'?: string;
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+}
+export interface wp_commentsEntity {
+  'comment_agent'?: string;
+  'comment_approved'?: string;
+  'comment_author': string;
+  'comment_author_email'?: string;
+  'comment_author_IP'?: string;
+  'comment_author_url'?: string;
+  'comment_content': string;
+  'comment_date'?: Date;
+  'comment_date_gmt'?: Date;
+  'comment_ID'?: string;
+  'comment_karma'?: number;
+  'comment_parent'?: string;
+  'comment_post_ID'?: string;
+  'comment_type'?: string;
+  'user_id'?: string;
+}
+export interface wp_linksEntity {
+  'link_description'?: string;
+  'link_id'?: string;
+  'link_image'?: string;
+  'link_name'?: string;
+  'link_notes': string;
+  'link_owner'?: string;
+  'link_rating'?: number;
+  'link_rel'?: string;
+  'link_rss'?: string;
+  'link_target'?: string;
+  'link_updated'?: Date;
+  'link_url'?: string;
+  'link_visible'?: string;
+}
+export interface wp_nextend2_image_storageEntity {
+  'hash': string;
+  'id'?: number;
+  'image': string;
+  'value': string;
+}
+export interface wp_nextend2_section_storageEntity {
+  'application': string;
+  'editable'?: number;
+  'id'?: number;
+  'referencekey': string;
+  'section': string;
+  'system'?: number;
+  'value': string;
+}
+export interface wp_nextend2_smartslider3_generatorsEntity {
+  'group': string;
+  'id'?: number;
+  'params': string;
+  'type': string;
+}
+export interface wp_nextend2_smartslider3_slidersEntity {
+  'alias'?: string | null;
+  'id'?: number;
+  'ordering'?: number;
+  'params': string;
+  'status'?: string;
+  'thumbnail': string;
+  'time': Date;
+  'title': string;
+  'type': string;
+}
+export interface wp_nextend2_smartslider3_sliders_xrefEntity {
+  'group_id': number;
+  'ordering'?: number;
+  'slider_id': number;
+}
+export interface wp_nextend2_smartslider3_slidesEntity {
+  'description': string;
+  'first': number;
+  'generator_id': number;
+  'id'?: number;
+  'ordering': number;
+  'params': string;
+  'publish_down'?: Date;
+  'publish_up'?: Date;
+  'published': any;
+  'slide'?: string | null;
+  'slider': number;
+  'thumbnail': string;
+  'title': string;
+}
+export interface wp_nf3_action_metaEntity {
+  'id'?: number;
+  'key': string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'parent_id': number;
+  'value'?: string | null;
+}
+export interface wp_nf3_actionsEntity {
+  'active'?: any | null;
+  'created_at'?: Date;
+  'id'?: number;
+  'key'?: string | null;
+  'label'?: string | null;
+  'parent_id': number;
+  'title'?: string | null;
+  'type'?: string | null;
+  'updated_at'?: Date | null;
+}
+export interface wp_nf3_chunksEntity {
+  'id'?: number;
+  'name'?: string | null;
+  'value'?: string | null;
+}
+export interface wp_nf3_field_metaEntity {
+  'id'?: number;
+  'key': string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'parent_id': number;
+  'value'?: string | null;
+}
+export interface wp_nf3_fieldsEntity {
+  'created_at'?: Date;
+  'default_value'?: string | null;
+  'field_key'?: string | null;
+  'field_label'?: string | null;
+  'id'?: number;
+  'key'?: string | null;
+  'label'?: string | null;
+  'label_pos'?: string | null;
+  'order'?: number | null;
+  'parent_id': number;
+  'personally_identifiable'?: boolean | null;
+  'required'?: boolean | null;
+  'type'?: string | null;
+  'updated_at'?: Date | null;
+}
+export interface wp_nf3_form_metaEntity {
+  'id'?: number;
+  'key': string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'parent_id': number;
+  'value'?: string | null;
+}
+export interface wp_nf3_formsEntity {
+  'clear_complete'?: boolean | null;
+  'created_at'?: Date;
+  'default_label_pos'?: string | null;
+  'form_title'?: string | null;
+  'hide_complete'?: boolean | null;
+  'id'?: number;
+  'key'?: string | null;
+  'logged_in'?: boolean | null;
+  'seq_num'?: number | null;
+  'show_title'?: boolean | null;
+  'subs'?: number | null;
+  'title'?: string | null;
+  'updated_at'?: Date | null;
+  'views'?: number | null;
+}
+export interface wp_nf3_object_metaEntity {
+  'id'?: number;
+  'key': string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'parent_id': number;
+  'value'?: string | null;
+}
+export interface wp_nf3_objectsEntity {
+  'created_at'?: Date;
+  'id'?: number;
+  'object_title'?: string | null;
+  'title'?: string | null;
+  'type'?: string | null;
+  'updated_at'?: Date | null;
+}
+export interface wp_nf3_relationshipsEntity {
+  'child_id': number;
+  'child_type': string;
+  'created_at'?: Date;
+  'id'?: number;
+  'parent_id': number;
+  'parent_type': string;
+  'updated_at'?: Date | null;
+}
+export interface wp_nf3_upgradesEntity {
+  'cache'?: string | null;
+  'id': number;
+  'maintenance'?: boolean | null;
+  'stage'?: number;
+}
+export interface wp_optionsEntity {
+  'autoload'?: string;
+  'option_id'?: string;
+  'option_name'?: string;
+  'option_value': string;
+}
+export interface wp_postmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'post_id'?: string;
+}
+export interface wp_postsEntity {
+  'comment_count'?: string;
+  'comment_status'?: string;
+  'guid'?: string;
+  'ID'?: string;
+  'menu_order'?: number;
+  'ping_status'?: string;
+  'pinged': string;
+  'post_author'?: string;
+  'post_content': string;
+  'post_content_filtered': string;
+  'post_date'?: Date;
+  'post_date_gmt'?: Date;
+  'post_excerpt': string;
+  'post_mime_type'?: string;
+  'post_modified'?: Date;
+  'post_modified_gmt'?: Date;
+  'post_name'?: string;
+  'post_parent'?: string;
+  'post_password'?: string;
+  'post_status'?: string;
+  'post_title': string;
+  'post_type'?: string;
+  'to_ping': string;
+}
+export interface wp_term_relationshipsEntity {
+  'object_id'?: string;
+  'term_order'?: number;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_term_taxonomyEntity {
+  'count'?: string;
+  'description': string;
+  'parent'?: string;
+  'taxonomy'?: string;
+  'term_id'?: string;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_termmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'term_id'?: string;
+}
+export interface wp_termsEntity {
+  'name'?: string;
+  'slug'?: string;
+  'term_group'?: string;
+  'term_id'?: string;
+}
+export interface wp_usermetaEntity {
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'umeta_id'?: string;
+  'user_id'?: string;
+}
+export interface wp_usersEntity {
+  'display_name'?: string;
+  'ID'?: string;
+  'user_activation_key'?: string;
+  'user_email'?: string;
+  'user_login'?: string;
+  'user_nicename'?: string;
+  'user_pass'?: string;
+  'user_registered'?: Date;
+  'user_status'?: number;
+  'user_url'?: string;
+}
+export interface wp_wpforms_tasks_metaEntity {
+  'action': string;
+  'data': string;
+  'date': Date;
+  'id'?: string;
 }
 export interface wp_admin_columnsEntity {
   'columns'?: string | null;
@@ -19014,6 +19027,560 @@ export interface wp_linksEntity {
   'link_url'?: string;
   'link_visible'?: string;
 }
+export interface wp_nf3_action_metaEntity {
+  'id'?: number;
+  'key': string;
+  'parent_id': number;
+  'value'?: string | null;
+}
+export interface wp_nf3_actionsEntity {
+  'active'?: any | null;
+  'created_at'?: Date;
+  'id'?: number;
+  'key'?: string | null;
+  'parent_id': number;
+  'title'?: string | null;
+  'type'?: string | null;
+  'updated_at'?: Date | null;
+}
+export interface wp_nf3_field_metaEntity {
+  'id'?: number;
+  'key': string;
+  'parent_id': number;
+  'value'?: string | null;
+}
+export interface wp_nf3_fieldsEntity {
+  'created_at'?: Date;
+  'id'?: number;
+  'key'?: string | null;
+  'label'?: string | null;
+  'parent_id': number;
+  'type'?: string | null;
+  'updated_at'?: Date | null;
+}
+export interface wp_nf3_form_metaEntity {
+  'id'?: number;
+  'key': string;
+  'parent_id': number;
+  'value'?: string | null;
+}
+export interface wp_nf3_formsEntity {
+  'created_at'?: Date;
+  'id'?: number;
+  'key'?: string | null;
+  'subs'?: number | null;
+  'title'?: string | null;
+  'updated_at'?: Date | null;
+  'views'?: number | null;
+}
+export interface wp_nf3_object_metaEntity {
+  'id'?: number;
+  'key': string;
+  'parent_id': number;
+  'value'?: string | null;
+}
+export interface wp_nf3_objectsEntity {
+  'created_at'?: Date;
+  'id'?: number;
+  'title'?: string | null;
+  'type'?: string | null;
+  'updated_at'?: Date | null;
+}
+export interface wp_nf3_relationshipsEntity {
+  'child_id': number;
+  'child_type': string;
+  'created_at'?: Date;
+  'id'?: number;
+  'parent_id': number;
+  'parent_type': string;
+  'updated_at'?: Date | null;
+}
+export interface wp_optionsEntity {
+  'autoload'?: string;
+  'option_id'?: string;
+  'option_name'?: string;
+  'option_value': string;
+}
+export interface wp_pmxi_filesEntity {
+  'id'?: string;
+  'import_id': string;
+  'name'?: string;
+  'path'?: string | null;
+  'registered_on'?: Date;
+}
+export interface wp_pmxi_historyEntity {
+  'date'?: Date;
+  'id'?: string;
+  'import_id': string;
+  'summary'?: string | null;
+  'time_run'?: string | null;
+  'type'?: 'manual' | 'processing' | 'trigger' | 'continue' | '';
+}
+export interface wp_pmxi_importsEntity {
+  'canceled'?: any;
+  'canceled_on'?: Date;
+  'count'?: string;
+  'created'?: string;
+  'deleted'?: string;
+  'executing'?: any;
+  'failed'?: any;
+  'failed_on'?: Date;
+  'feed_type'?: 'xml' | 'csv' | 'zip' | 'gz' | '';
+  'first_import'?: Date;
+  'friendly_name'?: string;
+  'id'?: string;
+  'imported'?: string;
+  'iteration'?: string;
+  'last_activity'?: Date;
+  'name'?: string;
+  'options'?: string | null;
+  'parent_import_id'?: string;
+  'path'?: string | null;
+  'processing'?: any;
+  'queue_chunk_number'?: string;
+  'registered_on'?: Date;
+  'root_element'?: string | null;
+  'settings_update_on'?: Date;
+  'skipped'?: string;
+  'triggered'?: any;
+  'type'?: string;
+  'updated'?: string;
+  'xpath'?: string | null;
+}
+export interface wp_pmxi_postsEntity {
+  'id'?: string;
+  'import_id': string;
+  'iteration'?: string;
+  'post_id': string;
+  'product_key'?: string | null;
+  'specified'?: any;
+  'unique_key'?: string | null;
+}
+export interface wp_pmxi_templatesEntity {
+  'content'?: string | null;
+  'fix_characters'?: any;
+  'id'?: string;
+  'is_keep_linebreaks'?: any;
+  'is_leave_html'?: any;
+  'meta'?: string | null;
+  'name'?: string;
+  'options'?: string | null;
+  'scheduled'?: string;
+  'title'?: string | null;
+}
+export interface wp_postmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'post_id'?: string;
+}
+export interface wp_postsEntity {
+  'comment_count'?: string;
+  'comment_status'?: string;
+  'guid'?: string;
+  'ID'?: string;
+  'menu_order'?: number;
+  'ping_status'?: string;
+  'pinged': string;
+  'post_author'?: string;
+  'post_content': string;
+  'post_content_filtered': string;
+  'post_date'?: Date;
+  'post_date_gmt'?: Date;
+  'post_excerpt': string;
+  'post_mime_type'?: string;
+  'post_modified'?: Date;
+  'post_modified_gmt'?: Date;
+  'post_name'?: string;
+  'post_parent'?: string;
+  'post_password'?: string;
+  'post_status'?: string;
+  'post_title': string;
+  'post_type'?: string;
+  'to_ping': string;
+}
+export interface wp_pp_activity_logsEntity {
+  'browser': string;
+  'created_at': string;
+  'id'?: any;
+  'ip': string;
+  'status': string;
+}
+export interface wp_term_relationshipsEntity {
+  'object_id'?: string;
+  'term_order'?: number;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_term_taxonomyEntity {
+  'count'?: string;
+  'description': string;
+  'parent'?: string;
+  'taxonomy'?: string;
+  'term_id'?: string;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_termmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'term_id'?: string;
+}
+export interface wp_termsEntity {
+  'name'?: string;
+  'slug'?: string;
+  'term_group'?: string;
+  'term_id'?: string;
+}
+export interface wp_toolset_post_guid_idEntity {
+  'guid'?: string;
+  'post_id'?: string | null;
+}
+export interface wp_usermetaEntity {
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'umeta_id'?: string;
+  'user_id'?: string;
+}
+export interface wp_usersEntity {
+  'display_name'?: string;
+  'ID'?: string;
+  'user_activation_key'?: string;
+  'user_email'?: string;
+  'user_login'?: string;
+  'user_nicename'?: string;
+  'user_pass'?: string;
+  'user_registered'?: Date;
+  'user_status'?: number;
+  'user_url'?: string;
+}
+export interface wp_wfblockediplogEntity {
+  'blockCount'?: number;
+  'blockType'?: string;
+  'countryCode': string;
+  'IP'?: Buffer;
+  'unixday': number;
+}
+export interface wp_wfblocks7Entity {
+  'blockedHits'?: number | null;
+  'blockedTime': string;
+  'expiration'?: string;
+  'id'?: string;
+  'IP'?: Buffer;
+  'lastAttempt'?: number | null;
+  'parameters'?: string | null;
+  'reason': string;
+  'type'?: number;
+}
+export interface wp_wfconfigEntity {
+  'autoload'?: 'no' | 'yes';
+  'name': string;
+  'val'?: any | null;
+}
+export interface wp_wfcrawlersEntity {
+  'IP'?: Buffer;
+  'lastUpdate': number;
+  'patternSig': Buffer;
+  'PTR'?: string | null;
+  'status': string;
+}
+export interface wp_wffilechangesEntity {
+  'file': string;
+  'filenameHash': string;
+  'md5': string;
+}
+export interface wp_wffilemodsEntity {
+  'filename': string;
+  'filenameMD5': Buffer;
+  'isSafeFile'?: string;
+  'knownFile': number;
+  'newMD5': Buffer;
+  'oldMD5': Buffer;
+  'real_path': string;
+  'SHAC'?: Buffer;
+  'stoppedOnPosition'?: number;
+  'stoppedOnSignature'?: string;
+}
+export interface wp_wfhitsEntity {
+  'action'?: string;
+  'actionData'?: string | null;
+  'actionDescription'?: string | null;
+  'attackLogTime': number;
+  'ctime': number;
+  'id'?: number;
+  'IP'?: Buffer | null;
+  'isGoogle': number;
+  'jsRun'?: number | null;
+  'newVisit': number;
+  'referer'?: string | null;
+  'statusCode'?: number;
+  'UA'?: string | null;
+  'URL'?: string | null;
+  'userID': number;
+}
+export interface wp_wfhooverEntity {
+  'host'?: string | null;
+  'hostKey'?: string | null;
+  'id'?: number;
+  'owner'?: string | null;
+  'path'?: string | null;
+}
+export interface wp_wfissuesEntity {
+  'data'?: string | null;
+  'id'?: number;
+  'ignoreC': string;
+  'ignoreP': string;
+  'lastUpdated': number;
+  'longMsg'?: string | null;
+  'severity': number;
+  'shortMsg': string;
+  'status': string;
+  'time': number;
+  'type': string;
+}
+export interface wp_wfknownfilelistEntity {
+  'id'?: number;
+  'path': string;
+  'wordpress_path': string;
+}
+export interface wp_wflivetraffichumanEntity {
+  'expiration': number;
+  'identifier'?: Buffer;
+  'IP'?: Buffer;
+}
+export interface wp_wflocsEntity {
+  'city'?: string | null;
+  'countryCode'?: string | null;
+  'countryName'?: string | null;
+  'ctime': number;
+  'failed': number;
+  'IP'?: Buffer;
+  'lat'?: number | null;
+  'lon'?: number | null;
+  'region'?: string | null;
+}
+export interface wp_wfloginsEntity {
+  'action': string;
+  'ctime': number;
+  'fail': number;
+  'hitID'?: number | null;
+  'id'?: number;
+  'IP'?: Buffer | null;
+  'UA'?: string | null;
+  'userID': number;
+  'username': string;
+}
+export interface wp_wfls_2fa_secretsEntity {
+  'ctime': number;
+  'id'?: number;
+  'mode'?: 'authenticator';
+  'recovery': any;
+  'secret': any;
+  'user_id': string;
+  'vtime': number;
+}
+export interface wp_wfls_role_countsEntity {
+  'serialized_roles': string;
+  'two_factor_inactive': any;
+  'user_count'?: string;
+}
+export interface wp_wfls_settingsEntity {
+  'autoload'?: 'no' | 'yes';
+  'name'?: string;
+  'value'?: any | null;
+}
+export interface wp_wfnotificationsEntity {
+  'category': string;
+  'ctime': number;
+  'html': string;
+  'id'?: string;
+  'links': string;
+  'new'?: number;
+  'priority'?: number;
+}
+export interface wp_wfpendingissuesEntity {
+  'data'?: string | null;
+  'id'?: number;
+  'ignoreC': string;
+  'ignoreP': string;
+  'lastUpdated': number;
+  'longMsg'?: string | null;
+  'severity': number;
+  'shortMsg': string;
+  'status': string;
+  'time': number;
+  'type': string;
+}
+export interface wp_wfreversecacheEntity {
+  'host': string;
+  'IP'?: Buffer;
+  'lastUpdate': number;
+}
+export interface wp_wfsecurityeventsEntity {
+  'data': string;
+  'event_time': number;
+  'id'?: string;
+  'state'?: 'new' | 'sending' | 'sent';
+  'state_timestamp'?: Date;
+  'type'?: string;
+}
+export interface wp_wfsnipcacheEntity {
+  'body'?: string;
+  'count'?: number;
+  'expiration'?: Date;
+  'id'?: number;
+  'IP'?: string;
+  'type'?: number;
+}
+export interface wp_wfstatusEntity {
+  'ctime': number;
+  'id'?: string;
+  'level': number;
+  'msg': string;
+  'type': string;
+}
+export interface wp_wftrafficratesEntity {
+  'eMin': number;
+  'hits': number;
+  'hitType'?: 'hit' | '404';
+  'IP'?: Buffer;
+}
+export interface wp_wfwaffailuresEntity {
+  'id'?: number;
+  'rule_id'?: number | null;
+  'throwable': string;
+  'timestamp'?: Date;
+}
+export interface wp_yoast_indexableEntity {
+  'author_id'?: string | null;
+  'blog_id'?: string;
+  'breadcrumb_title'?: string | null;
+  'canonical'?: string | null;
+  'created_at'?: Date | null;
+  'description'?: string | null;
+  'estimated_reading_time_minutes'?: number | null;
+  'has_ancestors'?: any | null;
+  'has_public_posts'?: any | null;
+  'id'?: number;
+  'inclusive_language_score'?: number | null;
+  'incoming_link_count'?: number | null;
+  'is_cornerstone'?: any | null;
+  'is_protected'?: any | null;
+  'is_public'?: any | null;
+  'is_robots_noarchive'?: any | null;
+  'is_robots_nofollow'?: any | null;
+  'is_robots_noimageindex'?: any | null;
+  'is_robots_noindex'?: any | null;
+  'is_robots_nosnippet'?: any | null;
+  'language'?: string | null;
+  'link_count'?: number | null;
+  'number_of_pages'?: number | null;
+  'object_id'?: string | null;
+  'object_last_modified'?: Date | null;
+  'object_published_at'?: Date | null;
+  'object_sub_type'?: string | null;
+  'object_type': string;
+  'open_graph_description'?: string | null;
+  'open_graph_image'?: string | null;
+  'open_graph_image_id'?: string | null;
+  'open_graph_image_meta'?: string | null;
+  'open_graph_image_source'?: string | null;
+  'open_graph_title'?: string | null;
+  'permalink'?: string | null;
+  'permalink_hash'?: string | null;
+  'post_parent'?: string | null;
+  'post_status'?: string | null;
+  'primary_focus_keyword'?: string | null;
+  'primary_focus_keyword_score'?: number | null;
+  'prominent_words_version'?: number | null;
+  'readability_score'?: number | null;
+  'region'?: string | null;
+  'schema_article_type'?: string | null;
+  'schema_page_type'?: string | null;
+  'title'?: string | null;
+  'twitter_description'?: string | null;
+  'twitter_image'?: string | null;
+  'twitter_image_id'?: string | null;
+  'twitter_image_source'?: string | null;
+  'twitter_title'?: string | null;
+  'updated_at'?: Date;
+  'version'?: number | null;
+}
+export interface wp_yoast_indexable_hierarchyEntity {
+  'ancestor_id'?: number;
+  'blog_id'?: string;
+  'depth'?: number | null;
+  'indexable_id'?: number;
+}
+export interface wp_yoast_migrationsEntity {
+  'id'?: number;
+  'version'?: string | null;
+}
+export interface wp_yoast_primary_termEntity {
+  'blog_id'?: string;
+  'created_at'?: Date | null;
+  'id'?: number;
+  'post_id'?: string | null;
+  'taxonomy': string;
+  'term_id'?: string | null;
+  'updated_at'?: Date;
+}
+export interface wp_yoast_seo_linksEntity {
+  'height'?: number | null;
+  'id'?: string;
+  'indexable_id'?: number | null;
+  'language'?: string | null;
+  'post_id': string;
+  'region'?: string | null;
+  'size'?: number | null;
+  'target_indexable_id'?: number | null;
+  'target_post_id': string;
+  'type': string;
+  'url': string;
+  'width'?: number | null;
+}
+export interface wp_yoast_seo_metaEntity {
+  'incoming_link_count'?: number | null;
+  'internal_link_count'?: number | null;
+  'object_id': string;
+}
+export interface wp_commentmetaEntity {
+  'comment_id'?: string;
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+}
+export interface wp_commentsEntity {
+  'comment_agent'?: string;
+  'comment_approved'?: string;
+  'comment_author': string;
+  'comment_author_email'?: string;
+  'comment_author_IP'?: string;
+  'comment_author_url'?: string;
+  'comment_content': string;
+  'comment_date'?: Date;
+  'comment_date_gmt'?: Date;
+  'comment_ID'?: string;
+  'comment_karma'?: number;
+  'comment_parent'?: string;
+  'comment_post_ID'?: string;
+  'comment_type'?: string;
+  'user_id'?: string;
+}
+export interface wp_linksEntity {
+  'link_description'?: string;
+  'link_id'?: string;
+  'link_image'?: string;
+  'link_name'?: string;
+  'link_notes': string;
+  'link_owner'?: string;
+  'link_rating'?: number;
+  'link_rel'?: string;
+  'link_rss'?: string;
+  'link_target'?: string;
+  'link_updated'?: Date;
+  'link_url'?: string;
+  'link_visible'?: string;
+}
 export interface wp_optionsEntity {
   'autoload'?: string;
   'option_id'?: string;
@@ -20021,6 +20588,124 @@ export interface wp_commentsEntity {
   'comment_type'?: string;
   'user_id'?: string;
 }
+export interface wp_linksEntity {
+  'link_description'?: string;
+  'link_id'?: string;
+  'link_image'?: string;
+  'link_name'?: string;
+  'link_notes': string;
+  'link_owner'?: string;
+  'link_rating'?: number;
+  'link_rel'?: string;
+  'link_rss'?: string;
+  'link_target'?: string;
+  'link_updated'?: Date;
+  'link_url'?: string;
+  'link_visible'?: string;
+}
+export interface wp_optionsEntity {
+  'autoload'?: string;
+  'option_id'?: string;
+  'option_name'?: string;
+  'option_value': string;
+}
+export interface wp_postmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'post_id'?: string;
+}
+export interface wp_postsEntity {
+  'comment_count'?: string;
+  'comment_status'?: string;
+  'guid'?: string;
+  'ID'?: string;
+  'menu_order'?: number;
+  'ping_status'?: string;
+  'pinged': string;
+  'post_author'?: string;
+  'post_content': string;
+  'post_content_filtered': string;
+  'post_date'?: Date;
+  'post_date_gmt'?: Date;
+  'post_excerpt': string;
+  'post_mime_type'?: string;
+  'post_modified'?: Date;
+  'post_modified_gmt'?: Date;
+  'post_name'?: string;
+  'post_parent'?: string;
+  'post_password'?: string;
+  'post_status'?: string;
+  'post_title': string;
+  'post_type'?: string;
+  'to_ping': string;
+}
+export interface wp_term_relationshipsEntity {
+  'object_id'?: string;
+  'term_order'?: number;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_term_taxonomyEntity {
+  'count'?: string;
+  'description': string;
+  'parent'?: string;
+  'taxonomy'?: string;
+  'term_id'?: string;
+  'term_taxonomy_id'?: string;
+}
+export interface wp_termmetaEntity {
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'term_id'?: string;
+}
+export interface wp_termsEntity {
+  'name'?: string;
+  'slug'?: string;
+  'term_group'?: string;
+  'term_id'?: string;
+}
+export interface wp_usermetaEntity {
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+  'umeta_id'?: string;
+  'user_id'?: string;
+}
+export interface wp_usersEntity {
+  'display_name'?: string;
+  'ID'?: string;
+  'user_activation_key'?: string;
+  'user_email'?: string;
+  'user_login'?: string;
+  'user_nicename'?: string;
+  'user_pass'?: string;
+  'user_registered'?: Date;
+  'user_status'?: number;
+  'user_url'?: string;
+}
+export interface wp_commentmetaEntity {
+  'comment_id'?: string;
+  'meta_id'?: string;
+  'meta_key'?: string | null;
+  'meta_value'?: string | null;
+}
+export interface wp_commentsEntity {
+  'comment_agent'?: string;
+  'comment_approved'?: string;
+  'comment_author': string;
+  'comment_author_email'?: string;
+  'comment_author_IP'?: string;
+  'comment_author_url'?: string;
+  'comment_content': string;
+  'comment_date'?: Date;
+  'comment_date_gmt'?: Date;
+  'comment_ID'?: string;
+  'comment_karma'?: number;
+  'comment_parent'?: string;
+  'comment_post_ID'?: string;
+  'comment_type'?: string;
+  'user_id'?: string;
+}
 export interface wp_hugeit_slider_slideEntity {
   'attachment_id'?: string | null;
   'description'?: string | null;
@@ -20102,678 +20787,6 @@ export interface wp_optionsEntity {
   'autoload'?: string;
   'option_id'?: string;
   'option_name'?: string | null;
-  'option_value': string;
-}
-export interface wp_postmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'post_id'?: string;
-}
-export interface wp_postsEntity {
-  'comment_count'?: string;
-  'comment_status'?: string;
-  'guid'?: string;
-  'ID'?: string;
-  'menu_order'?: number;
-  'ping_status'?: string;
-  'pinged': string;
-  'post_author'?: string;
-  'post_content': string;
-  'post_content_filtered': string;
-  'post_date'?: Date;
-  'post_date_gmt'?: Date;
-  'post_excerpt': string;
-  'post_mime_type'?: string;
-  'post_modified'?: Date;
-  'post_modified_gmt'?: Date;
-  'post_name'?: string;
-  'post_parent'?: string;
-  'post_password'?: string;
-  'post_status'?: string;
-  'post_title': string;
-  'post_type'?: string;
-  'to_ping': string;
-}
-export interface wp_term_relationshipsEntity {
-  'object_id'?: string;
-  'term_order'?: number;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_term_taxonomyEntity {
-  'count'?: string;
-  'description': string;
-  'parent'?: string;
-  'taxonomy'?: string;
-  'term_id'?: string;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_termmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'term_id'?: string;
-}
-export interface wp_termsEntity {
-  'name'?: string;
-  'slug'?: string;
-  'term_group'?: string;
-  'term_id'?: string;
-}
-export interface wp_usermetaEntity {
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'umeta_id'?: string;
-  'user_id'?: string;
-}
-export interface wp_usersEntity {
-  'display_name'?: string;
-  'ID'?: string;
-  'user_activation_key'?: string;
-  'user_email'?: string;
-  'user_login'?: string;
-  'user_nicename'?: string;
-  'user_pass'?: string;
-  'user_registered'?: Date;
-  'user_status'?: number;
-  'user_url'?: string;
-}
-export interface wp_commentmetaEntity {
-  'comment_id'?: string;
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-}
-export interface wp_commentsEntity {
-  'comment_agent'?: string;
-  'comment_approved'?: string;
-  'comment_author': string;
-  'comment_author_email'?: string;
-  'comment_author_IP'?: string;
-  'comment_author_url'?: string;
-  'comment_content': string;
-  'comment_date'?: Date;
-  'comment_date_gmt'?: Date;
-  'comment_ID'?: string;
-  'comment_karma'?: number;
-  'comment_parent'?: string;
-  'comment_post_ID'?: string;
-  'comment_type'?: string;
-  'user_id'?: string;
-}
-export interface wp_linksEntity {
-  'link_description'?: string;
-  'link_id'?: string;
-  'link_image'?: string;
-  'link_name'?: string;
-  'link_notes': string;
-  'link_owner'?: string;
-  'link_rating'?: number;
-  'link_rel'?: string;
-  'link_rss'?: string;
-  'link_target'?: string;
-  'link_updated'?: Date;
-  'link_url'?: string;
-  'link_visible'?: string;
-}
-export interface wp_nf3_action_metaEntity {
-  'id'?: number;
-  'key': string;
-  'parent_id': number;
-  'value'?: string | null;
-}
-export interface wp_nf3_actionsEntity {
-  'active'?: any | null;
-  'created_at'?: Date;
-  'id'?: number;
-  'key'?: string | null;
-  'parent_id': number;
-  'title'?: string | null;
-  'type'?: string | null;
-  'updated_at'?: Date | null;
-}
-export interface wp_nf3_field_metaEntity {
-  'id'?: number;
-  'key': string;
-  'parent_id': number;
-  'value'?: string | null;
-}
-export interface wp_nf3_fieldsEntity {
-  'created_at'?: Date;
-  'id'?: number;
-  'key'?: string | null;
-  'label'?: string | null;
-  'parent_id': number;
-  'type'?: string | null;
-  'updated_at'?: Date | null;
-}
-export interface wp_nf3_form_metaEntity {
-  'id'?: number;
-  'key': string;
-  'parent_id': number;
-  'value'?: string | null;
-}
-export interface wp_nf3_formsEntity {
-  'created_at'?: Date;
-  'id'?: number;
-  'key'?: string | null;
-  'subs'?: number | null;
-  'title'?: string | null;
-  'updated_at'?: Date | null;
-  'views'?: number | null;
-}
-export interface wp_nf3_object_metaEntity {
-  'id'?: number;
-  'key': string;
-  'parent_id': number;
-  'value'?: string | null;
-}
-export interface wp_nf3_objectsEntity {
-  'created_at'?: Date;
-  'id'?: number;
-  'title'?: string | null;
-  'type'?: string | null;
-  'updated_at'?: Date | null;
-}
-export interface wp_nf3_relationshipsEntity {
-  'child_id': number;
-  'child_type': string;
-  'created_at'?: Date;
-  'id'?: number;
-  'parent_id': number;
-  'parent_type': string;
-  'updated_at'?: Date | null;
-}
-export interface wp_optionsEntity {
-  'autoload'?: string;
-  'option_id'?: string;
-  'option_name'?: string;
-  'option_value': string;
-}
-export interface wp_pmxi_filesEntity {
-  'id'?: string;
-  'import_id': string;
-  'name'?: string;
-  'path'?: string | null;
-  'registered_on'?: Date;
-}
-export interface wp_pmxi_historyEntity {
-  'date'?: Date;
-  'id'?: string;
-  'import_id': string;
-  'summary'?: string | null;
-  'time_run'?: string | null;
-  'type'?: 'manual' | 'processing' | 'trigger' | 'continue' | '';
-}
-export interface wp_pmxi_importsEntity {
-  'canceled'?: any;
-  'canceled_on'?: Date;
-  'count'?: string;
-  'created'?: string;
-  'deleted'?: string;
-  'executing'?: any;
-  'failed'?: any;
-  'failed_on'?: Date;
-  'feed_type'?: 'xml' | 'csv' | 'zip' | 'gz' | '';
-  'first_import'?: Date;
-  'friendly_name'?: string;
-  'id'?: string;
-  'imported'?: string;
-  'iteration'?: string;
-  'last_activity'?: Date;
-  'name'?: string;
-  'options'?: string | null;
-  'parent_import_id'?: string;
-  'path'?: string | null;
-  'processing'?: any;
-  'queue_chunk_number'?: string;
-  'registered_on'?: Date;
-  'root_element'?: string | null;
-  'settings_update_on'?: Date;
-  'skipped'?: string;
-  'triggered'?: any;
-  'type'?: string;
-  'updated'?: string;
-  'xpath'?: string | null;
-}
-export interface wp_pmxi_postsEntity {
-  'id'?: string;
-  'import_id': string;
-  'iteration'?: string;
-  'post_id': string;
-  'product_key'?: string | null;
-  'specified'?: any;
-  'unique_key'?: string | null;
-}
-export interface wp_pmxi_templatesEntity {
-  'content'?: string | null;
-  'fix_characters'?: any;
-  'id'?: string;
-  'is_keep_linebreaks'?: any;
-  'is_leave_html'?: any;
-  'meta'?: string | null;
-  'name'?: string;
-  'options'?: string | null;
-  'scheduled'?: string;
-  'title'?: string | null;
-}
-export interface wp_postmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'post_id'?: string;
-}
-export interface wp_postsEntity {
-  'comment_count'?: string;
-  'comment_status'?: string;
-  'guid'?: string;
-  'ID'?: string;
-  'menu_order'?: number;
-  'ping_status'?: string;
-  'pinged': string;
-  'post_author'?: string;
-  'post_content': string;
-  'post_content_filtered': string;
-  'post_date'?: Date;
-  'post_date_gmt'?: Date;
-  'post_excerpt': string;
-  'post_mime_type'?: string;
-  'post_modified'?: Date;
-  'post_modified_gmt'?: Date;
-  'post_name'?: string;
-  'post_parent'?: string;
-  'post_password'?: string;
-  'post_status'?: string;
-  'post_title': string;
-  'post_type'?: string;
-  'to_ping': string;
-}
-export interface wp_pp_activity_logsEntity {
-  'browser': string;
-  'created_at': string;
-  'id'?: any;
-  'ip': string;
-  'status': string;
-}
-export interface wp_term_relationshipsEntity {
-  'object_id'?: string;
-  'term_order'?: number;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_term_taxonomyEntity {
-  'count'?: string;
-  'description': string;
-  'parent'?: string;
-  'taxonomy'?: string;
-  'term_id'?: string;
-  'term_taxonomy_id'?: string;
-}
-export interface wp_termmetaEntity {
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'term_id'?: string;
-}
-export interface wp_termsEntity {
-  'name'?: string;
-  'slug'?: string;
-  'term_group'?: string;
-  'term_id'?: string;
-}
-export interface wp_toolset_post_guid_idEntity {
-  'guid'?: string;
-  'post_id'?: string | null;
-}
-export interface wp_usermetaEntity {
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-  'umeta_id'?: string;
-  'user_id'?: string;
-}
-export interface wp_usersEntity {
-  'display_name'?: string;
-  'ID'?: string;
-  'user_activation_key'?: string;
-  'user_email'?: string;
-  'user_login'?: string;
-  'user_nicename'?: string;
-  'user_pass'?: string;
-  'user_registered'?: Date;
-  'user_status'?: number;
-  'user_url'?: string;
-}
-export interface wp_wfblockediplogEntity {
-  'blockCount'?: number;
-  'blockType'?: string;
-  'countryCode': string;
-  'IP'?: Buffer;
-  'unixday': number;
-}
-export interface wp_wfblocks7Entity {
-  'blockedHits'?: number | null;
-  'blockedTime': string;
-  'expiration'?: string;
-  'id'?: string;
-  'IP'?: Buffer;
-  'lastAttempt'?: number | null;
-  'parameters'?: string | null;
-  'reason': string;
-  'type'?: number;
-}
-export interface wp_wfconfigEntity {
-  'autoload'?: 'no' | 'yes';
-  'name': string;
-  'val'?: any | null;
-}
-export interface wp_wfcrawlersEntity {
-  'IP'?: Buffer;
-  'lastUpdate': number;
-  'patternSig': Buffer;
-  'PTR'?: string | null;
-  'status': string;
-}
-export interface wp_wffilechangesEntity {
-  'file': string;
-  'filenameHash': string;
-  'md5': string;
-}
-export interface wp_wffilemodsEntity {
-  'filename': string;
-  'filenameMD5': Buffer;
-  'isSafeFile'?: string;
-  'knownFile': number;
-  'newMD5': Buffer;
-  'oldMD5': Buffer;
-  'real_path': string;
-  'SHAC'?: Buffer;
-  'stoppedOnPosition'?: number;
-  'stoppedOnSignature'?: string;
-}
-export interface wp_wfhitsEntity {
-  'action'?: string;
-  'actionData'?: string | null;
-  'actionDescription'?: string | null;
-  'attackLogTime': number;
-  'ctime': number;
-  'id'?: number;
-  'IP'?: Buffer | null;
-  'isGoogle': number;
-  'jsRun'?: number | null;
-  'newVisit': number;
-  'referer'?: string | null;
-  'statusCode'?: number;
-  'UA'?: string | null;
-  'URL'?: string | null;
-  'userID': number;
-}
-export interface wp_wfhooverEntity {
-  'host'?: string | null;
-  'hostKey'?: string | null;
-  'id'?: number;
-  'owner'?: string | null;
-  'path'?: string | null;
-}
-export interface wp_wfissuesEntity {
-  'data'?: string | null;
-  'id'?: number;
-  'ignoreC': string;
-  'ignoreP': string;
-  'lastUpdated': number;
-  'longMsg'?: string | null;
-  'severity': number;
-  'shortMsg': string;
-  'status': string;
-  'time': number;
-  'type': string;
-}
-export interface wp_wfknownfilelistEntity {
-  'id'?: number;
-  'path': string;
-  'wordpress_path': string;
-}
-export interface wp_wflivetraffichumanEntity {
-  'expiration': number;
-  'identifier'?: Buffer;
-  'IP'?: Buffer;
-}
-export interface wp_wflocsEntity {
-  'city'?: string | null;
-  'countryCode'?: string | null;
-  'countryName'?: string | null;
-  'ctime': number;
-  'failed': number;
-  'IP'?: Buffer;
-  'lat'?: number | null;
-  'lon'?: number | null;
-  'region'?: string | null;
-}
-export interface wp_wfloginsEntity {
-  'action': string;
-  'ctime': number;
-  'fail': number;
-  'hitID'?: number | null;
-  'id'?: number;
-  'IP'?: Buffer | null;
-  'UA'?: string | null;
-  'userID': number;
-  'username': string;
-}
-export interface wp_wfls_2fa_secretsEntity {
-  'ctime': number;
-  'id'?: number;
-  'mode'?: 'authenticator';
-  'recovery': any;
-  'secret': any;
-  'user_id': string;
-  'vtime': number;
-}
-export interface wp_wfls_role_countsEntity {
-  'serialized_roles': string;
-  'two_factor_inactive': any;
-  'user_count'?: string;
-}
-export interface wp_wfls_settingsEntity {
-  'autoload'?: 'no' | 'yes';
-  'name'?: string;
-  'value'?: any | null;
-}
-export interface wp_wfnotificationsEntity {
-  'category': string;
-  'ctime': number;
-  'html': string;
-  'id'?: string;
-  'links': string;
-  'new'?: number;
-  'priority'?: number;
-}
-export interface wp_wfpendingissuesEntity {
-  'data'?: string | null;
-  'id'?: number;
-  'ignoreC': string;
-  'ignoreP': string;
-  'lastUpdated': number;
-  'longMsg'?: string | null;
-  'severity': number;
-  'shortMsg': string;
-  'status': string;
-  'time': number;
-  'type': string;
-}
-export interface wp_wfreversecacheEntity {
-  'host': string;
-  'IP'?: Buffer;
-  'lastUpdate': number;
-}
-export interface wp_wfsecurityeventsEntity {
-  'data': string;
-  'event_time': number;
-  'id'?: string;
-  'state'?: 'new' | 'sending' | 'sent';
-  'state_timestamp'?: Date;
-  'type'?: string;
-}
-export interface wp_wfsnipcacheEntity {
-  'body'?: string;
-  'count'?: number;
-  'expiration'?: Date;
-  'id'?: number;
-  'IP'?: string;
-  'type'?: number;
-}
-export interface wp_wfstatusEntity {
-  'ctime': number;
-  'id'?: string;
-  'level': number;
-  'msg': string;
-  'type': string;
-}
-export interface wp_wftrafficratesEntity {
-  'eMin': number;
-  'hits': number;
-  'hitType'?: 'hit' | '404';
-  'IP'?: Buffer;
-}
-export interface wp_wfwaffailuresEntity {
-  'id'?: number;
-  'rule_id'?: number | null;
-  'throwable': string;
-  'timestamp'?: Date;
-}
-export interface wp_yoast_indexableEntity {
-  'author_id'?: string | null;
-  'blog_id'?: string;
-  'breadcrumb_title'?: string | null;
-  'canonical'?: string | null;
-  'created_at'?: Date | null;
-  'description'?: string | null;
-  'estimated_reading_time_minutes'?: number | null;
-  'has_ancestors'?: any | null;
-  'has_public_posts'?: any | null;
-  'id'?: number;
-  'inclusive_language_score'?: number | null;
-  'incoming_link_count'?: number | null;
-  'is_cornerstone'?: any | null;
-  'is_protected'?: any | null;
-  'is_public'?: any | null;
-  'is_robots_noarchive'?: any | null;
-  'is_robots_nofollow'?: any | null;
-  'is_robots_noimageindex'?: any | null;
-  'is_robots_noindex'?: any | null;
-  'is_robots_nosnippet'?: any | null;
-  'language'?: string | null;
-  'link_count'?: number | null;
-  'number_of_pages'?: number | null;
-  'object_id'?: string | null;
-  'object_last_modified'?: Date | null;
-  'object_published_at'?: Date | null;
-  'object_sub_type'?: string | null;
-  'object_type': string;
-  'open_graph_description'?: string | null;
-  'open_graph_image'?: string | null;
-  'open_graph_image_id'?: string | null;
-  'open_graph_image_meta'?: string | null;
-  'open_graph_image_source'?: string | null;
-  'open_graph_title'?: string | null;
-  'permalink'?: string | null;
-  'permalink_hash'?: string | null;
-  'post_parent'?: string | null;
-  'post_status'?: string | null;
-  'primary_focus_keyword'?: string | null;
-  'primary_focus_keyword_score'?: number | null;
-  'prominent_words_version'?: number | null;
-  'readability_score'?: number | null;
-  'region'?: string | null;
-  'schema_article_type'?: string | null;
-  'schema_page_type'?: string | null;
-  'title'?: string | null;
-  'twitter_description'?: string | null;
-  'twitter_image'?: string | null;
-  'twitter_image_id'?: string | null;
-  'twitter_image_source'?: string | null;
-  'twitter_title'?: string | null;
-  'updated_at'?: Date;
-  'version'?: number | null;
-}
-export interface wp_yoast_indexable_hierarchyEntity {
-  'ancestor_id'?: number;
-  'blog_id'?: string;
-  'depth'?: number | null;
-  'indexable_id'?: number;
-}
-export interface wp_yoast_migrationsEntity {
-  'id'?: number;
-  'version'?: string | null;
-}
-export interface wp_yoast_primary_termEntity {
-  'blog_id'?: string;
-  'created_at'?: Date | null;
-  'id'?: number;
-  'post_id'?: string | null;
-  'taxonomy': string;
-  'term_id'?: string | null;
-  'updated_at'?: Date;
-}
-export interface wp_yoast_seo_linksEntity {
-  'height'?: number | null;
-  'id'?: string;
-  'indexable_id'?: number | null;
-  'language'?: string | null;
-  'post_id': string;
-  'region'?: string | null;
-  'size'?: number | null;
-  'target_indexable_id'?: number | null;
-  'target_post_id': string;
-  'type': string;
-  'url': string;
-  'width'?: number | null;
-}
-export interface wp_yoast_seo_metaEntity {
-  'incoming_link_count'?: number | null;
-  'internal_link_count'?: number | null;
-  'object_id': string;
-}
-export interface wp_commentmetaEntity {
-  'comment_id'?: string;
-  'meta_id'?: string;
-  'meta_key'?: string | null;
-  'meta_value'?: string | null;
-}
-export interface wp_commentsEntity {
-  'comment_agent'?: string;
-  'comment_approved'?: string;
-  'comment_author': string;
-  'comment_author_email'?: string;
-  'comment_author_IP'?: string;
-  'comment_author_url'?: string;
-  'comment_content': string;
-  'comment_date'?: Date;
-  'comment_date_gmt'?: Date;
-  'comment_ID'?: string;
-  'comment_karma'?: number;
-  'comment_parent'?: string;
-  'comment_post_ID'?: string;
-  'comment_type'?: string;
-  'user_id'?: string;
-}
-export interface wp_linksEntity {
-  'link_description'?: string;
-  'link_id'?: string;
-  'link_image'?: string;
-  'link_name'?: string;
-  'link_notes': string;
-  'link_owner'?: string;
-  'link_rating'?: number;
-  'link_rel'?: string;
-  'link_rss'?: string;
-  'link_target'?: string;
-  'link_updated'?: Date;
-  'link_url'?: string;
-  'link_visible'?: string;
-}
-export interface wp_optionsEntity {
-  'autoload'?: string;
-  'option_id'?: string;
-  'option_name'?: string;
   'option_value': string;
 }
 export interface wp_postmetaEntity {

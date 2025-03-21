@@ -17,7 +17,7 @@ const form = useForm({
   budget: 0,
   sales_representative_name: '',
   deadline: '',
-  client_id: null,
+  client_id: '',
 });
 
 const submit = () => {

@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Client;
+use Inertia\Inertia;
 
 class ClientController extends Controller {
   /**
    * Display a listing of the resource.
    */
   public function index() {
-    //
+    $clients = Client::all();
+
+    return Inertia::render('clients/Index', [
+      'clients' => $clients,
+    ]);
   }
 
   /**

@@ -29,7 +29,11 @@ Route::get('/set-locale/{locale}', function ($locale, Request $request) {
   return redirect()->back();
 });
 
+// - TODO:
+// Maybe just have them all here instead of requireing
+
 require base_path('routes/projects.php');
+require base_path('routes/clients.php');
 require base_path('routes/pca.php');
 
 require __DIR__ . '/settings.php';

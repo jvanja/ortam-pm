@@ -16,6 +16,16 @@ class DatabaseSeeder extends Seeder {
       'email' => 'jelicvanja@gmail.com',
       'password' => bcrypt('jeremy11'),
     ]);
+    User::factory()->create([
+      'name' => 'Employee Jelic',
+      'email' => 'employee@gmail.com',
+      'password' => bcrypt('jeremy11'),
+    ]);
+    User::factory()->create([
+      'name' => 'Client Jelic',
+      'email' => 'client@gmail.com',
+      'password' => bcrypt('jeremy11'),
+    ]);
     $this->call([
       RolePermissionSeeder::class,
       // OrganizationSeeder::class,

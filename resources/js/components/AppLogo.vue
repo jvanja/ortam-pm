@@ -5,6 +5,7 @@ import AppLogoIcon from '@/components/AppLogoIcon.vue';
 
 const page = usePage()
 const organization = computed(() => page.props.organization )
+console.log(page.props)
 </script>
 
 <template>

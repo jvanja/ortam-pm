@@ -125,7 +125,11 @@ class RolePermissionSeeder extends Seeder {
     // $employeeRole->givePermissionTo($viewPermission);
 
     // Assign role to user
-    $user = User::find(1); // Example user with ID 1
+    $user = User::find(1);
     $user->assignRole('superadmin');
+    $user = User::find(2);
+    $user->assignRole('employee');
+    $user = User::find(3);
+    $user->assignRole('client');
   }
 }

@@ -9,17 +9,8 @@ import { type BreadcrumbItem } from '@/types';
 import { type projectsEntity } from '@/types/DatabaseModels';
 import { Head } from '@inertiajs/vue3';
 
-const props = defineProps<{
-  projects: projectsEntity[];
-}>();
-console.log(props.projects);
-
-const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Dashboard',
-    href: '/dashboard',
-  },
-];
+defineProps<{ projects: projectsEntity[] }>();
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
 </script>
 
 <template>

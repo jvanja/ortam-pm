@@ -21,9 +21,12 @@ class TimesheetFactory extends Factory {
     return [
       'task_performed' => fake()->randomElement(Task::cases()),
       'worked_duration' => fake()->randomNumber(2),
-      'project_id' => Project::factory(),
-      'user_id' => User::factory(),
-      'organization_id' => Organization::factory(),
+      'project_id' => Project::inRandomOrder()->first(),
+      'user_id' => User::inRandomOrder()->first(),
+      'organization_id' => Organization::inRandomOrder()->first(),
+      // 'project_id' => Project::factory(),
+      // 'user_id' => User::factory(),
+      // 'organization_id' => Organization::factory(),
     ];
   }
 }

@@ -31,9 +31,12 @@ class PCAReportFactory extends Factory {
       'basement' => $this->faker->boolean(30), // 30% chance of having a basement
       'residential_units' => $this->faker->numberBetween(10, 100),
       'non_residential_units' => $this->faker->numberBetween(0, 10),
-      'project_id' => Project::factory(),
-      'client_id' => Client::factory(),
-      'organization_id' => Organization::factory(),
+      'project_id' => Project::inRandomOrder()->first(),
+      'client_id' => Client::inRandomOrder()->first(),
+      'organization_id' => Organization::inRandomOrder()->first(),
+      // 'project_id' => Project::factory(),
+      // 'client_id' => Client::factory(),
+      // 'organization_id' => Organization::factory(),
     ];
   }
 }

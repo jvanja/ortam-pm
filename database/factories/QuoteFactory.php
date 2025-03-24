@@ -26,9 +26,9 @@ class QuoteFactory extends Factory {
       'budget' => fake()->randomFloat(2, 1000, 10000),
       'sales_representative_name' => fake()->name(),
       'quote_status' => fake()->randomElement(QuoteStatus::cases()),
-      'project_id' => Project::factory(),
-      'client_id' => Client::factory(),
-      'organization_id' => Organization::factory(),
+      'project_id' => Project::inRandomOrder()->first(),
+      'client_id' => Client::inRandomOrder()->first(),
+      'organization_id' => Organization::inRandomOrder()->first(),
     ];
   }
 }

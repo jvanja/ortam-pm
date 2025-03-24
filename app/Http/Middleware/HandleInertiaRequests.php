@@ -33,12 +33,16 @@ class HandleInertiaRequests extends Middleware {
    * @return array<string, mixed>
    */
   public function share(Request $request): array {
-    $organization_id =  $request->user()->organization_id;
-    $organization = Organization::find($organization_id);
+    if ($request->user()) {
+      $organization_id =  $request->user()->organization_id;
+      $organization = Organization::find($organization_id)->name;
+    } else {
+      $organization = env('APP_NAME');
+    }
     return [
       ...parent::share($request),
       'name' => config('app.name'),
-      'organization' => $organization->name,
+      'organization' => $organization,
       'auth' => [
         'user' => $request->user(),
       ],

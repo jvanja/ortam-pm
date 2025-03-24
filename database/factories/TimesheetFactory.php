@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Project;
 use App\Models\User;
+use App\Models\Project;
+use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Enums\Task;
 
@@ -22,6 +23,7 @@ class TimesheetFactory extends Factory {
       'worked_duration' => fake()->randomNumber(2),
       'project_id' => Project::factory(),
       'user_id' => User::factory(),
+      'organization_id' => Organization::factory(),
     ];
   }
 }

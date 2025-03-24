@@ -12,8 +12,10 @@ class TimeSheet extends Model {
 
   protected $fillable = [
     'task_performed',
-    'project_id',
     'worked_duration',
+    'user_id',
+    'project_id',
+    'organization_id',
   ];
 
   protected $casts = [
@@ -30,7 +32,13 @@ class TimeSheet extends Model {
     return $this->belongsTo(Project::class);
   }
 
-  public function getTotalHours(): float {
-    return $this->worked_duration;
+  public function organization(): BelongsTo {
+    return $this->belongsTo(Organization::class);
   }
+
+  // - TODO:
+  // Move to the controller
+  // public function getTotalHours(): float {
+  //   return $this->worked_duration;
+  // }
 }

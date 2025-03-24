@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Project;
+use App\Models\Client;
+use App\Models\Organization;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -28,6 +31,9 @@ class PCAReportFactory extends Factory {
       'basement' => $this->faker->boolean(30), // 30% chance of having a basement
       'residential_units' => $this->faker->numberBetween(10, 100),
       'non_residential_units' => $this->faker->numberBetween(0, 10),
+      'project_id' => Project::factory(),
+      'client_id' => Client::factory(),
+      'organization_id' => Organization::factory(),
     ];
   }
 }

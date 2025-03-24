@@ -25,7 +25,8 @@ return new class extends Migration
             $table->enum('project_status', [ProjectStatus::Ongoing->value, ProjectStatus::Completed->value, ProjectStatus::Canceled->value]);
             $table->date('project_opening_date');
             $table->date('deadline');
-            $table->foreignId('client_id')->constrained();
+            $table->foreignId('client_id')->constrained()->onUpdate('cascade');
+            $table->foreignId('organization_id')->constrained()->onUpdate('cascade');
             $table->timestamps();
         });
     }

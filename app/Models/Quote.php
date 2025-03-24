@@ -19,6 +19,8 @@ class Quote extends Model {
     'sales_representative_name',
     'quote_status',
     'project_id',
+    'client_id',
+    'organization_id',
   ];
 
   protected $casts = [
@@ -34,5 +36,9 @@ class Quote extends Model {
 
   public function project(): BelongsTo {
     return $this->belongsTo(Project::class);
+  }
+
+  public function organization(): BelongsTo {
+    return $this->belongsTo(Organization::class);
   }
 }

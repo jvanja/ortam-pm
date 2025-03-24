@@ -13,7 +13,9 @@ return new class extends Migration {
       $table->id();
       $table->float('amount');
       $table->boolean('paid');
-      $table->foreignId('project_id')->constrained();
+      $table->foreignId('project_id')->constrained()->onUpdate('cascade');
+      $table->foreignId('client_id')->constrained()->onUpdate('cascade');
+      $table->foreignId('organization_id')->constrained()->onUpdate('cascade');
       $table->timestamps();
     });
   }

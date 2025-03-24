@@ -5,6 +5,8 @@ namespace Database\Factories;
 use App\Enums\Language;
 use App\Enums\QuoteStatus;
 use App\Models\Project;
+use App\Models\Organization;
+use App\Models\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,6 +27,8 @@ class QuoteFactory extends Factory {
       'sales_representative_name' => fake()->name(),
       'quote_status' => fake()->randomElement(QuoteStatus::cases()),
       'project_id' => Project::factory(),
+      'client_id' => Client::factory(),
+      'organization_id' => Organization::factory(),
     ];
   }
 }

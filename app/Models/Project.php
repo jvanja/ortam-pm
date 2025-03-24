@@ -23,6 +23,7 @@ class Project extends Model {
     'sales_representative_name',
     'deadline',
     'client_id',
+    'organization_id',
   ];
 
   protected $casts = [
@@ -36,6 +37,10 @@ class Project extends Model {
 
   public function client(): BelongsTo {
     return $this->belongsTo(Client::class);
+  }
+
+  public function organization(): BelongsTo {
+    return $this->belongsTo(Organization::class);
   }
 
   public function updateProjectStatus(ProjectStatus $status): void {

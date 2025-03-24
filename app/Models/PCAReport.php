@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PCAReport extends Model {
   use HasFactory;
@@ -27,6 +28,9 @@ class PCAReport extends Model {
     'basement',
     'residential_units',
     'non_residential_units',
+    'project_id',
+    'client_id',
+    'organization_id',
   ];
 
   /**
@@ -44,4 +48,9 @@ class PCAReport extends Model {
     'residential_units'            => 'integer',
     'non_residential_units'        => 'integer',
   ];
+
+  public function organization(): BelongsTo {
+    return $this->belongsTo(Organization::class);
+  }
+
 }

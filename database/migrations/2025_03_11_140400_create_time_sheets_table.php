@@ -18,11 +18,8 @@ return new class extends Migration
             $table->float('worked_duration');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('project_id')->constrained();
-
-            // $table->uuid('project_id');
+            $table->foreignId('organization_id')->constrained();
             $table->timestamps();
-
-            // $table->foreign('project_id')->references('id')->on('projects');
         });
     }
 

@@ -10,9 +10,11 @@ class Invoice extends Model {
   use HasFactory;
 
   protected $fillable = [
-    'project_id',
     'amount',
     'paid',
+    'project_id',
+    'client_id',
+    'organization_id',
   ];
 
   protected $casts = [
@@ -25,7 +27,16 @@ class Invoice extends Model {
     return $this->belongsTo(Project::class);
   }
 
-  public function markAsPaid(): void {
-    $this->paid = true;
+  public function client(): BelongsTo {
+    return $this->belongsTo(Client::class);
   }
+
+  public function organization(): BelongsTo {
+    return $this->belongsTo(Organization::class);
+  }
+  // - TODO:
+  // Move to the controller
+  // public function markAsPaid(): void {
+  //   $this->paid = true;
+  // }
 }

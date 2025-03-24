@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class ClientFactory extends Factory {
       'address' => fake()->address(),
       'phone' => fake()->phoneNumber(),
       'email' => fake()->email(),
+      'organization_id' => Organization::factory(),
     ];
   }
 }

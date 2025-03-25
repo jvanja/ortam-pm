@@ -12,6 +12,8 @@ class PCAReportController extends Controller {
    */
   public function index() {
 
+    $this->authorize('report.view', PCAReport::class);
+
     $pca_reports = PCAReport::all();
 
     return Inertia::render('pca_reports/Index', [
@@ -24,12 +26,14 @@ class PCAReportController extends Controller {
    */
   public function store(Request $request) {
     //
+    $this->authorize('report.create', PCAReport::class);
   }
 
   /**
    * Display the specified resource.
    */
   public function show($id) {
+    $this->authorize('report.view', PCAReport::class);
     $report = PCAReport::findOrFail($id); // Or handle not found
 
     return Inertia::render('pca_reports/Show', [
@@ -41,13 +45,15 @@ class PCAReportController extends Controller {
    * Show the form for editing the specified resource.
    */
   public function edit(PCAReport $PCAReport) {
-    //
+    $this->authorize('report.edit', PCAReport::class);
   }
 
   /**
    * Update the specified resource in storage.
    */
   public function update(Request $request, int $id) {
+    $this->authorize('report.edit', PCAReport::class);
+
     $validatedData = $request->validate([
       'name' => 'required',
       'occupation_of_the_property' => 'required',
@@ -58,7 +64,7 @@ class PCAReportController extends Controller {
       'structure' => 'required',
       'fondation' => 'required',
       'building' => 'nullable',
-      'numbers_of_floors' => ['nullable', 'numberic'],
+      'numbers_of_floors' => ['nullable', 'numeric'],
       'basement' => 'boolean',
       'residential_units' => ['nullable', 'numeric'],
       'non_residential_units' => ['nullable', 'numeric'],
@@ -74,5 +80,6 @@ class PCAReportController extends Controller {
    */
   public function destroy(PCAReport $PCAReport) {
     //
+    $this->authorize('report.delete', PCAReport::class);
   }
 }

@@ -22,7 +22,7 @@ const form = useForm({ ...props.pca_report });
 const handleFormUpdate = (newForm: p_c_a_reportsEntity) => Object.assign(form, newForm);
 const submit = () => {
   /* @ts-expect-error This is fine */
-  form.patch(route('pca_reports.update', props.pca_report.id), {
+  form.patch(route('pca-reports.update', props.pca_report.id), {
     preserveScroll: true,
     onSuccess: () => {
       toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });

@@ -122,7 +122,7 @@ class RolePermissionSeeder extends Seeder {
           $permission = Permission::create(
             [
               'name' => $permissions[$i]['permissions'][$j],
-              'group_name' => $permissionGroup,
+              // 'group_name' => $permissionGroup,
               // 'guard_name' => 'admin'
             ]
           );

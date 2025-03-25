@@ -17,11 +17,11 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
   <Head title="Dashboard" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
-    <div v-if="projects.length > 10" class="flex flex-col gap-4 p-8">
+    <div v-if="projects.length > 1" class="flex flex-col gap-4 p-8">
       <Heading title="Projects" description="These are your latest projects" />
       <div class="flex flex-col gap-2">
         <div v-for="project in projects" :key="project.id" class="flex justify-between rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
-          <div class="px-4 py-2 text-sm font-medium">{{ project.project_type }}</div>
+          <div class="px-4 py-2 text-sm font-medium">{{ project.type }}</div>
           <div class="flex gap-2">
             <Button variant="default"><a :href="`/projects/${project.id}`">Edit</a></Button>
             <Button variant="destructive">Delete</Button>
@@ -32,7 +32,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
         <Label for="name">Search projects</Label>
         <Input id="search" class="mt-1 block w-full" placeholder="Project name" />
       </div>
-      <Button>Add new</Button>
+      <Button>Add new project</Button>
     </div>
     <div v-else class="flex flex-col gap-4 p-8">
       <Heading title="Projects" description="You currently have no projects" />

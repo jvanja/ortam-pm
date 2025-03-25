@@ -13,14 +13,14 @@ class Project extends Model {
 
   protected $fillable = [
     'department',
-    'project_type',
-    'project_manager',
-    'project_language',
-    'project_address',
-    'project_status',
-    'project_opening_date',
+    'type',
+    'manager',
+    'language',
+    'address',
+    'status',
     'budget',
     'sales_representative_name',
+    'opening_date',
     'deadline',
     'client_id',
     'organization_id',
@@ -28,9 +28,9 @@ class Project extends Model {
 
   protected $casts = [
     'id' => 'string',
-    'project_language' => Language::class,
-    'project_status' => ProjectStatus::class,
-    'project_opening_date' => 'date',
+    'language' => Language::class,
+    'status' => ProjectStatus::class,
+    'opening_date' => 'date',
     'deadline' => 'date',
     'budget' => 'float',
   ];

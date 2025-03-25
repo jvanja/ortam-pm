@@ -31,7 +31,7 @@ console.log(props.projects);
         <Heading title="Projects" description="These are your latest projects" />
         <div class="flex flex-col gap-2">
           <div v-for="project in projects" :key="project.id" class="flex justify-between rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
-            <div class="px-4 py-2 text-sm font-medium">{{ project.project_type }}</div>
+            <div class="px-4 py-2 text-sm font-medium">{{ project.type }}</div>
             <div class="flex gap-2">
               <Button variant="default"><a :href="`/projects/${project.id}`">Edit</a></Button>
               <Button variant="destructive">Delete</Button>

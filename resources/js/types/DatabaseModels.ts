@@ -13570,6 +13570,7 @@ export interface clientsEntity {
   'created_at'?: Date | null;
   'email': string;
   'id'?: string;
+  'organization_id': string;
   'phone': string;
   'updated_at'?: Date | null;
 }
@@ -13584,8 +13585,10 @@ export interface failed_jobsEntity {
 }
 export interface invoicesEntity {
   'amount': number;
+  'client_id': string;
   'created_at'?: Date | null;
   'id'?: string;
+  'organization_id': string;
   'paid': any;
   'project_id': string;
   'updated_at'?: Date | null;
@@ -13635,6 +13638,7 @@ export interface organizationsEntity {
 export interface p_c_a_reportsEntity {
   'basement': any;
   'building': string;
+  'client_id': string;
   'created_at'?: Date | null;
   'fondation': string;
   'id'?: string;
@@ -13645,6 +13649,8 @@ export interface p_c_a_reportsEntity {
   /* Percentage of total lot area */
   'occupation_of_the_building': number;
   'occupation_of_the_property': string;
+  'organization_id': string;
+  'project_id': string;
   'residential_units': number;
   'structure': string;
   
@@ -13669,25 +13675,28 @@ export interface permissionsEntity {
   'updated_at'?: Date | null;
 }
 export interface projectsEntity {
+  'address': string;
   'budget': number;
   'client_id': string;
   'created_at'?: Date | null;
   'deadline': Date;
   'department': string;
   'id'?: string;
-  'project_address': string;
-  'project_language': 'english' | 'french';
-  'project_manager': string;
-  'project_opening_date': Date;
-  'project_status': 'ongoing' | 'completed' | 'canceled';
-  'project_type': string;
+  'language': 'english' | 'french';
+  'manager': string;
+  'opening_date': Date;
+  'organization_id': string;
   'sales_representative_name': string;
+  'status': 'ongoing' | 'completed' | 'canceled';
+  'type': string;
   'updated_at'?: Date | null;
 }
 export interface quotesEntity {
   'budget': number;
+  'client_id': string;
   'created_at'?: Date | null;
   'id'?: string;
+  'organization_id': string;
   'project_address': string;
   'project_id': string;
   'project_type': string;
@@ -13718,6 +13727,7 @@ export interface sessionsEntity {
 export interface time_sheetsEntity {
   'created_at'?: Date | null;
   'id'?: string;
+  'organization_id': string;
   'project_id': string;
   'task_performed': 'visit' | 'research' | 'fieldwork' | 'report';
   'updated_at'?: Date | null;

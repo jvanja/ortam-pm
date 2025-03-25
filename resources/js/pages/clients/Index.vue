@@ -33,7 +33,7 @@ console.log(props.clients);
           <div v-for="client in clients" :key="client.id" class="flex justify-between rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
             <div class="px-4 py-2 text-sm font-medium">{{ client.company_name }}</div>
             <div class="flex gap-2">
-              <Button variant="default"><a :href="`/projects/${client.id}`">Edit</a></Button>
+              <Button variant="default"><a :href="`/clients/${client.id}`">Edit</a></Button>
               <Button variant="destructive">Delete</Button>
             </div>
           </div>

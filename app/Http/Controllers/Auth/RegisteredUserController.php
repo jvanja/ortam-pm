@@ -45,4 +45,25 @@ class RegisteredUserController extends Controller {
 
     return to_route('dashboard');
   }
+
+  /**
+   * Switch user by {id} and store original user id in session
+   */
+  public function user_switch_start($new_user_id, Request $request) {
+    // dd($request->session()->all());
+    $new_user_id = User::find($new_user_id);
+    $request->session()->put('orig_user', Auth::id());
+    Auth::login($new_user_id);
+    return redirect()->back();
+  }
+
+  /**
+   * Return to original user
+   */
+  public function user_switch_stop(Request $request) {
+    $id = $request->session()->get('orig_user');
+    $orig_user = User::find($id);
+    Auth::login($orig_user);
+    return redirect()->back();
+  }
 }

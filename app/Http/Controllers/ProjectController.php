@@ -46,13 +46,13 @@ class ProjectController extends Controller {
    */
   public function store(Request $request) {
     $validated = $request->validate([
-      'project_type' => 'required|string',
+      'type' => 'required|string',
       'department' => 'required|string',
-      'project_manager' => 'required|string',
-      'project_language' => 'required|string',
-      'project_address' => 'required|string',
-      'project_status' => 'required|string',
-      'project_opening_date' => 'required|date',
+      'manager' => 'required|string',
+      'language' => 'required|string',
+      'address' => 'required|string',
+      'status' => 'required|string',
+      'opening_date' => 'required|date',
       'budget' => 'required|numeric',
       'sales_representative_name' => 'required|string',
       'deadline' => 'required|date',
@@ -72,13 +72,13 @@ class ProjectController extends Controller {
     $project = Project::findOrFail($id);
 
     $validated = $request->validate([
-      'project_type' => 'sometimes|string',
+      'type' => 'sometimes|string',
       'department' => 'sometimes|string',
-      'project_manager' => 'sometimes|string',
-      'project_language' => 'sometimes|string',
-      'project_address' => 'sometimes|string',
-      'project_status' => 'sometimes|string',
-      'project_opening_date' => 'sometimes|date',
+      'manager' => 'sometimes|string',
+      'language' => 'sometimes|string',
+      'address' => 'sometimes|string',
+      'status' => 'sometimes|string',
+      'opening_date' => 'sometimes|date',
       'budget' => 'sometimes|numeric',
       'sales_representative_name' => 'sometimes|string',
       'deadline' => 'sometimes|date',

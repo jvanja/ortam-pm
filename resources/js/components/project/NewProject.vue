@@ -7,13 +7,13 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 
 const form = useForm({
-  project_type: '',
+  type: '',
   department: '',
-  project_manager: '',
-  project_language: '',
-  project_address: '',
-  project_status: '',
-  project_opening_date: '',
+  manager: '',
+  language: '',
+  address: '',
+  status: '',
+  opening_date: '',
   budget: 0,
   sales_representative_name: '',
   deadline: '',
@@ -37,9 +37,9 @@ const submit = () => {
     <form @submit.prevent="submit" class="space-y-6">
       <div class="grid grid-cols-2 gap-6">
         <div class="space-y-2">
-          <Label for="project_type">Project Type</Label>
-          <Input v-model="form.project_type" id="project_type" placeholder="Enter project type" />
-          <div class="text-sm text-red-500" v-if="form.errors.project_type">{{ form.errors.project_type }}</div>
+          <Label for="type">Project Type</Label>
+          <Input v-model="form.type" id="type" placeholder="Enter project type" />
+          <div class="text-sm text-red-500" v-if="form.errors.type">{{ form.errors.type }}</div>
         </div>
 
         <div class="space-y-2">
@@ -49,33 +49,33 @@ const submit = () => {
         </div>
 
         <div class="space-y-2">
-          <Label for="project_manager">Project Manager</Label>
-          <Input v-model="form.project_manager" id="project_manager" placeholder="Enter project manager" />
-          <div class="text-sm text-red-500" v-if="form.errors.project_manager">{{ form.errors.project_manager }}</div>
+          <Label for="manager">Project Manager</Label>
+          <Input v-model="form.manager" id="manager" placeholder="Enter project manager" />
+          <div class="text-sm text-red-500" v-if="form.errors.manager">{{ form.errors.manager }}</div>
         </div>
 
         <div class="space-y-2">
-          <Label for="project_language">Project Language</Label>
-          <Input v-model="form.project_language" id="project_language" placeholder="Enter project language" />
-          <div class="text-sm text-red-500" v-if="form.errors.project_language">{{ form.errors.project_language }}</div>
+          <Label for="language">Project Language</Label>
+          <Input v-model="form.language" id="language" placeholder="Enter project language" />
+          <div class="text-sm text-red-500" v-if="form.errors.language">{{ form.errors.language }}</div>
         </div>
 
         <div class="space-y-2">
-          <Label for="project_address">Project Address</Label>
-          <Input v-model="form.project_address" id="project_address" placeholder="Enter project address" />
-          <div class="text-sm text-red-500" v-if="form.errors.project_address">{{ form.errors.project_address }}</div>
+          <Label for="address">Project Address</Label>
+          <Input v-model="form.address" id="address" placeholder="Enter project address" />
+          <div class="text-sm text-red-500" v-if="form.errors.address">{{ form.errors.address }}</div>
         </div>
 
         <div class="space-y-2">
-          <Label for="project_status">Project Status</Label>
-          <Input v-model="form.project_status" id="project_status" placeholder="Enter project status" />
-          <div class="text-sm text-red-500" v-if="form.errors.project_status">{{ form.errors.project_status }}</div>
+          <Label for="status">Project Status</Label>
+          <Input v-model="form.status" id="status" placeholder="Enter project status" />
+          <div class="text-sm text-red-500" v-if="form.errors.status">{{ form.errors.status }}</div>
         </div>
 
         <div class="space-y-2">
-          <Label for="project_opening_date">Opening Date</Label>
-          <Input v-model="form.project_opening_date" type="date" id="project_opening_date" />
-          <div class="text-sm text-red-500" v-if="form.errors.project_opening_date">{{ form.errors.project_opening_date }}</div>
+          <Label for="opening_date">Opening Date</Label>
+          <Input v-model="form.opening_date" type="date" id="opening_date" />
+          <div class="text-sm text-red-500" v-if="form.errors.opening_date">{{ form.errors.opening_date }}</div>
         </div>
 
         <div class="space-y-2">

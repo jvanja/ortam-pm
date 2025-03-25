@@ -19,15 +19,15 @@ class ProjectFactory extends Factory {
    */
   public function definition(): array {
     return [
-      'project_type' => fake()->jobTitle(),
+      'type' => fake()->jobTitle(),
       'department' => fake()->word(),
-      'project_manager' => fake()->name(),
-      'project_language' => fake()->randomElement(Language::cases()),
-      'project_address' => fake()->address(),
+      'manager' => fake()->name(),
+      'language' => fake()->randomElement(Language::cases()),
+      'address' => fake()->address(),
       'budget' => fake()->randomFloat(2, 1000, 10000),
       'sales_representative_name' => fake()->name(),
-      'project_status' => fake()->randomElement(ProjectStatus::cases()),
-      'project_opening_date' => fake()->date(),
+      'status' => fake()->randomElement(ProjectStatus::cases()),
+      'opening_date' => fake()->date(),
       'deadline' => fake()->dateTimeBetween('now', '+1 year'),
       'client_id' => Client::factory(),
       'organization_id' => Organization::factory(),

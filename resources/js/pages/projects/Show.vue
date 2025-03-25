@@ -28,13 +28,13 @@ console.warn("DEBUGPRINT[8]: Show.vue:23: project=", project)
 const form = useForm(project);
 const submit = () => {
   console.log(form)
-  // /* @ts-expect-error This is fine */
-  /* form.patch(route('projects.update', props.project.id), { */
-  /*   preserveScroll: true, */
-  /*   onSuccess: () => { */
-  /*     toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } }); */
-  /*   }, */
-  /* }); */
+  /* @ts-expect-error This is fine */
+  form.patch(route('projects.update', props.project.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });
+    },
+  });
 };
 console.log(props.project);
 </script>

@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Toaster } from '@/components/ui/sonner';
 import { Head, useForm } from '@inertiajs/vue3';
+import { toast } from 'vue-sonner';
 
 const props = defineProps<{ client: clientsEntity }>();
 
@@ -21,13 +22,13 @@ const client = { ...props.client };
 const form = useForm(client);
 const submit = () => {
   console.log(form);
-  // /* @ts-expect-error This is fine */
-  /* form.patch(route('projects.update', props.project.id), { */
-  /*   preserveScroll: true, */
-  /*   onSuccess: () => { */
-  /*     toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } }); */
-  /*   }, */
-  /* }); */
+  /* @ts-expect-error This is fine */
+  form.patch(route('clients.update', props.client.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });
+    },
+  });
 };
 </script>
 <template>
@@ -46,11 +47,11 @@ const submit = () => {
               <div class="grid w-full items-center gap-4">
                 <div class="flex flex-col space-y-1.5">
                   <Label htmlFor="contact">Contact</Label>
-                  <Input id="contact" v-model="client.contact_person" />
+                  <Input id="contact" v-model="form.contact_person" />
                 </div>
                 <div class="flex flex-col space-y-1.5">
                   <Label htmlFor="email">Email address</Label>
-                  <Input id="email" v-model="client.email" />
+                  <Input id="email" v-model="form.email" />
                 </div>
               </div>
               <div class="flex w-full justify-end">

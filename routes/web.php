@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
@@ -34,9 +35,12 @@ Route::get('/set-locale/{locale}', function ($locale, Request $request) {
 Route::get( 'admin/user/switch/start/{id}', [RegisteredUserController::class, 'user_switch_start']);
 Route::get( 'admin/user/switch/stop', [RegisteredUserController::class, 'user_switch_stop'] );
 
+Route::middleware(['auth', 'verified'])->group(function () {
+  Route::resource('projects', ProjectController::class); //->except(['store']);
+});
+
 // - TODO:
 // Maybe just have them all here instead of requiring
-require base_path('routes/projects.php');
 require base_path('routes/clients.php');
 require base_path('routes/pca.php');
 

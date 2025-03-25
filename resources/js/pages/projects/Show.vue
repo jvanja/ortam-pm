@@ -5,21 +5,27 @@ import type { clientsEntity, projectsEntity } from '@/types/DatabaseModels';
 type projectWithClient = projectsEntity & { client: clientsEntity };
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Head, useForm } from '@inertiajs/vue3';
+import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'vue-sonner';
 
 const props = defineProps<{ project: projectWithClient }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Projects', href: '/projects' },
-  { title: props.project.type, href: '' },
+  { title: props.project.type!, href: '' },
 ];
 
-const form = useForm({ ...props.project });
+const project = { ...props.project };
+project.client = { ...props.project.client };
+console.warn("DEBUGPRINT[8]: Show.vue:23: project=", project)
+
+/* @ts-expect-error This is fine */
+const form = useForm(project);
 const submit = () => {
   console.log(form)
   // /* @ts-expect-error This is fine */
@@ -48,16 +54,20 @@ console.log(props.project);
             <form @submit.prevent="submit" class="space-y-6">
               <div class="grid w-full items-center gap-4">
                 <div class="flex flex-col space-y-1.5">
+                  <Label htmlFor="budget">Budget</Label>
+                  <Input id="budget" v-model="form.budget" />
+                </div>
+                <div class="flex flex-col space-y-1.5">
                   <Label htmlFor="rep">Representative Name</Label>
-                  <Input id="rep" :placeholder="project.sales_representative_name" />
+                  <Input id="rep" placeholder="Representative name" v-model="form.sales_representative_name" />
                 </div>
                 <div class="flex flex-col space-y-1.5">
                   <Label htmlFor="pm">Project Manager</Label>
-                  <Input id="pm" :placeholder="project.manager" />
+                  <Input id="pm" :placeholder="project.manager" v-model="form.manager"/>
                 </div>
                 <div class="flex flex-col space-y-1.5">
                   <Label htmlFor="status">Status</Label>
-                  <Select :defaultValue="project.status">
+                  <Select :defaultValue="project.status" v-model="form.status">
                     <SelectTrigger id="status">
                       <SelectValue />
                     </SelectTrigger>
@@ -69,12 +79,11 @@ console.log(props.project);
                   </Select>
                 </div>
               </div>
+              <div class="flex w-full justify-end">
+                <Button :disabled="form.processing">Save</Button>
+              </div>
             </form>
           </CardContent>
-          <CardFooter class="flex justify-between">
-            <Button variant="outline">Cancel</Button>
-            <Button>Update</Button>
-          </CardFooter>
         </Card>
       </div>
     </div>

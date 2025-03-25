@@ -204,770 +204,770 @@ export interface wp_usersEntity {
 
 /* Stores action information. */
 export interface actionsEntity {
-  
+
   /* Primary Key: Unique actions ID. */
   'aid'?: string;
-  
+
   /* The callback function that executes when the action runs. */
   'callback'?: string;
-  
+
   /* Label of the action. */
   'label'?: string;
-  
+
   /* Parameters to be passed to the callback function. */
   'parameters': any;
-  
+
   /* The object that that action acts on (node, user, comment, system or custom types.) */
   'type'?: string;
 }
 
 /* Stores distributed authentication mapping. */
 export interface authmapEntity {
-  
+
   /* Primary Key: Unique authmap ID. */
   'aid'?: number;
-  
+
   /* Unique authentication name. */
   'authname'?: string;
-  
+
   /* Module which is controlling the authentication. */
   'module'?: string;
-  
+
   /* User’s users.uid. */
   'uid'?: number;
 }
 
 /* Stores details about batches (processes that run in... */
 export interface batchEntity {
-  
+
   /* A serialized array containing the processing data for the batch. */
   'batch'?: any | null;
-  
+
   /* Primary Key: Unique batch ID. */
   'bid': number;
-  
+
   /* A Unix timestamp indicating when this batch was submitted for processing. Stale batches are purged at cron time. */
   'timestamp': number;
-  
+
   /* A string token generated against the current user’s session id and the batch id, used to ensure that only the user who submitted the batch can effectively access it. */
   'token': string;
 }
 
 /* Store custom defined beautytip styles. */
 export interface beautytips_custom_stylesEntity {
-  
+
   /* Controls roundness of corners (integer) */
   'corner_radius'?: string | null;
-  
+
   /* css class of beautytip popup. */
   'css_class'?: string | null;
-  
+
   /* The color of the text. */
   'css_color'?: string | null;
-  
+
   /* The font family of the text. */
   'css_font_family'?: string | null;
-  
+
   /* The font size of the text. */
   'css_font_size'?: string | null;
-  
+
   /* The font weight of the text. */
   'css_font_weight'?: string | null;
-  
+
   /* background color (string - html color) */
   'fill'?: string | null;
-  
+
   /* The unique id for the custom beautytip style. */
   'id'?: number;
-  
+
   /* The unique name for this style. */
   'name'?: string | null;
-  
+
   /* space between content and border (number in px) */
   'padding'?: string | null;
-  
+
   /* Whether the shadow should be on, off, or default. */
   'shadow'?: string | null;
-  
+
   /* Size of popup shadow (integer) */
   'shadow_blur'?: string | null;
-  
+
   /* Color of popup shadow (string - html color) */
   'shadow_color'?: string | null;
-  
+
   /* thickness of spike (integer) */
   'spike_girth'?: string | null;
-  
+
   /* length of spike (integer) */
   'spike_length'?: string | null;
-  
+
   /* color of border (string - html color) */
   'stroke_style'?: string | null;
-  
+
   /* width of border (integer) */
   'stroke_width'?: string | null;
-  
+
   /* width of popup (number in px) */
   'width'?: string | null;
 }
 
 /* Store custom defined beautytips. */
 export interface beautytips_custom_tipsEntity {
-  
+
   /* The animation that will occurs when the beautytips turns off. */
   'animation_off'?: string | null;
-  
+
   /* The animation that will occurs when the beautytips turns on. */
   'animation_on'?: string | null;
-  
+
   /* The content that will be displayed. Depends on content type. */
   'content'?: string | null;
-  
+
   /* What kind of content will be grabbed for the display. */
   'content_type'?: string | null;
   'disable_link'?: number;
-  
+
   /* The element to which this beautytips will be applied. */
   'element': string;
-  
+
   /* Whether or not this tip is enabled */
   'enabled'?: number | null;
-  
+
   /* The unique id for the custom beautytip. */
   'id'?: number;
-  
+
   /* Contains a list of paths on which to include/exclude the beautytip, depending on "visibility" setting. */
   'pages': string;
-  
+
   /* The position order in which this beautytip should display. */
   'positions'?: string | null;
   'shrink'?: number;
-  
+
   /* The style of the beautytip. */
   'style'?: string | null;
-  
+
   /* The event that will turn the beautytips off. */
   'trigger_off'?: string | null;
-  
+
   /* The event that will turn the beautytips on. */
   'trigger_on'?: string | null;
-  
+
   /* Flag to indicate how to show beautytips on pages. (0 = Show on all pages except listed pages, 1 = Show only on listed pages, 2 = Use custom PHP code to determine visibility) */
   'visibility'?: number;
 }
 
 /* Stores block settings, such as region and visibility... */
 export interface blockEntity {
-  
+
   /* Primary Key: Unique block ID. */
   'bid'?: number;
-  
+
   /* Binary flag to indicate block cache mode. (-2: Custom cache, -1: Do not cache, 1: Cache per role, 2: Cache per user, 4: Cache per page, 8: Block cache global) See DRUPAL_CACHE_* constants in ../includes/common.inc for more detailed information. */
   'cache'?: number;
-  
+
   /* Flag to indicate how users may control visibility of the block. (0 = Users cannot control, 1 = On by default, but can be hidden, 2 = Hidden by default, but can be shown) */
   'custom'?: number;
-  
+
   /* Unique ID for block within a module. */
   'delta'?: string;
-  
+
   /* The module from which the block originates; for example, ’user’ for the Who’s Online block, and ’block’ for any custom blocks. */
   'module'?: string;
-  
+
   /* Contents of the "Pages" block; contains either a list of paths on which to include/exclude the block or PHP code, depending on "visibility" setting. */
   'pages': string;
-  
+
   /* Theme region within which the block is set. */
   'region'?: string;
-  
+
   /* Block enabled status. (1 = enabled, 0 = disabled) */
   'status'?: number;
-  
+
   /* The theme under which the block settings apply. */
   'theme'?: string;
-  
+
   /* Custom title for the block. (Empty string will use block default title, <none> will remove the title, text will cause block to use specified title.) */
   'title'?: string;
-  
+
   /* Flag to indicate how to show blocks on pages. (0 = Show on all pages except listed pages, 1 = Show only on listed pages, 2 = Use custom PHP code to determine visibility) */
   'visibility'?: number;
-  
+
   /* Block weight within region. */
   'weight'?: number;
 }
 
 /* Stores contents of custom-made blocks. */
 export interface block_customEntity {
-  
+
   /* The block’s block.bid. */
   'bid'?: number;
-  
+
   /* Block contents. */
   'body'?: string | null;
-  
+
   /* The filter_format.format of the block body. */
   'format'?: string | null;
-  
+
   /* Block description. */
   'info'?: string;
 }
 
 /* Sets up display criteria for blocks based on content types */
 export interface block_node_typeEntity {
-  
+
   /* The block’s unique delta within module, from block.delta. */
   'delta': string;
-  
+
   /* The block’s origin module, from block.module. */
   'module': string;
-  
+
   /* The machine-readable name of this type from node_type.type. */
   'type': string;
 }
 
 /* Sets up access permissions for blocks based on user roles */
 export interface block_roleEntity {
-  
+
   /* The block’s unique delta within module, from block.delta. */
   'delta': string;
-  
+
   /* The block’s origin module, from block.module. */
   'module': string;
-  
+
   /* The user’s role ID from users_roles.rid. */
   'rid': number;
 }
 
 /* Stores blocked IP addresses. */
 export interface blocked_ipsEntity {
-  
+
   /* Primary Key: unique ID for IP addresses. */
   'iid'?: number;
-  
+
   /* IP address */
   'ip'?: string;
 }
 
 /* Generic cache table for caching things not separated out... */
 export interface cacheEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for Administration menu to store client-side... */
 export interface cache_admin_menuEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the Block module to store already built... */
 export interface cache_blockEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for data required to bootstrap Drupal, may be... */
 export interface cache_bootstrapEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Generic cache table for caching things not separated out... */
 export interface cache_fieldEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the Filter module to store already... */
 export interface cache_filterEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the form system to store recently built... */
 export interface cache_formEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table used to store information about image... */
 export interface cache_imageEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the the results of retreived XML... */
 export interface cache_media_xmlEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the menu system to store router... */
 export interface cache_menuEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table used to store compressed pages for anonymous... */
 export interface cache_pageEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for path alias lookup. */
 export interface cache_pathEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the rules engine to store configured items. */
 export interface cache_rulesEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for token information. */
 export interface cache_tokenEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the Update module to store information... */
 export interface cache_updateEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Generic cache table for caching things not separated out... */
 export interface cache_viewsEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for views to store pre-rendered queries,... */
 export interface cache_views_dataEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 export interface cck_field_settingsEntity {
-  
+
   /* The name of the bundle, NULL for field settings. */
   'bundle'?: string | null;
-  
+
   /* The name of the entity type, NULL for field settings. */
   'entity_type'?: string;
-  
+
   /* The name of the field. */
   'field_name': string;
-  
+
   /* The name of the language, NULL for field settings. */
   'language'?: string | null;
-  
+
   /* The name of the setting that CCK is managing (default_value_php, allowed_values_php, etc). */
   'setting': string;
-  
+
   /* The custom value for this setting. */
   'setting_option'?: string | null;
-  
+
   /* The type of setting that CCK is managing (field, instance, widget, display). */
   'setting_type': string;
 }
 
 /* Stores CKEditor input format assignments */
 export interface ckeditor_input_formatEntity {
-  
+
   /* Drupal filter format ID */
   'format'?: string;
-  
+
   /* Name of the CKEditor role */
   'name'?: string;
 }
 
 /* Stores CKEditor profile settings */
 export interface ckeditor_settingsEntity {
-  
+
   /* Name of the CKEditor profile */
   'name'?: string;
-  
+
   /* Profile settings */
   'settings'?: string | null;
 }
 
 /* Stores comments and associated data. */
 export interface commentEntity {
-  
+
   /* The time that the comment was last edited, as a Unix timestamp. */
   'changed'?: number;
-  
+
   /* Primary Key: Unique comment ID. */
   'cid'?: number;
-  
+
   /* The time that the comment was created, as a Unix timestamp. */
   'created'?: number;
-  
+
   /* The comment author’s home page address from the comment form, if user is anonymous, and the ’Anonymous users may/must leave their contact information’ setting is turned on. */
   'homepage'?: string | null;
-  
+
   /* The author’s host name. */
   'hostname'?: string;
-  
+
   /* The languages.language of this comment. */
   'language'?: string;
-  
+
   /* The comment author’s e-mail address from the comment form, if user is anonymous, and the ’Anonymous users may/must leave their contact information’ setting is turned on. */
   'mail'?: string | null;
-  
+
   /* The comment author’s name. Uses users.name if the user is logged in, otherwise uses the value typed into the comment form. */
   'name'?: string | null;
-  
+
   /* The node.nid to which this comment is a reply. */
   'nid'?: number;
-  
+
   /* The comment.cid to which this comment is a reply. If set to 0, this comment is not a reply to an existing comment. */
   'pid'?: number;
-  
+
   /* The published status of a comment. (0 = Not Published, 1 = Published) */
   'status'?: number;
-  
+
   /* The comment title. */
   'subject'?: string;
-  
+
   /* The vancode representation of the comment’s place in a thread. */
   'thread': string;
-  
+
   /* The users.uid who authored the comment. If set to 0, this comment was created by an anonymous user. */
   'uid'?: number;
 }
 
 /* A special cache used to store CSS that must be non-volatile. */
 export interface ctools_css_cacheEntity {
-  
+
   /* The CSS ID this cache object belongs to. */
   'cid': string;
-  
+
   /* CSS being stored. */
   'css'?: string | null;
-  
+
   /* The filename this CSS is stored in. */
   'filename'?: string | null;
-  
+
   /* Whether or not this CSS needs to be filtered. */
   'filter'?: number | null;
 }
 
 /* A special cache used to store objects that are being... */
 export interface ctools_object_cacheEntity {
-  
+
   /* Serialized data being stored. */
   'data'?: string | null;
-  
+
   /* The name of the object this cache is attached to. */
   'name': string;
-  
+
   /* The type of the object this cache is attached to; this essentially represents the owner so that several sub-systems can use this cache. */
   'obj': string;
-  
+
   /* The session ID this cache object belongs to. */
   'sid': string;
-  
+
   /* The time this cache was created or updated. */
   'updated'?: number;
 }
 
 /* Stores configured date formats for each locale. */
 export interface date_format_localeEntity {
-  
+
   /* The date format string. */
   'format': string;
-  
+
   /* A languages.language for this format to be used with. */
   'language': string;
-  
+
   /* The date format type, e.g. medium. */
   'type': string;
 }
 
 /* Stores configured date format types. */
 export interface date_format_typeEntity {
-  
+
   /* Whether or not this is a system provided format. */
   'locked'?: number;
-  
+
   /* The human readable name of the format type. */
   'title': string;
-  
+
   /* The date format type, e.g. medium. */
   'type': string;
 }
 
 /* Stores configured date formats. */
 export interface date_formatsEntity {
-  
+
   /* The date format identifier. */
   'dfid'?: number;
-  
+
   /* The date format string. */
   'format': string;
-  
+
   /* Whether or not this format can be modified. */
   'locked'?: number;
-  
+
   /* The date format type, e.g. medium. */
   'type': string;
 }
 export interface field_configEntity {
-  
+
   /* Boolean indicating whether the module that implements the field type is enabled. */
   'active'?: number;
   'cardinality'?: number;
-  
+
   /* Serialized data containing the field properties that do not warrant a dedicated column. */
   'data': any;
   'deleted'?: number;
-  
+
   /* The name of this field. Non-deleted field names are unique, but multiple deleted fields can have the same name. */
   'field_name': string;
-  
+
   /* The primary identifier for a field */
   'id'?: number;
-  
+
   /* @TODO */
   'locked'?: number;
-  
+
   /* The module that implements the field type. */
   'module'?: string;
-  
+
   /* Boolean indicating whether the module that implements the storage backend is enabled. */
   'storage_active'?: number;
-  
+
   /* The module that implements the storage backend. */
   'storage_module'?: string;
-  
+
   /* The storage backend for the field. */
   'storage_type': string;
   'translatable'?: number;
-  
+
   /* The type of this field. */
   'type': string;
 }
@@ -976,11 +976,11 @@ export interface field_config_instanceEntity {
   'data': any;
   'deleted'?: number;
   'entity_type'?: string;
-  
+
   /* The identifier of the field attached by this instance */
   'field_id': number;
   'field_name'?: string;
-  
+
   /* The primary identifier for a field instance */
   'id'?: number;
 }
@@ -990,640 +990,640 @@ export interface field_data_bodyEntity {
   'body_format'?: string | null;
   'body_summary'?: string | null;
   'body_value'?: string | null;
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 1 (comment_body) */
 export interface field_data_comment_bodyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
   'comment_body_format'?: string | null;
   'comment_body_value'?: string | null;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 10 (field_event_date) */
 export interface field_data_field_event_dateEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_event_date_value'?: Date | null;
   'field_event_date_value2'?: Date | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 21 (field_facebook_sharing_copy) */
 export interface field_data_field_facebook_sharing_copyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_facebook_sharing_copy_format'?: string | null;
   'field_facebook_sharing_copy_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 22 (field_facebook_sharing_fbhl) */
 export interface field_data_field_facebook_sharing_fbhlEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_facebook_sharing_fbhl_format'?: string | null;
   'field_facebook_sharing_fbhl_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 23 (field_facebook_sharing_fbweb) */
 export interface field_data_field_facebook_sharing_fbwebEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_facebook_sharing_fbweb_format'?: string | null;
   'field_facebook_sharing_fbweb_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 15 (field_google_map) */
 export interface field_data_field_google_mapEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_google_map_format'?: string | null;
   'field_google_map_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 20 (field_has_more_button) */
 export interface field_data_field_has_more_buttonEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_has_more_button_value'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 4 (field_image) */
 export interface field_data_field_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_image_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_image_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_image_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_image_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 12 (field_nt_detail_page_banner) */
 export interface field_data_field_nt_detail_page_bannerEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_nt_detail_page_banner_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_nt_detail_page_banner_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_nt_detail_page_banner_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_nt_detail_page_banner_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_nt_detail_page_banner_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 5 (field_nt_post_image) */
 export interface field_data_field_nt_post_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_nt_post_image_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_nt_post_image_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_nt_post_image_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_nt_post_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_nt_post_image_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 19 (field_nt_post_page_carousel) */
 export interface field_data_field_nt_post_page_carouselEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_nt_post_page_carousel_data'?: string | null;
   'field_nt_post_page_carousel_fid'?: number | null;
   'field_nt_post_page_carousel_title'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 18 (field_nt_post_title) */
 export interface field_data_field_nt_post_titleEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_nt_post_title_format'?: string | null;
   'field_nt_post_title_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 6 (field_nt_tags) */
 export interface field_data_field_nt_tagsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_nt_tags_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 11 (field_nt_thumb_description) */
 export interface field_data_field_nt_thumb_descriptionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_nt_thumb_description_format'?: string | null;
   'field_nt_thumb_description_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 7 (field_nt_thumb_image) */
 export interface field_data_field_nt_thumb_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_nt_thumb_image_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_nt_thumb_image_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_nt_thumb_image_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_nt_thumb_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_nt_thumb_image_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 3 (field_tags) */
 export interface field_data_field_tagsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_tags_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 16 (field_testing_html_enclosing) */
 export interface field_data_field_testing_html_enclosingEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_testing_html_enclosing_format'?: string | null;
   'field_testing_html_enclosing_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 24 (field_twpost) */
 export interface field_data_field_twpostEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_twpost_format'?: string | null;
   'field_twpost_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 17 (field_youtube_video_id) */
 export interface field_data_field_youtube_video_idEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_youtube_video_id_format'?: string | null;
   'field_youtube_video_id_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 25 (meta_description) */
 export interface field_data_meta_descriptionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
   'meta_description_metatags_quick'?: string | null;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 26 (meta_keywords) */
 export interface field_data_meta_keywordsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
   'meta_keywords_metatags_quick'?: string | null;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
@@ -1633,1195 +1633,1195 @@ export interface field_revision_bodyEntity {
   'body_format'?: string | null;
   'body_summary'?: string | null;
   'body_value'?: string | null;
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 1 (comment_body) */
 export interface field_revision_comment_bodyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
   'comment_body_format'?: string | null;
   'comment_body_value'?: string | null;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 10 (field_event_date) */
 export interface field_revision_field_event_dateEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_event_date_value'?: Date | null;
   'field_event_date_value2'?: Date | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 21 (field_facebook... */
 export interface field_revision_field_facebook_sharing_copyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_facebook_sharing_copy_format'?: string | null;
   'field_facebook_sharing_copy_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 22 (field_facebook... */
 export interface field_revision_field_facebook_sharing_fbhlEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_facebook_sharing_fbhl_format'?: string | null;
   'field_facebook_sharing_fbhl_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 23 (field_facebook... */
 export interface field_revision_field_facebook_sharing_fbwebEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_facebook_sharing_fbweb_format'?: string | null;
   'field_facebook_sharing_fbweb_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 15 (field_google_map) */
 export interface field_revision_field_google_mapEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_google_map_format'?: string | null;
   'field_google_map_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 20 (field_has_more... */
 export interface field_revision_field_has_more_buttonEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_has_more_button_value'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 4 (field_image) */
 export interface field_revision_field_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_image_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_image_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_image_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_image_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 12 (field_nt_detail... */
 export interface field_revision_field_nt_detail_page_bannerEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_nt_detail_page_banner_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_nt_detail_page_banner_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_nt_detail_page_banner_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_nt_detail_page_banner_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_nt_detail_page_banner_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 5 (field_nt_post_image) */
 export interface field_revision_field_nt_post_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_nt_post_image_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_nt_post_image_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_nt_post_image_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_nt_post_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_nt_post_image_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 19 (field_nt_post_page... */
 export interface field_revision_field_nt_post_page_carouselEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_nt_post_page_carousel_data'?: string | null;
   'field_nt_post_page_carousel_fid'?: number | null;
   'field_nt_post_page_carousel_title'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 18 (field_nt_post_title) */
 export interface field_revision_field_nt_post_titleEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_nt_post_title_format'?: string | null;
   'field_nt_post_title_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 6 (field_nt_tags) */
 export interface field_revision_field_nt_tagsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_nt_tags_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 11 (field_nt_thumb... */
 export interface field_revision_field_nt_thumb_descriptionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_nt_thumb_description_format'?: string | null;
   'field_nt_thumb_description_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 7 (field_nt_thumb_image) */
 export interface field_revision_field_nt_thumb_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_nt_thumb_image_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_nt_thumb_image_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_nt_thumb_image_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_nt_thumb_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_nt_thumb_image_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 3 (field_tags) */
 export interface field_revision_field_tagsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_tags_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 16 (field_testing_html... */
 export interface field_revision_field_testing_html_enclosingEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_testing_html_enclosing_format'?: string | null;
   'field_testing_html_enclosing_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 24 (field_twpost) */
 export interface field_revision_field_twpostEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_twpost_format'?: string | null;
   'field_twpost_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 17 (field_youtube... */
 export interface field_revision_field_youtube_video_idEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_youtube_video_id_format'?: string | null;
   'field_youtube_video_id_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 25 (meta_description) */
 export interface field_revision_meta_descriptionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
   'meta_description_metatags_quick'?: string | null;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 26 (meta_keywords) */
 export interface field_revision_meta_keywordsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
   'meta_keywords_metatags_quick'?: string | null;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Stores configuration options for file displays. */
 export interface file_displayEntity {
-  
+
   /* A combined string (FILE_TYPE__VIEW_MODE__FILE_FORMATTER) identifying a file display configuration. For integration with CTools Exportables, stored as a single string rather than as a compound primary key. */
   'name': string;
-  
+
   /* A serialized array of name value pairs that store the formatter settings for the display. */
   'settings'?: any | null;
-  
+
   /* The status of the display. (1 = enabled, 0 = disabled) */
   'status'?: number;
-  
+
   /* Weight of formatter within the display chain for the associated file type and view mode. A file is rendered using the lowest weighted enabled display configuration that matches the file type and view mode and that is capable of displaying the file. */
   'weight'?: number;
 }
 
 /* Stores information for uploaded files. */
 export interface file_managedEntity {
-  
+
   /* File ID. */
   'fid'?: number;
-  
+
   /* The file’s MIME type. */
   'filemime'?: string;
-  
+
   /* Name of the file with no path components. This may differ from the basename of the URI if the file is renamed to avoid overwriting an existing file. */
   'filename'?: string;
-  
+
   /* The size of the file in bytes. */
   'filesize'?: number;
-  
+
   /* A field indicating the status of the file. Two status are defined in core: temporary (0) and permanent (1). Temporary files older than DRUPAL_MAXIMUM_TEMP_FILE_AGE will be removed during a cron run. */
   'status'?: number;
-  
+
   /* UNIX timestamp for when the file was added. */
   'timestamp'?: number;
-  
+
   /* The type of this file. */
   'type'?: string;
-  
+
   /* The users.uid of the user who is associated with the file. */
   'uid'?: number;
-  
+
   /* The URI to access the file (either local or remote). */
   'uri'?: string;
 }
 
 /* Track where a file is used. */
 export interface file_usageEntity {
-  
+
   /* The number of times this file is used by this object. */
   'count'?: number;
-  
+
   /* File ID. */
   'fid': number;
-  
+
   /* The primary key of the object using the file. */
   'id'?: number;
-  
+
   /* The name of the module that is using the file. */
   'module'?: string;
-  
+
   /* The name of the object type in which the file is used. */
   'type'?: string;
 }
 
 /* Table that maps filters (HTML corrector) to text formats ... */
 export interface filterEntity {
-  
+
   /* Foreign key: The filter_format.format to which this filter is assigned. */
   'format': string;
-  
+
   /* The origin module of the filter. */
   'module'?: string;
-  
+
   /* Name of the filter being referenced. */
   'name'?: string;
-  
+
   /* A serialized array of name value pairs that store the filter settings for the specific format. */
   'settings'?: any | null;
-  
+
   /* Filter enabled status. (1 = enabled, 0 = disabled) */
   'status'?: number;
-  
+
   /* Weight of filter within format. */
   'weight'?: number;
 }
 
 /* Stores text formats: custom groupings of filters, such as... */
 export interface filter_formatEntity {
-  
+
   /* Flag to indicate whether format is cacheable. (1 = cacheable, 0 = not cacheable) */
   'cache'?: number;
-  
+
   /* Primary Key: Unique machine name of the format. */
   'format': string;
-  
+
   /* Name of the text format (Filtered HTML). */
   'name'?: string;
-  
+
   /* The status of the text format. (1 = enabled, 0 = disabled) */
   'status'?: number;
-  
+
   /* Weight of text format to use when listing. */
   'weight'?: number;
 }
 
 /* Flood controls the threshold of events, such as the... */
 export interface floodEntity {
-  
+
   /* Name of event (e.g. contact). */
   'event'?: string;
-  
+
   /* Expiration timestamp. Expired events are purged on cron run. */
   'expiration'?: number;
-  
+
   /* Unique flood event ID. */
   'fid'?: number;
-  
+
   /* Identifier of the visitor, such as an IP address or hostname. */
   'identifier'?: string;
-  
+
   /* Timestamp of the event. */
   'timestamp'?: number;
 }
 
 /* A record of which users have read which nodes. */
 export interface historyEntity {
-  
+
   /* The node.nid that was read. */
   'nid'?: number;
-  
+
   /* The Unix timestamp at which the read occurred. */
   'timestamp'?: number;
-  
+
   /* The users.uid that read the node nid. */
   'uid'?: number;
 }
 
 /* Stores configuration options for image effects. */
 export interface image_effectsEntity {
-  
+
   /* The configuration data for the effect. */
   'data': any;
-  
+
   /* The primary identifier for an image effect. */
   'ieid'?: number;
-  
+
   /* The image_styles.isid for an image style. */
   'isid'?: number;
-  
+
   /* The unique name of the effect to be executed. */
   'name': string;
-  
+
   /* The weight of the effect in the style. */
   'weight'?: number;
 }
 
 /* Stores configuration options for image styles. */
 export interface image_stylesEntity {
-  
+
   /* The primary identifier for an image style. */
   'isid'?: number;
-  
+
   /* The style name. */
   'name': string;
 }
 
 /* Stores fids that have been included in the media tag in... */
 export interface media_filter_usageEntity {
-  
+
   /* The media file_managed.fid. */
   'fid'?: number;
-  
+
   /* The timestamp the fid was last recorded by media_filter() */
   'timestamp'?: number;
 }
 
 /* Stores the user preference for whether to list as table... */
 export interface media_list_typeEntity {
-  
+
   /* The type of display (table or images). */
   'type'?: string;
-  
+
   /* The user.uid of the user. */
   'uid'?: number;
 }
 
 /* Stores the settings for media types. */
 export interface media_typeEntity {
-  
+
   /* If this is a base type (i.e. cannot be deleted) */
   'base'?: number;
-  
+
   /* The label of the media type. */
   'label'?: string;
-  
+
   /* The machine name of the media type. */
   'name'?: string;
-  
+
   /* Callback to determine if provided media is of this type. */
   'type_callback'?: string | null;
-  
+
   /* A serialized array of name value pairs that will be passed to the callback function */
   'type_callback_args'?: string | null;
-  
+
   /* Weight of media type. Determines which one wins when claiming a piece of media (first wins) */
   'weight'?: number;
 }
 
 /* Holds definitions for top-level custom menus (for example... */
 export interface menu_customEntity {
-  
+
   /* Menu description. */
   'description'?: string | null;
-  
+
   /* Primary Key: Unique key for menu. This is used as a block delta so length is 32. */
   'menu_name'?: string;
-  
+
   /* Menu title; displayed at top of block. */
   'title'?: string;
 }
 
 /* Contains the individual links within a menu. */
 export interface menu_linksEntity {
-  
+
   /* A flag to indicate that the user has manually created or edited the link (1 = customized, 0 = not customized). */
   'customized'?: number;
-  
+
   /* The depth relative to the top level. A link with plid == 0 will have depth == 1. */
   'depth'?: number;
-  
+
   /* Flag for whether this link should be rendered as expanded in menus - expanded links always have their child links displayed, instead of only when the link is in the active trail (1 = expanded, 0 = not expanded) */
   'expanded'?: number;
-  
+
   /* A flag to indicate if the link points to a full URL starting with a protocol, like http:// (1 = external, 0 = internal). */
   'external'?: number;
-  
+
   /* Flag indicating whether any links have this link as a parent (1 = children exist, 0 = no children). */
   'has_children'?: number;
-  
+
   /* A flag for whether the link should be rendered in menus. (1 = a disabled menu item that may be shown on admin screens, -1 = a menu callback, 0 = a normal, visible link) */
   'hidden'?: number;
-  
+
   /* The Drupal path or external path this link points to. */
   'link_path'?: string;
-  
+
   /* The text displayed for the link, which may be modified by a title callback stored in menu_router. */
   'link_title'?: string;
-  
+
   /* The menu name. All links with the same menu name (such as ’navigation’) are part of the same menu. */
   'menu_name'?: string;
-  
+
   /* The menu link ID (mlid) is the integer primary key. */
   'mlid'?: number;
-  
+
   /* The name of the module that generated this link. */
   'module'?: string;
-  
+
   /* A serialized array of options to be passed to the url() or l() function, such as a query string or HTML attributes. */
   'options'?: any | null;
-  
+
   /* The first mlid in the materialized path. If N = depth, then pN must equal the mlid. If depth > 1 then p(N-1) must equal the plid. All pX where X > depth must equal zero. The columns p1 .. p9 are also called the parents. */
   'p1'?: number;
-  
+
   /* The second mlid in the materialized path. See p1. */
   'p2'?: number;
-  
+
   /* The third mlid in the materialized path. See p1. */
   'p3'?: number;
-  
+
   /* The fourth mlid in the materialized path. See p1. */
   'p4'?: number;
-  
+
   /* The fifth mlid in the materialized path. See p1. */
   'p5'?: number;
-  
+
   /* The sixth mlid in the materialized path. See p1. */
   'p6'?: number;
-  
+
   /* The seventh mlid in the materialized path. See p1. */
   'p7'?: number;
-  
+
   /* The eighth mlid in the materialized path. See p1. */
   'p8'?: number;
-  
+
   /* The ninth mlid in the materialized path. See p1. */
   'p9'?: number;
-  
+
   /* The parent link ID (plid) is the mlid of the link above in the hierarchy, or zero if the link is at the top level in its menu. */
   'plid'?: number;
-  
+
   /* For links corresponding to a Drupal path (external = 0), this connects the link to a menu_router.path for joins. */
   'router_path'?: string;
-  
+
   /* Flag that indicates that this link was generated during the update from Drupal 5. */
   'updated'?: number;
-  
+
   /* Link weight among links in the same menu at the same depth. */
   'weight'?: number;
 }
 
 /* Maps paths to various callbacks (access, page and title) */
 export interface menu_routerEntity {
-  
+
   /* A serialized array of arguments for the access callback. */
   'access_arguments'?: any | null;
-  
+
   /* The callback which determines the access to this router path. Defaults to user_access. */
   'access_callback'?: string;
-  
+
   /* Only for local tasks (tabs) - the context of a local task to control its placement. */
   'context'?: number;
-  
+
   /* The name of the function that sends the result of the page_callback function to the browser. */
   'delivery_callback'?: string;
-  
+
   /* A description of this item. */
   'description': string;
-  
+
   /* A numeric representation of how specific the path is. */
   'fit'?: number;
-  
+
   /* The file to include for this element, usually the page callback function lives in this file. */
   'include_file'?: string | null;
-  
+
   /* A serialized array of function names (like node_load) to be called to load an object corresponding to a part of the current path. */
   'load_functions': any;
-  
+
   /* Number of parts in this router path. */
   'number_parts'?: number;
-  
+
   /* A serialized array of arguments for the page callback. */
   'page_arguments'?: any | null;
-  
+
   /* The name of the function that renders the page. */
   'page_callback'?: string;
-  
+
   /* Primary Key: the Drupal path this entry describes */
   'path'?: string;
-  
+
   /* The position of the block (left or right) on the system administration page for this item. */
   'position'?: string;
-  
+
   /* Only for local tasks (tabs) - the router path of the parent page (which may also be a local task). */
   'tab_parent'?: string;
-  
+
   /* Router path of the closest non-tab parent page. For pages that are not local tasks, this will be the same as the path. */
   'tab_root'?: string;
-  
+
   /* A serialized array of arguments for the theme callback. */
   'theme_arguments'?: string;
-  
+
   /* A function which returns the name of the theme that will be used to render this page. If left empty, the default theme will be used. */
   'theme_callback'?: string;
-  
+
   /* The title for the current page, or the title for the tab if this is a local task. */
   'title'?: string;
-  
+
   /* A serialized array of arguments for the title callback. If empty, the title will be used as the sole argument for the title callback. */
   'title_arguments'?: string;
-  
+
   /* A function which will alter the title. Defaults to t() */
   'title_callback'?: string;
-  
+
   /* A serialized array of function names (like user_uid_optional_to_arg) to be called to replace a part of the router path with another string. */
   'to_arg_functions': any;
-  
+
   /* Numeric representation of the type of the menu item, like MENU_LOCAL_TASK. */
   'type'?: number;
-  
+
   /* Weight of the element. Lighter weights are higher up, heavier weights go down. */
   'weight'?: number;
 }
 
 /* Path based meta tags */
 export interface metatags_quick_path_basedEntity {
-  
+
   /* Entity id */
   'id'?: number;
-  
+
   /* Language code */
   'lang': string;
-  
+
   /* The path of the page to apply meta tags to */
   'path': string;
 }
 
 /* The base table for nodes. */
 export interface nodeEntity {
-  
+
   /* The Unix timestamp when the node was most recently saved. */
   'changed'?: number;
-  
+
   /* Whether comments are allowed on this node: 0 = no, 1 = closed (read only), 2 = open (read/write). */
   'comment'?: number;
-  
+
   /* The Unix timestamp when the node was created. */
   'created'?: number;
-  
+
   /* The languages.language of this node. */
   'language'?: string;
-  
+
   /* The primary identifier for a node. */
   'nid'?: number;
-  
+
   /* Boolean indicating whether the node should be displayed on the front page. */
   'promote'?: number;
-  
+
   /* Boolean indicating whether the node is published (visible to non-administrators). */
   'status'?: number;
-  
+
   /* Boolean indicating whether the node should be displayed at the top of lists in which it appears. */
   'sticky'?: number;
-  
+
   /* The title of this node, always treated as non-markup plain text. */
   'title'?: string;
-  
+
   /* The translation set id for this node, which equals the node id of the source post in each set. */
   'tnid'?: number;
-  
+
   /* A boolean indicating whether this translation page needs to be updated. */
   'translate'?: number;
-  
+
   /* The node_type.type of this node. */
   'type'?: string;
-  
+
   /* The users.uid that owns this node; initially, this is the user that created it. */
   'uid'?: number;
-  
+
   /* The current node_revision.vid version identifier. */
   'vid'?: number | null;
 }
 
 /* Identifies which realm/grant pairs a user must possess in... */
 export interface node_accessEntity {
-  
+
   /* The grant ID a user must possess in the specified realm to gain this row’s privileges on the node. */
   'gid'?: number;
-  
+
   /* Boolean indicating whether a user with the realm/grant pair can delete this node. */
   'grant_delete'?: number;
-  
+
   /* Boolean indicating whether a user with the realm/grant pair can edit this node. */
   'grant_update'?: number;
-  
+
   /* Boolean indicating whether a user with the realm/grant pair can view this node. */
   'grant_view'?: number;
-  
+
   /* The node.nid this record affects. */
   'nid'?: number;
-  
+
   /* The realm in which the user must possess the grant ID. Each node access node can define one or more realms. */
   'realm'?: string;
 }
 
 /* Maintains statistics of node and comments posts to show ... */
 export interface node_comment_statisticsEntity {
-  
+
   /* The comment.cid of the last comment. */
   'cid'?: number;
-  
+
   /* The total number of comments on this node. */
   'comment_count'?: number;
-  
+
   /* The name of the latest author to post a comment on this node, from comment.name. */
   'last_comment_name'?: string | null;
-  
+
   /* The Unix timestamp of the last comment that was posted within this node, from comment.changed. */
   'last_comment_timestamp'?: number;
-  
+
   /* The user ID of the latest author to post a comment on this node, from comment.uid. */
   'last_comment_uid'?: number;
-  
+
   /* The node.nid for which the statistics are compiled. */
   'nid'?: number;
 }
 
 /* Stores information about each saved version of a node. */
 export interface node_revisionEntity {
-  
+
   /* Whether comments are allowed on this node (at the time of this revision): 0 = no, 1 = closed (read only), 2 = open (read/write). */
   'comment'?: number;
-  
+
   /* The log entry explaining the changes in this version. */
   'log': string;
-  
+
   /* The node this version belongs to. */
   'nid'?: number;
-  
+
   /* Boolean indicating whether the node (at the time of this revision) should be displayed on the front page. */
   'promote'?: number;
-  
+
   /* Boolean indicating whether the node (at the time of this revision) is published (visible to non-administrators). */
   'status'?: number;
-  
+
   /* Boolean indicating whether the node (at the time of this revision) should be displayed at the top of lists in which it appears. */
   'sticky'?: number;
-  
+
   /* A Unix timestamp indicating when this version was created. */
   'timestamp'?: number;
-  
+
   /* The title of this version. */
   'title'?: string;
-  
+
   /* The users.uid that created this version. */
   'uid'?: number;
-  
+
   /* The primary identifier for this version. */
   'vid'?: number;
 }
 
 /* Stores information about all defined node types. */
 export interface node_typeEntity {
-  
+
   /* The base string used to construct callbacks corresponding to this node type. */
   'base': string;
-  
+
   /* A boolean indicating whether this type is defined by a module (FALSE) or by a user via Add content type (TRUE). */
   'custom'?: number;
-  
+
   /* A brief description of this type. */
   'description': string;
-  
+
   /* A boolean indicating whether the node type is disabled. */
   'disabled'?: number;
-  
+
   /* Boolean indicating whether this type uses the node.title field. */
   'has_title': number;
-  
+
   /* Help information shown to the user when creating a node of this type. */
   'help': string;
-  
+
   /* A boolean indicating whether the administrator can change the machine name of this type. */
   'locked'?: number;
-  
+
   /* A boolean indicating whether this type has been modified by an administrator; currently not used in any way. */
   'modified'?: number;
-  
+
   /* The module defining this node type. */
   'module': string;
-  
+
   /* The human-readable name of this type. */
   'name'?: string;
-  
+
   /* The original machine-readable name of this node type. This may be different from the current type name if the locked field is 0. */
   'orig_type'?: string;
-  
+
   /* The label displayed for the title field on the edit form. */
   'title_label'?: string;
-  
+
   /* The machine-readable name of this type. */
   'type': string;
 }
@@ -2836,1291 +2836,1291 @@ export interface prev_next_nodeEntity {
 
 /* Stores items in queues. */
 export interface queueEntity {
-  
+
   /* Timestamp when the item was created. */
   'created'?: number;
-  
+
   /* The arbitrary data for the item. */
   'data'?: any | null;
-  
+
   /* Timestamp when the claim lease expires on the item. */
   'expire'?: number;
-  
+
   /* Primary Key: Unique item ID. */
   'item_id'?: number;
-  
+
   /* The queue name. */
   'name'?: string;
 }
 
 /* Stores custom RDF mappings for user defined content types... */
 export interface rdf_mappingEntity {
-  
+
   /* The name of the bundle a mapping applies to. */
   'bundle': string;
-  
+
   /* The serialized mapping of the bundle type and fields to RDF terms. */
   'mapping'?: any | null;
-  
+
   /* The name of the entity type a mapping applies to (node, user, comment, etc.). */
   'type': string;
 }
 
 /* Each record is a function, class, or interface name and... */
 export interface registryEntity {
-  
+
   /* Name of the file. */
   'filename': string;
-  
+
   /* Name of the module the file belongs to. */
   'module'?: string;
-  
+
   /* The name of the function, class, or interface. */
   'name'?: string;
-  
+
   /* Either function or class or interface. */
   'type'?: string;
-  
+
   /* The order in which this module’s hooks should be invoked relative to other modules. Equal-weighted modules are ordered by name. */
   'weight'?: number;
 }
 
 /* Files parsed to build the registry. */
 export interface registry_fileEntity {
-  
+
   /* Path to the file. */
   'filename': string;
-  
+
   /* sha-256 hash of the file’s contents when last parsed. */
   'hash': string;
 }
 
 /* Stores user roles. */
 export interface roleEntity {
-  
+
   /* Unique role name. */
   'name'?: string;
-  
+
   /* Primary Key: Unique role ID. */
   'rid'?: number;
-  
+
   /* The weight of this role in listings and the user interface. */
   'weight'?: number;
 }
 
 /* Stores the permissions assigned to user roles. */
 export interface role_permissionEntity {
-  
+
   /* The module declaring the permission. */
   'module'?: string;
-  
+
   /* A single permission granted to the role identified by rid. */
   'permission'?: string;
-  
+
   /* Foreign Key: role.rid. */
   'rid': number;
 }
 export interface rules_configEntity {
-  
+
   /* Whether to use a permission to control access for using components. */
   'access_exposed'?: number;
-  
+
   /* Boolean indicating whether the configuration is active. Usage depends on how the using module makes use of it. */
   'active'?: number;
-  
+
   /* Everything else, serialized. */
   'data'?: any | null;
-  
+
   /* Dirty configurations fail the integrity check, e.g. due to missing dependencies. */
   'dirty'?: number;
-  
+
   /* The internal identifier for any configuration. */
   'id'?: number;
-  
+
   /* The label of the configuration. */
   'label'?: string;
-  
+
   /* The name of the providing module if the entity has been defined in code. */
   'module'?: string | null;
-  
+
   /* The name of the configuration. */
   'name': string;
-  
+
   /* The name of the plugin of this configuration. */
   'plugin': string;
-  
+
   /* The exportable status of the entity. */
   'status'?: number;
-  
+
   /* Weight of the configuration. Usage depends on how the using module makes use of it. */
   'weight'?: number;
 }
 export interface rules_dependenciesEntity {
-  
+
   /* The primary identifier of the configuration. */
   'id': number;
-  
+
   /* The name of the module that is required for the configuration. */
   'module': string;
 }
 
 /* Stores scheduled tasks. */
 export interface rules_schedulerEntity {
-  
+
   /* The scheduled configuration’s name. */
   'config'?: string;
-  
+
   /* The Unix timestamp of when the task is to be scheduled. */
   'date': number;
-  
+
   /* The user defined string identifying this task. */
   'identifier'?: string | null;
-  
+
   /* The whole, serialized evaluation state. */
   'state'?: string | null;
-  
+
   /* The scheduled task’s id. */
   'tid'?: number;
 }
 export interface rules_tagsEntity {
-  
+
   /* The primary identifier of the configuration. */
   'id': number;
-  
+
   /* The tag string associated with this configuration */
   'tag': string;
 }
 export interface rules_triggerEntity {
-  
+
   /* The name of the event on which the configuration should be triggered. */
   'event'?: string;
-  
+
   /* The primary identifier of the configuration. */
   'id': number;
 }
 
 /* Stores items that will be searched. */
 export interface search_datasetEntity {
-  
+
   /* List of space-separated words from the item. */
   'data': string;
-  
+
   /* Set to force node reindexing. */
   'reindex'?: number;
-  
+
   /* Search item ID, e.g. node ID for nodes. */
   'sid'?: number;
-  
+
   /* Type of item, e.g. node. */
   'type': string;
 }
 
 /* Stores the search index, associating words, items and... */
 export interface search_indexEntity {
-  
+
   /* The numeric score of the word, higher being more important. */
   'score'?: number | null;
-  
+
   /* The search_dataset.sid of the searchable item to which the word belongs. */
   'sid'?: number;
-  
+
   /* The search_dataset.type of the searchable item to which the word belongs. */
   'type': string;
-  
+
   /* The search_total.word that is associated with the search item. */
   'word'?: string;
 }
 
 /* Stores items (like nodes) that link to other nodes, used... */
 export interface search_node_linksEntity {
-  
+
   /* The text used to link to the node.nid. */
   'caption'?: string | null;
-  
+
   /* The node.nid that this item links to. */
   'nid'?: number;
-  
+
   /* The search_dataset.sid of the searchable item containing the link to the node. */
   'sid'?: number;
-  
+
   /* The search_dataset.type of the searchable item containing the link to the node. */
   'type'?: string;
 }
 
 /* Stores search totals for words. */
 export interface search_totalEntity {
-  
+
   /* The count of the word in the index using Zipf’s law to equalize the probability distribution. */
   'count'?: number | null;
-  
+
   /* Primary Key: Unique word in the search index. */
   'word'?: string;
 }
 
 /* Table for holding semaphores, locks, flags, etc. that... */
 export interface semaphoreEntity {
-  
+
   /* A Unix timestamp with microseconds indicating when the semaphore should expire. */
   'expire': number;
-  
+
   /* Primary Key: Unique name. */
   'name'?: string;
-  
+
   /* A value for the semaphore. */
   'value'?: string;
 }
 
 /* Stores IDs. */
 export interface sequencesEntity {
-  
+
   /* The value of the sequence. */
   'value'?: number;
 }
 
 /* Drupal’s session handlers read and write into the... */
 export interface sessionsEntity {
-  
+
   /* The time of this user’s last post. This is used when the site has specified a minimum_cache_lifetime. See cache_get(). */
   'cache'?: number;
-  
+
   /* The IP address that last used this session ID (sid). */
   'hostname'?: string;
-  
+
   /* The serialized contents of $_SESSION, an array of name/value pairs that persists across page requests by this session ID. Drupal loads $_SESSION from here at the start of each request and saves it at the end. */
   'session'?: any | null;
-  
+
   /* A session ID. The value is generated by Drupal’s session handlers. */
   'sid': string;
-  
+
   /* Secure session ID. The value is generated by Drupal’s session handlers. */
   'ssid'?: string;
-  
+
   /* The Unix timestamp when this session last requested a page. Old records are purged by PHP automatically. */
   'timestamp'?: number;
-  
+
   /* The users.uid corresponding to a session, or 0 for anonymous user. */
   'uid': number;
 }
 
 /* Stores information about sets of shortcuts links. */
 export interface shortcut_setEntity {
-  
+
   /* Primary Key: The menu_links.menu_name under which the set’s links are stored. */
   'set_name'?: string;
-  
+
   /* The title of the set. */
   'title'?: string;
 }
 
 /* Maps users to shortcut sets. */
 export interface shortcut_set_usersEntity {
-  
+
   /* The shortcut_set.set_name that will be displayed for this user. */
   'set_name'?: string;
-  
+
   /* The users.uid for this set. */
   'uid'?: number;
 }
 
 /* A list of all modules, themes, and theme engines that are... */
 export interface systemEntity {
-  
+
   /* Boolean indicating whether this module is loaded during Drupal’s early bootstrapping phase (e.g. even before the page cache is consulted). */
   'bootstrap'?: number;
-  
+
   /* The path of the primary file for this item, relative to the Drupal root; e.g. modules/node/node.module. */
   'filename'?: string;
-  
+
   /* A serialized array containing information from the module’s .info file; keys can include name, description, package, version, core, dependencies, and php. */
   'info'?: any | null;
-  
+
   /* The name of the item; e.g. node. */
   'name'?: string;
-  
+
   /* A theme’s ’parent’ . Can be either a theme or an engine. */
   'owner'?: string;
-  
+
   /* The module’s database schema version number. -1 if the module is not installed (its tables do not exist); 0 or the largest N of the module’s hook_update_N() function that has either been run or existed when the module was first installed. */
   'schema_version'?: number;
-  
+
   /* Boolean indicating whether or not this item is enabled. */
   'status'?: number;
-  
+
   /* The type of the item, either module, theme, or theme_engine. */
   'type'?: string;
-  
+
   /* The order in which this module’s hooks should be invoked relative to other modules. Equal-weighted modules are ordered by name. */
   'weight'?: number;
 }
 
 /* Maintains denormalized information about node/term... */
 export interface taxonomy_indexEntity {
-  
+
   /* The Unix timestamp when the node was created. */
   'created'?: number;
-  
+
   /* The node.nid this record tracks. */
   'nid'?: number;
-  
+
   /* Boolean indicating whether the node is sticky. */
   'sticky'?: number | null;
-  
+
   /* The term ID. */
   'tid'?: number;
 }
 
 /* Stores term information. */
 export interface taxonomy_term_dataEntity {
-  
+
   /* A description of the term. */
   'description'?: string | null;
-  
+
   /* The filter_format.format of the description. */
   'format'?: string | null;
-  
+
   /* The term name. */
   'name'?: string;
-  
+
   /* Primary Key: Unique term ID. */
   'tid'?: number;
-  
+
   /* The taxonomy_vocabulary.vid of the vocabulary to which the term is assigned. */
   'vid'?: number;
-  
+
   /* The weight of this term in relation to other terms. */
   'weight'?: number;
 }
 
 /* Stores the hierarchical relationship between terms. */
 export interface taxonomy_term_hierarchyEntity {
-  
+
   /* Primary Key: The taxonomy_term_data.tid of the term’s parent. 0 indicates no parent. */
   'parent'?: number;
-  
+
   /* Primary Key: The taxonomy_term_data.tid of the term. */
   'tid'?: number;
 }
 
 /* Stores vocabulary information. */
 export interface taxonomy_vocabularyEntity {
-  
+
   /* Description of the vocabulary. */
   'description'?: string | null;
-  
+
   /* The type of hierarchy allowed within the vocabulary. (0 = disabled, 1 = single, 2 = multiple) */
   'hierarchy'?: number;
-  
+
   /* The vocabulary machine name. */
   'machine_name'?: string;
-  
+
   /* The module which created the vocabulary. */
   'module'?: string;
-  
+
   /* Name of the vocabulary. */
   'name'?: string;
-  
+
   /* Primary Key: Unique vocabulary ID. */
   'vid'?: number;
-  
+
   /* The weight of this vocabulary in relation to other vocabularies. */
   'weight'?: number;
 }
 
 /* A list of URL aliases for Drupal paths; a user may visit... */
 export interface url_aliasEntity {
-  
+
   /* The alias for this path; e.g. title-of-the-story. */
   'alias'?: string;
-  
+
   /* The language this alias is for; if ’und’, the alias will be used for unknown languages. Each Drupal path can have an alias for each supported language. */
   'language'?: string;
-  
+
   /* A unique path alias identifier. */
   'pid'?: number;
-  
+
   /* The Drupal path this alias is for; e.g. node/12. */
   'source'?: string;
 }
 
 /* Stores user data. */
 export interface usersEntity {
-  
+
   /* Timestamp for previous time user accessed the site. */
   'access'?: number;
-  
+
   /* Timestamp for when user was created. */
   'created'?: number;
-  
+
   /* A serialized array of name value pairs that are related to the user. Any form values posted during user edit are stored and are loaded into the $user object during user_load(). Use of this field is discouraged and it will likely disappear in a future... */
   'data'?: any | null;
-  
+
   /* E-mail address used for initial account creation. */
   'init'?: string | null;
-  
+
   /* User’s default language. */
   'language'?: string;
-  
+
   /* Timestamp for user’s last login. */
   'login'?: number;
-  
+
   /* User’s e-mail address. */
   'mail'?: string | null;
-  
+
   /* Unique user name. */
   'name'?: string;
-  
+
   /* User’s password (hashed). */
   'pass'?: string;
-  
+
   /* Foreign key: file_managed.fid of user’s picture. */
   'picture'?: number;
-  
+
   /* User’s signature. */
   'signature'?: string;
-  
+
   /* The filter_format.format of the signature. */
   'signature_format'?: string | null;
-  
+
   /* Whether the user is active(1) or blocked(0). */
   'status'?: number;
-  
+
   /* User’s default theme. */
   'theme'?: string;
-  
+
   /* User’s time zone. */
   'timezone'?: string | null;
-  
+
   /* Primary Key: Unique user ID. */
   'uid'?: number;
 }
 
 /* Maps users to roles. */
 export interface users_rolesEntity {
-  
+
   /* Primary Key: role.rid for role. */
   'rid'?: number;
-  
+
   /* Primary Key: users.uid for user. */
   'uid'?: number;
 }
 
 /* Named variable/value pairs created by Drupal core or any... */
 export interface variableEntity {
-  
+
   /* The name of the variable. */
   'name'?: string;
-  
+
   /* The value of the variable. */
   'value': any;
 }
 
 /* Track file id for converted files. */
 export interface video_outputEntity {
-  
+
   /* Referenced job id if any. */
   'job_id'?: number | null;
-  
+
   /* Original file identifier. */
   'original_fid': number;
-  
+
   /* Converted file fid. */
   'output_fid'?: number;
-  
+
   /* Video identifier. */
   'vid': number;
 }
 
 /* The preset table. */
 export interface video_presetEntity {
-  
+
   /* A brief description of this preset. */
   'description'?: string | null;
-  
+
   /* The name of this preset. */
   'name'?: string;
-  
+
   /* The primary identifier for a video preset. */
   'pid'?: number;
-  
+
   /* Serialized preset settings. */
   'settings'?: any | null;
 }
 
 /* Store video transcoding queue. */
 export interface video_queueEntity {
-  
+
   /* Transcoding completed timestamp */
   'completed'?: number;
-  
+
   /* A serialized array of converted files. */
   'data'?: any | null;
-  
+
   /* The dimensions of the output video. */
   'dimensions'?: string | null;
-  
+
   /* Stores the video duration in Sec. */
   'duration'?: string | null;
-  
+
   /* The entity_id being referenced in this field. */
   'entity_id'?: number;
-  
+
   /* The entity_type of the video. */
   'entity_type'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'fid'?: number;
-  
+
   /* Start timestamp of transcodings */
   'started'?: number;
-  
+
   /* Status of the transcoding, possible values are 1, 5, 10, 20 */
   'status'?: number;
-  
+
   /* Timestamp of last status update, used to track stuck videos */
   'statusupdated'?: number;
-  
+
   /* Video id, the primary identifier */
   'vid'?: number;
 }
 
 /* Table to store thumbnails associated with each video. */
 export interface video_thumbnailsEntity {
-  
+
   /* fid of thumbnail. */
   'thumbnailfid': number;
-  
+
   /* fid of original video. */
   'videofid': number;
 }
 
 /* Stores information about each display attached to a view. */
 export interface views_displayEntity {
-  
+
   /* A serialized array of options for this display; it contains options that are generally only pertinent to that display plugin type. */
   'display_options'?: string | null;
-  
+
   /* The type of the display. Usually page, block or embed, but is pluggable so may be other things. */
   'display_plugin'?: string;
-  
+
   /* The title of the display, viewable by the administrator. */
   'display_title'?: string;
-  
+
   /* An identifier for this display; usually generated from the display_plugin, so should be something like page or page_1 or block_2, etc. */
   'id'?: string;
-  
+
   /* The order in which this display is loaded. */
   'position'?: number | null;
-  
+
   /* The view this display is attached to. */
   'vid'?: number;
 }
 
 /* Stores the general data for a view. */
 export interface views_viewEntity {
-  
+
   /* What table this view is based on, such as node, user, comment, or term. */
   'base_table'?: string;
-  
+
   /* Stores the drupal core version of the view. */
   'core'?: number | null;
-  
+
   /* A description of the view for the admin interface. */
   'description'?: string | null;
-  
+
   /* A human readable name used to be displayed in the admin interface */
   'human_name'?: string | null;
-  
+
   /* The unique name of the view. This is the primary field views are loaded from, and is used so that views may be internal and not necessarily in the database. May only be alphanumeric characters plus underscores. */
   'name'?: string;
-  
+
   /* A tag used to group/sort views in the admin interface */
   'tag'?: string | null;
-  
+
   /* The view ID of the field, defined by the database. */
   'vid'?: number;
 }
 
 /* Table that contains logs of all system events. */
 export interface watchdogEntity {
-  
+
   /* Hostname of the user who triggered the event. */
   'hostname'?: string;
-  
+
   /* Link to view the result of the event. */
   'link'?: string | null;
-  
+
   /* URL of the origin of the event. */
   'location': string;
-  
+
   /* Text of log message to be passed into the t() function. */
   'message': string;
-  
+
   /* URL of referring page. */
   'referer'?: string | null;
-  
+
   /* The severity level of the event; ranges from 0 (Emergency) to 7 (Debug) */
   'severity'?: number;
-  
+
   /* Unix timestamp of when event occurred. */
   'timestamp'?: number;
-  
+
   /* Type of log message, for example "user" or "page not found." */
   'type'?: string;
-  
+
   /* The users.uid of the user who triggered the event. */
   'uid'?: number;
-  
+
   /* Serialized array of variables that match the message string and that is passed into the t() function. */
   'variables': any;
-  
+
   /* Primary Key: Unique watchdog event ID. */
   'wid'?: number;
 }
 
 /* Stores action information. */
 export interface actionsEntity {
-  
+
   /* Primary Key: Unique actions ID. */
   'aid'?: string;
-  
+
   /* The callback function that executes when the action runs. */
   'callback'?: string;
-  
+
   /* Label of the action. */
   'label'?: string;
-  
+
   /* Parameters to be passed to the callback function. */
   'parameters': any;
-  
+
   /* The object that that action acts on (node, user, comment, system or custom types.) */
   'type'?: string;
 }
 
 /* Stores search index correlations for advanced help topics. */
 export interface advanced_help_indexEntity {
-  
+
   /* The language this search index relates to. */
   'language'?: string;
-  
+
   /* The module that owns this topic. */
   'module'?: string;
-  
+
   /* The primary key to give to the search engine for this topic. */
   'sid'?: number;
-  
+
   /* The topic id. */
   'topic'?: string;
 }
 
 /* Stores distributed authentication mapping. */
 export interface authmapEntity {
-  
+
   /* Primary Key: Unique authmap ID. */
   'aid'?: number;
-  
+
   /* Unique authentication name. */
   'authname'?: string;
-  
+
   /* Module which is controlling the authentication. */
   'module'?: string;
-  
+
   /* User’s users.uid. */
   'uid'?: number;
 }
 
 /* Stores details about batches (processes that run in... */
 export interface batchEntity {
-  
+
   /* A serialized array containing the processing data for the batch. */
   'batch'?: any | null;
-  
+
   /* Primary Key: Unique batch ID. */
   'bid': number;
-  
+
   /* A Unix timestamp indicating when this batch was submitted for processing. Stale batches are purged at cron time. */
   'timestamp': number;
-  
+
   /* A string token generated against the current user’s session id and the batch id, used to ensure that only the user who submitted the batch can effectively access it. */
   'token': string;
 }
 
 /* Stores block settings, such as region and visibility... */
 export interface blockEntity {
-  
+
   /* Primary Key: Unique block ID. */
   'bid'?: number;
-  
+
   /* Binary flag to indicate block cache mode. (-2: Custom cache, -1: Do not cache, 1: Cache per role, 2: Cache per user, 4: Cache per page, 8: Block cache global) See DRUPAL_CACHE_* constants in ../includes/common.inc for more detailed information. */
   'cache'?: number;
-  
+
   /* Flag to indicate how users may control visibility of the block. (0 = Users cannot control, 1 = On by default, but can be hidden, 2 = Hidden by default, but can be shown) */
   'custom'?: number;
-  
+
   /* Unique ID for block within a module. */
   'delta'?: string;
-  
+
   /* The module from which the block originates; for example, ’user’ for the Who’s Online block, and ’block’ for any custom blocks. */
   'module'?: string;
-  
+
   /* Contents of the "Pages" block; contains either a list of paths on which to include/exclude the block or PHP code, depending on "visibility" setting. */
   'pages': string;
-  
+
   /* Theme region within which the block is set. */
   'region'?: string;
-  
+
   /* Block enabled status. (1 = enabled, 0 = disabled) */
   'status'?: number;
-  
+
   /* The theme under which the block settings apply. */
   'theme'?: string;
-  
+
   /* Custom title for the block. (Empty string will use block default title, <none> will remove the title, text will cause block to use specified title.) */
   'title'?: string;
-  
+
   /* Flag to indicate how to show blocks on pages. (0 = Show on all pages except listed pages, 1 = Show only on listed pages, 2 = Use custom PHP code to determine visibility) */
   'visibility'?: number;
-  
+
   /* Block weight within region. */
   'weight'?: number;
 }
 
 /* Stores contents of custom-made blocks. */
 export interface block_customEntity {
-  
+
   /* The block’s block.bid. */
   'bid'?: number;
-  
+
   /* Block contents. */
   'body'?: string | null;
-  
+
   /* The filter_format.format of the block body. */
   'format'?: string | null;
-  
+
   /* Block description. */
   'info'?: string;
 }
 
 /* Sets up display criteria for blocks based on content types */
 export interface block_node_typeEntity {
-  
+
   /* The block’s unique delta within module, from block.delta. */
   'delta': string;
-  
+
   /* The block’s origin module, from block.module. */
   'module': string;
-  
+
   /* The machine-readable name of this type from node_type.type. */
   'type': string;
 }
 
 /* Sets up access permissions for blocks based on user roles */
 export interface block_roleEntity {
-  
+
   /* The block’s unique delta within module, from block.delta. */
   'delta': string;
-  
+
   /* The block’s origin module, from block.module. */
   'module': string;
-  
+
   /* The user’s role ID from users_roles.rid. */
   'rid': number;
 }
 
 /* Stores blocked IP addresses. */
 export interface blocked_ipsEntity {
-  
+
   /* Primary Key: unique ID for IP addresses. */
   'iid'?: number;
-  
+
   /* IP address */
   'ip'?: string;
 }
 
 /* Generic cache table for caching things not separated out... */
 export interface cacheEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for Administration menu to store client-side... */
 export interface cache_admin_menuEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the Block module to store already built... */
 export interface cache_blockEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for data required to bootstrap Drupal, may be... */
 export interface cache_bootstrapEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Generic cache table for caching things not separated out... */
 export interface cache_fieldEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the Filter module to store already... */
 export interface cache_filterEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the form system to store recently built... */
 export interface cache_formEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table used to store information about image... */
 export interface cache_imageEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table to store library information. */
 export interface cache_librariesEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the the results of retreived XML... */
 export interface cache_media_xmlEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the menu system to store router... */
 export interface cache_menuEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table used to store compressed pages for anonymous... */
 export interface cache_pageEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for path alias lookup. */
 export interface cache_pathEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for token information. */
 export interface cache_tokenEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for the Update module to store information... */
 export interface cache_updateEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Generic cache table for caching things not separated out... */
 export interface cache_viewsEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 
 /* Cache table for views to store pre-rendered queries,... */
 export interface cache_views_dataEntity {
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A Unix timestamp indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or 0 for never. */
   'expire'?: number;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
 }
 export interface cck_field_settingsEntity {
-  
+
   /* The name of the bundle, NULL for field settings. */
   'bundle'?: string | null;
-  
+
   /* The name of the entity type, NULL for field settings. */
   'entity_type'?: string;
-  
+
   /* The name of the field. */
   'field_name': string;
-  
+
   /* The name of the language, NULL for field settings. */
   'language'?: string | null;
-  
+
   /* The name of the setting that CCK is managing (default_value_php, allowed_values_php, etc). */
   'setting': string;
-  
+
   /* The custom value for this setting. */
   'setting_option'?: string | null;
-  
+
   /* The type of setting that CCK is managing (field, instance, widget, display). */
   'setting_type': string;
 }
 
 /* Stores CKEditor input format assignments */
 export interface ckeditor_input_formatEntity {
-  
+
   /* Drupal filter format ID */
   'format'?: string;
-  
+
   /* Name of the CKEditor role */
   'name'?: string;
 }
 
 /* Stores CKEditor profile settings */
 export interface ckeditor_settingsEntity {
-  
+
   /* Name of the CKEditor profile */
   'name'?: string;
-  
+
   /* Profile settings */
   'settings'?: string | null;
 }
 
 /* Stores comments and associated data. */
 export interface commentEntity {
-  
+
   /* The time that the comment was last edited, as a Unix timestamp. */
   'changed'?: number;
-  
+
   /* Primary Key: Unique comment ID. */
   'cid'?: number;
-  
+
   /* The time that the comment was created, as a Unix timestamp. */
   'created'?: number;
-  
+
   /* The comment author’s home page address from the comment form, if user is anonymous, and the ’Anonymous users may/must leave their contact information’ setting is turned on. */
   'homepage'?: string | null;
-  
+
   /* The author’s host name. */
   'hostname'?: string;
-  
+
   /* The languages.language of this comment. */
   'language'?: string;
-  
+
   /* The comment author’s e-mail address from the comment form, if user is anonymous, and the ’Anonymous users may/must leave their contact information’ setting is turned on. */
   'mail'?: string | null;
-  
+
   /* The comment author’s name. Uses users.name if the user is logged in, otherwise uses the value typed into the comment form. */
   'name'?: string | null;
-  
+
   /* The node.nid to which this comment is a reply. */
   'nid'?: number;
-  
+
   /* The comment.cid to which this comment is a reply. If set to 0, this comment is not a reply to an existing comment. */
   'pid'?: number;
-  
+
   /* The published status of a comment. (0 = Not Published, 1 = Published) */
   'status'?: number;
-  
+
   /* The comment title. */
   'subject'?: string;
-  
+
   /* The vancode representation of the comment’s place in a thread. */
   'thread': string;
-  
+
   /* The users.uid who authored the comment. If set to 0, this comment was created by an anonymous user. */
   'uid'?: number;
 }
 
 /* A special cache used to store CSS that must be non-volatile. */
 export interface ctools_css_cacheEntity {
-  
+
   /* The CSS ID this cache object belongs to. */
   'cid': string;
-  
+
   /* CSS being stored. */
   'css'?: string | null;
-  
+
   /* The filename this CSS is stored in. */
   'filename'?: string | null;
-  
+
   /* Whether or not this CSS needs to be filtered. */
   'filter'?: number | null;
 }
 
 /* A special cache used to store objects that are being... */
 export interface ctools_object_cacheEntity {
-  
+
   /* Serialized data being stored. */
   'data'?: any | null;
-  
+
   /* The name of the object this cache is attached to. */
   'name': string;
-  
+
   /* The type of the object this cache is attached to; this essentially represents the owner so that several sub-systems can use this cache. */
   'obj': string;
-  
+
   /* The session ID this cache object belongs to. */
   'sid': string;
-  
+
   /* The time this cache was created or updated. */
   'updated'?: number;
 }
 
 /* Stores configured date formats for each locale. */
 export interface date_format_localeEntity {
-  
+
   /* The date format string. */
   'format': string;
-  
+
   /* A languages.language for this format to be used with. */
   'language': string;
-  
+
   /* The date format type, e.g. medium. */
   'type': string;
 }
 
 /* Stores configured date format types. */
 export interface date_format_typeEntity {
-  
+
   /* Whether or not this is a system provided format. */
   'locked'?: number;
-  
+
   /* The human readable name of the format type. */
   'title': string;
-  
+
   /* The date format type, e.g. medium. */
   'type': string;
 }
 
 /* Stores configured date formats. */
 export interface date_formatsEntity {
-  
+
   /* The date format identifier. */
   'dfid'?: number;
-  
+
   /* The date format string. */
   'format': string;
-  
+
   /* Whether or not this format can be modified. */
   'locked'?: number;
-  
+
   /* The date format type, e.g. medium. */
   'type': string;
 }
@@ -4129,37 +4129,37 @@ export interface fboauth_usersEntity {
   'uid'?: number;
 }
 export interface field_configEntity {
-  
+
   /* Boolean indicating whether the module that implements the field type is enabled. */
   'active'?: number;
   'cardinality'?: number;
-  
+
   /* Serialized data containing the field properties that do not warrant a dedicated column. */
   'data': any;
   'deleted'?: number;
-  
+
   /* The name of this field. Non-deleted field names are unique, but multiple deleted fields can have the same name. */
   'field_name': string;
-  
+
   /* The primary identifier for a field */
   'id'?: number;
-  
+
   /* @TODO */
   'locked'?: number;
-  
+
   /* The module that implements the field type. */
   'module'?: string;
-  
+
   /* Boolean indicating whether the module that implements the storage backend is enabled. */
   'storage_active'?: number;
-  
+
   /* The module that implements the storage backend. */
   'storage_module'?: string;
-  
+
   /* The storage backend for the field. */
   'storage_type': string;
   'translatable'?: number;
-  
+
   /* The type of this field. */
   'type': string;
 }
@@ -4168,3150 +4168,3150 @@ export interface field_config_instanceEntity {
   'data': any;
   'deleted'?: number;
   'entity_type'?: string;
-  
+
   /* The identifier of the field attached by this instance */
   'field_id': number;
   'field_name'?: string;
-  
+
   /* The primary identifier for a field instance */
   'id'?: number;
 }
 
 /* Data storage for field 1 (comment_body) */
 export interface field_data_comment_bodyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
   'comment_body_format'?: string | null;
   'comment_body_value'?: string | null;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 32 (field__boutique_carousel_image) */
 export interface field_data_field__boutique_carousel_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field__boutique_carousel_image_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field__boutique_carousel_image_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field__boutique_carousel_image_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field__boutique_carousel_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field__boutique_carousel_image_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 22 (field_advertiser) */
 export interface field_data_field_advertiserEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_advertiser_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 21 (field_advertiser_image) */
 export interface field_data_field_advertiser_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_advertiser_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_advertiser_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_advertiser_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 33 (field_boutique_carousel_cap) */
 export interface field_data_field_boutique_carousel_capEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_boutique_carousel_cap_format'?: string | null;
   'field_boutique_carousel_cap_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 26 (field_boutique_carousel_image) */
 export interface field_data_field_boutique_carousel_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_boutique_carousel_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_boutique_carousel_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_boutique_carousel_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 40 (field_boutique_carousel_image_we) */
 export interface field_data_field_boutique_carousel_image_weEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_boutique_carousel_image_we_value'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 8 (field_brand) */
 export interface field_data_field_brandEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_brand_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 7 (field_brand_image) */
 export interface field_data_field_brand_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_brand_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_brand_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_brand_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 5 (field_brand_logo) */
 export interface field_data_field_brand_logoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_brand_logo_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_brand_logo_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_brand_logo_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_brand_logo_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_brand_logo_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 31 (field_brand_logo_pdp) */
 export interface field_data_field_brand_logo_pdpEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_brand_logo_pdp_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_brand_logo_pdp_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_brand_logo_pdp_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_brand_logo_pdp_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_brand_logo_pdp_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 34 (field_carousel_image_link) */
 export interface field_data_field_carousel_image_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_carousel_image_link_format'?: string | null;
   'field_carousel_image_link_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 10 (field_category) */
 export interface field_data_field_categoryEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_category_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 20 (field_category_description) */
 export interface field_data_field_category_descriptionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_category_description_format'?: string | null;
   'field_category_description_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 9 (field_category_image) */
 export interface field_data_field_category_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_category_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_category_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_category_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 13 (field_description) */
 export interface field_data_field_descriptionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_description_format'?: string | null;
   'field_description_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 19 (field_editor_hero_image) */
 export interface field_data_field_editor_hero_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_editor_hero_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_editor_hero_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_editor_hero_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 18 (field_editor_photo) */
 export interface field_data_field_editor_photoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_editor_photo_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_editor_photo_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_editor_photo_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 17 (field_editor_position) */
 export interface field_data_field_editor_positionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_editor_position_format'?: string | null;
   'field_editor_position_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 37 (field_editor_share_copy) */
 export interface field_data_field_editor_share_copyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_editor_share_copy_format'?: string | null;
   'field_editor_share_copy_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 38 (field_editor_share_thumb) */
 export interface field_data_field_editor_share_thumbEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_editor_share_thumb_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_editor_share_thumb_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_editor_share_thumb_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 35 (field_editor_share_title) */
 export interface field_data_field_editor_share_titleEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_editor_share_title_format'?: string | null;
   'field_editor_share_title_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 36 (field_editor_share_url) */
 export interface field_data_field_editor_share_urlEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_editor_share_url_format'?: string | null;
   'field_editor_share_url_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 28 (field_has_e_commerce_link) */
 export interface field_data_field_has_e_commerce_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_has_e_commerce_link_value'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 15 (field_home_page_carousel) */
 export interface field_data_field_home_page_carouselEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_home_page_carousel_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_home_page_carousel_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_home_page_carousel_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 24 (field_large_product_image) */
 export interface field_data_field_large_product_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_large_product_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_large_product_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_large_product_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 14 (field_link) */
 export interface field_data_field_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_link_format'?: string | null;
   'field_link_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 12 (field_price) */
 export interface field_data_field_priceEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_price_format'?: string | null;
   'field_price_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 28 (field_product_photo) */
 export interface field_data_field_product_photoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_product_photo_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_product_photo_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_product_photo_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 25 (field_quote) */
 export interface field_data_field_quoteEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_quote_format'?: string | null;
   'field_quote_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 27 (field_shop_boutique_link) */
 export interface field_data_field_shop_boutique_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_shop_boutique_link_format'?: string | null;
   'field_shop_boutique_link_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 23 (field_visited_users) */
 export interface field_data_field_visited_usersEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_visited_users_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 23 (field_visitors) */
 export interface field_data_field_visitorsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_visitors_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 25 (field_visitor_ip) */
 export interface field_deleted_data_25Entity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_visitor_ip_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Data storage for field 26 (field_advertiser_photo) */
 export interface field_deleted_data_26Entity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_advertiser_photo_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_advertiser_photo_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_advertiser_photo_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to, or NULL if the entity type is not versioned */
   'revision_id'?: number | null;
 }
 
 /* Revision archive storage for field 25 (field_visitor_ip) */
 export interface field_deleted_revision_25Entity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_visitor_ip_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 26 (field_advertiser... */
 export interface field_deleted_revision_26Entity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_advertiser_photo_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_advertiser_photo_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_advertiser_photo_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 1 (comment_body) */
 export interface field_revision_comment_bodyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
   'comment_body_format'?: string | null;
   'comment_body_value'?: string | null;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 32 (field__boutique... */
 export interface field_revision_field__boutique_carousel_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field__boutique_carousel_image_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field__boutique_carousel_image_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field__boutique_carousel_image_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field__boutique_carousel_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field__boutique_carousel_image_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 22 (field_advertiser) */
 export interface field_revision_field_advertiserEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_advertiser_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 21 (field_advertiser... */
 export interface field_revision_field_advertiser_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_advertiser_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_advertiser_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_advertiser_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 33 (field_boutique... */
 export interface field_revision_field_boutique_carousel_capEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_boutique_carousel_cap_format'?: string | null;
   'field_boutique_carousel_cap_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 26 (field_boutique... */
 export interface field_revision_field_boutique_carousel_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_boutique_carousel_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_boutique_carousel_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_boutique_carousel_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 40 (field_boutique... */
 export interface field_revision_field_boutique_carousel_image_weEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_boutique_carousel_image_we_value'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 8 (field_brand) */
 export interface field_revision_field_brandEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_brand_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 7 (field_brand_image) */
 export interface field_revision_field_brand_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_brand_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_brand_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_brand_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 5 (field_brand_logo) */
 export interface field_revision_field_brand_logoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_brand_logo_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_brand_logo_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_brand_logo_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_brand_logo_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_brand_logo_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 31 (field_brand_logo_pdp) */
 export interface field_revision_field_brand_logo_pdpEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* Alternative image text, for the image’s ’alt’ attribute. */
   'field_brand_logo_pdp_alt'?: string | null;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_brand_logo_pdp_fid'?: number | null;
-  
+
   /* The height of the image in pixels. */
   'field_brand_logo_pdp_height'?: number | null;
-  
+
   /* Image title text, for the image’s ’title’ attribute. */
   'field_brand_logo_pdp_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_brand_logo_pdp_width'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 34 (field_carousel... */
 export interface field_revision_field_carousel_image_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_carousel_image_link_format'?: string | null;
   'field_carousel_image_link_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 10 (field_category) */
 export interface field_revision_field_categoryEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_category_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 20 (field_category... */
 export interface field_revision_field_category_descriptionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_category_description_format'?: string | null;
   'field_category_description_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 9 (field_category_image) */
 export interface field_revision_field_category_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_category_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_category_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_category_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 13 (field_description) */
 export interface field_revision_field_descriptionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_description_format'?: string | null;
   'field_description_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 19 (field_editor_hero... */
 export interface field_revision_field_editor_hero_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_editor_hero_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_editor_hero_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_editor_hero_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 18 (field_editor_photo) */
 export interface field_revision_field_editor_photoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_editor_photo_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_editor_photo_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_editor_photo_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 17 (field_editor... */
 export interface field_revision_field_editor_positionEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_editor_position_format'?: string | null;
   'field_editor_position_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 37 (field_editor_share... */
 export interface field_revision_field_editor_share_copyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_editor_share_copy_format'?: string | null;
   'field_editor_share_copy_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 38 (field_editor_share... */
 export interface field_revision_field_editor_share_thumbEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_editor_share_thumb_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_editor_share_thumb_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_editor_share_thumb_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 35 (field_editor_share... */
 export interface field_revision_field_editor_share_titleEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_editor_share_title_format'?: string | null;
   'field_editor_share_title_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 36 (field_editor_share... */
 export interface field_revision_field_editor_share_urlEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_editor_share_url_format'?: string | null;
   'field_editor_share_url_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 28 (field_has_e... */
 export interface field_revision_field_has_e_commerce_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_has_e_commerce_link_value'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 15 (field_home_page... */
 export interface field_revision_field_home_page_carouselEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_home_page_carousel_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_home_page_carousel_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_home_page_carousel_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 24 (field_large... */
 export interface field_revision_field_large_product_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_large_product_image_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_large_product_image_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_large_product_image_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 14 (field_link) */
 export interface field_revision_field_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_link_format'?: string | null;
   'field_link_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 12 (field_price) */
 export interface field_revision_field_priceEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_price_format'?: string | null;
   'field_price_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 28 (field_product_photo) */
 export interface field_revision_field_product_photoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
-  
+
   /* A description of the file. */
   'field_product_photo_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_product_photo_display'?: number;
-  
+
   /* The file_managed.fid being referenced in this field. */
   'field_product_photo_fid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 25 (field_quote) */
 export interface field_revision_field_quoteEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_quote_format'?: string | null;
   'field_quote_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 27 (field_shop... */
 export interface field_revision_field_shop_boutique_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_shop_boutique_link_format'?: string | null;
   'field_shop_boutique_link_value'?: string | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 23 (field_visited_users) */
 export interface field_revision_field_visited_usersEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_visited_users_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for field 23 (field_visitors) */
 export interface field_revision_field_visitorsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The entity type this data is attached to */
   'entity_type'?: string;
   'field_visitors_tid'?: number | null;
-  
+
   /* The language for this data item. */
   'language'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Stores configuration options for file displays. */
 export interface file_displayEntity {
-  
+
   /* A combined string (FILE_TYPE__VIEW_MODE__FILE_FORMATTER) identifying a file display configuration. For integration with CTools Exportables, stored as a single string rather than as a compound primary key. */
   'name': string;
-  
+
   /* A serialized array of name value pairs that store the formatter settings for the display. */
   'settings'?: any | null;
-  
+
   /* The status of the display. (1 = enabled, 0 = disabled) */
   'status'?: number;
-  
+
   /* Weight of formatter within the display chain for the associated file type and view mode. A file is rendered using the lowest weighted enabled display configuration that matches the file type and view mode and that is capable of displaying the file. */
   'weight'?: number;
 }
 
 /* Stores information for uploaded files. */
 export interface file_managedEntity {
-  
+
   /* File ID. */
   'fid'?: number;
-  
+
   /* The file’s MIME type. */
   'filemime'?: string;
-  
+
   /* Name of the file with no path components. This may differ from the basename of the URI if the file is renamed to avoid overwriting an existing file. */
   'filename'?: string;
-  
+
   /* The size of the file in bytes. */
   'filesize'?: number;
-  
+
   /* A field indicating the status of the file. Two status are defined in core: temporary (0) and permanent (1). Temporary files older than DRUPAL_MAXIMUM_TEMP_FILE_AGE will be removed during a cron run. */
   'status'?: number;
-  
+
   /* UNIX timestamp for when the file was added. */
   'timestamp'?: number;
-  
+
   /* The type of this file. */
   'type'?: string;
-  
+
   /* The users.uid of the user who is associated with the file. */
   'uid'?: number;
-  
+
   /* The URI to access the file (either local or remote). */
   'uri'?: string;
 }
 
 /* Track where a file is used. */
 export interface file_usageEntity {
-  
+
   /* The number of times this file is used by this object. */
   'count'?: number;
-  
+
   /* File ID. */
   'fid': number;
-  
+
   /* The primary key of the object using the file. */
   'id'?: number;
-  
+
   /* The name of the module that is using the file. */
   'module'?: string;
-  
+
   /* The name of the object type in which the file is used. */
   'type'?: string;
 }
 
 /* Table that maps filters (HTML corrector) to text formats ... */
 export interface filterEntity {
-  
+
   /* Foreign key: The filter_format.format to which this filter is assigned. */
   'format': string;
-  
+
   /* The origin module of the filter. */
   'module'?: string;
-  
+
   /* Name of the filter being referenced. */
   'name'?: string;
-  
+
   /* A serialized array of name value pairs that store the filter settings for the specific format. */
   'settings'?: any | null;
-  
+
   /* Filter enabled status. (1 = enabled, 0 = disabled) */
   'status'?: number;
-  
+
   /* Weight of filter within format. */
   'weight'?: number;
 }
 
 /* Stores text formats: custom groupings of filters, such as... */
 export interface filter_formatEntity {
-  
+
   /* Flag to indicate whether format is cacheable. (1 = cacheable, 0 = not cacheable) */
   'cache'?: number;
-  
+
   /* Primary Key: Unique machine name of the format. */
   'format': string;
-  
+
   /* Name of the text format (Filtered HTML). */
   'name'?: string;
-  
+
   /* The status of the text format. (1 = enabled, 0 = disabled) */
   'status'?: number;
-  
+
   /* Weight of text format to use when listing. */
   'weight'?: number;
 }
 
 /* Flood controls the threshold of events, such as the... */
 export interface floodEntity {
-  
+
   /* Name of event (e.g. contact). */
   'event'?: string;
-  
+
   /* Expiration timestamp. Expired events are purged on cron run. */
   'expiration'?: number;
-  
+
   /* Unique flood event ID. */
   'fid'?: number;
-  
+
   /* Identifier of the visitor, such as an IP address or hostname. */
   'identifier'?: string;
-  
+
   /* Timestamp of the event. */
   'timestamp'?: number;
 }
 
 /* A record of which users have read which nodes. */
 export interface historyEntity {
-  
+
   /* The node.nid that was read. */
   'nid'?: number;
-  
+
   /* The Unix timestamp at which the read occurred. */
   'timestamp'?: number;
-  
+
   /* The users.uid that read the node nid. */
   'uid'?: number;
 }
 
 /* Stores configuration options for image effects. */
 export interface image_effectsEntity {
-  
+
   /* The configuration data for the effect. */
   'data': any;
-  
+
   /* The primary identifier for an image effect. */
   'ieid'?: number;
-  
+
   /* The image_styles.isid for an image style. */
   'isid'?: number;
-  
+
   /* The unique name of the effect to be executed. */
   'name': string;
-  
+
   /* The weight of the effect in the style. */
   'weight'?: number;
 }
 
 /* Stores configuration options for image styles. */
 export interface image_stylesEntity {
-  
+
   /* The primary identifier for an image style. */
   'isid'?: number;
-  
+
   /* The style name. */
   'name': string;
 }
 
 /* Stores fids that have been included in the media tag in... */
 export interface media_filter_usageEntity {
-  
+
   /* The media file_managed.fid. */
   'fid'?: number;
-  
+
   /* The timestamp the fid was last recorded by media_filter() */
   'timestamp'?: number;
 }
 
 /* Stores the user preference for whether to list as table... */
 export interface media_list_typeEntity {
-  
+
   /* The type of display (table or images). */
   'type'?: string;
-  
+
   /* The user.uid of the user. */
   'uid'?: number;
 }
 
 /* Stores the settings for media types. */
 export interface media_typeEntity {
-  
+
   /* If this is a base type (i.e. cannot be deleted) */
   'base'?: number;
-  
+
   /* The label of the media type. */
   'label'?: string;
-  
+
   /* The machine name of the media type. */
   'name'?: string;
-  
+
   /* Callback to determine if provided media is of this type. */
   'type_callback'?: string | null;
-  
+
   /* A serialized array of name value pairs that will be passed to the callback function */
   'type_callback_args'?: string | null;
-  
+
   /* Weight of media type. Determines which one wins when claiming a piece of media (first wins) */
   'weight'?: number;
 }
 
 /* Holds definitions for top-level custom menus (for example... */
 export interface menu_customEntity {
-  
+
   /* Menu description. */
   'description'?: string | null;
-  
+
   /* Primary Key: Unique key for menu. This is used as a block delta so length is 32. */
   'menu_name'?: string;
-  
+
   /* Menu title; displayed at top of block. */
   'title'?: string;
 }
 
 /* Contains the individual links within a menu. */
 export interface menu_linksEntity {
-  
+
   /* A flag to indicate that the user has manually created or edited the link (1 = customized, 0 = not customized). */
   'customized'?: number;
-  
+
   /* The depth relative to the top level. A link with plid == 0 will have depth == 1. */
   'depth'?: number;
-  
+
   /* Flag for whether this link should be rendered as expanded in menus - expanded links always have their child links displayed, instead of only when the link is in the active trail (1 = expanded, 0 = not expanded) */
   'expanded'?: number;
-  
+
   /* A flag to indicate if the link points to a full URL starting with a protocol, like http:// (1 = external, 0 = internal). */
   'external'?: number;
-  
+
   /* Flag indicating whether any links have this link as a parent (1 = children exist, 0 = no children). */
   'has_children'?: number;
-  
+
   /* A flag for whether the link should be rendered in menus. (1 = a disabled menu item that may be shown on admin screens, -1 = a menu callback, 0 = a normal, visible link) */
   'hidden'?: number;
-  
+
   /* The Drupal path or external path this link points to. */
   'link_path'?: string;
-  
+
   /* The text displayed for the link, which may be modified by a title callback stored in menu_router. */
   'link_title'?: string;
-  
+
   /* The menu name. All links with the same menu name (such as ’navigation’) are part of the same menu. */
   'menu_name'?: string;
-  
+
   /* The menu link ID (mlid) is the integer primary key. */
   'mlid'?: number;
-  
+
   /* The name of the module that generated this link. */
   'module'?: string;
-  
+
   /* A serialized array of options to be passed to the url() or l() function, such as a query string or HTML attributes. */
   'options'?: any | null;
-  
+
   /* The first mlid in the materialized path. If N = depth, then pN must equal the mlid. If depth > 1 then p(N-1) must equal the plid. All pX where X > depth must equal zero. The columns p1 .. p9 are also called the parents. */
   'p1'?: number;
-  
+
   /* The second mlid in the materialized path. See p1. */
   'p2'?: number;
-  
+
   /* The third mlid in the materialized path. See p1. */
   'p3'?: number;
-  
+
   /* The fourth mlid in the materialized path. See p1. */
   'p4'?: number;
-  
+
   /* The fifth mlid in the materialized path. See p1. */
   'p5'?: number;
-  
+
   /* The sixth mlid in the materialized path. See p1. */
   'p6'?: number;
-  
+
   /* The seventh mlid in the materialized path. See p1. */
   'p7'?: number;
-  
+
   /* The eighth mlid in the materialized path. See p1. */
   'p8'?: number;
-  
+
   /* The ninth mlid in the materialized path. See p1. */
   'p9'?: number;
-  
+
   /* The parent link ID (plid) is the mlid of the link above in the hierarchy, or zero if the link is at the top level in its menu. */
   'plid'?: number;
-  
+
   /* For links corresponding to a Drupal path (external = 0), this connects the link to a menu_router.path for joins. */
   'router_path'?: string;
-  
+
   /* Flag that indicates that this link was generated during the update from Drupal 5. */
   'updated'?: number;
-  
+
   /* Link weight among links in the same menu at the same depth. */
   'weight'?: number;
 }
 
 /* Maps paths to various callbacks (access, page and title) */
 export interface menu_routerEntity {
-  
+
   /* A serialized array of arguments for the access callback. */
   'access_arguments'?: any | null;
-  
+
   /* The callback which determines the access to this router path. Defaults to user_access. */
   'access_callback'?: string;
-  
+
   /* Only for local tasks (tabs) - the context of a local task to control its placement. */
   'context'?: number;
-  
+
   /* The name of the function that sends the result of the page_callback function to the browser. */
   'delivery_callback'?: string;
-  
+
   /* A description of this item. */
   'description': string;
-  
+
   /* A numeric representation of how specific the path is. */
   'fit'?: number;
-  
+
   /* The file to include for this element, usually the page callback function lives in this file. */
   'include_file'?: string | null;
-  
+
   /* A serialized array of function names (like node_load) to be called to load an object corresponding to a part of the current path. */
   'load_functions': any;
-  
+
   /* Number of parts in this router path. */
   'number_parts'?: number;
-  
+
   /* A serialized array of arguments for the page callback. */
   'page_arguments'?: any | null;
-  
+
   /* The name of the function that renders the page. */
   'page_callback'?: string;
-  
+
   /* Primary Key: the Drupal path this entry describes */
   'path'?: string;
-  
+
   /* The position of the block (left or right) on the system administration page for this item. */
   'position'?: string;
-  
+
   /* Only for local tasks (tabs) - the router path of the parent page (which may also be a local task). */
   'tab_parent'?: string;
-  
+
   /* Router path of the closest non-tab parent page. For pages that are not local tasks, this will be the same as the path. */
   'tab_root'?: string;
-  
+
   /* A serialized array of arguments for the theme callback. */
   'theme_arguments'?: string;
-  
+
   /* A function which returns the name of the theme that will be used to render this page. If left empty, the default theme will be used. */
   'theme_callback'?: string;
-  
+
   /* The title for the current page, or the title for the tab if this is a local task. */
   'title'?: string;
-  
+
   /* A serialized array of arguments for the title callback. If empty, the title will be used as the sole argument for the title callback. */
   'title_arguments'?: string;
-  
+
   /* A function which will alter the title. Defaults to t() */
   'title_callback'?: string;
-  
+
   /* A serialized array of function names (like user_uid_optional_to_arg) to be called to replace a part of the router path with another string. */
   'to_arg_functions': any;
-  
+
   /* Numeric representation of the type of the menu item, like MENU_LOCAL_TASK. */
   'type'?: number;
-  
+
   /* Weight of the element. Lighter weights are higher up, heavier weights go down. */
   'weight'?: number;
 }
 
 /* The base table for nodes. */
 export interface nodeEntity {
-  
+
   /* The Unix timestamp when the node was most recently saved. */
   'changed'?: number;
-  
+
   /* Whether comments are allowed on this node: 0 = no, 1 = closed (read only), 2 = open (read/write). */
   'comment'?: number;
-  
+
   /* The Unix timestamp when the node was created. */
   'created'?: number;
-  
+
   /* The languages.language of this node. */
   'language'?: string;
-  
+
   /* The primary identifier for a node. */
   'nid'?: number;
-  
+
   /* Boolean indicating whether the node should be displayed on the front page. */
   'promote'?: number;
-  
+
   /* Boolean indicating whether the node is published (visible to non-administrators). */
   'status'?: number;
-  
+
   /* Boolean indicating whether the node should be displayed at the top of lists in which it appears. */
   'sticky'?: number;
-  
+
   /* The title of this node, always treated as non-markup plain text. */
   'title'?: string;
-  
+
   /* The translation set id for this node, which equals the node id of the source post in each set. */
   'tnid'?: number;
-  
+
   /* A boolean indicating whether this translation page needs to be updated. */
   'translate'?: number;
-  
+
   /* The node_type.type of this node. */
   'type'?: string;
-  
+
   /* The users.uid that owns this node; initially, this is the user that created it. */
   'uid'?: number;
-  
+
   /* The current node_revision.vid version identifier. */
   'vid'?: number | null;
 }
 
 /* Identifies which realm/grant pairs a user must possess in... */
 export interface node_accessEntity {
-  
+
   /* The grant ID a user must possess in the specified realm to gain this row’s privileges on the node. */
   'gid'?: number;
-  
+
   /* Boolean indicating whether a user with the realm/grant pair can delete this node. */
   'grant_delete'?: number;
-  
+
   /* Boolean indicating whether a user with the realm/grant pair can edit this node. */
   'grant_update'?: number;
-  
+
   /* Boolean indicating whether a user with the realm/grant pair can view this node. */
   'grant_view'?: number;
-  
+
   /* The node.nid this record affects. */
   'nid'?: number;
-  
+
   /* The realm in which the user must possess the grant ID. Each node access node can define one or more realms. */
   'realm'?: string;
 }
 
 /* Maintains statistics of node and comments posts to show ... */
 export interface node_comment_statisticsEntity {
-  
+
   /* The comment.cid of the last comment. */
   'cid'?: number;
-  
+
   /* The total number of comments on this node. */
   'comment_count'?: number;
-  
+
   /* The name of the latest author to post a comment on this node, from comment.name. */
   'last_comment_name'?: string | null;
-  
+
   /* The Unix timestamp of the last comment that was posted within this node, from comment.changed. */
   'last_comment_timestamp'?: number;
-  
+
   /* The user ID of the latest author to post a comment on this node, from comment.uid. */
   'last_comment_uid'?: number;
-  
+
   /* The node.nid for which the statistics are compiled. */
   'nid'?: number;
 }
 
 /* Stores information about each saved version of a node. */
 export interface node_revisionEntity {
-  
+
   /* Whether comments are allowed on this node (at the time of this revision): 0 = no, 1 = closed (read only), 2 = open (read/write). */
   'comment'?: number;
-  
+
   /* The log entry explaining the changes in this version. */
   'log': string;
-  
+
   /* The node this version belongs to. */
   'nid'?: number;
-  
+
   /* Boolean indicating whether the node (at the time of this revision) should be displayed on the front page. */
   'promote'?: number;
-  
+
   /* Boolean indicating whether the node (at the time of this revision) is published (visible to non-administrators). */
   'status'?: number;
-  
+
   /* Boolean indicating whether the node (at the time of this revision) should be displayed at the top of lists in which it appears. */
   'sticky'?: number;
-  
+
   /* A Unix timestamp indicating when this version was created. */
   'timestamp'?: number;
-  
+
   /* The title of this version. */
   'title'?: string;
-  
+
   /* The users.uid that created this version. */
   'uid'?: number;
-  
+
   /* The primary identifier for this version. */
   'vid'?: number;
 }
 
 /* Stores information about all defined node types. */
 export interface node_typeEntity {
-  
+
   /* The base string used to construct callbacks corresponding to this node type. */
   'base': string;
-  
+
   /* A boolean indicating whether this type is defined by a module (FALSE) or by a user via Add content type (TRUE). */
   'custom'?: number;
-  
+
   /* A brief description of this type. */
   'description': string;
-  
+
   /* A boolean indicating whether the node type is disabled. */
   'disabled'?: number;
-  
+
   /* Boolean indicating whether this type uses the node.title field. */
   'has_title': number;
-  
+
   /* Help information shown to the user when creating a node of this type. */
   'help': string;
-  
+
   /* A boolean indicating whether the administrator can change the machine name of this type. */
   'locked'?: number;
-  
+
   /* A boolean indicating whether this type has been modified by an administrator; currently not used in any way. */
   'modified'?: number;
-  
+
   /* The module defining this node type. */
   'module': string;
-  
+
   /* The human-readable name of this type. */
   'name'?: string;
-  
+
   /* The original machine-readable name of this node type. This may be different from the current type name if the locked field is 0. */
   'orig_type'?: string;
-  
+
   /* The label displayed for the title field on the edit form. */
   'title_label'?: string;
-  
+
   /* The machine-readable name of this type. */
   'type': string;
 }
 
 /* Stores items in queues. */
 export interface queueEntity {
-  
+
   /* Timestamp when the item was created. */
   'created'?: number;
-  
+
   /* The arbitrary data for the item. */
   'data'?: any | null;
-  
+
   /* Timestamp when the claim lease expires on the item. */
   'expire'?: number;
-  
+
   /* Primary Key: Unique item ID. */
   'item_id'?: number;
-  
+
   /* The queue name. */
   'name'?: string;
 }
 
 /* Stores custom RDF mappings for user defined content types... */
 export interface rdf_mappingEntity {
-  
+
   /* The name of the bundle a mapping applies to. */
   'bundle': string;
-  
+
   /* The serialized mapping of the bundle type and fields to RDF terms. */
   'mapping'?: any | null;
-  
+
   /* The name of the entity type a mapping applies to (node, user, comment, etc.). */
   'type': string;
 }
 
 /* Each record is a function, class, or interface name and... */
 export interface registryEntity {
-  
+
   /* Name of the file. */
   'filename': string;
-  
+
   /* Name of the module the file belongs to. */
   'module'?: string;
-  
+
   /* The name of the function, class, or interface. */
   'name'?: string;
-  
+
   /* Either function or class or interface. */
   'type'?: string;
-  
+
   /* The order in which this module’s hooks should be invoked relative to other modules. Equal-weighted modules are ordered by name. */
   'weight'?: number;
 }
 
 /* Files parsed to build the registry. */
 export interface registry_fileEntity {
-  
+
   /* Path to the file. */
   'filename': string;
-  
+
   /* sha-256 hash of the file’s contents when last parsed. */
   'hash': string;
 }
 
 /* Stores user roles. */
 export interface roleEntity {
-  
+
   /* Unique role name. */
   'name'?: string;
-  
+
   /* Primary Key: Unique role ID. */
   'rid'?: number;
-  
+
   /* The weight of this role in listings and the user interface. */
   'weight'?: number;
 }
 
 /* Stores the permissions assigned to user roles. */
 export interface role_permissionEntity {
-  
+
   /* The module declaring the permission. */
   'module'?: string;
-  
+
   /* A single permission granted to the role identified by rid. */
   'permission'?: string;
-  
+
   /* Foreign Key: role.rid. */
   'rid': number;
 }
 
 /* Stores items that will be searched. */
 export interface search_datasetEntity {
-  
+
   /* List of space-separated words from the item. */
   'data': string;
-  
+
   /* Set to force node reindexing. */
   'reindex'?: number;
-  
+
   /* Search item ID, e.g. node ID for nodes. */
   'sid'?: number;
-  
+
   /* Type of item, e.g. node. */
   'type': string;
 }
 
 /* Stores the search index, associating words, items and... */
 export interface search_indexEntity {
-  
+
   /* The numeric score of the word, higher being more important. */
   'score'?: number | null;
-  
+
   /* The search_dataset.sid of the searchable item to which the word belongs. */
   'sid'?: number;
-  
+
   /* The search_dataset.type of the searchable item to which the word belongs. */
   'type': string;
-  
+
   /* The search_total.word that is associated with the search item. */
   'word'?: string;
 }
 
 /* Stores items (like nodes) that link to other nodes, used... */
 export interface search_node_linksEntity {
-  
+
   /* The text used to link to the node.nid. */
   'caption'?: string | null;
-  
+
   /* The node.nid that this item links to. */
   'nid'?: number;
-  
+
   /* The search_dataset.sid of the searchable item containing the link to the node. */
   'sid'?: number;
-  
+
   /* The search_dataset.type of the searchable item containing the link to the node. */
   'type'?: string;
 }
 
 /* Stores search totals for words. */
 export interface search_totalEntity {
-  
+
   /* The count of the word in the index using Zipf’s law to equalize the probability distribution. */
   'count'?: number | null;
-  
+
   /* Primary Key: Unique word in the search index. */
   'word'?: string;
 }
 
 /* Table for holding semaphores, locks, flags, etc. that... */
 export interface semaphoreEntity {
-  
+
   /* A Unix timestamp with microseconds indicating when the semaphore should expire. */
   'expire': number;
-  
+
   /* Primary Key: Unique name. */
   'name'?: string;
-  
+
   /* A value for the semaphore. */
   'value'?: string;
 }
 
 /* Stores IDs. */
 export interface sequencesEntity {
-  
+
   /* The value of the sequence. */
   'value'?: number;
 }
 
 /* Drupal’s session handlers read and write into the... */
 export interface sessionsEntity {
-  
+
   /* The time of this user’s last post. This is used when the site has specified a minimum_cache_lifetime. See cache_get(). */
   'cache'?: number;
-  
+
   /* The IP address that last used this session ID (sid). */
   'hostname'?: string;
-  
+
   /* The serialized contents of $_SESSION, an array of name/value pairs that persists across page requests by this session ID. Drupal loads $_SESSION from here at the start of each request and saves it at the end. */
   'session'?: any | null;
-  
+
   /* A session ID. The value is generated by Drupal’s session handlers. */
   'sid': string;
-  
+
   /* Secure session ID. The value is generated by Drupal’s session handlers. */
   'ssid'?: string;
-  
+
   /* The Unix timestamp when this session last requested a page. Old records are purged by PHP automatically. */
   'timestamp'?: number;
-  
+
   /* The users.uid corresponding to a session, or 0 for anonymous user. */
   'uid': number;
 }
 
 /* Stores information about sets of shortcuts links. */
 export interface shortcut_setEntity {
-  
+
   /* Primary Key: The menu_links.menu_name under which the set’s links are stored. */
   'set_name'?: string;
-  
+
   /* The title of the set. */
   'title'?: string;
 }
 
 /* Maps users to shortcut sets. */
 export interface shortcut_set_usersEntity {
-  
+
   /* The shortcut_set.set_name that will be displayed for this user. */
   'set_name'?: string;
-  
+
   /* The users.uid for this set. */
   'uid'?: number;
 }
 
 /* A list of all modules, themes, and theme engines that are... */
 export interface systemEntity {
-  
+
   /* Boolean indicating whether this module is loaded during Drupal’s early bootstrapping phase (e.g. even before the page cache is consulted). */
   'bootstrap'?: number;
-  
+
   /* The path of the primary file for this item, relative to the Drupal root; e.g. modules/node/node.module. */
   'filename'?: string;
-  
+
   /* A serialized array containing information from the module’s .info file; keys can include name, description, package, version, core, dependencies, and php. */
   'info'?: any | null;
-  
+
   /* The name of the item; e.g. node. */
   'name'?: string;
-  
+
   /* A theme’s ’parent’ . Can be either a theme or an engine. */
   'owner'?: string;
-  
+
   /* The module’s database schema version number. -1 if the module is not installed (its tables do not exist); 0 or the largest N of the module’s hook_update_N() function that has either been run or existed when the module was first installed. */
   'schema_version'?: number;
-  
+
   /* Boolean indicating whether or not this item is enabled. */
   'status'?: number;
-  
+
   /* The type of the item, either module, theme, or theme_engine. */
   'type'?: string;
-  
+
   /* The order in which this module’s hooks should be invoked relative to other modules. Equal-weighted modules are ordered by name. */
   'weight'?: number;
 }
 
 /* Maintains denormalized information about node/term... */
 export interface taxonomy_indexEntity {
-  
+
   /* The Unix timestamp when the node was created. */
   'created'?: number;
-  
+
   /* The node.nid this record tracks. */
   'nid'?: number;
-  
+
   /* Boolean indicating whether the node is sticky. */
   'sticky'?: number | null;
-  
+
   /* The term ID. */
   'tid'?: number;
 }
 
 /* Stores term information. */
 export interface taxonomy_term_dataEntity {
-  
+
   /* A description of the term. */
   'description'?: string | null;
-  
+
   /* The filter_format.format of the description. */
   'format'?: string | null;
-  
+
   /* The term name. */
   'name'?: string;
-  
+
   /* Primary Key: Unique term ID. */
   'tid'?: number;
-  
+
   /* The taxonomy_vocabulary.vid of the vocabulary to which the term is assigned. */
   'vid'?: number;
-  
+
   /* The weight of this term in relation to other terms. */
   'weight'?: number;
 }
 
 /* Stores the hierarchical relationship between terms. */
 export interface taxonomy_term_hierarchyEntity {
-  
+
   /* Primary Key: The taxonomy_term_data.tid of the term’s parent. 0 indicates no parent. */
   'parent'?: number;
-  
+
   /* Primary Key: The taxonomy_term_data.tid of the term. */
   'tid'?: number;
 }
 
 /* Stores vocabulary information. */
 export interface taxonomy_vocabularyEntity {
-  
+
   /* Description of the vocabulary. */
   'description'?: string | null;
-  
+
   /* The type of hierarchy allowed within the vocabulary. (0 = disabled, 1 = single, 2 = multiple) */
   'hierarchy'?: number;
-  
+
   /* The vocabulary machine name. */
   'machine_name'?: string;
-  
+
   /* The module which created the vocabulary. */
   'module'?: string;
-  
+
   /* Name of the vocabulary. */
   'name'?: string;
-  
+
   /* Primary Key: Unique vocabulary ID. */
   'vid'?: number;
-  
+
   /* The weight of this vocabulary in relation to other vocabularies. */
   'weight'?: number;
 }
 
 /* A list of URL aliases for Drupal paths; a user may visit... */
 export interface url_aliasEntity {
-  
+
   /* The alias for this path; e.g. title-of-the-story. */
   'alias'?: string;
-  
+
   /* The language this alias is for; if ’und’, the alias will be used for unknown languages. Each Drupal path can have an alias for each supported language. */
   'language'?: string;
-  
+
   /* A unique path alias identifier. */
   'pid'?: number;
-  
+
   /* The Drupal path this alias is for; e.g. node/12. */
   'source'?: string;
 }
 
 /* Stores user data. */
 export interface usersEntity {
-  
+
   /* Timestamp for previous time user accessed the site. */
   'access'?: number;
-  
+
   /* Timestamp for when user was created. */
   'created'?: number;
-  
+
   /* A serialized array of name value pairs that are related to the user. Any form values posted during user edit are stored and are loaded into the $user object during user_load(). Use of this field is discouraged and it will likely disappear in a future... */
   'data'?: any | null;
-  
+
   /* E-mail address used for initial account creation. */
   'init'?: string | null;
-  
+
   /* User’s default language. */
   'language'?: string;
-  
+
   /* Timestamp for user’s last login. */
   'login'?: number;
   'mail'?: string | null;
-  
+
   /* Unique user name. */
   'name'?: string;
-  
+
   /* User’s password (hashed). */
   'pass'?: string;
-  
+
   /* Foreign key: file_managed.fid of user’s picture. */
   'picture'?: number;
-  
+
   /* User’s signature. */
   'signature'?: string;
-  
+
   /* The filter_format.format of the signature. */
   'signature_format'?: string | null;
-  
+
   /* Whether the user is active(1) or blocked(0). */
   'status'?: number;
-  
+
   /* User’s default theme. */
   'theme'?: string;
-  
+
   /* User’s time zone. */
   'timezone'?: string | null;
-  
+
   /* Primary Key: Unique user ID. */
   'uid'?: number;
 }
 
 /* Maps users to roles. */
 export interface users_rolesEntity {
-  
+
   /* Primary Key: role.rid for role. */
   'rid'?: number;
-  
+
   /* Primary Key: users.uid for user. */
   'uid'?: number;
 }
 
 /* Named variable/value pairs created by Drupal core or any... */
 export interface variableEntity {
-  
+
   /* The name of the variable. */
   'name'?: string;
-  
+
   /* The value of the variable. */
   'value': any;
 }
 
 /* Stores information about each display attached to a view. */
 export interface views_displayEntity {
-  
+
   /* A serialized array of options for this display; it contains options that are generally only pertinent to that display plugin type. */
   'display_options'?: string | null;
-  
+
   /* The type of the display. Usually page, block or embed, but is pluggable so may be other things. */
   'display_plugin'?: string;
-  
+
   /* The title of the display, viewable by the administrator. */
   'display_title'?: string;
-  
+
   /* An identifier for this display; usually generated from the display_plugin, so should be something like page or page_1 or block_2, etc. */
   'id'?: string;
-  
+
   /* The order in which this display is loaded. */
   'position'?: number | null;
-  
+
   /* The view this display is attached to. */
   'vid'?: number;
 }
 
 /* Stores the general data for a view. */
 export interface views_viewEntity {
-  
+
   /* What table this view is based on, such as node, user, comment, or term. */
   'base_table'?: string;
-  
+
   /* Stores the drupal core version of the view. */
   'core'?: number | null;
-  
+
   /* A description of the view for the admin interface. */
   'description'?: string | null;
-  
+
   /* A human readable name used to be displayed in the admin interface */
   'human_name'?: string | null;
-  
+
   /* The unique name of the view. This is the primary field views are loaded from, and is used so that views may be internal and not necessarily in the database. May only be alphanumeric characters plus underscores. */
   'name'?: string;
-  
+
   /* A tag used to group/sort views in the admin interface */
   'tag'?: string | null;
-  
+
   /* The view ID of the field, defined by the database. */
   'vid'?: number;
 }
 
 /* Table that contains logs of all system events. */
 export interface watchdogEntity {
-  
+
   /* Hostname of the user who triggered the event. */
   'hostname'?: string;
-  
+
   /* Link to view the result of the event. */
   'link'?: string | null;
-  
+
   /* URL of the origin of the event. */
   'location': string;
-  
+
   /* Text of log message to be passed into the t() function. */
   'message': string;
-  
+
   /* URL of referring page. */
   'referer'?: string | null;
-  
+
   /* The severity level of the event; ranges from 0 (Emergency) to 7 (Debug) */
   'severity'?: number;
-  
+
   /* Unix timestamp of when event occurred. */
   'timestamp'?: number;
-  
+
   /* Type of log message, for example "user" or "page not found." */
   'type'?: string;
-  
+
   /* The users.uid of the user who triggered the event. */
   'uid'?: number;
-  
+
   /* Serialized array of variables that match the message string and that is passed into the t() function. */
   'variables': any;
-  
+
   /* Primary Key: Unique watchdog event ID. */
   'wid'?: number;
 }
 
 /* Table for storing Weight configuration */
 export interface weight_settingsEntity {
-  
+
   /* The primary identifier for a content type configuration */
   'id'?: number;
   'menu_weight'?: number;
@@ -7619,16 +7619,16 @@ export interface usersEntity {
 
 /* Stores details about batches (processes that run in… */
 export interface batchEntity {
-  
+
   /* A serialized array containing the processing data for the batch. */
   'batch'?: any | null;
-  
+
   /* Primary Key: Unique batch ID. */
   'bid'?: number;
-  
+
   /* A Unix timestamp indicating when this batch was submitted for processing. Stale batches are purged at cron time. */
   'timestamp': string;
-  
+
   /* A string token generated against the current user's session id and the batch id, used to ensure that only the user who submitted the batch can effectively access it. */
   'token': string;
 }
@@ -7638,7 +7638,7 @@ export interface block_contentEntity {
   'id'?: number;
   'langcode': string;
   'revision_id'?: number | null;
-  
+
   /* The ID of the target entity. */
   'type': string;
   'uuid': string;
@@ -7649,22 +7649,22 @@ export interface block_content__bodyEntity {
   'body_format'?: string | null;
   'body_summary'?: string | null;
   'body_value': string;
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
@@ -7680,7 +7680,7 @@ export interface block_content_field_dataEntity {
   'revision_id': number;
   'revision_translation_affected'?: number | null;
   'status': number;
-  
+
   /* The ID of the target entity. */
   'type': string;
 }
@@ -7705,7 +7705,7 @@ export interface block_content_revisionEntity {
   'revision_default'?: number | null;
   'revision_id'?: number;
   'revision_log'?: string | null;
-  
+
   /* The ID of the target entity. */
   'revision_user'?: number | null;
 }
@@ -7715,516 +7715,516 @@ export interface block_content_revision__bodyEntity {
   'body_format'?: string | null;
   'body_summary'?: string | null;
   'body_value': string;
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Storage for the cache API. */
 export interface cache_access_policyEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_bootstrapEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_configEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_containerEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_dataEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_defaultEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_discoveryEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_discovery_migrationEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_dynamic_page_cacheEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_entityEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_jsonapi_normalizationsEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_menuEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_migrateEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_pageEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_renderEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_restEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_rulesEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Storage for the cache API. */
 export interface cache_toolbarEntity {
-  
+
   /* The tag invalidation checksum when this entry was saved. */
   'checksum': string;
-  
+
   /* Primary Key: Unique cache ID. */
   'cid'?: string;
-  
+
   /* A timestamp with millisecond precision indicating when the cache entry was created. */
   'created'?: number;
-  
+
   /* A collection of data to cache. */
   'data'?: any | null;
-  
+
   /* A Unix timestamp indicating when the cache entry should expire, or -1 for never. */
   'expire'?: string;
-  
+
   /* A flag to indicate whether content is serialized (1) or not (0). */
   'serialized'?: number;
-  
+
   /* Space-separated list of cache tags for this entry. */
   'tags'?: string | null;
 }
 
 /* Cache table for tracking cache tag invalidations. */
 export interface cachetagsEntity {
-  
+
   /* Number incremented when the tag is invalidated. */
   'invalidations'?: number;
-  
+
   /* Namespace-prefixed tag string. */
   'tag'?: string;
 }
 
 /* Stores the data about CAPTCHA sessions (solution, IP… */
 export interface captcha_sessionsEntity {
-  
+
   /* The number of attempts. */
   'attempts'?: number;
-  
+
   /* CAPTCHA session ID. */
   'csid'?: number;
-  
+
   /* The form_id of the form where the CAPTCHA is added to. */
   'form_id': string;
-  
+
   /* IP address of the visitor. */
   'ip_address'?: string | null;
-  
+
   /* Session ID of the user. */
   'sid'?: string;
-  
+
   /* Solution of the challenge. */
   'solution'?: string;
-  
+
   /* Status of the CAPTCHA session (unsolved, solved, ...) */
   'status'?: number;
-  
+
   /* A Unix timestamp indicating when the challenge was generated. */
   'timestamp'?: number;
-  
+
   /* One time CAPTCHA token. */
   'token'?: string | null;
-  
+
   /* User's users.uid. */
   'uid'?: number;
 }
@@ -8232,7 +8232,7 @@ export interface captcha_sessionsEntity {
 /* The base table for comment entities. */
 export interface commentEntity {
   'cid'?: number;
-  
+
   /* The ID of the target entity. */
   'comment_type': string;
   'langcode': string;
@@ -8241,52 +8241,52 @@ export interface commentEntity {
 
 /* Data storage for comment field comment_body. */
 export interface comment__comment_bodyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
   'comment_body_format'?: string | null;
   'comment_body_value': string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Maintains statistics of entity and comments posts to show … */
 export interface comment_entity_statisticsEntity {
-  
+
   /* The comment.cid of the last comment. */
   'cid'?: number;
-  
+
   /* The total number of comments on this entity. */
   'comment_count'?: number;
-  
+
   /* The entity_id of the entity for which the statistics are compiled. */
   'entity_id'?: number;
-  
+
   /* The entity_type of the entity to which this comment is a reply. */
   'entity_type'?: string;
-  
+
   /* The field_name of the field that was used to add this comment. */
   'field_name'?: string;
-  
+
   /* The name of the latest author to post a comment on this node, from comment.name. */
   'last_comment_name'?: string | null;
-  
+
   /* The Unix timestamp of the last comment that was posted within this node, from "comment".changed. */
   'last_comment_timestamp'?: string;
-  
+
   /* The user ID of the latest author to post a comment on this node, from comment.uid. */
   'last_comment_uid'?: number;
 }
@@ -8295,12 +8295,12 @@ export interface comment_entity_statisticsEntity {
 export interface comment_field_dataEntity {
   'changed'?: number | null;
   'cid': number;
-  
+
   /* The ID of the target entity. */
   'comment_type': string;
   'created': number;
   'default_langcode': number;
-  
+
   /* The ID of the target entity. */
   'entity_id'?: number | null;
   'entity_type': string;
@@ -8310,65 +8310,65 @@ export interface comment_field_dataEntity {
   'langcode': string;
   'mail'?: string | null;
   'name'?: string | null;
-  
+
   /* The ID of the target entity. */
   'pid'?: number | null;
   'status': number;
   'subject'?: string | null;
   'thread': string;
-  
+
   /* The ID of the target entity. */
   'uid': number;
 }
 
 /* The base table for configuration data. */
 export interface configEntity {
-  
+
   /* Primary Key: Config object collection. */
   'collection'?: string;
-  
+
   /* A serialized configuration object data. */
   'data'?: any | null;
-  
+
   /* Primary Key: Config object name. */
   'name'?: string;
 }
 
 /* The base table for configuration data. */
 export interface config_exportEntity {
-  
+
   /* Primary Key: Config object collection. */
   'collection'?: string;
-  
+
   /* A serialized configuration object data. */
   'data'?: any | null;
-  
+
   /* Primary Key: Config object name. */
   'name'?: string;
 }
 
 /* The base table for configuration data. */
 export interface config_importEntity {
-  
+
   /* Primary Key: Config object collection. */
   'collection'?: string;
-  
+
   /* A serialized configuration object data. */
   'data'?: any | null;
-  
+
   /* Primary Key: Config object name. */
   'name'?: string;
 }
 
 /* The base table for configuration data. */
 export interface config_snapshotEntity {
-  
+
   /* Primary Key: Config object collection. */
   'collection'?: string;
-  
+
   /* A serialized configuration object data. */
   'data'?: any | null;
-  
+
   /* Primary Key: Config object name. */
   'name'?: string;
 }
@@ -8382,25 +8382,25 @@ export interface consumerEntity {
 
 /* Data storage for consumer field image_styles. */
 export interface consumer__image_stylesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'image_styles_target_id': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
@@ -8411,25 +8411,25 @@ export interface consumer_field_dataEntity {
   'default_langcode': number;
   'description'?: string | null;
   'id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'image__alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'image__height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'image__target_id'?: number | null;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'image__title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'image__width'?: number | null;
   'is_default'?: number | null;
   'label'?: string | null;
   'langcode': string;
-  
+
   /* The ID of the target entity. */
   'owner_id': number;
   'third_party'?: number | null;
@@ -8445,7 +8445,7 @@ export interface file_managedEntity {
   'filesize'?: string | null;
   'langcode': string;
   'status': number;
-  
+
   /* The ID of the target entity. */
   'uid'?: number | null;
   'uri': string;
@@ -8454,109 +8454,109 @@ export interface file_managedEntity {
 
 /* Track where a file is used. */
 export interface file_usageEntity {
-  
+
   /* The number of times this file is used by this object. */
   'count'?: number;
-  
+
   /* File ID. */
   'fid': number;
-  
+
   /* The primary key of the object using the file. */
   'id'?: string;
-  
+
   /* The name of the module that is using the file. */
   'module'?: string;
-  
+
   /* The name of the object type in which the file is used. */
   'type'?: string;
 }
 
 /* Flood controls the threshold of events, such as the number… */
 export interface floodEntity {
-  
+
   /* Name of event (e.g. contact). */
   'event'?: string;
-  
+
   /* Expiration timestamp. Expired events are purged on cron run. */
   'expiration'?: string;
-  
+
   /* Unique flood event ID. */
   'fid'?: number;
-  
+
   /* Identifier of the visitor, such as an IP address or hostname. */
   'identifier'?: string;
-  
+
   /* Timestamp of the event. */
   'timestamp'?: string;
 }
 
 /* Stores information about indexed help search items */
 export interface help_search_itemsEntity {
-  
+
   /* The permission needed to view this item */
   'permission'?: string;
-  
+
   /* The help section the item comes from */
   'section_plugin_id'?: string;
-  
+
   /* Numeric index of this item in the search index */
   'sid'?: number;
-  
+
   /* The topic ID of the item */
   'topic_id'?: string;
 }
 
 /* A record of which users have read which nodes. */
 export interface historyEntity {
-  
+
   /* The node.nid that was read. */
   'nid'?: number;
-  
+
   /* The Unix timestamp at which the read occurred. */
   'timestamp'?: string;
-  
+
   /* The users.uid that read the node nid. */
   'uid'?: number;
 }
 
 /* Track where a block_content entity is used. */
 export interface inline_block_usageEntity {
-  
+
   /* The block_content entity ID. */
   'block_content_id': number;
-  
+
   /* The ID of the parent entity. */
   'layout_entity_id'?: string | null;
-  
+
   /* The entity type of the parent entity. */
   'layout_entity_type'?: string | null;
 }
 
 /* Generic key-value storage table. See the state system for… */
 export interface key_valueEntity {
-  
+
   /* A named collection of key and value pairs. */
   'collection'?: string;
-  
+
   /* The key of the key-value pair. As KEY is a SQL reserved keyword, name was chosen instead. */
   'name'?: string;
-  
+
   /* The value. */
   'value': any;
 }
 
 /* Generic key/value storage table with an expiration. */
 export interface key_value_expireEntity {
-  
+
   /* A named collection of key and value pairs. */
   'collection'?: string;
-  
+
   /* The time since Unix epoch in seconds when this item expires. Defaults to the maximum possible time. */
   'expire'?: number;
-  
+
   /* The key of the key/value pair. */
   'name'?: string;
-  
+
   /* The value of the key/value pair. */
   'value': any;
 }
@@ -8568,7 +8568,7 @@ export interface mass_contactEntity {
   'id'?: number;
   'sent'?: number | null;
   'subject'?: string | null;
-  
+
   /* The ID of the target entity. */
   'uid': number;
   'uuid': string;
@@ -8576,32 +8576,32 @@ export interface mass_contactEntity {
 
 /* Data storage for mass_contact_message field categories. */
 export interface mass_contact_message__categoriesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* The ID of the target entity. */
   'categories_target_id': string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* The base table for media entities. */
 export interface mediaEntity {
-  
+
   /* The ID of the target entity. */
   'bundle': string;
   'langcode': string;
@@ -8612,160 +8612,160 @@ export interface mediaEntity {
 
 /* Data storage for media field field_media_audio_file. */
 export interface media__field_media_audio_fileEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_media_audio_file_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_media_audio_file_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_media_audio_file_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for media field field_media_file. */
 export interface media__field_media_fileEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_media_file_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_media_file_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_media_file_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for media field field_media_image. */
 export interface media__field_media_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'field_media_image_alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'field_media_image_height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_media_image_target_id': number;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'field_media_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_media_image_width'?: number | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for media field field_media_oembed_video. */
 export interface media__field_media_oembed_videoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_media_oembed_video_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for media field field_media_video_file. */
 export interface media__field_media_video_fileEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_media_video_file_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_media_video_file_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_media_video_file_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* The data table for media entities. */
 export interface media_field_dataEntity {
-  
+
   /* The ID of the target entity. */
   'bundle': string;
   'changed'?: number | null;
@@ -8776,22 +8776,22 @@ export interface media_field_dataEntity {
   'name'?: string | null;
   'revision_translation_affected'?: number | null;
   'status': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'thumbnail__alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'thumbnail__height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'thumbnail__target_id'?: number | null;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'thumbnail__title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'thumbnail__width'?: number | null;
-  
+
   /* The ID of the target entity. */
   'uid': number;
   'vid': number;
@@ -8807,22 +8807,22 @@ export interface media_field_revisionEntity {
   'name'?: string | null;
   'revision_translation_affected'?: number | null;
   'status': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'thumbnail__alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'thumbnail__height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'thumbnail__target_id'?: number | null;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'thumbnail__title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'thumbnail__width'?: number | null;
-  
+
   /* The ID of the target entity. */
   'uid': number;
   'vid': number;
@@ -8835,7 +8835,7 @@ export interface media_revisionEntity {
   'revision_created'?: number | null;
   'revision_default'?: number | null;
   'revision_log_message'?: string | null;
-  
+
   /* The ID of the target entity. */
   'revision_user'?: number | null;
   'vid'?: number;
@@ -8843,153 +8843,153 @@ export interface media_revisionEntity {
 
 /* Revision archive storage for media field field_media_audio… */
 export interface media_revision__field_media_audio_fileEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_media_audio_file_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_media_audio_file_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_media_audio_file_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for media field field_media_file. */
 export interface media_revision__field_media_fileEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_media_file_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_media_file_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_media_file_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for media field field_media_image. */
 export interface media_revision__field_media_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'field_media_image_alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'field_media_image_height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_media_image_target_id': number;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'field_media_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_media_image_width'?: number | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for media field field_media_oembed… */
 export interface media_revision__field_media_oembed_videoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_media_oembed_video_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for media field field_media_video… */
 export interface media_revision__field_media_video_fileEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_media_video_file_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_media_video_file_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_media_video_file_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
@@ -9014,13 +9014,13 @@ export interface menu_link_content_dataEntity {
   'external'?: number | null;
   'id': number;
   'langcode': string;
-  
+
   /* Serialized array of options for the link. */
   'link__options'?: any | null;
-  
+
   /* The link text. */
   'link__title'?: string | null;
-  
+
   /* The URI of the link. */
   'link__uri'?: string | null;
   'menu_name'?: string | null;
@@ -9041,13 +9041,13 @@ export interface menu_link_content_field_revisionEntity {
   'external'?: number | null;
   'id': number;
   'langcode': string;
-  
+
   /* Serialized array of options for the link. */
   'link__options'?: any | null;
-  
+
   /* The link text. */
   'link__title'?: string | null;
-  
+
   /* The URI of the link. */
   'link__uri'?: string | null;
   'revision_id': number;
@@ -9063,101 +9063,101 @@ export interface menu_link_content_revisionEntity {
   'revision_default'?: number | null;
   'revision_id'?: number;
   'revision_log_message'?: string | null;
-  
+
   /* The ID of the target entity. */
   'revision_user'?: number | null;
 }
 
 /* Contains the menu tree hierarchy. */
 export interface menu_treeEntity {
-  
+
   /* The class for this link plugin. */
   'class'?: string | null;
-  
+
   /* The depth relative to the top level. A link with empty parent will have depth == 1. */
   'depth'?: number;
-  
+
   /* The serialized description of this link - used for admin pages and title attribute. May be a TranslatableMarkup. */
   'description'?: any | null;
-  
+
   /* A flag for whether the link was discovered, so can be purged on rebuild */
   'discovered'?: number;
-  
+
   /* A flag for whether the link should be rendered in menus. (0 = a disabled menu item that may be shown on admin screens, 1 = a normal, visible link) */
   'enabled'?: number;
-  
+
   /* Flag for whether this link should be rendered as expanded in menus - expanded links always have their child links displayed, instead of only when the link is in the active trail (1 = expanded, 0 = not expanded) */
   'expanded'?: number;
-  
+
   /* meh */
   'form_class'?: string | null;
-  
+
   /* Flag indicating whether any enabled links have this link as a parent (1 = enabled children exist, 0 = no enabled children). */
   'has_children'?: number;
-  
+
   /* Unique machine name: the plugin ID. */
   'id': string;
-  
+
   /* The menu name. All links with the same menu name (such as 'tools') are part of the same menu. */
   'menu_name'?: string;
-  
+
   /* A serialized array of data that may be used by the plugin instance. */
   'metadata'?: any | null;
-  
+
   /* The menu link ID (mlid) is the integer primary key. */
   'mlid'?: number;
-  
+
   /* A serialized array of URL options, such as a query string or HTML attributes. */
   'options'?: any | null;
-  
+
   /* The first mlid in the materialized path. If N = depth, then pN must equal the mlid. If depth > 1 then p(N-1) must equal the parent link mlid. All pX where X > depth must equal zero. The columns p1 .. p9 are also called the parents. */
   'p1'?: number;
-  
+
   /* The second mlid in the materialized path. See p1. */
   'p2'?: number;
-  
+
   /* The third mlid in the materialized path. See p1. */
   'p3'?: number;
-  
+
   /* The fourth mlid in the materialized path. See p1. */
   'p4'?: number;
-  
+
   /* The fifth mlid in the materialized path. See p1. */
   'p5'?: number;
-  
+
   /* The sixth mlid in the materialized path. See p1. */
   'p6'?: number;
-  
+
   /* The seventh mlid in the materialized path. See p1. */
   'p7'?: number;
-  
+
   /* The eighth mlid in the materialized path. See p1. */
   'p8'?: number;
-  
+
   /* The ninth mlid in the materialized path. See p1. */
   'p9'?: number;
-  
+
   /* The plugin ID for the parent of this link. */
   'parent'?: string;
-  
+
   /* The name of the module that generated this link. */
   'provider'?: string;
-  
+
   /* The machine name of a defined Symfony Route this menu item represents. */
   'route_name'?: string | null;
-  
+
   /* An encoded string of route parameters for loading by route. */
   'route_param_key'?: string | null;
-  
+
   /* Serialized array of route parameters of this menu link. */
   'route_parameters'?: any | null;
-  
+
   /* The serialized title for the link. May be a TranslatableMarkup. */
   'title'?: any | null;
-  
+
   /* The external path this link points to (when not using a route). */
   'url'?: string;
-  
+
   /* Link weight among links in the same menu at the same depth. */
   'weight'?: number;
 }
@@ -9165,19 +9165,19 @@ export interface menu_treeEntity {
 /* Mappings from source identifier value(s) to destination… */
 export interface migrate_map_custom_user_migrationEntity {
   'destid1'?: number | null;
-  
+
   /* Hash of source row data, for detecting changes */
   'hash'?: string | null;
-  
+
   /* UNIX timestamp of the last time this row was imported */
   'last_imported'?: string;
-  
+
   /* Flag indicating what to do for this item on rollback */
   'rollback_action'?: number;
-  
+
   /* Hash of source ids. Used as primary key */
   'source_ids_hash': string;
-  
+
   /* Indicates current status of the source row */
   'source_row_status'?: number;
   'sourceid1': string;
@@ -9188,20 +9188,20 @@ export interface migrate_message_custom_user_migrationEntity {
   'level'?: number;
   'message': string;
   'msgid'?: number;
-  
+
   /* Hash of source ids. Used as primary key */
   'source_ids_hash': string;
 }
 
 /* Table storing SyncSourceIds entries for the --sync option. */
 export interface migrate_tools_sync_source_idsEntity {
-  
+
   /* Primary Key: Unique ID. */
   'id'?: number;
-  
+
   /* The migration ID. */
   'migration_id': string;
-  
+
   /* Array of source IDs, in the same order as defined in \Drupal\migrate\Row::$sourceIds. */
   'source_ids': any;
 }
@@ -9210,7 +9210,7 @@ export interface migrate_tools_sync_source_idsEntity {
 export interface nodeEntity {
   'langcode': string;
   'nid'?: number;
-  
+
   /* The ID of the target entity. */
   'type': string;
   'uuid': string;
@@ -9222,887 +9222,887 @@ export interface node__bodyEntity {
   'body_format'?: string | null;
   'body_summary'?: string | null;
   'body_value': string;
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field comment. */
 export interface node__commentEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* Whether comments are allowed on this entity: 0 = no, 1 = closed (read only), 2 = open (read/write). */
   'comment_status'?: number;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_a_side_songs. */
 export interface node__field_a_side_songsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_a_side_songs_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_a_side_songs_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_artist_term. */
 export interface node__field_artist_termEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_artist_term_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_audio. */
 export interface node__field_audioEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_audio_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_audio_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_audio_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_audio_duration. */
 export interface node__field_audio_durationEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_audio_duration_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_audio_review. */
 export interface node__field_audio_reviewEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_audio_review_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_audio_review_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_audio_review_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_b_side_songs. */
 export interface node__field_b_side_songsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_b_side_songs_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_b_side_songs_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_band_members. */
 export interface node__field_band_membersEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_band_members_format'?: string | null;
   'field_band_members_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_buy_cassette_link. */
 export interface node__field_buy_cassette_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Serialized array of options for the link. */
   'field_buy_cassette_link_options'?: any | null;
-  
+
   /* The link text. */
   'field_buy_cassette_link_title'?: string | null;
-  
+
   /* The URI of the link. */
   'field_buy_cassette_link_uri'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_buy_discogs_link. */
 export interface node__field_buy_discogs_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Serialized array of options for the link. */
   'field_buy_discogs_link_options'?: any | null;
-  
+
   /* The link text. */
   'field_buy_discogs_link_title'?: string | null;
-  
+
   /* The URI of the link. */
   'field_buy_discogs_link_uri'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_buy_record_link. */
 export interface node__field_buy_record_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Serialized array of options for the link. */
   'field_buy_record_link_options'?: any | null;
-  
+
   /* The link text. */
   'field_buy_record_link_title'?: string | null;
-  
+
   /* The URI of the link. */
   'field_buy_record_link_uri'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_c_side_songs. */
 export interface node__field_c_side_songsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_c_side_songs_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_c_side_songs_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_cassette_cover. */
 export interface node__field_cassette_coverEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'field_cassette_cover_alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'field_cassette_cover_height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_cassette_cover_target_id': number;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'field_cassette_cover_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_cassette_cover_width'?: number | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_credits. */
 export interface node__field_creditsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_credits_format'?: string | null;
   'field_credits_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_d_side_songs. */
 export interface node__field_d_side_songsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_d_side_songs_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_d_side_songs_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_featured. */
 export interface node__field_featuredEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_featured_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_genre. */
 export interface node__field_genreEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_genre_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_image. */
 export interface node__field_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'field_image_alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'field_image_height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_image_target_id': number;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'field_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_image_width'?: number | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_images. */
 export interface node__field_imagesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'field_images_alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'field_images_height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_images_target_id': number;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'field_images_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_images_width'?: number | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_is_vinyl. */
 export interface node__field_is_vinylEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_is_vinyl_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_label. */
 export interface node__field_labelEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_label_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_likes. */
 export interface node__field_likesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_likes_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_liner_notes. */
 export interface node__field_liner_notesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_liner_notes_format'?: string | null;
   'field_liner_notes_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_mentioned_album. */
 export interface node__field_mentioned_albumEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_mentioned_album_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_meta_tags. */
 export interface node__field_meta_tagsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_meta_tags_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_podcast_image. */
 export interface node__field_podcast_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_podcast_image_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_release_year. */
 export interface node__field_release_yearEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_release_year_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_review. */
 export interface node__field_reviewEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_review_format'?: string | null;
   'field_review_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_tags. */
 export interface node__field_tagsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_tags_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_transcript. */
 export interface node__field_transcriptEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_transcript_format'?: string | null;
   'field_transcript_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for node field field_yoast_seo. */
 export interface node__field_yoast_seoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_yoast_seo_description'?: string | null;
   'field_yoast_seo_focus_keyword'?: string | null;
   'field_yoast_seo_status'?: string | null;
   'field_yoast_seo_title'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Identifies which realm/grant pairs a user must possess in… */
 export interface node_accessEntity {
-  
+
   /* Boolean indicating whether this record should be used as a fallback if a language condition is not provided. */
   'fallback'?: number;
-  
+
   /* The grant ID a user must possess in the specified realm to gain this row's privileges on the node. */
   'gid'?: number;
-  
+
   /* Boolean indicating whether a user with the realm/grant pair can delete this node. */
   'grant_delete'?: number;
-  
+
   /* Boolean indicating whether a user with the realm/grant pair can edit this node. */
   'grant_update'?: number;
-  
+
   /* Boolean indicating whether a user with the realm/grant pair can view this node. */
   'grant_view'?: number;
-  
+
   /* The language.langcode of this node. */
   'langcode'?: string;
-  
+
   /* The node.nid this record affects. */
   'nid'?: number;
-  
+
   /* The realm in which the user must possess the grant ID. Modules can define one or more realms by implementing hook_node_grants(). */
   'realm'?: string;
 }
@@ -10119,10 +10119,10 @@ export interface node_field_dataEntity {
   'status': number;
   'sticky': number;
   'title': string;
-  
+
   /* The ID of the target entity. */
   'type': string;
-  
+
   /* The ID of the target entity. */
   'uid': number;
   'vid': number;
@@ -10140,7 +10140,7 @@ export interface node_field_revisionEntity {
   'status': number;
   'sticky'?: number | null;
   'title'?: string | null;
-  
+
   /* The ID of the target entity. */
   'uid': number;
   'vid': number;
@@ -10153,7 +10153,7 @@ export interface node_revisionEntity {
   'revision_default'?: number | null;
   'revision_log'?: string | null;
   'revision_timestamp'?: number | null;
-  
+
   /* The ID of the target entity. */
   'revision_uid'?: number | null;
   'vid'?: number;
@@ -10164,1743 +10164,1743 @@ export interface node_revision__bodyEntity {
   'body_format'?: string | null;
   'body_summary'?: string | null;
   'body_value': string;
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field comment. */
 export interface node_revision__commentEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* Whether comments are allowed on this entity: 0 = no, 1 = closed (read only), 2 = open (read/write). */
   'comment_status'?: number;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_a_side_songs. */
 export interface node_revision__field_a_side_songsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_a_side_songs_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_a_side_songs_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_artist_term. */
 export interface node_revision__field_artist_termEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_artist_term_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_audio. */
 export interface node_revision__field_audioEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_audio_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_audio_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_audio_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_audio… */
 export interface node_revision__field_audio_durationEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_audio_duration_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_audio_review. */
 export interface node_revision__field_audio_reviewEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* A description of the file. */
   'field_audio_review_description'?: string | null;
-  
+
   /* Flag to control whether this file should be displayed when viewing content. */
   'field_audio_review_display'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_audio_review_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_b_side_songs. */
 export interface node_revision__field_b_side_songsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_b_side_songs_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_b_side_songs_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_band_members. */
 export interface node_revision__field_band_membersEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_band_members_format'?: string | null;
   'field_band_members_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_buy_cassette… */
 export interface node_revision__field_buy_cassette_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Serialized array of options for the link. */
   'field_buy_cassette_link_options'?: any | null;
-  
+
   /* The link text. */
   'field_buy_cassette_link_title'?: string | null;
-  
+
   /* The URI of the link. */
   'field_buy_cassette_link_uri'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_buy_discogs… */
 export interface node_revision__field_buy_discogs_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Serialized array of options for the link. */
   'field_buy_discogs_link_options'?: any | null;
-  
+
   /* The link text. */
   'field_buy_discogs_link_title'?: string | null;
-  
+
   /* The URI of the link. */
   'field_buy_discogs_link_uri'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_buy_record… */
 export interface node_revision__field_buy_record_linkEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Serialized array of options for the link. */
   'field_buy_record_link_options'?: any | null;
-  
+
   /* The link text. */
   'field_buy_record_link_title'?: string | null;
-  
+
   /* The URI of the link. */
   'field_buy_record_link_uri'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_c_side_songs. */
 export interface node_revision__field_c_side_songsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_c_side_songs_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_c_side_songs_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_cassette… */
 export interface node_revision__field_cassette_coverEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'field_cassette_cover_alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'field_cassette_cover_height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_cassette_cover_target_id': number;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'field_cassette_cover_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_cassette_cover_width'?: number | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_credits. */
 export interface node_revision__field_creditsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_credits_format'?: string | null;
   'field_credits_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_d_side_songs. */
 export interface node_revision__field_d_side_songsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_d_side_songs_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_d_side_songs_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_featured. */
 export interface node_revision__field_featuredEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_featured_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_genre. */
 export interface node_revision__field_genreEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_genre_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_image. */
 export interface node_revision__field_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'field_image_alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'field_image_height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_image_target_id': number;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'field_image_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_image_width'?: number | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_images. */
 export interface node_revision__field_imagesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'field_images_alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'field_images_height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'field_images_target_id': number;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'field_images_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'field_images_width'?: number | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_is_vinyl. */
 export interface node_revision__field_is_vinylEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_is_vinyl_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_label. */
 export interface node_revision__field_labelEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_label_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_likes. */
 export interface node_revision__field_likesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_likes_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_liner_notes. */
 export interface node_revision__field_liner_notesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_liner_notes_format'?: string | null;
   'field_liner_notes_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_mentioned… */
 export interface node_revision__field_mentioned_albumEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_mentioned_album_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_meta_tags. */
 export interface node_revision__field_meta_tagsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_meta_tags_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_podcast_image. */
 export interface node_revision__field_podcast_imageEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_podcast_image_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_release_year. */
 export interface node_revision__field_release_yearEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_release_year_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_review. */
 export interface node_revision__field_reviewEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_review_format'?: string | null;
   'field_review_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_tags. */
 export interface node_revision__field_tagsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_tags_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_transcript. */
 export interface node_revision__field_transcriptEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_transcript_format'?: string | null;
   'field_transcript_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for node field field_yoast_seo. */
 export interface node_revision__field_yoast_seoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_yoast_seo_description'?: string | null;
   'field_yoast_seo_focus_keyword'?: string | null;
   'field_yoast_seo_status'?: string | null;
   'field_yoast_seo_title'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* A list of URL aliases for Drupal paths. a user may visit… */
 export interface old_5de8db_url_aliasEntity {
-  
+
   /* The alias for this path. e.g. title-of-the-story. */
   'alias'?: string;
-  
+
   /* The language code this alias is for. if 'und', the alias will be used for unknown languages. Each Drupal path can have an alias for each supported language. */
   'langcode'?: string;
-  
+
   /* A unique path alias identifier. */
   'pid'?: number;
-  
+
   /* The Drupal path this alias is for. e.g. node/12. */
   'source'?: string;
 }
 
 /* A list of URL aliases for Drupal paths. a user may visit… */
 export interface old_5de8f6_url_aliasEntity {
-  
+
   /* The alias for this path. e.g. title-of-the-story. */
   'alias'?: string;
-  
+
   /* The language code this alias is for. if 'und', the alias will be used for unknown languages. Each Drupal path can have an alias for each supported language. */
   'langcode'?: string;
-  
+
   /* A unique path alias identifier. */
   'pid'?: number;
-  
+
   /* The Drupal path this alias is for. e.g. node/12. */
   'source'?: string;
 }
 
 /* Data storage for paragraph field field_album_name. */
 export interface paragraph__field_album_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_album_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_artist_name. */
 export interface paragraph__field_artist_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_artist_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_book_name. */
 export interface paragraph__field_book_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_book_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_comment. */
 export interface paragraph__field_commentEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_comment_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_concert_name. */
 export interface paragraph__field_concert_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_concert_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_fav_song_name. */
 export interface paragraph__field_fav_song_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_fav_song_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_lyrics. */
 export interface paragraph__field_lyricsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_lyrics_format'?: string | null;
   'field_lyrics_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_movie_name. */
 export interface paragraph__field_movie_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_movie_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_site. */
 export interface paragraph__field_siteEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_site_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_site_s_url. */
 export interface paragraph__field_site_s_urlEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Serialized array of options for the link. */
   'field_site_s_url_options'?: any | null;
-  
+
   /* The link text. */
   'field_site_s_url_title'?: string | null;
-  
+
   /* The URI of the link. */
   'field_site_s_url_uri'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_song. */
 export interface paragraph__field_songEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_song_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_song_credits. */
 export interface paragraph__field_song_creditsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_credits_format'?: string | null;
   'field_song_credits_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_song_duration. */
 export interface paragraph__field_song_durationEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_duration_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_song_name. */
 export interface paragraph__field_song_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_song_preview_url. */
 export interface paragraph__field_song_preview_urlEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_preview_url_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_song_writers. */
 export interface paragraph__field_song_writersEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_writers_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_track_plays. */
 export interface paragraph__field_track_playsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_track_plays_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for paragraph field field_tv_show_name. */
 export interface paragraph__field_tv_show_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_tv_show_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_album… */
 export interface paragraph_revision__field_album_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_album_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_artist… */
 export interface paragraph_revision__field_artist_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_artist_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_book… */
 export interface paragraph_revision__field_book_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_book_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_comment. */
 export interface paragraph_revision__field_commentEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_comment_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_concert… */
 export interface paragraph_revision__field_concert_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_concert_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_fav_song… */
 export interface paragraph_revision__field_fav_song_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_fav_song_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_lyrics. */
 export interface paragraph_revision__field_lyricsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_lyrics_format'?: string | null;
   'field_lyrics_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_movie… */
 export interface paragraph_revision__field_movie_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_movie_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_site. */
 export interface paragraph_revision__field_siteEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_site_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_site_s… */
 export interface paragraph_revision__field_site_s_urlEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* Serialized array of options for the link. */
   'field_site_s_url_options'?: any | null;
-  
+
   /* The link text. */
   'field_site_s_url_title'?: string | null;
-  
+
   /* The URI of the link. */
   'field_site_s_url_uri'?: string | null;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_song. */
 export interface paragraph_revision__field_songEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_song_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_song… */
 export interface paragraph_revision__field_song_creditsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_credits_format'?: string | null;
   'field_song_credits_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_song… */
 export interface paragraph_revision__field_song_durationEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_duration_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_song… */
 export interface paragraph_revision__field_song_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_song… */
 export interface paragraph_revision__field_song_preview_urlEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_preview_url_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_song… */
 export interface paragraph_revision__field_song_writersEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_song_writers_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_track… */
 export interface paragraph_revision__field_track_playsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_track_plays_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for paragraph field field_tv_show… */
 export interface paragraph_revision__field_tv_show_nameEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_tv_show_name_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
@@ -11910,7 +11910,7 @@ export interface paragraphs_itemEntity {
   'id'?: number;
   'langcode': string;
   'revision_id'?: number | null;
-  
+
   /* The ID of the target entity. */
   'type': string;
   'uuid': string;
@@ -11929,7 +11929,7 @@ export interface paragraphs_item_field_dataEntity {
   'revision_id': number;
   'revision_translation_affected'?: number | null;
   'status': number;
-  
+
   /* The ID of the target entity. */
   'type': string;
 }
@@ -11981,22 +11981,22 @@ export interface path_alias_revisionEntity {
 
 /* Stores Persistent Login tokens for users */
 export interface persistent_loginEntity {
-  
+
   /* The creation timestamp for this series. */
   'created': number;
-  
+
   /* The expiration timestamp for this series. */
   'expires': number;
-  
+
   /* The single-use value. */
   'instance': string;
-  
+
   /* The refresh timestamp for this series. */
   'refreshed': number;
-  
+
   /* The long-lived value identifying the token sequence. */
   'series': string;
-  
+
   /* The users.uid this row is for. */
   'uid': number;
 }
@@ -12010,10 +12010,10 @@ export interface profileEntity {
   'profile_id'?: number;
   'revision_id'?: number | null;
   'status': number;
-  
+
   /* The ID of the target entity. */
   'type': string;
-  
+
   /* The ID of the target entity. */
   'uid': number;
   'uuid': string;
@@ -12030,30 +12030,30 @@ export interface profile_revisionEntity {
   'revision_default'?: number | null;
   'revision_id'?: number;
   'revision_log_message'?: string | null;
-  
+
   /* The ID of the target entity. */
   'revision_user'?: number | null;
   'status': number;
-  
+
   /* The ID of the target entity. */
   'uid': number;
 }
 
 /* Stores items in queues. */
 export interface queueEntity {
-  
+
   /* Timestamp when the item was created. */
   'created'?: string;
-  
+
   /* The arbitrary data for the item. */
   'data'?: any | null;
-  
+
   /* Timestamp when the claim lease expires on the item. */
   'expire'?: string;
-  
+
   /* Primary Key: Unique item ID. */
   'item_id'?: number;
-  
+
   /* The queue name. */
   'name'?: string;
 }
@@ -12063,25 +12063,25 @@ export interface redirectEntity {
   'created'?: number | null;
   'hash'?: string | null;
   'language': string;
-  
+
   /* Serialized array of options for the link. */
   'redirect_redirect__options'?: any | null;
-  
+
   /* The link text. */
   'redirect_redirect__title'?: string | null;
-  
+
   /* The URI of the link. */
   'redirect_redirect__uri'?: string | null;
-  
+
   /* The source path */
   'redirect_source__path'?: string | null;
-  
+
   /* Serialized array of path queries */
   'redirect_source__query'?: any | null;
   'rid'?: number;
   'status_code'?: number | null;
   'type': string;
-  
+
   /* The ID of the target entity. */
   'uid'?: number | null;
   'uuid': string;
@@ -12089,109 +12089,109 @@ export interface redirectEntity {
 
 /* Maps paths to various callbacks (access, page and title) */
 export interface routerEntity {
-  
+
   /* A numeric representation of how specific the path is. */
   'fit'?: number;
-  
+
   /* Primary Key: Machine name of this route */
   'name'?: string;
-  
+
   /* Number of parts in this router path. */
   'number_parts'?: number;
-  
+
   /* The path for this URI */
   'path'?: string;
-  
+
   /* The pattern */
   'pattern_outline'?: string;
-  
+
   /* A serialized Route object */
   'route'?: any | null;
 }
 
 /* Stores items that will be searched. */
 export interface search_datasetEntity {
-  
+
   /* List of space-separated words from the item. */
   'data': string;
-  
+
   /* The languages.langcode of the item variant. */
   'langcode'?: string;
-  
+
   /* Set to force node reindexing. */
   'reindex'?: number;
-  
+
   /* Search item ID, e.g. node ID for nodes. */
   'sid'?: number;
-  
+
   /* Type of item, e.g. node. */
   'type': string;
 }
 
 /* Stores the search index, associating words, items and… */
 export interface search_indexEntity {
-  
+
   /* The languages.langcode of the item variant. */
   'langcode'?: string;
-  
+
   /* The numeric score of the word, higher being more important. */
   'score'?: number | null;
-  
+
   /* The search_dataset.sid of the searchable item to which the word belongs. */
   'sid'?: number;
-  
+
   /* The search_dataset.type of the searchable item to which the word belongs. */
   'type': string;
-  
+
   /* The search_total.word that is associated with the search item. */
   'word'?: string;
 }
 
 /* Stores search totals for words. */
 export interface search_totalEntity {
-  
+
   /* The count of the word in the index using Zipf's law to equalize the probability distribution. */
   'count'?: number | null;
-  
+
   /* Primary Key: Unique word in the search index. */
   'word'?: string;
 }
 
 /* Table for holding semaphores, locks, flags, etc. that… */
 export interface semaphoreEntity {
-  
+
   /* A Unix timestamp with microseconds indicating when the semaphore should expire. */
   'expire': number;
-  
+
   /* Primary Key: Unique name. */
   'name'?: string;
-  
+
   /* A value for the semaphore. */
   'value'?: string;
 }
 
 /* Stores IDs. */
 export interface sequencesEntity {
-  
+
   /* The value of the sequence. */
   'value'?: number;
 }
 
 /* Drupal's session handlers read and write into the sessions… */
 export interface sessionsEntity {
-  
+
   /* The IP address that last used this session ID (sid). */
   'hostname'?: string;
-  
+
   /* The serialized contents of $_SESSION, an array of name/value pairs that persists across page requests by this session ID. Drupal loads $_SESSION from here at the start of each request and saves it at the end. */
   'session'?: any | null;
-  
+
   /* A session ID (hashed). The value is generated by Drupal's session handlers. */
   'sid': string;
-  
+
   /* The Unix timestamp when this session last requested a page. Old records are purged by PHP automatically. */
   'timestamp'?: string;
-  
+
   /* The users.uid corresponding to a session, or 0 for anonymous user. */
   'uid': number;
 }
@@ -12200,7 +12200,7 @@ export interface sessionsEntity {
 export interface shortcutEntity {
   'id'?: number;
   'langcode': string;
-  
+
   /* The ID of the target entity. */
   'shortcut_set': string;
   'uuid': string;
@@ -12211,16 +12211,16 @@ export interface shortcut_field_dataEntity {
   'default_langcode': number;
   'id': number;
   'langcode': string;
-  
+
   /* Serialized array of options for the link. */
   'link__options'?: any | null;
-  
+
   /* The link text. */
   'link__title'?: string | null;
-  
+
   /* The URI of the link. */
   'link__uri'?: string | null;
-  
+
   /* The ID of the target entity. */
   'shortcut_set': string;
   'title'?: string | null;
@@ -12229,54 +12229,54 @@ export interface shortcut_field_dataEntity {
 
 /* Maps users to shortcut sets. */
 export interface shortcut_set_usersEntity {
-  
+
   /* The shortcut_set.set_name that will be displayed for this user. */
   'set_name'?: string;
-  
+
   /* The users.uid for this set. */
   'uid'?: number;
 }
 
 /* Holds XML sitemaps as strings for quick retrieval. */
 export interface simple_sitemapEntity {
-  
+
   /* Delta of the chunk within the type scope. */
   'delta': number;
-  
+
   /* Sitemap chunk unique identifier. */
   'id'?: number;
-  
+
   /* The number of links in the sitemap. */
   'link_count'?: number;
-  
+
   /* Timestamp of sitemap chunk generation. */
   'sitemap_created'?: number;
-  
+
   /* XML sitemap chunk string. */
   'sitemap_string': string;
-  
+
   /* Flag indicating the publishing status of the chunk. */
   'status'?: number;
-  
+
   /* Type of sitemap this chunk belongs to. */
   'type'?: string;
 }
 
 /* Holds sitemap settings overridden by entities. */
 export interface simple_sitemap_entity_overridesEntity {
-  
+
   /* ID of the overriding entity. */
   'entity_id': string;
-  
+
   /* Entity type of the overriding entity. */
   'entity_type': string;
-  
+
   /* Override unique identifier. */
   'id'?: number;
-  
+
   /* Setting for the overriding entity. */
   'inclusion_settings'?: any | null;
-  
+
   /* Type of sitemap this override belongs to. */
   'type': string;
 }
@@ -12290,7 +12290,7 @@ export interface social_authEntity {
   'plugin_id': string;
   'provider_user_id': string;
   'token'?: string | null;
-  
+
   /* The ID of the target entity. */
   'user_id': number;
   'uuid': string;
@@ -12298,307 +12298,307 @@ export interface social_authEntity {
 
 /* Maintains denormalized information about node/term… */
 export interface taxonomy_indexEntity {
-  
+
   /* The Unix timestamp when the node was created. */
   'created'?: number;
-  
+
   /* The node.nid this record tracks. */
   'nid'?: number;
-  
+
   /* Boolean indicating whether the node is published (visible to non-administrators). */
   'status'?: number;
-  
+
   /* Boolean indicating whether the node is sticky. */
   'sticky'?: number | null;
-  
+
   /* The term ID. */
   'tid'?: number;
 }
 
 /* Data storage for taxonomy_term field field_band_members. */
 export interface taxonomy_term__field_band_membersEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_band_members_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_band_sites. */
 export interface taxonomy_term__field_band_sitesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_band_sites_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_band_sites_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_contact_email. */
 export interface taxonomy_term__field_contact_emailEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_contact_email_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_evinyl_biography. */
 export interface taxonomy_term__field_evinyl_biographyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_evinyl_biography_format'?: string | null;
   'field_evinyl_biography_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_featured. */
 export interface taxonomy_term__field_featuredEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_featured_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_genre. */
 export interface taxonomy_term__field_genreEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_genre_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_hometown. */
 export interface taxonomy_term__field_hometownEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_hometown_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_influences. */
 export interface taxonomy_term__field_influencesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_influences_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_likes. */
 export interface taxonomy_term__field_likesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_likes_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_similar_artists. */
 export interface taxonomy_term__field_similar_artistsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_similar_artists_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field field_user_photo. */
 export interface taxonomy_term__field_user_photoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_user_photo_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for taxonomy_term field parent. */
 export interface taxonomy_term__parentEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The ID of the target entity. */
   'parent_target_id': number;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
@@ -12609,7 +12609,7 @@ export interface taxonomy_term_dataEntity {
   'revision_id'?: number | null;
   'tid'?: number;
   'uuid': string;
-  
+
   /* The ID of the target entity. */
   'vid': string;
 }
@@ -12626,7 +12626,7 @@ export interface taxonomy_term_field_dataEntity {
   'revision_translation_affected'?: number | null;
   'status': number;
   'tid': number;
-  
+
   /* The ID of the target entity. */
   'vid': string;
   'weight': number;
@@ -12653,7 +12653,7 @@ export interface taxonomy_term_revisionEntity {
   'revision_default'?: number | null;
   'revision_id'?: number;
   'revision_log_message'?: string | null;
-  
+
   /* The ID of the target entity. */
   'revision_user'?: number | null;
   'tid': number;
@@ -12661,670 +12661,670 @@ export interface taxonomy_term_revisionEntity {
 
 /* Revision archive storage for taxonomy_term field field_band… */
 export interface taxonomy_term_revision__field_band_membersEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_band_members_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field_band… */
 export interface taxonomy_term_revision__field_band_sitesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_band_sites_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_band_sites_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field… */
 export interface taxonomy_term_revision__field_contact_emailEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_contact_email_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field… */
 export interface taxonomy_term_revision__field_evinyl_biographyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_evinyl_biography_format'?: string | null;
   'field_evinyl_biography_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field… */
 export interface taxonomy_term_revision__field_featuredEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_featured_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field… */
 export interface taxonomy_term_revision__field_genreEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_genre_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field… */
 export interface taxonomy_term_revision__field_hometownEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_hometown_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field… */
 export interface taxonomy_term_revision__field_influencesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_influences_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field… */
 export interface taxonomy_term_revision__field_likesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_likes_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field… */
 export interface taxonomy_term_revision__field_similar_artistsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_similar_artists_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field field_user… */
 export interface taxonomy_term_revision__field_user_photoEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_user_photo_target_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Revision archive storage for taxonomy_term field parent. */
 export interface taxonomy_term_revision__parentEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The ID of the target entity. */
   'parent_target_id': number;
-  
+
   /* The entity revision id this data is attached to */
   'revision_id': number;
 }
 
 /* Data storage for user field field_contact_allowed. */
 export interface user__field_contact_allowedEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_contact_allowed_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_evinyl_biography. */
 export interface user__field_evinyl_biographyEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_evinyl_biography_format'?: string | null;
   'field_evinyl_biography_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_followed_artists. */
 export interface user__field_followed_artistsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_followed_artists_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_is_artist. */
 export interface user__field_is_artistEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_is_artist_value': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_my_top_5_s. */
 export interface user__field_my_top_5_sEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
   'field_my_top_5_s_value': string;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_top_5_albums. */
 export interface user__field_top_5_albumsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_top_5_albums_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_top_5_albums_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_top_5_artists. */
 export interface user__field_top_5_artistsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_top_5_artists_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_top_5_artists_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_top_5_books. */
 export interface user__field_top_5_booksEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_top_5_books_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_top_5_books_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_top_5_concerts. */
 export interface user__field_top_5_concertsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_top_5_concerts_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_top_5_concerts_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_top_5_movies. */
 export interface user__field_top_5_moviesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_top_5_movies_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_top_5_movies_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_top_5_songs. */
 export interface user__field_top_5_songsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_top_5_songs_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_top_5_songs_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field field_top_5_tv_shows. */
 export interface user__field_top_5_tv_showsEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The ID of the target entity. */
   'field_top_5_tv_shows_target_id': number;
-  
+
   /* The revision ID of the target entity. */
   'field_top_5_tv_shows_target_revision_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field mass_contact_opt_out. */
 export interface user__mass_contact_opt_outEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
   'mass_contact_opt_out_value': string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
 }
 
 /* Data storage for user field roles. */
 export interface user__rolesEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
-  
+
   /* The ID of the target entity. */
   'roles_target_id': string;
 }
 
 /* Data storage for user field user_patreon_id. */
 export interface user__user_patreon_idEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
   'user_patreon_id_value': number;
@@ -13332,22 +13332,22 @@ export interface user__user_patreon_idEntity {
 
 /* Data storage for user field user_patreon_refresh_token. */
 export interface user__user_patreon_refresh_tokenEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
   'user_patreon_refresh_token_value': string;
@@ -13355,22 +13355,22 @@ export interface user__user_patreon_refresh_tokenEntity {
 
 /* Data storage for user field user_patreon_token. */
 export interface user__user_patreon_tokenEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
   'user_patreon_token_value': string;
@@ -13378,37 +13378,37 @@ export interface user__user_patreon_tokenEntity {
 
 /* Data storage for user field user_picture. */
 export interface user__user_pictureEntity {
-  
+
   /* The field instance bundle to which this row belongs, used when deleting a field instance */
   'bundle'?: string;
-  
+
   /* A boolean indicating whether this data item has been deleted */
   'deleted'?: number;
-  
+
   /* The sequence number for this data item, used for multi-value fields */
   'delta': number;
-  
+
   /* The entity id this data is attached to */
   'entity_id': number;
-  
+
   /* The language code for this data item. */
   'langcode'?: string;
-  
+
   /* The entity revision id this data is attached to, which for an unversioned entity type is the same as the entity id */
   'revision_id': number;
-  
+
   /* Alternative image text, for the image's 'alt' attribute. */
   'user_picture_alt'?: string | null;
-  
+
   /* The height of the image in pixels. */
   'user_picture_height'?: number | null;
-  
+
   /* The ID of the file entity. */
   'user_picture_target_id': number;
-  
+
   /* Image title text, for the image's 'title' attribute. */
   'user_picture_title'?: string | null;
-  
+
   /* The width of the image in pixels. */
   'user_picture_width'?: number | null;
 }
@@ -13422,19 +13422,19 @@ export interface usersEntity {
 
 /* Stores module data as key/value pairs per user. */
 export interface users_dataEntity {
-  
+
   /* The name of the module declaring the variable. */
   'module'?: string;
-  
+
   /* The identifier of the data. */
   'name'?: string;
-  
+
   /* Whether value is serialized. */
   'serialized'?: number | null;
-  
+
   /* The users.uid this record affects. */
   'uid'?: number;
-  
+
   /* The value. */
   'value'?: any | null;
 }
@@ -13460,47 +13460,47 @@ export interface users_field_dataEntity {
 
 /* Table that contains logs of all system events. */
 export interface watchdogEntity {
-  
+
   /* Hostname of the user who triggered the event. */
   'hostname'?: string;
-  
+
   /* Link to view the result of the event. */
   'link'?: string | null;
-  
+
   /* URL of the origin of the event. */
   'location': string;
-  
+
   /* Text of log message to be passed into the t() function. */
   'message': string;
-  
+
   /* URL of referring page. */
   'referer'?: string | null;
-  
+
   /* The severity level of the event. ranges from 0 (Emergency) to 7 (Debug) */
   'severity'?: number;
-  
+
   /* Unix timestamp of when event occurred. */
   'timestamp'?: string;
-  
+
   /* Type of log message, for example "user" or "page not found." */
   'type'?: string;
-  
+
   /* The users.uid of the user who triggered the event. */
   'uid'?: number;
-  
+
   /* Serialized array of variables that match the message string and that is passed into the t() function. */
   'variables': any;
-  
+
   /* Primary Key: Unique watchdog event ID. */
   'wid'?: string;
 }
 
 /* Stores all webform data. */
 export interface webformEntity {
-  
+
   /* The serial number to give to the next submission to this webform. */
   'next_serial'?: number;
-  
+
   /* The webform id. */
   'webform_id': string;
 }
@@ -13522,34 +13522,34 @@ export interface webform_submissionEntity {
   'sid'?: number;
   'sticky'?: number | null;
   'token'?: string | null;
-  
+
   /* The ID of the target entity. */
   'uid'?: number | null;
   'uri'?: string | null;
   'uuid': string;
-  
+
   /* The ID of the target entity. */
   'webform_id': string;
 }
 
 /* Stores all submitted data for webform submissions. */
 export interface webform_submission_dataEntity {
-  
+
   /* The delta of the element's value. */
   'delta'?: number;
-  
+
   /* The name of the element. */
   'name': string;
-  
+
   /* The property of the element's value. */
   'property'?: string;
-  
+
   /* The unique identifier for this submission. */
   'sid': number;
-  
+
   /* The element's value. */
   'value': string;
-  
+
   /* The webform id. */
   'webform_id': string;
 }
@@ -13645,7 +13645,7 @@ export interface p_c_a_reportsEntity {
   'name': string;
   'non_residential_units'?: number;
   'numbers_of_floors': number;
-  
+
   /* Percentage of total lot area */
   'occupation_of_the_building': number;
   'occupation_of_the_property': string;
@@ -13653,10 +13653,10 @@ export interface p_c_a_reportsEntity {
   'project_id': string;
   'residential_units': number;
   'structure': string;
-  
+
   /* Measured in square meters */
   'surface_area_of_the_building': number;
-  
+
   /* Measured in square meters */
   'total_site_area': number;
   'updated_at'?: Date | null;
@@ -14043,13 +14043,13 @@ export interface txg_e_eventsEntity {
   'id'?: string;
 }
 export interface txg_e_notesEntity {
-  
+
   /* Save the author name when the author was deleted. */
   'author_display_name'?: string | null;
   'author_id'?: string | null;
   'content'?: string | null;
   'created_at': Date;
-  
+
   /* The Elementor element ID the note is attached to. */
   'element_id'?: string | null;
   'id'?: string;
@@ -14057,15 +14057,15 @@ export interface txg_e_notesEntity {
   'is_resolved'?: any;
   'last_activity_at'?: Date | null;
   'parent_id'?: string;
-  
+
   /* A JSON string that represents the position of the note inside the element in percentages. e.g. {x:10, y:15} */
   'position'?: string | null;
   'post_id'?: string | null;
-  
+
   /* The post id of the route that the note was created on. */
   'route_post_id'?: string | null;
   'route_title'?: string | null;
-  
+
   /* Clean url where the note was created. */
   'route_url'?: string | null;
   'status'?: string;
@@ -14075,7 +14075,7 @@ export interface txg_e_notes_users_relationsEntity {
   'created_at': Date;
   'id'?: string;
   'note_id': string;
-  
+
   /* The relation type between user and note (e.g mention, watch, read). */
   'type': string;
   'updated_at': Date;
@@ -14092,7 +14092,7 @@ export interface txg_e_submissionsEntity {
   'hash_id': string;
   'id'?: string;
   'is_read'?: any;
-  
+
   /* Id of main field. to represent the main meta field */
   'main_meta_id': string;
   'meta'?: string | null;
@@ -20283,7 +20283,7 @@ export interface wp_usersEntity {
   'user_url'?: string;
 }
 export interface wp_w3tc_cdn_queueEntity {
-  
+
   /* 1 - Upload, 2 - Delete, 3 - Purge */
   'command'?: number;
   'date'?: Date;

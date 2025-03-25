@@ -5,9 +5,11 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PCAReportController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ClientController;
 
 Route::get('/', function () {
   if (Auth::check()) {
@@ -16,7 +18,6 @@ Route::get('/', function () {
   return Inertia::render('Welcome');
 })->name('home');
 
-Route::get('/dashboard', [DashboardController::class, 'show'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/translations/{locale}', function ($locale) {
   $path = base_path("lang/{$locale}.json");
@@ -31,18 +32,18 @@ Route::get('/set-locale/{locale}', function ($locale, Request $request) {
   return redirect()->back();
 });
 
-// User switching routes
-Route::get( 'admin/user/switch/start/{id}', [RegisteredUserController::class, 'user_switch_start']);
-Route::get( 'admin/user/switch/stop', [RegisteredUserController::class, 'user_switch_stop'] );
 
 Route::middleware(['auth', 'verified'])->group(function () {
-  Route::resource('projects', ProjectController::class); //->except(['store']);
-});
+  Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
 
-// - TODO:
-// Maybe just have them all here instead of requiring
-require base_path('routes/clients.php');
-require base_path('routes/pca.php');
+  Route::resource('projects', ProjectController::class);
+  Route::resource('clients', ClientController::class);
+  Route::resource('pca-reports', PCAReportController::class);
+
+// User switching routes for superadmin
+  Route::get('admin/user/switch/start/{id}', [RegisteredUserController::class, 'user_switch_start']);
+  Route::get('admin/user/switch/stop', [RegisteredUserController::class, 'user_switch_stop']);
+});
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

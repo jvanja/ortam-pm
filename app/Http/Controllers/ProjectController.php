@@ -11,6 +11,8 @@ class ProjectController extends Controller {
    * Display a listing of the resource.
    */
   public function index() {
+    $this->authorize('project.view', Project::class);
+
     $projects = Project::all();
 
     return Inertia::render('projects/Index', [
@@ -22,6 +24,7 @@ class ProjectController extends Controller {
    * Get the latest 3 projects for the dashboard
    */
   public function latestProjects() {
+    $this->authorize('project.view', Project::class);
     $latestProjects = Project::latest()->take(3)->get();
 
     return Inertia::render('Dashboard', [
@@ -33,8 +36,9 @@ class ProjectController extends Controller {
    * Display the specified resource.
    */
   public function show($id) {
-    $project = Project::with('client')->find($id);
+    $this->authorize('project.edit', Project::class);
 
+    $project = Project::with('client')->find($id);
 
     return Inertia::render('projects/Show', [
       'project' => $project,
@@ -45,6 +49,9 @@ class ProjectController extends Controller {
    * Store a newly created resource in storage.
    */
   public function store(Request $request) {
+
+    $this->authorize('project.create', Project::class);
+
     $validated = $request->validate([
       'type' => 'required|string',
       'department' => 'required|string',
@@ -69,6 +76,8 @@ class ProjectController extends Controller {
    * Update the specified resource in storage.
    */
   public function update(Request $request, $id) {
+    $this->authorize('project.edit', Project::class);
+
     $project = Project::findOrFail($id);
 
     $validated = $request->validate([

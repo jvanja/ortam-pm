@@ -95,6 +95,16 @@ class RolePermissionSeeder extends Seeder {
           'client.approve',
         ]
       ],
+      [
+        'group_name' => 'report',
+        'permissions' => [
+          'report.create',
+          'report.view',
+          'report.edit',
+          'report.delete',
+          'report.approve',
+        ]
+      ],
     ];
 
     // - Admin : can access and edit everything and can approve time sheets

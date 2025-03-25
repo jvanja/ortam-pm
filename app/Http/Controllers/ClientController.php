@@ -40,6 +40,11 @@ class ClientController extends Controller {
    */
   public function show(string $id) {
     $this->authorize('client.view', Client::class);
+    $client = Client::find($id);
+
+    return Inertia::render('clients/Show', [
+      'client' => $client,
+    ]);
   }
 
   /**

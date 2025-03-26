@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Enums\Language;
 use App\Enums\ProjectStatus;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Project extends Model {
   use HasFactory;
@@ -47,13 +49,17 @@ class Project extends Model {
     $this->project_status = $status;
   }
 
+  public function invoices(): HasMany {
+    return $this->hasMany(Invoice::class);
+  }
+
+  public function users(): BelongsToMany {
+    return $this->belongsToMany(User::class)->withTimestamps();
+  }
   // public function workload(): BelongsToMany {
   //   return $this->belongsToMany(Workload::class);
   // }
   //
-  // public function invoices(): HasMany {
-  //   return $this->hasMany(Invoice::class);
-  // }
   //
   // public function timeSheets(): HasMany {
   //   return $this->hasMany(TimeSheet::class);

@@ -47,7 +47,7 @@ const submit = () => {
                 </div>
               </div>
               <div class="flex w-full justify-end">
-                <Button :disabled="form.processing">Save</Button>
+                <Button :disabled="form.processing">Update</Button>
               </div>
             </form>
           </CardContent>

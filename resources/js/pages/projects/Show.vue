@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Toaster } from '@/components/ui/sonner';
 import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
 
@@ -29,9 +28,7 @@ const employees = props.employees;
 
 const form = useForm(project);
 const submit = () => {
-  console.log(form);
-  /* @ts-expect-error This is fine */
-  form.patch(route('projects.update', props.project.id), {
+  form.patch(route('projects.update', [props.project.id]), {
     preserveScroll: true,
     onSuccess: () => {
       toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });
@@ -42,16 +39,13 @@ const submit = () => {
 const employeesIds = employees.map((employee) => employee.id);
 const projectEmployeeForm = useForm({ employeesIds });
 const removeEmployee = (id: string) => {
-  console.log(id);
-  /* @ts-expect-error This is fine */
-  projectEmployeeForm.delete(route('projects.employees.destroy', props.project.id, id), {
+  projectEmployeeForm.delete(route('projects.employee.remove', [props.project, id]), {
     preserveScroll: true,
     onSuccess: () => {
       toast.success('Employee has been removed successfully!', { style: { background: '#6ee7b7', color: '#000' } });
     },
   });
 };
-console.log(props.project);
 </script>
 <template>
   <Head title="Project" />
@@ -118,6 +112,5 @@ console.log(props.project);
         </Card>
       </div>
     </div>
-    <Toaster />
   </AppLayout>
 </template>

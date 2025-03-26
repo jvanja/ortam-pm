@@ -104,6 +104,28 @@ class ProjectController extends Controller {
   }
 
   /**
+   * Remove an employee from the project.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Models\Project  $project
+   * @param  int|string  $userId
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function removeEmployee(Request $request, Project $project, $userId) {
+
+    $this->authorize('project.edit', Project::class);
+
+    // Check if the employee is assigned to the project
+    if ($project->users()->where('user_id', $userId)->exists()) {
+      $project->users()->detach($userId);
+
+      return redirect()->back()->with('success', 'Employee removed successfully.');
+    }
+
+    return redirect()->back()->with('error', 'Employee not found in project.');
+  }
+
+  /**
    * Remove the specified resource from storage.
    */
   public function destroy($id) {

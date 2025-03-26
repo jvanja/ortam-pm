@@ -34,7 +34,7 @@ class PCAReportController extends Controller {
    */
   public function show($id) {
     $this->authorize('report.view', PCAReport::class);
-    $report = PCAReport::findOrFail($id); // Or handle not found
+    $report = PCAReport::with('project')->findOrFail($id); // Or handle not found
 
     return Inertia::render('pca_reports/Show', [
       'pca_report' => $report,

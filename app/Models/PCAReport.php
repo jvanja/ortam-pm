@@ -16,6 +16,7 @@ class PCAReport extends Model {
    */
   protected $fillable = [
     'name',
+    'address',
     'occupation_of_the_property',
     'total_site_area',
     'surface_area_of_the_building',
@@ -51,6 +52,14 @@ class PCAReport extends Model {
 
   public function organization(): BelongsTo {
     return $this->belongsTo(Organization::class);
+  }
+
+  public function project(): BelongsTo {
+    return $this->belongsTo(Project::class);
+  }
+
+  public function client(): BelongsTo {
+    return $this->belongsTo(Client::class);
   }
 
 }

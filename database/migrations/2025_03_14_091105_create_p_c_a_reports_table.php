@@ -12,6 +12,7 @@ return new class extends Migration {
     Schema::create('p_c_a_reports', function (Blueprint $table) {
       $table->id();
       $table->string('name');
+      $table->string('address');
       $table->string('occupation_of_the_property');
       $table->integer('total_site_area')->comment('Measured in square meters');
       $table->integer('surface_area_of_the_building')->comment('Measured in square meters');

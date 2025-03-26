@@ -85,6 +85,7 @@ export interface organizationsEntity {
   'updated_at'?: Date | null;
 }
 export interface p_c_a_reportsEntity {
+  'address': string;
   'basement': any;
   'building': string;
   'client_id': string;

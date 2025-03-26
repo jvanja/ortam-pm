@@ -19,6 +19,7 @@ class PCAReportFactory extends Factory {
   public function definition(): array {
     return [
       'name' => $this->faker->company(),
+      'address' => $this->faker->address(),
       'occupation_of_the_property' => 'Residential',
       'total_site_area' => $this->faker->numberBetween(2000, 5000), // m²
       'surface_area_of_the_building' => $this->faker->numberBetween(500, 1000), // m²

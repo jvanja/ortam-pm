@@ -11,7 +11,7 @@ import { toast } from 'vue-sonner';
 
 const props = defineProps<{ user: usersEntity }>();
 const breadcrumbs: BreadcrumbItem[] = [
-  { title: 'Users', href: '/users' },
+  { title: 'Users', href: '' },
   { title: props.user.name, href: '' },
 ];
 

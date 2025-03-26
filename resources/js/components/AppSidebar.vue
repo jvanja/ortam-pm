@@ -3,15 +3,8 @@ import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import useSidebar from '@/composables/useSidebar';
 import { Link } from '@inertiajs/vue3';
 import AppLogo from './AppLogo.vue';
-
-const { sidebarMenu } = useSidebar();
-console.warn("DEBUGPRINT[10]: AppSidebar.vue:10: sidebarMenu=", sidebarMenu)
-
-const mainNavItems = sidebarMenu;
-
 
 const footerNavItems = [
   { title: 'Superadmin', href: 'admin/user/switch/start/1' },
@@ -35,7 +28,7 @@ const footerNavItems = [
     </SidebarHeader>
 
     <SidebarContent>
-      <NavMain :items="mainNavItems" />
+      <NavMain />
     </SidebarContent>
 
     <SidebarFooter>

@@ -1,10 +1,10 @@
 {
-    "client": "mysql",
-    "connection": {
-        "host": "127.0.0.1",
-        "user": "admin",
-        "password": "jeremy11",
-        "database": "ortam_pm"
-    },
-    "filename": "resources/js/types/DatabaseModels"
+  "client": "mysql2",
+  "connection": {
+    "host": "127.0.0.1",
+    "user": "ortam_pm",
+    "password": "",
+    "database": "ortam_pm"
+  },
+  "filename": "resources/js/types/DatabaseModels"
 }

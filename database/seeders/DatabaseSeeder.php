@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder {
       QuoteSeeder::class,
       TimesheetSeeder::class,
       PCASeeder::class,
+      UserProjectSeeder::class,
     ]);
   }
 }

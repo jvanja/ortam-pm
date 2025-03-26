@@ -8,8 +8,10 @@ import { Link } from '@inertiajs/vue3';
 import AppLogo from './AppLogo.vue';
 
 const { sidebarMenu } = useSidebar();
+console.warn("DEBUGPRINT[10]: AppSidebar.vue:10: sidebarMenu=", sidebarMenu)
 
 const mainNavItems = sidebarMenu;
+
 
 const footerNavItems = [
   { title: 'Superadmin', href: 'admin/user/switch/start/1' },

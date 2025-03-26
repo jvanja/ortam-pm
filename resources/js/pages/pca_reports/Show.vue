@@ -5,7 +5,6 @@ import { type p_c_a_reportsEntity } from '@/types/DatabaseModels';
 import { Summary, Interior } from '@/components/PCAReport';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Toaster } from '@/components/ui/sonner';
 import { Tabs, TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
@@ -77,5 +76,4 @@ const tabsMenu = [
       </div>
     </div>
   </AppLayout>
-  <Toaster />
 </template>

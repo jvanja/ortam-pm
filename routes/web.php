@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
 
   Route::resource('projects', ProjectController::class);
+  Route::delete('/projects/{project}/remove-employee/{userId}', [ProjectController::class, 'removeEmployee'])->name('projects.employee.remove');
   Route::resource('clients', ClientController::class);
   Route::resource('pca-reports', PCAReportController::class);
 

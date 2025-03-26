@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3';
-import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'vue-sonner';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -108,5 +107,4 @@ const submit = () => {
       </div>
     </form>
   </div>
-  <Toaster />
 </template>

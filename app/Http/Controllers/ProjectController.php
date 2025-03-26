@@ -129,6 +129,7 @@ class ProjectController extends Controller {
    * Remove the specified resource from storage.
    */
   public function destroy($id) {
+    $this->authorize('project.delete', Project::class);
     $project = Project::findOrFail($id);
     $project->delete();
 

@@ -22,13 +22,6 @@ class ClientController extends Controller {
   }
 
   /**
-   * Show the form for creating a new resource.
-   */
-  public function create() {
-    $this->authorize('client.create', Client::class);
-  }
-
-  /**
    * Store a newly created resource in storage.
    */
   public function store(Request $request) {
@@ -48,17 +41,25 @@ class ClientController extends Controller {
   }
 
   /**
-   * Show the form for editing the specified resource.
-   */
-  public function edit(string $id) {
-    $this->authorize('client.edit', Client::class);
-  }
-
-  /**
    * Update the specified resource in storage.
    */
   public function update(Request $request, string $id) {
     $this->authorize('client.edit', Client::class);
+
+    $client = Client::findOrFail($id);
+
+    $validated = $request->validate([
+      'company_name' => 'string',
+      'contact_person' => 'sometimes|string',
+      'address' => 'sometimes|string',
+      'phone' => 'sometmees:string',
+      'email' => 'sometimes|email',
+      'organization_id' => 'nullable|exists:organizations,id'
+    ]);
+
+    $client->update($validated);
+
+    return redirect()->back()->with('success', 'Project updated successfully');
   }
 
   /**
@@ -66,5 +67,9 @@ class ClientController extends Controller {
    */
   public function destroy(string $id) {
     $this->authorize('client.delete', Client::class);
+    $client = Client::findOrFail($id);
+    $client->delete();
+
+    return redirect()->back()->with('success', 'Clent deleted successfully');
   }
 }

@@ -2,7 +2,7 @@
 import { type BreadcrumbItem } from '@/types';
 import { type p_c_a_reportsEntity } from '@/types/DatabaseModels';
 
-import { Summary, Interior } from '@/components/PCAReport';
+import { Summary, Interior } from '@/components/pca-report';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';

@@ -47,6 +47,28 @@ class RegisteredUserController extends Controller {
   }
 
   /**
+   * Display the specified resource.
+   */
+  public function show($id) {
+    $this->authorize('admin.view', User::class);
+    $user = User::findOrFail($id); // Or handle not found
+
+    return Inertia::render('users/Show', [
+      'user' => $user,
+    ]);
+  }
+
+  /**
+   * Update user by {id}
+   */
+  public function update($user_id, Request $request) {
+    dd($request->session()->all());
+
+    $user = User::find($user_id);
+    return redirect()->back();
+  }
+
+  /**
    * Switch user by {id} and store original user id in session
    */
   public function user_switch_start($new_user_id, Request $request) {

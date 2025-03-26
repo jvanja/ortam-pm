@@ -40,6 +40,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::delete('/projects/{project}/remove-employee/{userId}', [ProjectController::class, 'removeEmployee'])->name('projects.employee.remove');
   Route::resource('clients', ClientController::class);
   Route::resource('pca-reports', PCAReportController::class);
+  Route::get('users/{id}', [RegisteredUserController::class, 'show']);
+  Route::patch('users/{id}', [RegisteredUserController::class, 'update'])->name('users.update');
 
 // User switching routes for superadmin
   Route::get('admin/user/switch/start/{id}', [RegisteredUserController::class, 'user_switch_start']);

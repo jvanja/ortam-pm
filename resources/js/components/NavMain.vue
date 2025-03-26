@@ -32,7 +32,7 @@ const mainNavItems = [
 ];
 const page = usePage<SharedData>();
 const hasPermission = (permission: string) => {
-  return permission === '' ? true : page.props.auth.permissions!.includes(permission);
+  return permission === '' ? true : page.props.auth.permissions.includes(permission);
 };
 </script>
 

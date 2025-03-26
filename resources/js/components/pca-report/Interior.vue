@@ -21,6 +21,6 @@ watch(localForm, (newVal) => {
 <template>
   <div>
     <Label htmlFor="name">Name of the report</Label>
-    <Input v-model="localForm.name"></Input>
+    <Input id="name" v-model="localForm.name"></Input>
   </div>
 </template>

@@ -20,7 +20,6 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ];
 
-// console.log(props.clients);
 const objects = props.clients.map((client) => {
   return { id: client.id!, name: client.company_name };
 });
@@ -35,7 +34,7 @@ console.log(objects);
     <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
       <div class="flex flex-col gap-4 p-4">
         <Heading title="Clients" description="These are your latest clients" />
-        <ObjectList :objects="objects" type="clients"/>
+        <ObjectList :objects="objects" type="clients" />
         <div class="grid gap-1">
           <Label for="name">Search clients</Label>
           <Input id="search" class="mt-1 block w-full" placeholder="client name" />

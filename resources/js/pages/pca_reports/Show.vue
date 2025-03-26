@@ -53,8 +53,7 @@ const tabsMenu = [
         <Card>
           <CardHeader>
             <CardTitle>{{ pca_report.name }}</CardTitle>
-            <h1>{{ pca_report.basement }}</h1>
-            <CardDescription>{{ pca_report.year_of_construction }}</CardDescription>
+            <CardDescription>{{ pca_report.project_id }}</CardDescription>
           </CardHeader>
           <CardContent>
             <form @submit.prevent="submit" class="space-y-6">

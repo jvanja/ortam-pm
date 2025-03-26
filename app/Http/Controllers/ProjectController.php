@@ -38,10 +38,14 @@ class ProjectController extends Controller {
   public function show($id) {
     $this->authorize('project.edit', Project::class);
 
-    $project = Project::with('client')->find($id);
+    $project = Project::find($id);
+    $employees = $project->users()->get();
+    $client = $project->client()->get();
 
     return Inertia::render('projects/Show', [
       'project' => $project,
+      'client' => $client,
+      'employees' => $employees,
     ]);
   }
 

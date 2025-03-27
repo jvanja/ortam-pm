@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Permission;
 class RolePermissionSeeder extends Seeder {
   public function run() {
     // Create roles
-    $roleSuperAdmin = Role::findOrCreate('superadmin');
+    $superAdminRole = Role::findOrCreate('superadmin');
     $adminRole = Role::findOrCreate('admin');
     $employeeRole = Role::findOrCreate('employee');
     $receptionistRole = Role::findOrCreate('receptionist');
@@ -126,7 +126,10 @@ class RolePermissionSeeder extends Seeder {
               // 'guard_name' => 'admin'
             ]
           );
-          $roleSuperAdmin->givePermissionTo($permission);
+          $superAdminRole->givePermissionTo($permission);
+          if ($permissionGroup === 'timesheet') {
+            $employeeRole->givePermissionTo($permission);
+          }
         }
       }
     }

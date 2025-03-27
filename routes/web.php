@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TimesheetController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
@@ -42,8 +43,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
   Route::resource('projects', ProjectController::class);
   Route::delete('/projects/{project}/remove-employee/{userId}', [ProjectController::class, 'removeEmployee'])->name('projects.employee.remove');
+
   Route::resource('clients', ClientController::class);
+
   Route::resource('pca-reports', PCAReportController::class);
+
+  Route::resource('timesheets', TimesheetController::class);
+
   Route::get('users/{id}', [RegisteredUserController::class, 'show']);
   Route::patch('users/{id}', [RegisteredUserController::class, 'update'])->name('users.update');
 

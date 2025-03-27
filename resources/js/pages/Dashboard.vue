@@ -8,7 +8,12 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { type projectsEntity } from '@/types/DatabaseModels';
 import { Head } from '@inertiajs/vue3';
+import { is, can } from 'laravel-permission-to-vuejs'
 
+  if(is('superadmin')){
+    // do admin actions
+    console.log('super')
+  }
 defineProps<{ projects: projectsEntity[] }>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
 </script>
@@ -17,6 +22,11 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
   <Head title="Dashboard" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
+    <div v-if="is('superadmin')">admin</div>
+    <div v-if="can('vier')">
+      <!-- Edit post form -->
+    </div>
+
     <div v-if="projects.length > 1" class="flex flex-col gap-4 p-8">
       <Heading title="Projects" description="These are your latest projects" />
       <div class="flex flex-col gap-2">

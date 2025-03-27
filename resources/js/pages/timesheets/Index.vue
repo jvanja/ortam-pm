@@ -6,14 +6,15 @@ import { Label } from '@/components/ui/label';
 import ObjectList from '@/components/ObjectList.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { type time_sheetsEntity } from '@/types/DatabaseModels';
+import type { time_sheetsEntity, projectsEntity } from '@/types/DatabaseModels';
 import { Head } from '@inertiajs/vue3';
+type timesheetWithProject = time_sheetsEntity & {project: projectsEntity}
 
-const props = defineProps<{ timesheets: time_sheetsEntity[]; }>();
+const props = defineProps<{ timesheets: timesheetWithProject[]; }>();
 const breadcrumbs: BreadcrumbItem[] = [ { title: 'Timesheets', href: '/timesheets' }];
 
 const objects = props.timesheets.map((timesheet) => {
-  return { id: timesheet.id!, name: timesheet.task_performed };
+  return { id: timesheet.id!, name: `${timesheet.project.type} - ${timesheet.task_performed} - ${timesheet.worked_duration} hours` };
 });
 </script>
 

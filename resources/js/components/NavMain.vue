@@ -29,6 +29,12 @@ const mainNavItems = [
     icon: Contact,
     permission: 'client.view',
   },
+  {
+    title: 'Timesheeets',
+    href: '/timesheets',
+    icon: Contact,
+    permission: 'timesheet.view',
+  },
 ];
 const page = usePage<SharedData>();
 const hasPermission = (permission: string) => {

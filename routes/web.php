@@ -34,6 +34,10 @@ Route::get('/set-locale/{locale}', function ($locale, Request $request) {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
+  // Route::group(['middleware' => ['role:superadmin|admin']], function () {
+  //   Route::get('/dashboard', [DashboardController::class, 'showAdmin'])->name('dashboard');
+  // });
+
   Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
 
   Route::resource('projects', ProjectController::class);
@@ -43,7 +47,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('users/{id}', [RegisteredUserController::class, 'show']);
   Route::patch('users/{id}', [RegisteredUserController::class, 'update'])->name('users.update');
 
-// User switching routes for superadmin
+  // User switching routes for superadmin
   Route::get('admin/user/switch/start/{id}', [RegisteredUserController::class, 'user_switch_start']);
   Route::get('admin/user/switch/stop', [RegisteredUserController::class, 'user_switch_stop']);
 });

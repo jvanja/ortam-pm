@@ -2,6 +2,7 @@ import type { PageProps } from '@inertiajs/core';
 import type { LucideIcon } from 'lucide-vue-next';
 
 export interface Auth {
+    permissions: any;
     user: User;
 }
 

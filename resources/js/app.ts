@@ -7,6 +7,7 @@ import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
 import { initializeTheme } from './composables/useAppearance';
+import VueApexCharts from "vue3-apexcharts";
 
 // Extend ImportMeta interface for Vite...
 declare module 'vite/client' {
@@ -41,6 +42,7 @@ createInertiaApp({
       .use(plugin)
       .use(ZiggyVue)
       .use(LaravelPermissionToVueJS)
+      .use(VueApexCharts)
       .mount(el);
   },
   progress: {

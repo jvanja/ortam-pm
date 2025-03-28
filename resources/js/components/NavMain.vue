@@ -2,7 +2,7 @@
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Clipboard, Contact, Folder, LayoutGrid } from 'lucide-vue-next';
+import { Clipboard, Contact, Folder, LayoutGrid, SheetIcon } from 'lucide-vue-next';
 
 const mainNavItems = [
   {
@@ -32,7 +32,7 @@ const mainNavItems = [
   {
     title: 'Timesheeets',
     href: '/timesheets',
-    icon: Contact,
+    icon: SheetIcon,
     permission: 'timesheet.view',
   },
 ];

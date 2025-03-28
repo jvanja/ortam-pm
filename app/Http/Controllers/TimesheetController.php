@@ -16,7 +16,7 @@ class TimesheetController extends Controller {
 
     $user = Auth::user();
 
-    $timesheets = $user->timesheets()->with('project')->latest()->limit(5)->get();
+    $timesheets = $user->timesheets()->with('project')->latest()->limit(10)->get();
 
     return Inertia::render('timesheets/Index', [
       'timesheets' => $timesheets,

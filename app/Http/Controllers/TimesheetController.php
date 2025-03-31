@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Project;
 use App\Models\Timesheet;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class TimesheetController extends Controller {
@@ -27,7 +29,45 @@ class TimesheetController extends Controller {
    * Store a newly created resource in storage.
    */
   public function store(Request $request) {
-    //
+    $this->authorize('timesheet.create', Timesheet::class);
+
+    $user = Auth::user();
+
+    $validated = $request->validate([
+      'task_performed' => ['required', 'string', Rule::in(['visit', 'research', 'fieldwork', 'report'])],
+      'worked_duration' => 'required|integer|min:1',
+      // Validate that the project exists and the user is assigned to it
+      'project_id' => [
+        'required',
+        'string',
+        Rule::exists('projects', 'id')->where(function ($query) use ($user) {
+            // Ensure the project is one the user is assigned to via project_user pivot table
+            $query->whereExists(function ($subQuery) use ($user) {
+                $subQuery->select(\DB::raw(1))
+                         ->from('project_user')
+                         ->whereColumn('projects.id', 'project_user.project_id')
+                         ->where('project_user.user_id', $user->id);
+            });
+        }),
+      ],
+      'details' => 'nullable|string|max:65535', // Optional details field
+      // user_id is added below from authenticated user
+    ]);
+
+    // Fetch the project to get the organization_id
+    $project = Project::findOrFail($validated['project_id']);
+
+    Timesheet::create([
+      'task_performed' => $validated['task_performed'],
+      'worked_duration' => $validated['worked_duration'],
+      'project_id' => $validated['project_id'],
+      'organization_id' => $project->organization_id, // Get org ID from the project
+      'details' => $validated['details'] ?? null, // Add details, defaulting to null if empty
+      'user_id' => $user->id,
+    ]);
+
+    // Redirect back to the dashboard
+    return redirect()->back()->with('success', 'Timesheet entry added successfully.');
   }
 
   /**

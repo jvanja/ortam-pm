@@ -17,9 +17,19 @@ class DashboardController extends Controller {
         'projects' => $latestProjects,
       ]);
     } else if ($user->hasRole('client')) {
-      return Inertia::render('DashboardClient', []);
+      // Fetch projects related to the client if needed for DashboardClient
+      // $clientProjects = Project::where('client_id', $user->client_id)->get(); // Example if client relationship exists
+      return Inertia::render('DashboardClient', [
+        // 'projects' => $clientProjects,
+      ]);
     } else {
-      return Inertia::render('DashboardEmployee', []);
+      // Employee role: Fetch projects assigned to this user
+      $employeeProjects = $user->projects()->get(['id', 'address']); // Fetch only needed columns (id for value, address for display)
+
+      return Inertia::render('DashboardEmployee', [
+        'projects' => $employeeProjects,
+        // No need to pass organizations anymore
+      ]);
     }
   }
 }

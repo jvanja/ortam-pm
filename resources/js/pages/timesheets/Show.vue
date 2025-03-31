@@ -1,116 +1,70 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem } from '@/types';
-import type { clientsEntity, projectsEntity, usersEntity } from '@/types/DatabaseModels';
-
-import { Button } from '@/components/ui/button';
+import { type BreadcrumbItem, type TimeSheet, type Project, type User } from '@/types'; // Assuming TimeSheet includes project and user relations
+import { Head } from '@inertiajs/vue3';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Head, useForm } from '@inertiajs/vue3';
-import { toast } from 'vue-sonner';
+import { Input } from '@/components/ui/input'; // Use Input for display, make read-only
+import { Textarea } from '@/components/ui/textarea'; // Use Textarea for details, make read-only
 
+// Define the expected prop structure
+// The controller needs to pass a TimeSheet object with 'project' and 'user' loaded
 const props = defineProps<{
-  project: projectsEntity;
-  client: clientsEntity;
-  employees: usersEntity[];
+  timesheet: TimeSheet & { project: Project; user: User };
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-  { title: 'Projects', href: '/projects' },
-  { title: props.project.type!, href: '' },
+  { title: 'Timesheets', href: '/timesheets' },
+  { title: `Entry ${props.timesheet.id}`, href: `/timesheets/${props.timesheet.id}` }, // Dynamic breadcrumb
 ];
 
-const project = { ...props.project };
-const client = { ...props.client };
-const employees = props.employees;
-
-const form = useForm(project);
-const submit = () => {
-  form.patch(route('projects.update', [props.project.id]), {
-    preserveScroll: true,
-    onSuccess: () => {
-      toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });
-    },
+// Helper function to format date
+const formatDate = (dateString: string | Date | null) => {
+  if (!dateString) return 'N/A';
+  return new Date(dateString).toLocaleDateString(undefined, {
+    year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
   });
 };
 
-const employeesIds = employees.map((employee) => employee.id);
-const projectEmployeeForm = useForm({ employeesIds });
-const removeEmployee = (id: string) => {
-  projectEmployeeForm.delete(route('projects.employee.remove', [props.project, id]), {
-    preserveScroll: true,
-    onSuccess: () => {
-      toast.success('Employee has been removed successfully!', { style: { background: '#6ee7b7', color: '#000' } });
-    },
-  });
-};
 </script>
+
 <template>
-  <Head title="Project" />
+  <Head :title="`Timesheet Entry - ${timesheet.id}`" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
-    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-      <div class="flex flex-col gap-4 p-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>{{ project.type }}</CardTitle>
-            <h2>{{ client.company_name }}</h2>
-            <CardDescription>{{ project.address }}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form @submit.prevent="submit" class="space-y-6">
-              <div class="grid w-full items-center gap-4">
-                <div class="flex flex-col space-y-1.5">
-                  <Label htmlFor="budget">Budget</Label>
-                  <Input id="budget" v-model="form.budget" />
-                </div>
-                <div class="flex flex-col space-y-1.5">
-                  <Label htmlFor="rep">Representative Name</Label>
-                  <Input id="rep" placeholder="Representative name" v-model="form.sales_representative_name" />
-                </div>
-                <div class="flex flex-col space-y-1.5">
-                  <Label htmlFor="pm">Project Manager</Label>
-                  <Input id="pm" :placeholder="project.manager" v-model="form.manager" />
-                </div>
-                <div class="flex flex-col space-y-1.5">
-                  <Label htmlFor="status">Status</Label>
-                  <Select :defaultValue="project.status" v-model="form.status">
-                    <SelectTrigger id="status">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent position="popper">
-                      <SelectItem value="ongoing">Ongoing</SelectItem>
-                      <SelectItem value="completed">Completed</SelectItem>
-                      <SelectItem value="canceled">Canceled</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <div class="flex w-full justify-end">
-                <Button :disabled="form.processing">Save</Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardDescription>Employees</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div class="flex flex-col gap-2">
-              <div v-for="employee in employees" :key="employee.id" class="flex justify-between rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
-                <div class="px-4 py-2 text-sm font-medium">{{ employee.name }}</div>
-                <div class="flex gap-2">
-                  <Button variant="default"><a :href="`/users/${employee.id}`">View employee</a></Button>
-                  <Button variant="destructive" @click="removeEmployee(employee.id!)">Remove</Button>
-                </div>
-              </div>
+    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 md:p-8">
+      <Card>
+        <CardHeader>
+          <CardTitle>Timesheet Entry Details</CardTitle>
+          <CardDescription>
+            Entry recorded by {{ timesheet.user?.name }} on {{ formatDate(timesheet.created_at) }}
+          </CardDescription>
+        </CardHeader>
+        <CardContent class="space-y-4">
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div class="space-y-1.5">
+              <Label>Project</Label>
+              <Input :model-value="timesheet.project?.address" readonly class="bg-muted/40" />
             </div>
-          </CardContent>
-        </Card>
-      </div>
+            <div class="space-y-1.5">
+              <Label>Task Performed</Label>
+              <Input :model-value="timesheet.task_performed.charAt(0).toUpperCase() + timesheet.task_performed.slice(1)" readonly class="bg-muted/40" />
+            </div>
+            <div class="space-y-1.5">
+              <Label>Worked Duration</Label>
+              <Input :model-value="timesheet.worked_duration + 'h'" readonly class="bg-muted/40" />
+            </div>
+             <div class="space-y-1.5">
+              <Label>Recorded By</Label>
+              <Input :model-value="timesheet.user?.name" readonly class="bg-muted/40" />
+            </div>
+          </div>
+           <div class="space-y-1.5">
+              <Label>Details</Label>
+              <Textarea :model-value="timesheet.details || 'No details provided.'" readonly rows="4" class="bg-muted/40" />
+            </div>
+        </CardContent>
+      </Card>
     </div>
   </AppLayout>
 </template>

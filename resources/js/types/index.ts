@@ -66,6 +66,7 @@ export type TaskPerformedEnum = 'visit' | 'research' | 'fieldwork' | 'report';
 export interface TimeSheet extends Omit<time_sheetsEntity, 'id' | 'created_at' | 'updated_at' | 'task_performed'> {
     id: string; // Assuming ID is always present
     task_performed: TaskPerformedEnum; // Use the specific enum type
+    details?: string | null; // Add optional details field
     created_at: Date | string | null;
     updated_at: Date | string | null;
     project?: Project; // Optional relation using our defined Project type

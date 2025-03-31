@@ -74,7 +74,16 @@ class TimesheetController extends Controller {
    * Display the specified resource.
    */
   public function show(string $id) {
-    //
+    // Find the timesheet by ID, including project and user details
+    $timesheet = Timesheet::with(['project', 'user'])->findOrFail($id);
+
+    // Authorize that the current user can view this specific timesheet
+    // Adjust authorization logic as needed (e.g., user owns it, or is admin/manager)
+    $this->authorize('timesheet.view', $timesheet);
+
+    return Inertia::render('timesheets/Show', [
+      'timesheet' => $timesheet,
+    ]);
   }
 
   /**

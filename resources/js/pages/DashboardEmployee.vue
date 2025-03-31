@@ -2,7 +2,7 @@
 import Heading from '@/components/Heading.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 // Import the refactored types from index.ts, including TaskPerformedEnum
-import { type BreadcrumbItem, type Project, type User, type TaskPerformedEnum } from '@/types';
+import { type BreadcrumbItem, type Project, type User, type TaskPerformedEnum, Auth } from '@/types';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -27,7 +27,7 @@ const props = defineProps<{
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
 // Ensure the user object structure matches the updated User type
-const user = usePage().props.auth.user as User;
+const user = (usePage().props.auth as Auth).user as User;
 
 // Define the possible task options based on the enum
 const taskOptions: TaskPerformedEnum[] = ['visit', 'research', 'fieldwork', 'report'];

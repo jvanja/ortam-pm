@@ -76,7 +76,7 @@ class RegisteredUserController extends Controller {
     $new_user_id = User::find($new_user_id);
     $request->session()->put('orig_user', Auth::id());
     Auth::login($new_user_id);
-    return redirect()->back();
+    return to_route('dashboard');
   }
 
   /**
@@ -86,6 +86,7 @@ class RegisteredUserController extends Controller {
     $id = $request->session()->get('orig_user');
     $orig_user = User::find($id);
     Auth::login($orig_user);
-    return redirect()->back();
+    // return redirect()->back();
+    return to_route('dashboard');
   }
 }

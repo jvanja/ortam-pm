@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\Invoice;
 use Inertia\Inertia;
 
 class ClientController extends Controller {
@@ -34,9 +35,11 @@ class ClientController extends Controller {
   public function show(string $id) {
     $this->authorize('client.view', Client::class);
     $client = Client::find($id);
+    $invoices = Invoice::where('client_id', $id)->get();
 
     return Inertia::render('clients/Show', [
       'client' => $client,
+      'invoices' => $invoices,
     ]);
   }
 

@@ -30,6 +30,8 @@ import type {
     projectsEntity,
     organizationsEntity,
     time_sheetsEntity,
+    clientsEntity,
+    invoicesEntity,
 } from './DatabaseModels';
 
 // Re-export or extend base types for application use
@@ -52,6 +54,17 @@ export interface Project extends Omit<projectsEntity, 'id' | 'created_at' | 'upd
     updated_at: Date | string | null;
     deadline: Date | string; // Allow string
     opening_date: Date | string; // Allow string
+}
+export interface Client extends Omit<clientsEntity, 'id' | 'created_at' | 'updated_at'> {
+    id: string; // Assuming ID is always present
+    created_at: Date | string | null;
+    updated_at: Date | string | null;
+}
+
+export interface Invoice extends Omit<invoicesEntity, 'id' | 'created_at' | 'updated_at'> {
+    id: string; // Assuming ID is always present
+    created_at: Date | string;
+    updated_at: Date | string | null;
 }
 
 export interface Organization extends Omit<organizationsEntity, 'id' | 'created_at' | 'updated_at'> {

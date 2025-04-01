@@ -18,8 +18,9 @@ class InvoiceFactory extends Factory {
    */
   public function definition(): array {
     return [
+      'invoice_number' => 'inv-' . fake()->randomNumber(8),
       'amount' => fake()->randomFloat(2, 100, 1000),
-      'paid' => fake()->boolean(),
+      'status' => fake()->boolean(),
       'project_id' => Project::factory(),
       'client_id' => Client::factory(),
       'organization_id' => Organization::factory(),

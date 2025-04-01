@@ -10,8 +10,9 @@ class Invoice extends Model {
   use HasFactory;
 
   protected $fillable = [
+    'invoice_number',
     'amount',
-    'paid',
+    'status',
     'project_id',
     'client_id',
     'organization_id',
@@ -20,7 +21,7 @@ class Invoice extends Model {
   protected $casts = [
     'id' => 'string',
     'amount' => 'float',
-    'paid' => 'boolean',
+    'status' => 'boolean',
   ];
 
   public function project(): BelongsTo {
@@ -34,6 +35,7 @@ class Invoice extends Model {
   public function organization(): BelongsTo {
     return $this->belongsTo(Organization::class);
   }
+
   // - TODO:
   // Move to the controller
   // public function markAsPaid(): void {

@@ -37,9 +37,10 @@ export interface invoicesEntity {
   'client_id': string;
   'created_at'?: Date | null;
   'id'?: string;
+  'invoice_number': string;
   'organization_id': string;
-  'paid': any;
   'project_id': string;
+  'status': any;
   'updated_at'?: Date | null;
 }
 export interface job_batchesEntity {
@@ -182,6 +183,7 @@ export interface sessionsEntity {
 }
 export interface time_sheetsEntity {
   'created_at'?: Date | null;
+  'details'?: string | null;
   'id'?: string;
   'organization_id': string;
   'project_id': string;

@@ -11,6 +11,27 @@ import { Head } from '@inertiajs/vue3';
 
 defineProps<{ projects: projectsEntity[] }>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
+
+const chartOptions = (project: projectsEntity) => {
+  return {
+    chart: {
+      height: 350,
+      type: 'radialBar',
+    },
+    plotOptions: {
+      radialBar: {
+        hollow: {
+          size: '70%',
+        },
+      },
+    },
+    fill: {
+      colors: project.status === 'canceled' ? '#ff0000' : '#0000ff',
+    },
+    labels: [project.type],
+  };
+};
+const series = () => [70];
 </script>
 
 <template>
@@ -19,10 +40,13 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div v-if="projects.length > 1" class="flex flex-col gap-4 p-8">
       <Heading title="Projects" description="These are your latest projects" />
-      <div class="flex flex-col gap-2">
-        <div v-for="project in projects" :key="project.id" class="flex justify-between rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
-          <div class="px-4 py-2 text-sm font-medium">{{ project.type }}</div>
-          <div class="flex gap-2">
+      <div class="grid grid-cols-3 gap-2">
+        <div v-for="project in projects" :key="project.id" class="flex flex-col justify-between rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
+          <div class="chart-container">
+            <apexchart :options="chartOptions(project)" :series="series()"></apexchart>
+          </div>
+          <!-- <div class="px-4 py-2 text-sm font-medium">{{ project.type }}</div> -->
+          <div class="flex gap-2 justify-center">
             <Button variant="default"><a :href="`/projects/${project.id}`">Edit</a></Button>
             <Button variant="destructive">Delete</Button>
           </div>
@@ -41,3 +65,10 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
     </div>
   </AppLayout>
 </template>
+<style scoped>
+.chart-container {
+  width: 760px;
+  max-width: 100%;
+  margin: 0 auto 3rem;
+}
+</style>

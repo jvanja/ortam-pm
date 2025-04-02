@@ -136,6 +136,7 @@ export interface projectsEntity {
   'budget': number;
   'client_id': string;
   'created_at'?: Date | null;
+  'currency'?: string | null;
   'deadline': Date;
   'department': string;
   'id'?: string;

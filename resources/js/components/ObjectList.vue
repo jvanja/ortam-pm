@@ -7,7 +7,6 @@ const props = defineProps<{
   type: string
   canDelete?: boolean
 }>();
-const objects = props.objects;
 const ids = props.objects.map((object) => object.id);
 const form = useForm({ ids });
 const deleteObject = (id: string) => {

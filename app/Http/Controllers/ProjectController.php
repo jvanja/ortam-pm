@@ -5,18 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Inertia\Inertia;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProjectController extends Controller {
   /**
    * Display a listing of the resource.
    */
-  public function index() {
+  public function index(Request $request) {
     $this->authorize('project.view', Project::class);
 
-    $projects = Project::latest()->take(10)->get();
+    $searchQuery = $request->input('search');
+
+    $projects = Project::query()
+        ->when($searchQuery, function (Builder $query, string $search) {
+            // Search in 'type', 'department', 'address', etc. Adjust fields as needed.
+            $query->where('type', 'like', "%{$search}%")
+                  ->orWhere('department', 'like', "%{$search}%")
+                  ->orWhere('address', 'like', "%{$search}%");
+        })
+        ->latest()
+        ->take(10) // Consider pagination for larger datasets
+        ->get();
 
     return Inertia::render('projects/Index', [
-      'projects' => $projects,
+        'projects' => $projects,
+        // 'filters' => ['search' => $searchQuery], // Pass the search query back to the view
     ]);
   }
 

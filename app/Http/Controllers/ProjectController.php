@@ -29,7 +29,6 @@ class ProjectController extends Controller {
 
     return Inertia::render('projects/Index', [
         'projects' => $projects,
-        // 'filters' => ['search' => $searchQuery], // Pass the search query back to the view
     ]);
   }
 

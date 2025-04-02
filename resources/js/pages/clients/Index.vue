@@ -1,29 +1,41 @@
 <script setup lang="ts">
 import Heading from '@/components/Heading.vue';
 import ObjectList from '@/components/ObjectList.vue';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Client } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
+import { debounce } from 'lodash-es'; // Using lodash for debouncing
+import { computed, ref, watch } from 'vue';
 
-const props = defineProps<{
-  clients: Client[];
-}>();
-
+const props = defineProps<{ clients: Client[] }>();
 const breadcrumbs: BreadcrumbItem[] = [
-  {
-    title: 'Clients',
-    href: '/clients',
-  },
+  { title: 'Clients', href: '/clients' }
 ];
+const searchQuery = ref('');
 
-const objects = props.clients.map((client) => {
-  return { id: client.id!, name: client.company_name };
-});
+const objects = computed(() =>
+  props.clients.map((client) => {
+    return { id: client.id!, name: client.company_name };
+  }),
+);
 
-console.log(objects);
+// Watch for changes in searchQuery
+watch(
+  searchQuery,
+  debounce((newValue: string) => {
+    router.get(
+      '/clients',
+      { search: newValue },
+      {
+        preserveState: true,
+        preserveScroll: true, // Keep scroll position after update
+        replace: true, // Avoids adding duplicate history entries
+      },
+    );
+  }, 300),
+); // Debounce requests by 300ms
 </script>
 
 <template>
@@ -33,12 +45,11 @@ console.log(objects);
     <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
       <div class="flex flex-col gap-4 p-4">
         <Heading title="Clients" description="These are your latest clients" />
-        <ObjectList :objects="objects" type="clients" />
         <div class="grid gap-1">
-          <Label for="name">Search clients</Label>
-          <Input id="search" class="mt-1 block w-full" placeholder="client name" />
+          <Label for="search">Search clients</Label>
+          <Input id="search" v-model="searchQuery" class="mt-1 block w-full" placeholder="Search by client name" />
         </div>
-        <Button>Add new</Button>
+        <ObjectList :objects="objects" type="clients" />
       </div>
     </div>
   </AppLayout>

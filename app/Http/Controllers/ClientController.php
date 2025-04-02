@@ -6,17 +6,26 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Invoice;
 use Inertia\Inertia;
+use Illuminate\Database\Eloquent\Builder;
 
 class ClientController extends Controller {
   /**
    * Display a listing of the resource.
    */
-  public function index() {
+  public function index(Request $request) {
 
     $this->authorize('client.view', Client::class);
 
-    $clients = Client::all();
-
+    $searchQuery = $request->input('search');
+    $clients = client::query()
+        ->when($searchQuery, function (Builder $query, string $search) {
+            // Search in 'company_name', 'contact_person'
+            $query->where('company_name', 'like', "%{$search}%")
+                  ->orWhere('contact_person', 'like', "%{$search}%");
+        })
+        ->latest()
+        ->take(10) // Consider pagination for larger datasets
+        ->get();
     return Inertia::render('clients/Index', [
       'clients' => $clients,
     ]);
@@ -62,7 +71,7 @@ class ClientController extends Controller {
 
     $client->update($validated);
 
-    return redirect()->back()->with('success', 'Project updated successfully');
+    return redirect()->back()->with('success', 'Client updated successfully');
   }
 
   /**

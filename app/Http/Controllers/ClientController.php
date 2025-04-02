@@ -24,10 +24,26 @@ class ClientController extends Controller {
           ->orWhere('contact_person', 'like', "%{$search}%");
       })
       ->latest()
-      ->take(10) // Consider pagination for larger datasets
-      ->get();
+      ->paginate(10);
+
     return Inertia::render('clients/Index', [
-      'clients' => $clients,
+      'clients' => [
+        'data' => $clients->items(),
+        'meta' => [
+          'current_page' => $clients->currentPage(),
+          'first_page_url' => $clients->url(1),
+          'from' => $clients->firstItem(),
+          'last_page' => $clients->lastPage(),
+          'last_page_url' => $clients->url($clients->lastPage()),
+          'links' => $clients->linkCollection(),
+          'next_page_url' => $clients->nextPageUrl(),
+          'path' => $clients->path(),
+          'per_page' => $clients->perPage(),
+          'prev_page_url' => $clients->previousPageUrl(),
+          'to' => $clients->lastItem(),
+          'total' => $clients->total(),
+        ]
+      ],
       'filters' => ['search' => $searchQuery]
     ]);
   }

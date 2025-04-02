@@ -24,11 +24,26 @@ class ProjectController extends Controller {
           ->orWhere('address', 'like', "%{$search}%");
       })
       ->latest()
-      ->take(10) // Consider pagination for larger datasets
-      ->get();
+      ->paginate(10);
 
     return Inertia::render('projects/Index', [
-      'projects' => $projects,
+      'projects' => [
+        'data' => $projects->items(),
+        'meta' => [
+          'current_page' => $projects->currentPage(),
+          'first_page_url' => $projects->url(1),
+          'from' => $projects->firstItem(),
+          'last_page' => $projects->lastPage(),
+          'last_page_url' => $projects->url($projects->lastPage()),
+          'links' => $projects->linkCollection(),
+          'next_page_url' => $projects->nextPageUrl(),
+          'path' => $projects->path(),
+          'per_page' => $projects->perPage(),
+          'prev_page_url' => $projects->previousPageUrl(),
+          'to' => $projects->lastItem(),
+          'total' => $projects->total(),
+        ]
+      ],
       'filters' => ['search' => $searchQuery]
     ]);
   }

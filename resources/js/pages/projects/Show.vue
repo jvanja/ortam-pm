@@ -30,7 +30,11 @@ const submit = () => {
   form.patch(route('projects.update', [props.project.id]), {
     preserveScroll: true,
     onSuccess: () => {
-      toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });
+      toast.success('Project has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });
+    },
+    onError: (errors) => {
+      console.error('Project udpate error:', errors);
+      toast.error('Failed to update project. Please check the form for errors.');
     },
   });
 };
@@ -92,10 +96,10 @@ const removeEmployee = (id: string) => {
                 </div>
                 <div class="flex flex-col space-y-1.5">
                   <Label htmlFor="budget">Budget</Label>
-                  <div class="flex space-y-1.5">
+                  <div class="flex gap-2">
                     <Input id="budget" v-model="form.budget" />
                     <Select :defaultValue="project.currency" v-model="form.currency">
-                      <SelectTrigger id="currency">
+                      <SelectTrigger id="currency" class="mt-0">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>

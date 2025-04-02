@@ -93,6 +93,7 @@ class ProjectController extends Controller {
       'status' => 'sometimes|string',
       'opening_date' => 'sometimes|date',
       'budget' => 'sometimes|numeric',
+      'currency' => 'sometimes|string',
       'sales_representative_name' => 'sometimes|string',
       'deadline' => 'sometimes|date',
       'client_id' => 'nullable|exists:clients,id'

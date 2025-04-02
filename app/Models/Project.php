@@ -21,6 +21,7 @@ class Project extends Model {
     'address',
     'status',
     'budget',
+    'currency',
     'sales_representative_name',
     'opening_date',
     'deadline',

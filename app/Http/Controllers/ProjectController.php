@@ -40,7 +40,7 @@ class ProjectController extends Controller {
 
     $project = Project::find($id);
     $employees = $project->users()->get();
-    $client = $project->client()->get();
+    $client = $project->client()->first();
 
     return Inertia::render('projects/Show', [
       'project' => $project,

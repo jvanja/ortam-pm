@@ -8,6 +8,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Client, Project, User } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import currencies from 'currency-codes';
+import { ChevronRight } from 'lucide-vue-next';
 import { toast } from 'vue-sonner';
 
 const props = defineProps<{
@@ -59,7 +60,11 @@ const removeEmployee = (id: string) => {
         <Card>
           <CardHeader>
             <CardTitle>{{ project.type }}</CardTitle>
-            <h2>{{ client.company_name }}</h2>
+            <h2>
+              <a :href="'/clients/' + client.id" class="inline-flex items-center justify-center gap-2"
+                >{{ client.company_name }} <ChevronRight class="h-4 w-4"
+              /></a>
+            </h2>
             <CardDescription>{{ project.address }}</CardDescription>
           </CardHeader>
           <CardContent>

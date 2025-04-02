@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Project } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
-import { debounce } from 'lodash-es'; // Using lodash for debouncing
+import { debounce } from 'lodash-es';
 import { computed, ref, watch } from 'vue';
 
 const props = defineProps<{ projects: Project[]; filters: { search: string | null } }>();

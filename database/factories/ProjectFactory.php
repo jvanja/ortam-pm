@@ -25,6 +25,7 @@ class ProjectFactory extends Factory {
       'language' => fake()->randomElement(Language::cases()),
       'address' => fake()->address(),
       'budget' => fake()->randomFloat(2, 1000, 10000),
+      'currency' => fake()->currencyCode(),
       'sales_representative_name' => fake()->name(),
       'status' => fake()->randomElement(ProjectStatus::cases()),
       'opening_date' => fake()->date(),

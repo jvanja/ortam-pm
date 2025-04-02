@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem } from '@/types';
-import type { clientsEntity, projectsEntity, usersEntity } from '@/types/DatabaseModels';
+import type { Client, Project, User } from '@/types';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,9 +12,9 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
 
 const props = defineProps<{
-  project: projectsEntity;
-  client: clientsEntity;
-  employees: usersEntity[];
+  project: Project;
+  client: Client;
+  employees: User[];
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [

@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-
-import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem, Client, Project, User } from '@/types';
-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import AppLayout from '@/layouts/AppLayout.vue';
+import type { BreadcrumbItem, Client, Project, User } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
+import currencies from 'currency-codes';
 import { toast } from 'vue-sonner';
 
 const props = defineProps<{
@@ -47,8 +45,6 @@ const removeEmployee = (id: string) => {
     },
   });
 };
-
-const budgetWithCurrency = computed(() => project.budget! + ' ' + (project.currency! || 'USD'));
 </script>
 <template>
   <Head title="Project" />
@@ -64,22 +60,14 @@ const budgetWithCurrency = computed(() => project.budget! + ' ' + (project.curre
           </CardHeader>
           <CardContent>
             <form @submit.prevent="submit" class="space-y-6">
-              <div class="grid w-full items-center gap-4">
+              <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div class="flex flex-col space-y-1.5">
-                  <Label htmlFor="budget">Budget</Label>
-                  <div class="flex space-y-1.5">
-                    <Input id="budget" v-model="budgetWithCurrency" />
-                    <Select :defaultValue="project.currency" v-model="form.currency">
-                      <SelectTrigger id="currency">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="ongoing">Ongoing</SelectItem>
-                        <SelectItem value="completed">Completed</SelectItem>
-                        <SelectItem value="canceled">Canceled</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                  <Label htmlFor="rep">Project Type</Label>
+                  <Input id="rep" :placeholder="form.type" v-model="form.type" />
+                </div>
+                <div class="flex flex-col space-y-1.5">
+                  <Label htmlFor="rep">Departament</Label>
+                  <Input id="rep" :placeholder="form.department" v-model="form.department" />
                 </div>
                 <div class="flex flex-col space-y-1.5">
                   <Label htmlFor="rep">Representative Name</Label>
@@ -101,6 +89,20 @@ const budgetWithCurrency = computed(() => project.budget! + ' ' + (project.curre
                       <SelectItem value="canceled">Canceled</SelectItem>
                     </SelectContent>
                   </Select>
+                </div>
+                <div class="flex flex-col space-y-1.5">
+                  <Label htmlFor="budget">Budget</Label>
+                  <div class="flex space-y-1.5">
+                    <Input id="budget" v-model="form.budget" />
+                    <Select :defaultValue="project.currency" v-model="form.currency">
+                      <SelectTrigger id="currency">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem v-for="code in currencies.codes()" :key="code" :value="code">{{ code }}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
               <div class="flex w-full justify-end">

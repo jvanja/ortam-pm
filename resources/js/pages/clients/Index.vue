@@ -5,12 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { type clientsEntity } from '@/types/DatabaseModels';
+import type { BreadcrumbItem, Client } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
 const props = defineProps<{
-  clients: clientsEntity[];
+  clients: Client[];
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [

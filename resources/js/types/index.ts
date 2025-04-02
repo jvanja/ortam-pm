@@ -32,6 +32,7 @@ import type {
     time_sheetsEntity,
     clientsEntity,
     invoicesEntity,
+    p_c_a_reportsEntity,
 } from './DatabaseModels';
 
 // Re-export or extend base types for application use
@@ -68,6 +69,12 @@ export interface Invoice extends Omit<invoicesEntity, 'id' | 'created_at' | 'upd
 }
 
 export interface Organization extends Omit<organizationsEntity, 'id' | 'created_at' | 'updated_at'> {
+    id: string; // Assuming ID is always present
+    created_at: Date | string | null;
+    updated_at: Date | string | null;
+}
+
+export interface PCA_Report extends Omit<p_c_a_reportsEntity, 'id' | 'created_at' | 'updated_at'> {
     id: string; // Assuming ID is always present
     created_at: Date | string | null;
     updated_at: Date | string | null;

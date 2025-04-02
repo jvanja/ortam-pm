@@ -3,10 +3,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
-import { type p_c_a_reportsEntity } from '@/types/DatabaseModels';
+import { type PCA_Report } from '@/types';
 import { reactive, watch, computed } from 'vue';
 
-const props = defineProps<{ form: p_c_a_reportsEntity }>();
+const props = defineProps<{ form: PCA_Report }>();
 
 const emit = defineEmits(['update:form']);
 

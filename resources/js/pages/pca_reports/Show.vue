@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { type BreadcrumbItem } from '@/types';
-import { type p_c_a_reportsEntity } from '@/types/DatabaseModels';
-type ReportWithProject = p_c_a_reportsEntity & {project: {type: string}}
+import type { BreadcrumbItem, PCA_Report } from '@/types';
+type ReportWithProject = PCA_Report & {project: {type: string}}
 
 import { Interior, Summary } from '@/components/pca-report';
 import { Button } from '@/components/ui/button';
@@ -19,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 const currentTab = ref('Summary');
 const form = useForm({ ...props.pca_report });
-const handleFormUpdate = (newForm: p_c_a_reportsEntity) => Object.assign(form, newForm);
+const handleFormUpdate = (newForm: PCA_Report) => Object.assign(form, newForm);
 const submit = () => {
   form.patch(route('pca-reports.update', [props.pca_report.id]), {
     preserveScroll: true,

@@ -8,7 +8,7 @@ import type { BreadcrumbItem, Client } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { debounce } from 'lodash-es';
 import { computed, ref, watch } from 'vue';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
+import Pagination from '@/components/Pagination.vue';
 
 const props = defineProps<{
   clients: {
@@ -62,6 +62,12 @@ watch(
     );
   }, 300),
 ); // Debounce requests by 300ms
+
+const currentPage = ref(props.clients.meta.current_page || 1)
+const onPageChange = (page: number) => {
+  currentPage.value = page
+  router.get('clients', {page: page}, { preserveScroll: true });
+}
 </script>
 
 <template>
@@ -76,12 +82,7 @@ watch(
           <Input id="search" v-model="searchQuery" class="mt-1 block w-full" placeholder="Search by client name or contact person" />
         </div>
         <ObjectList :objects="objects" type="clients" />
-        <Pagination>
-          <PaginationContent>
-            <PaginationPrevious :href="props.clients.prev_page_url" />
-            <PaginationNext :href="props.clients.next_page_url" />
-          </PaginationContent>
-        </Pagination>
+        <Pagination :currentPage="currentPage" :pagesMeta="clients.meta" :onPageChange="onPageChange" />
       </div>
     </div>
   </AppLayout>

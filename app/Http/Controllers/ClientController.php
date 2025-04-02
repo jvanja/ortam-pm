@@ -18,16 +18,17 @@ class ClientController extends Controller {
 
     $searchQuery = $request->input('search');
     $clients = client::query()
-        ->when($searchQuery, function (Builder $query, string $search) {
-            // Search in 'company_name', 'contact_person'
-            $query->where('company_name', 'like', "%{$search}%")
-                  ->orWhere('contact_person', 'like', "%{$search}%");
-        })
-        ->latest()
-        ->take(10) // Consider pagination for larger datasets
-        ->get();
+      ->when($searchQuery, function (Builder $query, string $search) {
+        // Search in 'company_name', 'contact_person'
+        $query->where('company_name', 'like', "%{$search}%")
+          ->orWhere('contact_person', 'like', "%{$search}%");
+      })
+      ->latest()
+      ->take(10) // Consider pagination for larger datasets
+      ->get();
     return Inertia::render('clients/Index', [
       'clients' => $clients,
+      'filters' => ['search' => $searchQuery]
     ]);
   }
 

@@ -17,18 +17,19 @@ class ProjectController extends Controller {
     $searchQuery = $request->input('search');
 
     $projects = Project::query()
-        ->when($searchQuery, function (Builder $query, string $search) {
-            // Search in 'type', 'department', 'address', etc. Adjust fields as needed.
-            $query->where('type', 'like', "%{$search}%")
-                  ->orWhere('department', 'like', "%{$search}%")
-                  ->orWhere('address', 'like', "%{$search}%");
-        })
-        ->latest()
-        ->take(10) // Consider pagination for larger datasets
-        ->get();
+      ->when($searchQuery, function (Builder $query, string $search) {
+        // Search in 'type', 'department', 'address', etc. Adjust fields as needed.
+        $query->where('type', 'like', "%{$search}%")
+          ->orWhere('department', 'like', "%{$search}%")
+          ->orWhere('address', 'like', "%{$search}%");
+      })
+      ->latest()
+      ->take(10) // Consider pagination for larger datasets
+      ->get();
 
     return Inertia::render('projects/Index', [
-        'projects' => $projects,
+      'projects' => $projects,
+      'filters' => ['search' => $searchQuery]
     ]);
   }
 

@@ -9,9 +9,9 @@ import { Head, router } from '@inertiajs/vue3';
 import { debounce } from 'lodash-es'; // Using lodash for debouncing
 import { computed, ref, watch } from 'vue';
 
-const props = defineProps<{ projects: Project[] }>();
+const props = defineProps<{ projects: Project[]; filters: { search: string | null } }>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Projects', href: '/projects' }];
-const searchQuery = ref('');
+const searchQuery = ref(props.filters.search || '');
 
 const objects = computed(() =>
   props.projects.map((project) => {

@@ -9,11 +9,9 @@ import { Head, router } from '@inertiajs/vue3';
 import { debounce } from 'lodash-es'; // Using lodash for debouncing
 import { computed, ref, watch } from 'vue';
 
-const props = defineProps<{ clients: Client[] }>();
-const breadcrumbs: BreadcrumbItem[] = [
-  { title: 'Clients', href: '/clients' }
-];
-const searchQuery = ref('');
+const props = defineProps<{ clients: Client[]; filters: { search: string | null } }>();
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Clients', href: '/clients' }];
+const searchQuery = ref(props.filters.search || '');
 
 const objects = computed(() =>
   props.clients.map((client) => {
@@ -47,7 +45,7 @@ watch(
         <Heading title="Clients" description="These are your latest clients" />
         <div class="grid gap-1">
           <Label for="search">Search clients</Label>
-          <Input id="search" v-model="searchQuery" class="mt-1 block w-full" placeholder="Search by client name" />
+          <Input id="search" v-model="searchQuery" class="mt-1 block w-full" placeholder="Search by client name or contact person" />
         </div>
         <ObjectList :objects="objects" type="clients" />
       </div>

@@ -3,18 +3,34 @@ import Heading from '@/components/Heading.vue';
 import ObjectList from '@/components/ObjectList.vue';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import Pagination from '@/components/Pagination.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Project } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { debounce } from 'lodash-es';
 import { computed, ref, watch } from 'vue';
 
-const props = defineProps<{ projects: Project[]; filters: { search: string | null } }>();
+const props = defineProps<{
+  projects: {
+    data: Project[];
+    meta: {
+      current_page: number;
+      from: number;
+      last_page: number;
+      links: Array<any>;
+      path: string;
+      per_page: number;
+      to: number;
+      total: number;
+    };
+  };
+  filters: { search: string | null };
+}>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Projects', href: '/projects' }];
 const searchQuery = ref(props.filters.search || '');
 
 const objects = computed(() =>
-  props.projects.map((project) => {
+  props.projects.data.map((project) => {
     return { id: project.id!, name: project.type };
   }),
 );
@@ -34,6 +50,12 @@ watch(
     );
   }, 300),
 ); // Debounce requests by 300ms
+
+const currentPage = ref(props.projects.meta.current_page || 1)
+const onPageChange = (page: number) => {
+  currentPage.value = page
+  router.get('projects', {page: page}, { preserveScroll: true });
+}
 </script>
 
 <template>
@@ -48,6 +70,7 @@ watch(
           <Input id="search" v-model="searchQuery" class="mt-1 block w-full" placeholder="Search by type, department, address..." />
         </div>
         <ObjectList :objects="objects" type="projects" />
+        <Pagination :currentPage="currentPage" :pagesMeta="projects.meta" :onPageChange="onPageChange" />
       </div>
     </div>
   </AppLayout>

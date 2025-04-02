@@ -8,13 +8,41 @@ import type { BreadcrumbItem, Client } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { debounce } from 'lodash-es';
 import { computed, ref, watch } from 'vue';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 
-const props = defineProps<{ clients: Client[]; filters: { search: string | null } }>();
+const props = defineProps<{
+  clients: {
+    data: Client[];
+    current_page: number;
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: Array<any>;
+    next_page_url: string;
+    path: string;
+    per_page: number;
+    prev_page_url: string;
+    to: number;
+    total: number;
+    meta: {
+      current_page: number;
+      from: number;
+      last_page: number;
+      links: Array<any>;
+      path: string;
+      per_page: number;
+      to: number;
+      total: number;
+    };
+  };
+  filters: { search: string | null };
+}>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Clients', href: '/clients' }];
 const searchQuery = ref(props.filters.search || '');
 
 const objects = computed(() =>
-  props.clients.map((client) => {
+  props.clients.data.map((client) => {
     return { id: client.id!, name: client.company_name };
   }),
 );
@@ -48,6 +76,12 @@ watch(
           <Input id="search" v-model="searchQuery" class="mt-1 block w-full" placeholder="Search by client name or contact person" />
         </div>
         <ObjectList :objects="objects" type="clients" />
+        <Pagination>
+          <PaginationContent>
+            <PaginationPrevious :href="props.clients.prev_page_url" />
+            <PaginationNext :href="props.clients.next_page_url" />
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   </AppLayout>

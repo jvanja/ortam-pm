@@ -13,7 +13,7 @@ class ProjectController extends Controller {
   public function index() {
     $this->authorize('project.view', Project::class);
 
-    $projects = Project::all();
+    $projects = Project::latest()->take(10)->get();
 
     return Inertia::render('projects/Index', [
       'projects' => $projects,

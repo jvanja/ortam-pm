@@ -23,12 +23,11 @@ const objects = props.projects.map((project) => {
     <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
       <div class="flex flex-col gap-4 p-4">
         <Heading title="Projects" description="These are your latest projects" />
-        <ObjectList :objects="objects" type="projects"/>
         <div class="grid gap-1">
           <Label for="name">Search projects</Label>
           <Input id="search" class="mt-1 block w-full" placeholder="Project name" />
         </div>
-        <Button>Add new</Button>
+        <ObjectList :objects="objects" type="projects"/>
       </div>
     </div>
   </AppLayout>

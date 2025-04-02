@@ -5,12 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import type { projectsEntity, time_sheetsEntity } from '@/types/DatabaseModels';
+import type { BreadcrumbItem, Project, TimeSheet } from '@/types';
 import { Head } from '@inertiajs/vue3';
-type timesheetWithProject = time_sheetsEntity & { project: projectsEntity };
+type TimesheetWithProject = TimeSheet & { project: Project };
 
-const props = defineProps<{ timesheets: timesheetWithProject[] }>();
+const props = defineProps<{ timesheets: TimesheetWithProject[] }>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Timesheets', href: '/timesheets' }];
 
 // console.log(props.timesheets);

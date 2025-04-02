@@ -5,11 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import ObjectList from '@/components/ObjectList.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { type projectsEntity } from '@/types/DatabaseModels';
+import type { BreadcrumbItem, Project } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
-const props = defineProps<{ projects: projectsEntity[]; }>();
+const props = defineProps<{ projects: Project[]; }>();
 const breadcrumbs: BreadcrumbItem[] = [ { title: 'Projects', href: '/projects' }];
 
 const objects = props.projects.map((project) => {

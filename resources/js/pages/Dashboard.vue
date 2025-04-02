@@ -5,14 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { type projectsEntity } from '@/types/DatabaseModels';
+import type { BreadcrumbItem, Project } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
-defineProps<{ projects: projectsEntity[] }>();
+defineProps<{ projects: Project[] }>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
 
-const chartOptions = (project: projectsEntity) => {
+const chartOptions = (project: Project) => {
   return {
     chart: {
       height: 350,

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem } from '@/types';
-import type { Client, Project, User } from '@/types';
+import type { BreadcrumbItem, Client, Project, User } from '@/types';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -46,6 +47,8 @@ const removeEmployee = (id: string) => {
     },
   });
 };
+
+const budgetWithCurrency = computed(() => project.budget! + ' ' + (project.currency! || 'USD'));
 </script>
 <template>
   <Head title="Project" />
@@ -64,7 +67,19 @@ const removeEmployee = (id: string) => {
               <div class="grid w-full items-center gap-4">
                 <div class="flex flex-col space-y-1.5">
                   <Label htmlFor="budget">Budget</Label>
-                  <Input id="budget" v-model="form.budget" />
+                  <div class="flex space-y-1.5">
+                    <Input id="budget" v-model="budgetWithCurrency" />
+                    <Select :defaultValue="project.currency" v-model="form.currency">
+                      <SelectTrigger id="currency">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent position="popper">
+                        <SelectItem value="ongoing">Ongoing</SelectItem>
+                        <SelectItem value="completed">Completed</SelectItem>
+                        <SelectItem value="canceled">Canceled</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
                 <div class="flex flex-col space-y-1.5">
                   <Label htmlFor="rep">Representative Name</Label>

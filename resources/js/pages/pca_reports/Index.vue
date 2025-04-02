@@ -5,11 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import ObjectList from '@/components/ObjectList.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem } from '@/types';
-import { type p_c_a_reportsEntity } from '@/types/DatabaseModels';
+import type { BreadcrumbItem, PCA_Report } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
-const props = defineProps<{ pca_reports: p_c_a_reportsEntity[] }>();
+const props = defineProps<{ pca_reports: PCA_Report[] }>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'PCA Reports', href: '/pca-reports' }];
 
 const objects = props.pca_reports.map((pca_report) => {

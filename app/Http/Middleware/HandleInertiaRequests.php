@@ -35,7 +35,11 @@ class HandleInertiaRequests extends Middleware {
   public function share(Request $request): array {
     if ($request->user()) {
       $organization_id =  $request->user()->organization_id;
-      $organization = Organization::find($organization_id)->name;
+      if($organization_id) {
+        $organization = Organization::find($organization_id)->name;
+      } else {
+        $organization = false;
+      }
     } else {
       $organization = env('APP_NAME');
     }

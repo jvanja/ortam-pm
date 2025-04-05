@@ -17,7 +17,7 @@ return new class extends Migration {
 
     // add organization_id to the users table
     Schema::table('users', function (Blueprint $table) {
-      $table->unsignedBigInteger('organization_id');
+      $table->unsignedBigInteger('organization_id')->nullable();
       $table->foreign('organization_id')->references('id')->on('organizations');
     });
   }

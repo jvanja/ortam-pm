@@ -20,8 +20,8 @@ class AppServiceProvider extends ServiceProvider {
    * Bootstrap any application services.
    */
   public function boot(): void {
-    Model::shouldBeStrict(!$this->app->isProduction());
-    DB::prohibitDestructiveCommands(!$this->app->isProduction());
+    Model::shouldBeStrict(! $this->app->isProduction());
+    DB::prohibitDestructiveCommands($this->app->isProduction());
     Inertia::share([
       'defaultLocale' => Config::get('app.locale'), // Get default locale from .env
     ]);

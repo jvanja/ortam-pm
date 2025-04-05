@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PCAReportController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\OrganizationController;
 
 Route::get('/', function () {
   if (Auth::check()) {
@@ -49,6 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::resource('pca-reports', PCAReportController::class);
 
   Route::resource('timesheets', TimesheetController::class);
+
+  Route::post('/organizations', [OrganizationController::class, 'store'])->name('organizations.store');
 
   Route::get('users/{id}', [RegisteredUserController::class, 'show']);
   Route::patch('users/{id}', [RegisteredUserController::class, 'update'])->name('users.update');

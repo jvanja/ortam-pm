@@ -24,7 +24,18 @@ class OrganizationController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(Request $request) {
-        //
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255', 'unique:organizations,name'], // Added unique constraint
+        ]);
+
+        // Create the organization
+        $organization = Organization::create($validated);
+
+        $request->user()->organization_id = $organization->id;
+        $request->user()->save();
+
+        // Redirect to the main dashboard after successful creation
+        return redirect()->route('dashboard')->with('success', 'Organization created successfully.');
     }
 
     /**

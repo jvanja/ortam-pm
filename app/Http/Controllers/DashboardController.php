@@ -10,6 +10,9 @@ class DashboardController extends Controller {
   public function show() {
 
     $user = Auth::user();
+    if(!$user->organization_id) {
+      return Inertia::render('dashboard/FirstTime');
+    }
 
     if ($user->hasRole(['superadmin', 'admin'])) {
       $latestProjects = Project::latest()->take(3)->get();

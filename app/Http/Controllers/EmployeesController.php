@@ -2,15 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class EmployeesController extends Controller {
   /**
    * Display a listing of the resource.
    */
   public function index(Request $request) {
-    // get all users that belong to this organization
+    // Get the authenticated user
+    $currentUser = Auth::user();
 
+    // Ensure the user is authenticated and has an organization_id
+    if (!$currentUser || !$currentUser->organization_id) {
+      return Inertia::render('employees/Index', [
+        'employees' => [],
+      ]);
+    }
+
+    // Get all users that belong to the same organization as the current user
+    $employees = User::where('organization_id', $currentUser->organization_id)->get();
+
+    // Return the Inertia view with the employees data
+    return Inertia::render('employees/Index', [
+      'employees' => $employees,
+    ]);
   }
 
   /**

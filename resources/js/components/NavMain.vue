@@ -31,7 +31,7 @@ const mainNavItems = [
   },
   {
     title: 'Employees',
-    href: '/users',
+    href: '/employees',
     icon: User,
     permission: 'admin.view',
   },

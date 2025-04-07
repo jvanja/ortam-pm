@@ -2,7 +2,7 @@
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type SharedData } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Clipboard, Contact, Folder, LayoutGrid, SheetIcon } from 'lucide-vue-next';
+import { Clipboard, Contact, Folder, LayoutGrid, SheetIcon, User } from 'lucide-vue-next';
 
 const mainNavItems = [
   {
@@ -28,6 +28,12 @@ const mainNavItems = [
     href: '/clients',
     icon: Contact,
     permission: 'client.view',
+  },
+  {
+    title: 'Employees',
+    href: '/users',
+    icon: User,
+    permission: 'admin.view',
   },
   {
     title: 'Timesheeets',

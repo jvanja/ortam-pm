@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\TimesheetController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -52,6 +53,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::resource('timesheets', TimesheetController::class);
 
   Route::post('/organizations', [OrganizationController::class, 'store'])->name('organizations.store');
+
+  Route::resource('employees', EmployeesController::class);
 
   Route::get('users/{id}', [RegisteredUserController::class, 'show']);
   Route::patch('users/{id}', [RegisteredUserController::class, 'update'])->name('users.update');

@@ -54,7 +54,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
   Route::post('/organizations', [OrganizationController::class, 'store'])->name('organizations.store');
 
-  Route::resource('employees', EmployeesController::class);
+  Route::resource('employees', EmployeesController::class)->only(['index']); // Keep only index for now if others aren't used
+  Route::post('/employees/invite', [EmployeesController::class, 'invite'])->name('employees.invite');
 
   Route::get('users/{id}', [RegisteredUserController::class, 'show']);
   Route::patch('users/{id}', [RegisteredUserController::class, 'update'])->name('users.update');

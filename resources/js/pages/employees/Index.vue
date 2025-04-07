@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, User } from '@/types';
-import { Head } from '@inertiajs/vue3';
-// Removed unused imports: useForm, toast
+import { Head, useForm } from '@inertiajs/vue3';
+import { toast } from 'vue-sonner';
 
 // Renamed prop from 'user' to 'employees' and changed type to User[]
 const props = defineProps<{ employees: User[] }>();
@@ -12,25 +14,41 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Employees', href: route('employees.index') }, // Assuming you have a named route 'employees.index'
 ];
 
+// Form for inviting a new employee
+const inviteForm = useForm({
+  email: '',
+});
+
+// Function to handle the invitation submission
+function submitInvite() {
+  inviteForm.post(route('employees.invite'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Invitation sent successfully!');
+      inviteForm.reset();
+    },
+    onError: (errors) => {
+      // Display the first error message, or a generic one
+      const firstError = Object.values(errors)[0];
+      toast.error(firstError || 'Failed to send invitation. Please try again.');
+    },
+  });
+}
 </script>
 <template>
   <!-- Updated Head title -->
   <Head title="Employees" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
-    <!-- Added container and list to display employees -->
-    <div class="container mx-auto px-4 py-8">
+    <!-- Employee List Section -->
+    <div class="p-6">
       <h1 class="mb-4 text-2xl font-semibold">Employee List</h1>
       <div v-if="props.employees.length > 0" class="overflow-x-auto rounded border bg-card text-card-foreground shadow">
         <table class="min-w-full divide-y divide-border">
           <thead class="bg-muted/50">
             <tr>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                Name
-              </th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                Email
-              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Name</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</th>
               <!-- Add more columns as needed -->
             </tr>
           </thead>
@@ -47,9 +65,35 @@ const breadcrumbs: BreadcrumbItem[] = [
           </tbody>
         </table>
       </div>
-      <div v-else class="mt-4 text-center text-muted-foreground">
-        No employees found in this organization.
-      </div>
+      <div v-else class="mt-4 text-center text-muted-foreground">No employees found in this organization.</div>
+    </div>
+
+    <!-- Invite Employee Section -->
+    <div class="p-6">
+      <h2 class="mb-4 text-xl font-semibold">Invite new employee</h2>
+      <form @submit.prevent="submitInvite">
+        <div class="space-y-4">
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-foreground">Email Address</label>
+            <Input
+              id="email"
+              v-model="inviteForm.email"
+              type="email"
+              placeholder="employee@example.com"
+              required
+              :disabled="inviteForm.processing"
+              aria-describedby="email-error"
+            />
+            <p v-if="inviteForm.errors.email" id="email-error" class="mt-1 text-sm text-destructive">
+              {{ inviteForm.errors.email }}
+            </p>
+          </div>
+          <Button type="submit" :disabled="inviteForm.processing" class="w-full">
+            <span v-if="inviteForm.processing">Sending...</span>
+            <span v-else>Send Invitation</span>
+          </Button>
+        </div>
+      </form>
     </div>
   </AppLayout>
 </template>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Invitation;
 use App\Mail\EmployeeInvitationMail;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -84,7 +85,12 @@ class EmployeesController extends Controller {
 
       // 3 & 4. Send Email using the Mailable
       // The Mailable now handles generating the signed URL
-      Mail::to($emailToInvite)->send(new EmployeeInvitationMail($invitation));
+      try {
+        Mail::to($emailToInvite)->send(new EmployeeInvitationMail($invitation));
+      } catch (Exception $e) {
+        //Email sent failed.
+        Log::error("Failed to send invitation email to {$emailToInvite}: " . $e->getMessage(), ['exception' => $e]);
+      }
 
       // If email sending is successful, commit the transaction
       DB::commit();

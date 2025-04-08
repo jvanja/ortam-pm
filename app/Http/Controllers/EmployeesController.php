@@ -3,19 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Invitation;
+use App\Mail\EmployeeInvitationMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
+use Throwable; // Import Throwable for catching exceptions
 
 
 class EmployeesController extends Controller {
   /**
    * Display a listing of the resource.
    */
-  public function index(Request $request) {
+  public function index() {
     $currentUser = Auth::user();
 
     // Ensure the user is authenticated and has an organization_id
@@ -61,25 +67,40 @@ class EmployeesController extends Controller {
 
     $emailToInvite = $validated['email'];
     $organizationId = $currentUser->organization_id;
+    $inviterId = $currentUser->id;
 
-    // --- TODO: Implement actual invitation logic ---
-    // 1. Generate a unique, secure invitation token.
-    // 2. Create an Invitation record (new Model/migration needed) storing:
-    //    - email ($emailToInvite)
-    //    - organization_id ($organizationId)
-    //    - token
-    //    - inviter_id ($currentUser->id)
-    //    - expires_at (e.g., now()->addDays(7))
-    // 3. Create a Mailable (e.g., EmployeeInvitationMail).
-    // 4. Send the email using Mail::to($emailToInvite)->send(new EmployeeInvitationMail($invitation));
-    // 5. Handle potential errors during DB save or email sending.
-    // --- End TODO ---
+    $token = Str::random(60);
 
-    // For now, just log it and return success
-    Log::info("Invitation requested for {$emailToInvite} to organization {$organizationId} by user {$currentUser->id}");
+    // Use a database transaction to ensure atomicity
+    DB::beginTransaction();
+    try {
+      $invitation = Invitation::create([
+        'email' => $emailToInvite,
+        'organization_id' => $organizationId,
+        'token' => $token,
+        'inviter_id' => $inviterId,
+        'expires_at' => now()->addDays(7),
+      ]);
 
-    // Use session flash message for Inertia
-    return redirect()->back()->with('success', 'Invitation sent successfully!');
+      // 3 & 4. Send Email using the Mailable
+      // The Mailable now handles generating the signed URL
+      Mail::to($emailToInvite)->send(new EmployeeInvitationMail($invitation));
+
+      // If email sending is successful, commit the transaction
+      DB::commit();
+
+      Log::info("Invitation sent to {$emailToInvite} for organization {$organizationId} by user {$inviterId}");
+      // Use session flash message for Inertia success feedback
+      return redirect()->back()->with('success', 'Invitation sent successfully!');
+    } catch (Throwable $e) {
+      DB::rollBack();
+      Log::error("Failed to send invitation to {$emailToInvite} for organization {$organizationId}: " . $e->getMessage(), ['exception' => $e]);
+
+      // Provide a user-friendly error message via session flash
+      return back()
+        ->withErrors(['email' => 'Failed to send invitation. Please check the email address and try again later, or contact support if the problem persists.'])
+        ->withInput(); // Retain the user's input
+    }
   }
 
   /**

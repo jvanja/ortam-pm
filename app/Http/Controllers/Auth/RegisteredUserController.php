@@ -89,6 +89,7 @@ class RegisteredUserController extends Controller {
         'name' => $request->name,
         'email' => $invitation->email, // Use email from invitation
         'password' => Hash::make($request->password),
+        'email_verified_at' => date('Y-m-d G:i:s', time()),
         'organization_id' => $invitation->organization_id, // Use organization_id from invitation
       ];
 

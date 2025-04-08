@@ -16,7 +16,6 @@ class EmployeesController extends Controller {
    * Display a listing of the resource.
    */
   public function index(Request $request) {
-    /** @var User $currentUser */
     $currentUser = Auth::user();
 
     // Ensure the user is authenticated and has an organization_id
@@ -39,7 +38,6 @@ class EmployeesController extends Controller {
    * Send an invitation to a new employee.
    */
   public function invite(Request $request): RedirectResponse {
-    /** @var User $currentUser */
     $currentUser = Auth::user();
 
     if (!$currentUser || !$currentUser->organization_id) {
@@ -56,7 +54,7 @@ class EmployeesController extends Controller {
         // Ensure the email doesn't already belong to an existing user
         Rule::unique('users', 'email'),
         Rule::unique('invitations', 'email')->where(function ($query) {
-            return $query->where('expires_at', '>', now());
+          return $query->where('expires_at', '>', now());
         }),
       ],
     ]);

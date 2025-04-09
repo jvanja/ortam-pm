@@ -31,12 +31,21 @@ class EmployeesController extends Controller {
       ]);
     }
 
-    // Get all users that belong to the same organization as the current user
-    $employees = User::where('organization_id', $currentUser->organization_id)->get();
+    // Get all users that belong to the same organization as the current user, eager load roles
+    $employees = User::where('organization_id', $currentUser->organization_id)
+      ->with('roles')
+      ->get()
+      ->map(function ($user) {
+        $user->role = $user->roles->first()?->name ?? 'employee';
+        return $user;
+      });
 
-    // Return the Inertia view with the employees data
+    $invitees = Invitation::where('organization_id', $currentUser->organization_id)->get();
+
+    // Return the Inertia view with the employees data including the role
     return Inertia::render('employees/Index', [
       'employees' => $employees,
+      'invitees' => $invitees,
     ]);
   }
 

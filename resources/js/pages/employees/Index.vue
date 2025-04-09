@@ -2,12 +2,15 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem, User } from '@/types';
+import type { BreadcrumbItem, User, Invitation } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
+import { useDateFormat } from '@vueuse/core'
+
+type UserRole = User & { role: string };
 
 // Renamed prop from 'user' to 'employees' and changed type to User[]
-const props = defineProps<{ employees: User[] }>();
+const props = defineProps<{ employees: UserRole[]; invitees: Invitation[] }>();
 
 // Updated breadcrumbs for the employee list view
 const breadcrumbs: BreadcrumbItem[] = [
@@ -67,13 +70,31 @@ function submitInvite() {
                 {{ employee.role }}
               </td>
               <td class="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">
-                <a :href="`/employees/${employee.id}`" class="text-primary-foreground hover:text-primary">Edit</a>
+                <Button variant="default"><a :href="`/employees/${employee.id}`" class="text-sm hover:text-primary">Edit</a></Button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div v-else class="mt-4 text-center text-muted-foreground">No employees found in this organization.</div>
+    </div>
+    <div class="p-6">
+      <div v-if="props.invitees.length > 0" class="overflow-x-auto rounded border bg-card text-card-foreground shadow">
+        <table class="min-w-full divide-y divide-border">
+          <thead class="bg-muted/50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Invitations</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Expires</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border bg-background">
+            <tr v-for="invitation in props.invitees" :key="invitation.id">
+              <td class="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">{{ invitation.email }}</td>
+              <td class="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">{{ useDateFormat(invitation.expires_at, 'YYYY-MM-DD') }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- Invite Employee Section -->

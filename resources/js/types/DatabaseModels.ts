@@ -32,6 +32,16 @@ export interface failed_jobsEntity {
   'queue': string;
   'uuid': string;
 }
+export interface invitationsEntity {
+  'created_at'?: Date | null;
+  'email': string;
+  'expires_at': Date;
+  'id'?: string;
+  'inviter_id': string;
+  'organization_id': string;
+  'token': string;
+  'updated_at'?: Date | null;
+}
 export interface invoicesEntity {
   'amount': number;
   'client_id': string;
@@ -199,7 +209,7 @@ export interface usersEntity {
   'email_verified_at'?: Date | null;
   'id'?: string;
   'name': string;
-  'organization_id': string;
+  'organization_id'?: string | null;
   'password': string;
   'remember_token'?: string | null;
   'updated_at'?: Date | null;

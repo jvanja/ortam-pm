@@ -33,6 +33,7 @@ import type {
     clientsEntity,
     invoicesEntity,
     p_c_a_reportsEntity,
+    invitationsEntity,
 } from './DatabaseModels';
 
 // Re-export or extend base types for application use
@@ -80,6 +81,12 @@ export interface PCA_Report extends Omit<p_c_a_reportsEntity, 'id' | 'created_at
     updated_at: Date | string | null;
 }
 
+export interface Invitation extends Omit<invitationsEntity, 'id' | 'created_at' | 'updated_at'> {
+    id: string; // Assuming ID is always present
+    created_at: Date | string | null;
+    updated_at: Date | string | null;
+}
+
 // Define the possible values for task_performed based on the database enum
 export type TaskPerformedEnum = 'visit' | 'research' | 'fieldwork' | 'report';
 
@@ -87,7 +94,7 @@ export interface TimeSheet extends Omit<time_sheetsEntity, 'id' | 'created_at' |
     id: string; // Assuming ID is always present
     task_performed: TaskPerformedEnum; // Use the specific enum type
     details?: string | null; // Add optional details field
-    created_at: Date | string | null;
+    created_at: Date | string;
     updated_at: Date | string | null;
     project?: Project; // Optional relation using our defined Project type
     user?: User; // Optional relation using our defined User type

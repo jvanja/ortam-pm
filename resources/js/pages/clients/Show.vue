@@ -20,9 +20,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const client = { ...props.client };
 const form = useForm(client);
 const submit = () => {
-  console.log(form);
-  /* @ts-expect-error This is fine */
-  form.patch(route('clients.update', props.client.id), {
+  form.patch(route('clients.update', [props.client.id]), {
     preserveScroll: true,
     onSuccess: () => {
       toast.success('Report has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });

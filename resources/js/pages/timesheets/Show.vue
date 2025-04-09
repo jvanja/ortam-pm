@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, type TimeSheet, type Project, type User } from '@/types'; // Assuming TimeSheet includes project and user relations
+import { type BreadcrumbItem, type TimeSheet, type Project, type User } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input'; // Use Input for display, make read-only
-import { Textarea } from '@/components/ui/textarea'; // Use Textarea for details, make read-only
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useDateFormat } from '@vueuse/core'
 
-// Define the expected prop structure
-// The controller needs to pass a TimeSheet object with 'project' and 'user' loaded
 const props = defineProps<{
   timesheet: TimeSheet & { project: Project; user: User };
 }>();
@@ -17,15 +16,6 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Timesheets', href: '/timesheets' },
   { title: `Entry ${props.timesheet.id}`, href: `/timesheets/${props.timesheet.id}` }, // Dynamic breadcrumb
 ];
-
-// Helper function to format date
-const formatDate = (dateString: string | Date | null) => {
-  if (!dateString) return 'N/A';
-  return new Date(dateString).toLocaleDateString(undefined, {
-    year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
-  });
-};
-
 </script>
 
 <template>
@@ -37,7 +27,7 @@ const formatDate = (dateString: string | Date | null) => {
         <CardHeader>
           <CardTitle>Timesheet Entry Details</CardTitle>
           <CardDescription>
-            Entry recorded by {{ timesheet.user?.name }} on {{ formatDate(timesheet.created_at) }}
+            Entry recorded by {{ timesheet.user?.name }} on {{ useDateFormat(timesheet.created_at, 'MMMM D, YYYY HH:mm A') }}
           </CardDescription>
         </CardHeader>
         <CardContent class="space-y-4">

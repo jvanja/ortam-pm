@@ -60,12 +60,14 @@ const removeEmployee = (id: string) => {
         <Card>
           <CardHeader>
             <CardTitle>{{ project.type }}</CardTitle>
-            <h2>
-              <a :href="'/clients/' + client.id" class="inline-flex items-center justify-center gap-2"
-                >{{ client.company_name }} <ChevronRight class="h-4 w-4"
-              /></a>
-            </h2>
-            <CardDescription>{{ project.address }}</CardDescription>
+            <CardDescription>
+              <strong>
+                <a :href="'/clients/' + client.id" class="inline-flex items-center justify-center gap-2">
+                  {{ client.company_name }} <ChevronRight class="h-4 w-4" />
+                </a>
+              </strong>
+              <div>{{ project.address }}</div>
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form @submit.prevent="submit" class="space-y-6">

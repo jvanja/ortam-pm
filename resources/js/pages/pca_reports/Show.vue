@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import type { BreadcrumbItem, PCA_Report } from '@/types';
-type ReportWithProject = PCA_Report & {project: {type: string}}
-
 import { Interior, Summary } from '@/components/pca-report';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AppLayout from '@/layouts/AppLayout.vue';
+import type { BreadcrumbItem, PCA_Report } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
+import { ChevronRight } from 'lucide-vue-next';
 import { ref } from 'vue';
 import { toast } from 'vue-sonner';
+type ReportWithProject = PCA_Report & { project: { type: string; id: number } };
 
 const props = defineProps<{ pca_report: ReportWithProject }>();
 const breadcrumbs: BreadcrumbItem[] = [
@@ -50,12 +50,14 @@ const tabsMenu = [
       <div class="flex flex-col gap-4 p-4">
         <Card>
           <CardHeader>
-            <div class="mb-2">
               <CardTitle>{{ pca_report.name }}</CardTitle>
               <CardDescription>
-                <strong>{{ pca_report.project!.type }}</strong>
+                <strong>
+                  <a :href="'/projects/' + pca_report.project.id" class="inline-flex items-center justify-center gap-2">
+                    {{ pca_report.project.type }} <ChevronRight class="h-4 w-4" />
+                  </a>
+                </strong>
               </CardDescription>
-            </div>
             <CardDescription>Location: {{ pca_report.address }}</CardDescription>
           </CardHeader>
           <CardContent>

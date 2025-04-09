@@ -1,17 +1,28 @@
 <script setup lang="ts">
-import { Head, useForm, router } from '@inertiajs/vue3';
+import { Head, router, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
 
-import AppLayout from '@/layouts/AppLayout.vue';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Invoice } from '@/types'; // Assuming Invoice type is defined in types
 
 // Define props to receive invoice data from the controller
 const props = defineProps<{ invoice: Invoice }>();
+console.log(props.invoice);
 
 // Breadcrumbs for navigation
 const breadcrumbs: BreadcrumbItem[] = [
@@ -30,7 +41,8 @@ const invoiceStatuses = ['draft', 'sent', 'paid', 'cancelled', 'overdue'];
 
 // Function to handle saving changes
 function updateInvoice() {
-  form.put(route('invoices.update', [ props.invoice.id ]), { // Assuming route('invoices.update') exists
+  form.put(route('invoices.update', [props.invoice.id]), {
+    // Assuming route('invoices.update') exists
     preserveScroll: true,
     onSuccess: () => {
       toast.success('Invoice updated successfully!');
@@ -44,7 +56,8 @@ function updateInvoice() {
 
 // Function to handle deleting the invoice
 function deleteInvoice() {
-  router.delete(route('invoices.destroy', [ props.invoice.id ]), { // Assuming route('invoices.destroy') exists
+  router.delete(route('invoices.destroy', [props.invoice.id]), {
+    // Assuming route('invoices.destroy') exists
     preserveScroll: true,
     onSuccess: () => {
       // Redirect or show success message. Redirecting to index is common.
@@ -60,14 +73,26 @@ function deleteInvoice() {
 </script>
 
 <template>
-  <Head :title="`Invoice #${invoice.invoice_number}`" />
+  <Head :title="`Invoice number: ${invoice.invoice_number}`" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-6">
-      <h1 class="mb-4 text-2xl font-semibold">Invoice #{{ invoice.invoice_number }}</h1>
+      <table class="min-w-full divide-y divide-gray-200 border mb-4">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">client</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">project</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200 bg-white">
+          <tr>
+            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{{ invoice.client.company_name }}</td>
+            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{{ invoice.project.type }}</td>
+          </tr>
+        </tbody>
+      </table>
 
       <form @submit.prevent="updateInvoice" class="space-y-6 rounded border bg-card p-6 text-card-foreground shadow">
-        <!-- Invoice Number (Read-only) -->
         <div>
           <Label for="invoice_number">Invoice Number</Label>
           <Input id="invoice_number" :model-value="invoice.invoice_number" disabled class="mt-1 bg-muted" />
@@ -107,7 +132,7 @@ function deleteInvoice() {
               </SelectGroup>
             </SelectContent>
           </Select>
-           <p v-if="form.errors.status" id="status-error" class="mt-1 text-sm text-destructive">
+          <p v-if="form.errors.status" id="status-error" class="mt-1 text-sm text-destructive">
             {{ form.errors.status }}
           </p>
         </div>
@@ -128,9 +153,7 @@ function deleteInvoice() {
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel :disabled="form.processing">Cancel</AlertDialogCancel>
-                <AlertDialogAction @click="deleteInvoice" :disabled="form.processing">
-                  Yes, delete invoice
-                </AlertDialogAction>
+                <AlertDialogAction @click="deleteInvoice" :disabled="form.processing"> Yes, delete invoice </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

@@ -37,7 +37,7 @@ class InvoiceController extends Controller {
     // $this->authorize('invoice.view', Invoice::class);
 
     // Load necessary relationships if needed, e.g., client, project
-    // $invoice->load(['client', 'project']);
+    $invoice->load(['client', 'project']);
 
     return Inertia::render('invoices/Show', [
       'invoice' => $invoice,

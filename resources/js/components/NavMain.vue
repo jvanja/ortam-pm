@@ -24,6 +24,12 @@ const mainNavItems = [
     permission: 'project.view',
   },
   {
+    title: 'Timesheeets',
+    href: '/timesheets',
+    icon: SheetIcon,
+    permission: 'timesheet.view',
+  },
+  {
     title: 'Clients',
     href: '/clients',
     icon: Contact,
@@ -34,12 +40,6 @@ const mainNavItems = [
     href: '/employees',
     icon: User,
     permission: 'admin.view',
-  },
-  {
-    title: 'Timesheeets',
-    href: '/timesheets',
-    icon: SheetIcon,
-    permission: 'timesheet.view',
   },
 ];
 const page = usePage<SharedData>();

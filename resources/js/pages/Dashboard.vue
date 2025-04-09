@@ -40,22 +40,16 @@ const series = () => [70];
     <div v-if="projects.length > 1" class="flex flex-col gap-4 p-8">
       <Heading title="Projects" description="These are your latest projects" />
       <div class="grid grid-cols-3 gap-2">
-        <div v-for="project in projects" :key="project.id" class="flex flex-col justify-between rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
+        <div v-for="project in projects" :key="project.id" class="flex flex-col justify-between rounded-lg bg-neutral-100 px-1 py-4 dark:bg-neutral-800">
           <div class="chart-container">
             <apexchart :options="chartOptions(project)" :series="series()"></apexchart>
           </div>
-          <!-- <div class="px-4 py-2 text-sm font-medium">{{ project.type }}</div> -->
           <div class="flex gap-2 justify-center">
             <Button variant="default"><a :href="`/projects/${project.id}`">Edit</a></Button>
             <Button variant="destructive">Delete</Button>
           </div>
         </div>
       </div>
-      <div class="grid gap-1">
-        <Label for="name">Search projects</Label>
-        <Input id="search" class="mt-1 block w-full" placeholder="Project name" />
-      </div>
-      <Button>Add new project</Button>
     </div>
     <div v-else class="flex flex-col gap-4 p-8">
       <Heading title="Projects" description="You currently have no projects" />

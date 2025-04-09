@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Invitation;
 use App\Mail\EmployeeInvitationMail;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -83,13 +82,13 @@ class EmployeesController extends Controller {
         'expires_at' => now()->addDays(7),
       ]);
 
-      // 3 & 4. Send Email using the Mailable
-      // The Mailable now handles generating the signed URL
+      // Send Email using the Mailable.
       try {
         Mail::to($emailToInvite)->send(new EmployeeInvitationMail($invitation));
-      } catch (Exception $e) {
-        //Email sent failed.
+      } catch (\Exception $e) {
         Log::error("Failed to send invitation email to {$emailToInvite}: " . $e->getMessage(), ['exception' => $e]);
+        dd($e);
+        // return back()->withErrors(['email' => 'Failed to send invitation. Please check the email address and try again later, or contact support if the problem persists.'])->withInput(); // Retain the user's input
       }
 
       // If email sending is successful, commit the transaction
@@ -102,10 +101,7 @@ class EmployeesController extends Controller {
       DB::rollBack();
       Log::error("Failed to send invitation to {$emailToInvite} for organization {$organizationId}: " . $e->getMessage(), ['exception' => $e]);
 
-      // Provide a user-friendly error message via session flash
-      return back()
-        ->withErrors(['email' => 'Failed to send invitation. Please check the email address and try again later, or contact support if the problem persists.'])
-        ->withInput(); // Retain the user's input
+      return back()->withErrors(['email' => 'Failed to send invitation. Please check the email address and try again later, or contact support if the problem persists.'])->withInput(); // Retain the user's input
     }
   }
 

@@ -23,7 +23,8 @@ const inviteForm = useForm({
 function submitInvite() {
   inviteForm.post(route('employees.invite'), {
     preserveScroll: true,
-    onSuccess: () => {
+    onSuccess: (msg) => {
+      console.log(msg);
       toast.success('Invitation sent successfully!');
       inviteForm.reset();
     },
@@ -49,6 +50,8 @@ function submitInvite() {
             <tr>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Name</th>
               <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Role</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Action</th>
               <!-- Add more columns as needed -->
             </tr>
           </thead>
@@ -60,7 +63,12 @@ function submitInvite() {
               <td class="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">
                 {{ employee.email }}
               </td>
-              <!-- Add more cells corresponding to columns -->
+              <td class="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">
+                {{ employee.role }}
+              </td>
+              <td class="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">
+                <a :href="`/employees/${employee.id}`" class="text-primary-foreground hover:text-primary">Edit</a>
+              </td>
             </tr>
           </tbody>
         </table>

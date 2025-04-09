@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { Head, router, useForm } from '@inertiajs/vue3';
-import { toast } from 'vue-sonner';
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,6 +16,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Invoice } from '@/types'; // Assuming Invoice type is defined in types
+import { Head, router, useForm } from '@inertiajs/vue3';
+import { toast } from 'vue-sonner';
 
 // Define props to receive invoice data from the controller
 const props = defineProps<{ invoice: Invoice }>();
@@ -77,7 +76,7 @@ function deleteInvoice() {
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-6">
-      <table class="min-w-full divide-y divide-gray-200 border mb-4">
+      <table class="mb-4 min-w-full divide-y divide-gray-200 border">
         <thead class="bg-gray-50">
           <tr>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">client</th>
@@ -146,7 +145,7 @@ function deleteInvoice() {
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                 <AlertDialogDescription>
                   This action cannot be undone. This will permanently delete the invoice #{{ invoice.invoice_number }}.
                 </AlertDialogDescription>

@@ -13,6 +13,7 @@ use App\Http\Controllers\PCAReportController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {
   if (Auth::check()) {
@@ -51,6 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::resource('pca-reports', PCAReportController::class);
 
   Route::resource('timesheets', TimesheetController::class);
+
+  Route::resource('invoices', InvoiceController::class);
 
   Route::post('/organizations', [OrganizationController::class, 'store'])->name('organizations.store');
 

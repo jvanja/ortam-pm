@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\InvoiceStatus;
 use App\Models\Project;
 use App\Models\Client;
 use App\Models\Organization;
@@ -21,6 +22,7 @@ class InvoiceFactory extends Factory {
       'invoice_number' => 'inv-' . fake()->randomNumber(8),
       'amount' => fake()->randomFloat(2, 100, 1000),
       'status' => fake()->boolean(),
+      'status' => fake()->randomElement(InvoiceStatus::cases()),
       'project_id' => Project::factory(),
       'client_id' => Client::factory(),
       'organization_id' => Organization::factory(),

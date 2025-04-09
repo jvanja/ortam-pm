@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InvoiceStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,7 +22,7 @@ class Invoice extends Model {
   protected $casts = [
     'id' => 'string',
     'amount' => 'float',
-    'status' => 'boolean',
+    'status' => InvoiceStatus::class,
   ];
 
   public function project(): BelongsTo {
@@ -36,9 +37,4 @@ class Invoice extends Model {
     return $this->belongsTo(Organization::class);
   }
 
-  // - TODO:
-  // Move to the controller
-  // public function markAsPaid(): void {
-  //   $this->paid = true;
-  // }
 }

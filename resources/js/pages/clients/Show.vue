@@ -29,7 +29,7 @@ const submit = () => {
 };
 </script>
 <template>
-  <Head title="Project" />
+  <Head title="Client" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
@@ -91,6 +91,7 @@ const submit = () => {
                     >
                       Status
                     </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"/>
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
@@ -106,6 +107,11 @@ const submit = () => {
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                       <div class="text-sm text-gray-900">{{ invoice.status ? 'Paid' : 'Not paid'}}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="text-sm text-gray-900">
+                        <a :href="`/invoices/${invoice.id}`">Edit</a>
+                      </div>
                     </td>
                   </tr>
                 </tbody>

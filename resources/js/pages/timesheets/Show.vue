@@ -16,6 +16,8 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Timesheets', href: '/timesheets' },
   { title: `Entry ${props.timesheet.id}`, href: `/timesheets/${props.timesheet.id}` }, // Dynamic breadcrumb
 ];
+const locale = localStorage.getItem('locale') || 'en';
+const formatDate = (date:string | Date) => useDateFormat(date, 'MMMM D, YYYY HH:mm A', { locales: locale })
 </script>
 
 <template>
@@ -27,7 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         <CardHeader>
           <CardTitle>Timesheet Entry Details</CardTitle>
           <CardDescription>
-            Entry recorded by {{ timesheet.user?.name }} on {{ useDateFormat(timesheet.created_at, 'MMMM D, YYYY HH:mm A') }}
+            Entry recorded by {{ timesheet.user?.name }} on {{ formatDate(timesheet.created_at) }}
           </CardDescription>
         </CardHeader>
         <CardContent class="space-y-4">

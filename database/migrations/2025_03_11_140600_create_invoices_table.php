@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\InvoiceStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,7 @@ return new class extends Migration {
       $table->id();
       $table->string('invoice_number');
       $table->float('amount');
-      $table->boolean('status');
+      $table->enum('status', [InvoiceStatus::Draft->value, InvoiceStatus::Sent->value, InvoiceStatus::Paid->value, InvoiceStatus::Canceled->value, InvoiceStatus::Overdue->value]);
       $table->foreignId('project_id')->constrained()->onUpdate('cascade');
       $table->foreignId('client_id')->constrained()->onUpdate('cascade');
       $table->foreignId('organization_id')->constrained()->onUpdate('cascade');

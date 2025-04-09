@@ -5,16 +5,44 @@ namespace App\Http\Controllers;
 use App\Models\PCAReport;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class PCAReportController extends Controller {
   /**
    * Display a listing of the resource.
    */
-  public function index() {
+  public function index(Request $request) {
 
     $this->authorize('report.view', PCAReport::class);
 
-    $pca_reports = PCAReport::all();
+    $searchQuery = $request->input('search');
+    $pca_reports = PCAReport::query()
+      ->when($searchQuery, function (Builder $query, string $search) {
+        $query->where('name', 'like', "%{$search}%");
+      })
+      ->latest()
+      ->paginate(10);
+
+    return Inertia::render('pca_reports/Index', [
+      'pca_reports' => [
+        'data' => $pca_reports->items(),
+        'meta' => [
+          'current_page' => $pca_reports->currentPage(),
+          'first_page_url' => $pca_reports->url(1),
+          'from' => $pca_reports->firstItem(),
+          'last_page' => $pca_reports->lastPage(),
+          'last_page_url' => $pca_reports->url($pca_reports->lastPage()),
+          'links' => $pca_reports->linkCollection(),
+          'next_page_url' => $pca_reports->nextPageUrl(),
+          'path' => $pca_reports->path(),
+          'per_page' => $pca_reports->perPage(),
+          'prev_page_url' => $pca_reports->previousPageUrl(),
+          'to' => $pca_reports->lastItem(),
+          'total' => $pca_reports->total(),
+        ]
+      ],
+      'filters' => ['search' => $searchQuery]
+    ]);
 
     return Inertia::render('pca_reports/Index', [
       'pca_reports' => $pca_reports,

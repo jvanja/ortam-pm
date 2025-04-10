@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { type BreadcrumbItem, type Client, type Invoice } from '@/types'; // Assuming TimeSheet includes project and user relations
+import type { BreadcrumbItem, Client, Invoice } from '@/types';
+import ObjectList from '@/components/ObjectList.vue'; // Import ObjectList
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,13 +11,19 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
 import { useDateFormat } from '@vueuse/core';
 
-const props = defineProps<{ client: Client; invoices: Invoice[] }>();
+// Define props including projects
+const props = defineProps<{
+  client: Client;
+  invoices: Invoice[];
+  projects: { id: string; name: string }[]; // Add projects prop
+}>();
 
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Clients', href: '/clients' },
   { title: props.client.company_name, href: '' },
 ];
 
+console.log(props)
 const client = { ...props.client };
 const form = useForm(client);
 const submit = () => {
@@ -57,6 +64,17 @@ const submit = () => {
             </form>
           </CardContent>
         </Card>
+
+        <!-- Projects Card -->
+        <Card v-if="props.projects && props.projects.length > 0">
+          <CardHeader>
+            <CardTitle>Associated Projects</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ObjectList :objects="props.projects" type="projects" :can-delete="false" />
+          </CardContent>
+        </Card>
+        <!-- End Projects Card -->
 
         <Card>
           <CardHeader>

@@ -60,12 +60,18 @@ class ClientController extends Controller {
    */
   public function show(string $id) {
     $this->authorize('client.view', Client::class);
-    $client = Client::find($id);
-    $invoices = Invoice::where('client_id', $id)->get();
+
+    $client = Client::with(['projects', 'invoices'])->findOrFail($id);
+
+    $projects = $client->projects->map(function ($project) {
+      return ['id' => $project->id, 'name' => $project->type];
+    });
+
 
     return Inertia::render('clients/Show', [
       'client' => $client,
-      'invoices' => $invoices,
+      'invoices' => $client->invoices, // Use the eager-loaded invoices
+      'projects' => $projects, // Pass the formatted projects list
     ]);
   }
 

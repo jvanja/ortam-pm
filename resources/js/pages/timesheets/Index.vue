@@ -27,7 +27,6 @@ const props = defineProps<{
   };
   filters: { search: string | null };
 }>();
-// console.log(props.timesheets);
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Timesheets', href: '/timesheets' }];
 const searchQuery = ref(props.filters.search || '');
@@ -93,7 +92,7 @@ watch(
 const currentPage = ref(props.timesheets.meta.current_page || 1);
 const onPageChange = (page: number) => {
   currentPage.value = page;
-  router.get('projects', { page: page }, { preserveScroll: true });
+  router.get('timesheets', { page: page }, { preserveScroll: true });
 };
 </script>
 

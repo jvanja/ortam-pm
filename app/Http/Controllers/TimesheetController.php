@@ -17,23 +17,18 @@ class TimesheetController extends Controller {
   public function index(Request $request) {
     $this->authorize('timesheet.view', Timesheet::class);
 
-    $user = Auth::user();
-
-    // $timesheets = $user->timesheets()->with('project')->latest()->limit(10)->get();
-
-    // return Inertia::render('timesheets/Index', [
-    //   'timesheets' => $timesheets,
-    // ]);
     $searchQuery = $request->input('search');
 
     $timesheets = Timesheet::query()
       ->when($searchQuery, function (Builder $query, string $search) {
-        $query->where('task_performed', 'like', "%{$search}%");
+        $query->where('task_performed', 'like', "%{$search}%")
+          ->orWhereHas('project', function (Builder $query) use ($search) {
+            $query->where('type', 'like', "%{$search}%");
+          });
       })
       ->with('project')
       ->latest()
       ->paginate(10);
-    // dd($timesheets);
 
     return Inertia::render('timesheets/Index', [
       'timesheets' => [

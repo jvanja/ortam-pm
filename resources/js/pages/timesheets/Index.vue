@@ -19,7 +19,7 @@ const ts_hours = timesheets.map((ts) => ts.worked_duration);
 const ts_task = timesheets.map((ts) => ts.task_performed);
 const ts_client = timesheets.map((ts) => ts.project.type);
 const objects = props.timesheets.map((timesheet) => {
-  return { id: timesheet.id!, name: `${timesheet.project.type} - ${timesheet.task_performed} - ${timesheet.worked_duration} hours` };
+  return { id: timesheet.id!, name: `<strong>${timesheet.project.type}</strong> - ${timesheet.task_performed} - ${timesheet.worked_duration} hours` };
 });
 
 const chartOptions = {

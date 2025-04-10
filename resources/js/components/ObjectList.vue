@@ -25,9 +25,9 @@ const deleteObject = (id: string) => {
 <template>
   <div class="flex flex-col gap-2">
     <div v-for="object in objects" :key="object.id" class="flex justify-between rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
-      <div class="px-4 py-2 text-sm font-medium">{{ object.name }}</div>
+      <div class="px-4 py-2 text-sm font-medium" v-html="object.name" />
       <div class="flex gap-2">
-        <Button variant="default"><a :href="`/${type}/${object.id}`">View</a></Button>
+        <Button variant="link"><a :href="`/${type}/${object.id}`">View</a></Button>
         <Button v-if="canDelete == true" variant="destructive" @click="deleteObject(object.id)">Delete</Button>
       </div>
     </div>

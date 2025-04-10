@@ -7,21 +7,53 @@ use App\Models\Timesheet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\Builder;
 use Inertia\Inertia;
 
 class TimesheetController extends Controller {
   /**
    * Display a listing of the resource.
    */
-  public function index() {
+  public function index(Request $request) {
     $this->authorize('timesheet.view', Timesheet::class);
 
     $user = Auth::user();
 
-    $timesheets = $user->timesheets()->with('project')->latest()->limit(10)->get();
+    // $timesheets = $user->timesheets()->with('project')->latest()->limit(10)->get();
+
+    // return Inertia::render('timesheets/Index', [
+    //   'timesheets' => $timesheets,
+    // ]);
+    $searchQuery = $request->input('search');
+
+    $timesheets = Timesheet::query()
+      ->when($searchQuery, function (Builder $query, string $search) {
+        $query->where('task_performed', 'like', "%{$search}%");
+      })
+      ->with('project')
+      ->latest()
+      ->paginate(10);
+    // dd($timesheets);
 
     return Inertia::render('timesheets/Index', [
-      'timesheets' => $timesheets,
+      'timesheets' => [
+        'data' => $timesheets->items(),
+        'meta' => [
+          'current_page' => $timesheets->currentPage(),
+          'first_page_url' => $timesheets->url(1),
+          'from' => $timesheets->firstItem(),
+          'last_page' => $timesheets->lastPage(),
+          'last_page_url' => $timesheets->url($timesheets->lastPage()),
+          'links' => $timesheets->linkCollection(),
+          'next_page_url' => $timesheets->nextPageUrl(),
+          'path' => $timesheets->path(),
+          'per_page' => $timesheets->perPage(),
+          'prev_page_url' => $timesheets->previousPageUrl(),
+          'to' => $timesheets->lastItem(),
+          'total' => $timesheets->total(),
+        ]
+      ],
+      'filters' => ['search' => $searchQuery]
     ]);
   }
 
@@ -41,13 +73,13 @@ class TimesheetController extends Controller {
         'required',
         'string',
         Rule::exists('projects', 'id')->where(function ($query) use ($user) {
-            // Ensure the project is one the user is assigned to via project_user pivot table
-            $query->whereExists(function ($subQuery) use ($user) {
-                $subQuery->select(\DB::raw(1))
-                         ->from('project_user')
-                         ->whereColumn('projects.id', 'project_user.project_id')
-                         ->where('project_user.user_id', $user->id);
-            });
+          // Ensure the project is one the user is assigned to via project_user pivot table
+          $query->whereExists(function ($subQuery) use ($user) {
+            $subQuery->select(\DB::raw(1))
+              ->from('project_user')
+              ->whereColumn('projects.id', 'project_user.project_id')
+              ->where('project_user.user_id', $user->id);
+          });
         }),
       ],
       'details' => 'nullable|string|max:65535', // Optional details field

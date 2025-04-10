@@ -1,26 +1,50 @@
 <script setup lang="ts">
 import Heading from '@/components/Heading.vue';
 import ObjectList from '@/components/ObjectList.vue';
+import Pagination from '@/components/Pagination.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Project, TimeSheet } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
+import { debounce } from 'lodash-es';
+import { computed, ref, watch } from 'vue';
 type TimesheetWithProject = TimeSheet & { project: Project };
 
-const props = defineProps<{ timesheets: TimesheetWithProject[] }>();
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Timesheets', href: '/timesheets' }];
-
+const props = defineProps<{
+  timesheets: {
+    data: TimesheetWithProject[];
+    meta: {
+      current_page: number;
+      from: number;
+      last_page: number;
+      links: Array<any>;
+      path: string;
+      per_page: number;
+      to: number;
+      total: number;
+    };
+  };
+  filters: { search: string | null };
+}>();
 // console.log(props.timesheets);
+
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Timesheets', href: '/timesheets' }];
+const searchQuery = ref(props.filters.search || '');
 const timesheets = props.timesheets;
-const ts_created = timesheets.map((ts) => new Date(ts.created_at!).toLocaleDateString());
-const ts_hours = timesheets.map((ts) => ts.worked_duration);
-const ts_task = timesheets.map((ts) => ts.task_performed);
-const ts_client = timesheets.map((ts) => ts.project.type);
-const objects = props.timesheets.map((timesheet) => {
-  return { id: timesheet.id!, name: `<strong>${timesheet.project.type}</strong> - ${timesheet.task_performed} - ${timesheet.worked_duration} hours` };
-});
+const ts_created = timesheets.data.map((ts) => new Date(ts.created_at!).toLocaleDateString());
+const ts_hours = timesheets.data.map((ts) => ts.worked_duration);
+const ts_task = timesheets.data.map((ts) => ts.task_performed);
+const ts_client = timesheets.data.map((ts) => ts.project.type);
+
+const objects = computed(() =>
+  props.timesheets.data.map((timesheet) => {
+    return {
+      id: timesheet.id!,
+      name: `<strong>${timesheet.project.type}</strong> - ${timesheet.task_performed} - ${timesheet.worked_duration} hours`,
+    };
+  }),
+);
 
 const chartOptions = {
   chart: {
@@ -29,7 +53,7 @@ const chartOptions = {
     width: '100%',
     height: 380,
     events: {
-      click: (_event: string, _chartContext: unknown, opts: {dataPointIndex: number}) => console.log(opts.dataPointIndex),
+      click: (_event: string, _chartContext: unknown, opts: { dataPointIndex: number }) => console.log(opts.dataPointIndex),
     },
   },
   xaxis: {
@@ -50,6 +74,27 @@ const chartOptions = {
   },
 };
 const series = [{ name: 'Task', data: ts_hours }];
+
+// Watch for changes in searchQuery
+watch(
+  searchQuery,
+  debounce((newValue: string) => {
+    router.get(
+      '/timesheets',
+      { search: newValue },
+      {
+        preserveState: true,
+        preserveScroll: true, // Keep scroll position after update
+        replace: true, // Avoids adding duplicate history entries
+      },
+    );
+  }, 300),
+); // Debounce requests by 300ms
+const currentPage = ref(props.timesheets.meta.current_page || 1);
+const onPageChange = (page: number) => {
+  currentPage.value = page;
+  router.get('projects', { page: page }, { preserveScroll: true });
+};
 </script>
 
 <template>
@@ -62,11 +107,11 @@ const series = [{ name: 'Task', data: ts_hours }];
         <div id="chart">
           <apexchart :options="chartOptions" :series="series"></apexchart>
         </div>
-        <ObjectList :objects="objects" type="timesheets" />
         <div class="grid gap-1">
-          <Label for="name">Search projects</Label>
-          <Input id="search" class="mt-1 block w-full" placeholder="timesheet name" />
+          <Input id="search" v-model="searchQuery" class="mt-1 block w-full" placeholder="Search the timesheets..." />
         </div>
+        <ObjectList :objects="objects" type="timesheets" />
+        <Pagination :currentPage="currentPage" :pagesMeta="timesheets.meta" :onPageChange="onPageChange" />
         <Button>Add new</Button>
       </div>
     </div>

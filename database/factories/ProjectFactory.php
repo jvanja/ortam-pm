@@ -19,7 +19,7 @@ class ProjectFactory extends Factory {
    */
   public function definition(): array {
     return [
-      'type' => fake()->jobTitle(),
+      'type' => fake()->sentence(5),
       'department' => fake()->word(),
       'manager' => fake()->name(),
       'language' => fake()->randomElement(Language::cases()),

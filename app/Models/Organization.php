@@ -11,6 +11,7 @@ class Organization extends Model {
 
   protected $fillable = [
     'name',
+    'address',
   ];
 
   public function projects(): HasMany {

@@ -13,6 +13,7 @@ return new class extends Migration {
       $table->id();
       $table->timestamps();
       $table->string('name');
+      $table->string('address');
     });
 
     // add organization_id to the users table

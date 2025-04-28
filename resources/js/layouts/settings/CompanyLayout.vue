@@ -8,11 +8,11 @@ import { Link } from '@inertiajs/vue3';
 const sidebarNavItems: NavItem[] = [
   {
     title: 'Company Info',
-    href: '/settings/company',
+    href: '/settings/organization',
   },
   {
     title: 'Branding',
-    href: '/settings/company-branding',
+    href: '/settings/branding',
   },
 ];
 

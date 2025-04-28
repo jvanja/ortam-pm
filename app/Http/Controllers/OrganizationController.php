@@ -41,28 +41,24 @@ class OrganizationController extends Controller {
   }
 
   /**
-   * Display the specified resource.
-   */
-  public function show(Organization $organization) {
-    //
-  }
-
-  /**
    * Show the form for editing the specified resource.
    */
   public function edit(Request $request): Response {
     $org_id = $request->user()->organization_id;
     $organization = Organization::find($org_id);
-    return Inertia::render('settings/Company', [
+    return Inertia::render('settings/Organization', [
       'name' => $organization->name,
       'address' => $organization->address,
+      // - TODO:
+      // add branding fields
+      'logo' => 'link_to_logo',
     ]);
   }
 
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, Organization $organization) {
+  public function update(Request $request) {
     //
   }
 

@@ -29,7 +29,7 @@ const chartOptions = (project: Project) => {
   };
 };
 const getSeries = (project: Project) => {
-  console.log(project);
+  // console.log(project);
   return [70];
 };
 
@@ -81,7 +81,7 @@ const options = {
   dataLabels: {
     enabled: true,
     formatter: function (val, opts) {
-      console.log(val)
+      // console.log(val)
       const label = opts.w.globals.labels[opts.dataPointIndex];
       // const a = new Date(val[0])
       // const b = new Date(val[1])

@@ -27,7 +27,7 @@ defineProps<Props>();
       </Link>
     </DropdownMenuItem>
     <DropdownMenuItem :as-child="true">
-      <Link class="block w-full" :href="route('company.edit')" as="button">
+      <Link class="block w-full" :href="route('organization.edit')" as="button">
         <Building class="mr-2 h-4 w-4" />
         Company Settings
       </Link>

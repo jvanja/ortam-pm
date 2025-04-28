@@ -13,8 +13,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('settings/company', [OrganizationController::class, 'edit'])->name('company.edit');
-    Route::patch('settings/company', [OrganizationController::class, 'update'])->name('company.update');
+    Route::get('settings/organization', [OrganizationController::class, 'edit'])->name('organization.edit');
+    Route::patch('settings/organization', [OrganizationController::class, 'update'])->name('organization.update');
+    Route::get('settings/branding', [OrganizationController::class, 'edit'])->name('organization.edit');
 
     Route::get('settings/password', [PasswordController::class, 'edit'])->name('password.edit');
     Route::put('settings/password', [PasswordController::class, 'update'])->name('password.update');

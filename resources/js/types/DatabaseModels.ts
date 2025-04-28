@@ -216,7 +216,7 @@ export interface usersEntity {
 }
 export interface workloadsEntity {
   'created_at'?: Date | null;
-  'deadlines': Object;
+  'deadlines': object;
   'id'?: string;
   'updated_at'?: Date | null;
   'user_id': string;

@@ -83,11 +83,8 @@ const options = {
     formatter: function (val, opts) {
       console.log(val)
       const label = opts.w.globals.labels[opts.dataPointIndex];
-      // var a = moment(val[0]);
-      // var b = moment(val[1]);
-      //
-      const a = new Date(val[0])
-      const b = new Date(val[1])
+      // const a = new Date(val[0])
+      // const b = new Date(val[1])
       // const diff = b.diff(a, 'days');
       const diff = (val[1] - val[0]) / (1000 * 3600 * 24);
       return label + ': ' + diff + (diff > 1 ? ' days' : ' day');

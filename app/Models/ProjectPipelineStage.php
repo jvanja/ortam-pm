@@ -13,9 +13,9 @@ class ProjectPipelineStage extends Model {
 
   protected $fillable = [
     'project_id',
-    'pipeline_stage_id',
     'name',
     'stage_order',
+    'is_system_default',
     'status',
     'completed_at',
     'notes',
@@ -31,13 +31,6 @@ class ProjectPipelineStage extends Model {
    */
   public function project(): BelongsTo {
     return $this->belongsTo(Project::class);
-  }
-
-  /**
-   * The default stage definition this stage might be based on.
-   */
-  public function pipelineStage(): BelongsTo {
-    return $this->belongsTo(PipelineStage::class);
   }
 
   /**

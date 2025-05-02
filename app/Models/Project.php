@@ -57,6 +57,28 @@ class Project extends Model {
   public function users(): BelongsToMany {
     return $this->belongsToMany(User::class)->withTimestamps();
   }
+
+  /**
+   * Get all pipeline stages defined for this project.
+   */
+  public function pipelineStages(): HasMany {
+    return $this->hasMany(ProjectPipelineStage::class)->orderBy('stage_order');
+  }
+
+  /**
+   * Get the current active pipeline stage for this project.
+   */
+  public function currentPipelineStage(): BelongsTo {
+    return $this->belongsTo(ProjectPipelineStage::class, 'current_project_pipeline_stage_id');
+  }
+
+  /**
+   * Get the full pipeline history for this project.
+   */
+  public function pipelineHistory(): HasMany {
+    return $this->hasMany(ProjectPipelineHistory::class)->orderBy('changed_at');
+  }
+
   // public function workload(): BelongsToMany {
   //   return $this->belongsToMany(Workload::class);
   // }

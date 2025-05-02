@@ -60,4 +60,11 @@ class User extends Authenticatable {
   public function timesheets(): HasMany {
     return $this->hasMany(Timesheet::class);
   }
+
+  /**
+   * Get the pipeline history events triggered by this user.
+   */
+  public function projectPipelineHistories(): HasMany {
+    return $this->hasMany(ProjectPipelineHistory::class);
+  }
 }

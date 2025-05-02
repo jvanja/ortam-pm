@@ -12,12 +12,10 @@ class PipelineStage extends Model {
 
   protected $fillable = [
     'default_name',
-    'is_system_default',
     'default_order',
   ];
 
   protected $casts = [
-    'is_system_default' => 'boolean',
     'default_order' => 'integer',
   ];
 

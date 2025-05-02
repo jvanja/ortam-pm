@@ -19,17 +19,8 @@ class PipelineStageFactory extends Factory {
   public function definition(): array {
     return [
       'default_name' => fake()->words(2, true),
-      'is_system_default' => fake()->boolean(75), // Mostly true for testing defaults
       'default_order' => fake()->numberBetween(1, 10) * 10,
     ];
   }
 
-  /**
-   * Indicate that the stage is a system default.
-   */
-  public function systemDefault(): static {
-    return $this->state(fn(array $attributes) => [
-      'is_system_default' => true,
-    ]);
-  }
 }

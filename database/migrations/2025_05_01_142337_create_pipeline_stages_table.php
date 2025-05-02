@@ -12,7 +12,6 @@
       Schema::create('pipeline_stages', function (Blueprint $table) {
         $table->uuid('id')->primary();
         $table->string('default_name');
-        $table->boolean('is_system_default')->default(false);
         $table->integer('default_order')->default(0);
         $table->timestamps();
       });

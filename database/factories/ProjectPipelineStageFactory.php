@@ -22,7 +22,7 @@ class ProjectPipelineStageFactory extends Factory {
       'project_id' => Project::factory(),
       'name' => fake()->word(),
       'stage_order' => fake()->numberBetween(1, 10) * 10,
-      'is_system_default' => false,
+      'is_system_default' => true,
       'status' => 'pending',
       'completed_at' => null,
       'notes' => fake()->optional()->sentence,

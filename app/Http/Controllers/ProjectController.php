@@ -69,7 +69,7 @@ class ProjectController extends Controller {
 
     $project = Project::with(['pipelineStages', 'currentPipelineStage'])->findOrFail($id);
     if ($project->pipelineStages->count() == 0) {
-      $project->pipelineStages = ProjectPipelineStage::where('is_system_default', '=', '0')->get();
+      $project->pipelineStages = ProjectPipelineStage::where('is_system_default', '=', true)->get();
     }
     $employees = $project->users()->get();
     $client = $project->client()->first();

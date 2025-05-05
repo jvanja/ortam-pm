@@ -27,6 +27,7 @@ class Project extends Model {
     'deadline',
     'client_id',
     'organization_id',
+    'current_project_pipeline_stage_id',
   ];
 
   protected $casts = [

@@ -50,7 +50,7 @@ export interface invoicesEntity {
   'invoice_number': string;
   'organization_id': string;
   'project_id': string;
-  'status': any;
+  'status': 'draft' | 'sent' | 'paid' | 'canceled' | 'overdue';
   'updated_at'?: Date | null;
 }
 export interface job_batchesEntity {
@@ -90,6 +90,7 @@ export interface model_has_rolesEntity {
   'role_id': string;
 }
 export interface organizationsEntity {
+  'address': string;
   'created_at'?: Date | null;
   'id'?: string;
   'name': string;
@@ -135,6 +136,18 @@ export interface permissionsEntity {
   'name': string;
   'updated_at'?: Date | null;
 }
+export interface project_pipeline_stagesEntity {
+  'completed_at'?: Date | null;
+  'created_at'?: Date | null;
+  'id': string;
+  'is_system_default'?: any;
+  'name': string;
+  'notes'?: string | null;
+  'project_id': string;
+  'stage_order'?: number;
+  'status'?: string;
+  'updated_at'?: Date | null;
+}
 export interface project_userEntity {
   'created_at'?: Date | null;
   'project_id': string;
@@ -147,6 +160,7 @@ export interface projectsEntity {
   'client_id': string;
   'created_at'?: Date | null;
   'currency'?: string | null;
+  'current_project_pipeline_stage_id'?: string | null;
   'deadline': Date;
   'department': string;
   'id'?: string;
@@ -216,7 +230,7 @@ export interface usersEntity {
 }
 export interface workloadsEntity {
   'created_at'?: Date | null;
-  'deadlines': object;
+  'deadlines': Object;
   'id'?: string;
   'updated_at'?: Date | null;
   'user_id': string;

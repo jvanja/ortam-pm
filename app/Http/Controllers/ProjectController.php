@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProjectPipelineStage;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Inertia\Inertia;
@@ -66,7 +67,10 @@ class ProjectController extends Controller {
   public function show($id) {
     $this->authorize('project.edit', Project::class);
 
-    $project = Project::find($id);
+    $project = Project::with(['pipelineStages', 'currentPipelineStage'])->findOrFail($id);
+    if ($project->pipelineStages->count() == 0) {
+      $project->pipelineStages = ProjectPipelineStage::where('is_system_default', '=', '0')->get();
+    }
     $employees = $project->users()->get();
     $client = $project->client()->first();
 
@@ -74,6 +78,8 @@ class ProjectController extends Controller {
       'project' => $project,
       'client' => $client,
       'employees' => $employees,
+      'pipelineStages' => $project->pipelineStages,
+      'currentPipelineStage' => $project->currentPipelineStage,
     ]);
   }
 

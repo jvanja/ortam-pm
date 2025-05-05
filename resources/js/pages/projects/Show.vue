@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Client, Project, ProjectPipelineStage, User } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, router } from '@inertiajs/vue3'; // Import router
 import currencies from 'currency-codes';
 import { CheckCircle2, ChevronRight, CirclePlus, GripVertical, Trash2 } from 'lucide-vue-next';
 import { ref } from 'vue';
@@ -32,7 +32,8 @@ const employees = props.employees;
 
 // State for draggable pipeline stages
 const stages = ref([...props.pipelineStages]);
-const currentStageId = ref(props.currentPipelineStage ? props.currentPipelineStage.id : stages.value[0].id);
+// Initialize currentStageId based on prop, default to first stage if available
+const currentStageId = ref(props.currentPipelineStage ? props.currentPipelineStage.id : (stages.value.length > 0 ? stages.value[0].id : null));
 const isDragging = ref(false);
 
 const form = useForm(project);
@@ -57,33 +58,114 @@ const removeEmployee = (id: string) => {
     onSuccess: () => {
       toast.success('Employee has been removed successfully!', { style: { background: '#6ee7b7', color: '#000' } });
     },
+    onError: (errors) => {
+      console.error('Remove employee error:', errors);
+      toast.error('Failed to remove employee.');
+    },
   });
 };
 
-// Placeholder methods for pipeline stage actions
+// Pipeline stage actions
+const updateStageOrderForm = useForm({
+  stage_ids: stages.value.map((stage) => stage.id),
+});
+
 const handleDragEnd = () => {
   isDragging.value = false;
-  // TODO: Implement logic to update stage order on the backend
-  console.log(
-    'Drag ended. New order:',
-    stages.value.map((stage) => stage.id),
-  );
-  toast.info('Stage order updated (frontend only). Backend update needed.');
+  // Update the form data with the new order
+  updateStageOrderForm.stage_ids = stages.value.map((stage) => stage.id);
+
+  // Send the new order to the backend
+  updateStageOrderForm.patch(route('projects.pipeline-stages.updateOrder', { project: props.project.id }), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Stage order updated successfully!');
+      // Re-fetch project data to ensure UI is in sync, including current stage if order changed
+      // router.reload({ only: ['pipelineStages', 'currentPipelineStage'] }); // Reloading might be heavy, patch response is enough
+    },
+    onError: (errors) => {
+      console.error('Update stage order error:', errors);
+      toast.error('Failed to update stage order.');
+      // Revert stages to original order on error? Or reload page? Reloading is simpler.
+      router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
+    },
+  });
 };
 
 const deleteStage = (stageId: string) => {
-  // TODO: Implement logic to delete stage on the backend
-  console.log('Delete stage:', stageId);
-  // Optimistically remove from UI
-  stages.value = stages.value.filter((stage) => stage.id !== stageId);
-  toast.success('Stage deleted (frontend only). Backend deletion needed.');
+  if (!confirm('Are you sure you want to delete this stage?')) {
+    return;
+  }
+
+  router.delete(route('projects.pipeline-stages.destroy', { project: props.project.id, stage: stageId }), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Stage deleted successfully!');
+      // Optimistically remove from UI or rely on Inertia reload
+      stages.value = stages.value.filter((stage) => stage.id !== stageId);
+      // Re-fetch project data to ensure UI is in sync, especially if current stage was deleted
+      router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
+    },
+    onError: (errors) => {
+      console.error('Delete stage error:', errors);
+      toast.error('Failed to delete stage.');
+      // Reload to revert optimistic removal on error
+      router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
+    },
+  });
 };
 
 const setCurrentStage = (stage: ProjectPipelineStage) => {
-  // TODO: Implement logic to set new current stage on the backend
-  currentStageId.value = stage.id;
-  toast.success('New current stage set(frontend only). Backend update needed.');
+  if (isCurrentStage(stage)) {
+    // Already the current stage, maybe allow unsetting? Or do nothing.
+    // Let's do nothing for now.
+    return;
+  }
+
+  router.patch(route('projects.pipeline-stages.setCurrent', { project: props.project.id, stage: stage.id }), {}, {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Current stage updated successfully!');
+      currentStageId.value = stage.id; // Optimistically update UI
+      // Re-fetch project data to ensure UI is in sync
+      router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
+    },
+    onError: (errors) => {
+      console.error('Set current stage error:', errors);
+      toast.error('Failed to set current stage.');
+      // Reload to revert optimistic update on error
+      router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
+    },
+  });
 };
+
+const addStageForm = useForm({
+  name: '',
+});
+
+const addStage = () => {
+  const stageName = prompt('Enter the name for the new pipeline stage:');
+  if (!stageName) {
+    return; // User cancelled or entered empty name
+  }
+
+  addStageForm.name = stageName;
+
+  addStageForm.post(route('projects.pipeline-stages.store', { project: props.project.id }), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('New stage added successfully!');
+      addStageForm.reset();
+      // Re-fetch project data to include the new stage
+      router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
+    },
+    onError: (errors) => {
+      console.error('Add stage error:', errors);
+      toast.error('Failed to add new stage.');
+    },
+  });
+};
+
 
 const isCurrentStage = (stage: ProjectPipelineStage) => {
   return stage.id === currentStageId.value;
@@ -114,20 +196,28 @@ const isCurrentStage = (stage: ProjectPipelineStage) => {
               <div
                 :class="[
                   'group flex min-w-[150px] flex-col items-center justify-between rounded-lg border p-4 text-center',
-                  isCurrentStage(stage) ? 'border-primary bg-lime-50' : 'border-gray-200 dark:border-gray-700',
+                  isCurrentStage(stage) ? 'border-primary bg-lime-50 dark:bg-lime-900/50' : 'border-gray-200 dark:border-gray-700',
                 ]"
               >
                 <div class="flex flex-grow flex-col items-center justify-center">
+                  <!-- Check icon for current stage -->
                   <CheckCircle2 v-if="isCurrentStage(stage)" class="mb-2 h-6 w-6 text-primary" />
-                  <CheckCircle2 @click="setCurrentStage(stage)" v-else class="invisible mb-2 h-6 w-6 text-gray-300 group-hover:visible">
-                    <title>Check current pipeline step</title>
+                  <!-- Clickable check icon to set as current stage -->
+                  <CheckCircle2
+                    v-else
+                    @click="setCurrentStage(stage)"
+                    class="invisible mb-2 h-6 w-6 text-gray-300 group-hover:visible cursor-pointer"
+                  >
+                    <title>Set as current pipeline stage</title>
                   </CheckCircle2>
                   <div class="font-semibold">{{ stage.name }}</div>
                 </div>
                 <div class="mt-4 flex w-full justify-center gap-2">
+                  <!-- Drag handle -->
                   <Button variant="ghost" size="icon" class="drag-handle cursor-grab">
                     <GripVertical class="h-4 w-4" />
                   </Button>
+                  <!-- Delete button -->
                   <Button variant="ghost" size="icon" class="text-destructive hover:text-destructive" @click="deleteStage(stage.id!)">
                     <Trash2 class="h-4 w-4" />
                   </Button>
@@ -135,9 +225,10 @@ const isCurrentStage = (stage: ProjectPipelineStage) => {
               </div>
             </template>
             <template #header>
-              <div class="flex flex-col items-center justify-center min-w-[150px]">
+              <!-- Add new stage button -->
+              <div class="flex flex-col items-center justify-center min-w-[150px] cursor-pointer" @click="addStage">
                 <CirclePlus class="mb-2 h-6 w-6 text-gray-300" />
-                <button @click="console.log('add')">Add new stage</button>
+                <button type="button">Add new stage</button>
               </div>
             </template>
           </Draggable>

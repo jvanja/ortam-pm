@@ -19,7 +19,7 @@ class ProjectPipelineStageFactory extends Factory {
    */
   public function definition(): array {
     return [
-      'project_id' => Project::factory(),
+      'project_id' => null,
       'name' => fake()->word(),
       'stage_order' => fake()->numberBetween(1, 10) * 10,
       'is_system_default' => true,

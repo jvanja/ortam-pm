@@ -14,6 +14,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ProjectPipelineStageController; // Import the new controller
 
 Route::get('/', function () {
   if (Auth::check()) {
@@ -46,6 +47,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
   Route::resource('projects', ProjectController::class);
   Route::delete('/projects/{project}/remove-employee/{userId}', [ProjectController::class, 'removeEmployee'])->name('projects.employee.remove');
+
+  // Project Pipeline Stage Routes
+  Route::patch('/projects/{project}/pipeline-stages/order', [ProjectPipelineStageController::class, 'updateOrder'])->name('projects.pipeline-stages.updateOrder');
+  Route::patch('/projects/{project}/pipeline-stages/{stage}/set-current', [ProjectPipelineStageController::class, 'setCurrent'])->name('projects.pipeline-stages.setCurrent');
+  Route::delete('/projects/{project}/pipeline-stages/{stage}', [ProjectPipelineStageController::class, 'destroy'])->name('projects.pipeline-stages.destroy');
+  Route::post('/projects/{project}/pipeline-stages', [ProjectPipelineStageController::class, 'store'])->name('projects.pipeline-stages.store');
+
 
   Route::resource('clients', ClientController::class);
 

@@ -102,7 +102,7 @@ class ProjectPipelineStageController extends Controller {
     $this->authorize('project.edit', $project);
 
     // Ensure the stage belongs to the project
-    if ($stage->project_id !== $project->id) {
+    if ($stage->project_id != $project->id) {
       throw ValidationException::withMessages(['stage' => 'The selected stage does not belong to this project.']);
     }
 

@@ -218,7 +218,7 @@ const isCurrentStage = (stage: ProjectPipelineStage) => {
                     <GripVertical class="h-4 w-4" />
                   </Button>
                   <!-- Delete button -->
-                  <Button variant="ghost" size="icon" class="text-destructive hover:text-destructive" @click="deleteStage(stage.id!)">
+                  <Button variant="ghost" size="icon" class="text-destructive hover:text-destructive" @click="deleteStage(stage.id!)" :disabled="isCurrentStage(stage)">
                     <Trash2 class="h-4 w-4" />
                   </Button>
                 </div>

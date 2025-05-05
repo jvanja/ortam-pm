@@ -8,7 +8,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Client, Project, ProjectPipelineStage, User } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import currencies from 'currency-codes';
-import { Zap, ChevronRight, GripVertical, Trash2 } from 'lucide-vue-next';
+import { CheckCircle2, ChevronRight, CirclePlus, GripVertical, Trash2 } from 'lucide-vue-next';
 import { ref } from 'vue';
 import { toast } from 'vue-sonner';
 import Draggable from 'vuedraggable';
@@ -32,6 +32,8 @@ const employees = props.employees;
 
 // State for draggable pipeline stages
 const stages = ref([...props.pipelineStages]);
+const currentStageId = ref(props.currentPipelineStage ? props.currentPipelineStage.id : stages.value[0].id);
+const isDragging = ref(false);
 
 const form = useForm(project);
 const submit = () => {
@@ -60,6 +62,7 @@ const removeEmployee = (id: string) => {
 
 // Placeholder methods for pipeline stage actions
 const handleDragEnd = () => {
+  isDragging.value = false;
   // TODO: Implement logic to update stage order on the backend
   console.log(
     'Drag ended. New order:',
@@ -76,8 +79,14 @@ const deleteStage = (stageId: string) => {
   toast.success('Stage deleted (frontend only). Backend deletion needed.');
 };
 
+const setCurrentStage = (stage: ProjectPipelineStage) => {
+  // TODO: Implement logic to set new current stage on the backend
+  currentStageId.value = stage.id;
+  toast.success('New current stage set(frontend only). Backend update needed.');
+};
+
 const isCurrentStage = (stage: ProjectPipelineStage) => {
-  return props.currentPipelineStage && stage.id === props.currentPipelineStage.id;
+  return stage.id === currentStageId.value;
 };
 </script>
 <template>
@@ -92,16 +101,27 @@ const isCurrentStage = (stage: ProjectPipelineStage) => {
           <CardDescription>Drag and drop to reorder stages.</CardDescription>
         </CardHeader>
         <CardContent id="content">
-          <Draggable v-model="stages" item-key="id" class="flex gap-4 overflow-x-auto pb-4" @end="handleDragEnd" handle=".drag-handle">
+          <Draggable
+            v-model="stages"
+            item-key="id"
+            class="flex gap-4 overflow-x-auto pb-4"
+            :class="{ dragging: isDragging }"
+            @start="isDragging = true"
+            @end="handleDragEnd"
+            handle=".drag-handle"
+          >
             <template #item="{ element: stage }">
               <div
                 :class="[
-                  'flex min-w-[150px] flex-col items-center justify-between rounded-lg border p-4 text-center',
+                  'group flex min-w-[150px] flex-col items-center justify-between rounded-lg border p-4 text-center',
                   isCurrentStage(stage) ? 'border-primary bg-lime-50' : 'border-gray-200 dark:border-gray-700',
                 ]"
               >
                 <div class="flex flex-grow flex-col items-center justify-center">
-                  <Zap v-if="isCurrentStage(stage)" class="mb-2 h-6 w-6 text-primary" />
+                  <CheckCircle2 v-if="isCurrentStage(stage)" class="mb-2 h-6 w-6 text-primary" />
+                  <CheckCircle2 @click="setCurrentStage(stage)" v-else class="invisible mb-2 h-6 w-6 text-gray-300 group-hover:visible">
+                    <title>Check current pipeline step</title>
+                  </CheckCircle2>
                   <div class="font-semibold">{{ stage.name }}</div>
                 </div>
                 <div class="mt-4 flex w-full justify-center gap-2">
@@ -112,6 +132,12 @@ const isCurrentStage = (stage: ProjectPipelineStage) => {
                     <Trash2 class="h-4 w-4" />
                   </Button>
                 </div>
+              </div>
+            </template>
+            <template #header>
+              <div class="flex flex-col items-center justify-center min-w-[150px]">
+                <CirclePlus class="mb-2 h-6 w-6 text-gray-300" />
+                <button @click="console.log('add')">Add new stage</button>
               </div>
             </template>
           </Draggable>
@@ -135,12 +161,12 @@ const isCurrentStage = (stage: ProjectPipelineStage) => {
           <form @submit.prevent="submit" class="space-y-6">
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div class="flex flex-col space-y-1.5">
-                <Label htmlFor="rep">Project Type</Label>
-                <Input id="rep" :placeholder="form.type" v-model="form.type" />
+                <Label htmlFor="type">Project Type</Label>
+                <Input id="type" :placeholder="form.type" v-model="form.type" />
               </div>
               <div class="flex flex-col space-y-1.5">
-                <Label htmlFor="rep">Departament</Label>
-                <Input id="rep" :placeholder="form.department" v-model="form.department" />
+                <Label htmlFor="department">Departament</Label>
+                <Input id="department" :placeholder="form.department" v-model="form.department" />
               </div>
               <div class="flex flex-col space-y-1.5">
                 <Label htmlFor="rep">Representative Name</Label>
@@ -167,7 +193,7 @@ const isCurrentStage = (stage: ProjectPipelineStage) => {
                 <Label htmlFor="budget">Budget</Label>
                 <div class="flex gap-2">
                   <Input id="budget" v-model="form.budget" />
-                  <Select :defaultValue="project.currency" v-model="form.currency">
+                  <Select id="currency" :defaultValue="project.currency" v-model="form.currency">
                     <SelectTrigger id="currency" class="mt-0">
                       <SelectValue />
                     </SelectTrigger>
@@ -205,3 +231,8 @@ const isCurrentStage = (stage: ProjectPipelineStage) => {
     </div>
   </AppLayout>
 </template>
+<style scoped lang="postcss">
+.dragging > div {
+  opacity: 0.5;
+}
+</style>

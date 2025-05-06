@@ -23,7 +23,7 @@ class UserProjectSeeder extends Seeder {
     $projectIds = $projects->pluck('id')->toArray();
 
     // Create 50 users and assign each a random project
-    User::factory(50)->create()->each(function ($user) use ($projectIds) {
+    User::factory(47)->create()->each(function ($user) use ($projectIds) {
       // Pick a random project ID
       $randomProjectId = $projectIds[array_rand($projectIds)];
       // Assign the user to that project via the pivot table

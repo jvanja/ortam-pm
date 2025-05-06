@@ -23,9 +23,9 @@ class InvoiceFactory extends Factory {
       'amount' => fake()->randomFloat(2, 100, 1000),
       'status' => fake()->boolean(),
       'status' => fake()->randomElement(InvoiceStatus::cases()),
-      'project_id' => Project::factory(),
-      'client_id' => Client::factory(),
-      'organization_id' => Organization::factory(),
+      'project_id' => Project::inRandomOrder()->first(),
+      'client_id' => Client::inRandomOrder()->first(),
+      'organization_id' => Organization::inRandomOrder()->first(),
     ];
   }
 }

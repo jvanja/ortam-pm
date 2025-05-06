@@ -21,7 +21,7 @@ class ClientFactory extends Factory {
       'address' => fake()->address(),
       'phone' => fake()->phoneNumber(),
       'email' => fake()->email(),
-      'organization_id' => Organization::factory(),
+      'organization_id' => Organization::inRandomOrder()->first(),
     ];
   }
 }

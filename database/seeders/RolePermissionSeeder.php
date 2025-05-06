@@ -147,6 +147,26 @@ class RolePermissionSeeder extends Seeder {
     // $adminRole->givePermissionTo($editPermission, $viewPermission);
     // $employeeRole->givePermissionTo($viewPermission);
 
+    User::factory()
+      ->count(3)
+      ->sequence(
+        [
+          'name' => 'Vanja Jelic',
+          'email' => 'jelicvanja@gmail.com',
+          'password' => bcrypt('jeremy11'),
+        ],
+        [
+          'name' => 'Employee Jelic',
+          'email' => 'employee@gmail.com',
+          'password' => bcrypt('jeremy11'),
+        ],
+        [
+          'name' => 'Client Jelic',
+          'email' => 'client@gmail.com',
+          'password' => bcrypt('jeremy11'),
+        ]
+      )->create();
+
     // Assign role to user
     $user = User::find(1);
     $user->assignRole('superadmin');

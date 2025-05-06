@@ -32,7 +32,7 @@ class ProjectFactory extends Factory {
       'opening_date' => fake()->date(),
       'deadline' => fake()->dateTimeBetween('now', '+1 year'),
       'client_id' => Client::factory(),
-      'organization_id' => Organization::factory(),
+      'organization_id' => Organization::inRandomOrder()->first(),
       'current_project_pipeline_stage_id' => ProjectPipelineStage::inRandomOrder()->first(),
     ];
   }

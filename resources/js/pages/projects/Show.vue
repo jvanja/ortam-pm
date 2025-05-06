@@ -126,7 +126,7 @@ const setCurrentStage = (stage: ProjectPipelineStage) => {
     preserveScroll: true,
     onSuccess: () => {
       toast.success('Current stage updated successfully!');
-      currentStageId.value = stage.id; // Optimistically update UI
+      currentStageId.value = stage.id;
       // Re-fetch project data to ensure UI is in sync
       router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
     },

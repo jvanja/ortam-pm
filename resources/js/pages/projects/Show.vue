@@ -77,7 +77,7 @@ const updateStageOrderForm = useForm({
 });
 
 const handleDragEnd = () => {
-  // - TODO:
+  // TODO:
   // Fix reordering the current stage
 
   isDragging.value = false;

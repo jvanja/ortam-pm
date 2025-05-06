@@ -9,7 +9,7 @@ import type { BreadcrumbItem, Client, Project, ProjectPipelineStage, User } from
 import { Head, useForm, router } from '@inertiajs/vue3'; // Import router
 import currencies from 'currency-codes';
 import { CheckCircle2, ChevronRight, CirclePlus, GripVertical, Trash2 } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import Draggable from 'vuedraggable';
 
@@ -34,6 +34,12 @@ const employees = props.employees;
 const stages = ref([...props.pipelineStages]);
 // Initialize currentStageId based on prop, default to first stage if available
 const currentStageId = ref(props.currentPipelineStage ? props.currentPipelineStage.id : (stages.value.length > 0 ? stages.value[0].id : null));
+watch(() => props.pipelineStages, (newStages) => {
+  stages.value = newStages
+});
+watch(() => props.currentPipelineStage, (newCurrentStage) => {
+  currentStageId.value = newCurrentStage ? newCurrentStage.id : null;
+});
 const isDragging = ref(false);
 
 const form = useForm(project);
@@ -71,6 +77,9 @@ const updateStageOrderForm = useForm({
 });
 
 const handleDragEnd = () => {
+  // - TODO:
+  // Fix reordering the current stage
+
   isDragging.value = false;
   // Update the form data with the new order
   updateStageOrderForm.stage_ids = stages.value.map((stage) => stage.id);
@@ -80,13 +89,11 @@ const handleDragEnd = () => {
     preserveScroll: true,
     onSuccess: () => {
       toast.success('Stage order updated successfully!');
-      // Re-fetch project data to ensure UI is in sync, including current stage if order changed
-      // router.reload({ only: ['pipelineStages', 'currentPipelineStage'] }); // Reloading might be heavy, patch response is enough
+      router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
     },
     onError: (errors) => {
       console.error('Update stage order error:', errors);
       toast.error('Failed to update stage order.');
-      // Revert stages to original order on error? Or reload page? Reloading is simpler.
       router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
     },
   });
@@ -103,13 +110,11 @@ const deleteStage = (stageId: string) => {
       toast.success('Stage deleted successfully!');
       // Optimistically remove from UI or rely on Inertia reload
       stages.value = stages.value.filter((stage) => stage.id !== stageId);
-      // Re-fetch project data to ensure UI is in sync, especially if current stage was deleted
       router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
     },
     onError: (errors) => {
       console.error('Delete stage error:', errors);
       toast.error('Failed to delete stage.');
-      // Reload to revert optimistic removal on error
       router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
     },
   });
@@ -117,8 +122,6 @@ const deleteStage = (stageId: string) => {
 
 const setCurrentStage = (stage: ProjectPipelineStage) => {
   if (isCurrentStage(stage)) {
-    // Already the current stage, maybe allow unsetting? Or do nothing.
-    // Let's do nothing for now.
     return;
   }
 
@@ -127,13 +130,11 @@ const setCurrentStage = (stage: ProjectPipelineStage) => {
     onSuccess: () => {
       toast.success('Current stage updated successfully!');
       currentStageId.value = stage.id;
-      // Re-fetch project data to ensure UI is in sync
       router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
     },
     onError: (errors) => {
       console.error('Set current stage error:', errors);
       toast.error('Failed to set current stage.');
-      // Reload to revert optimistic update on error
       router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
     },
   });
@@ -156,7 +157,6 @@ const addStage = () => {
     onSuccess: () => {
       toast.success('New stage added successfully!');
       addStageForm.reset();
-      // Re-fetch project data to include the new stage
       router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
     },
     onError: (errors) => {
@@ -165,7 +165,6 @@ const addStage = () => {
     },
   });
 };
-
 
 const isCurrentStage = (stage: ProjectPipelineStage) => {
   return stage.id === currentStageId.value;

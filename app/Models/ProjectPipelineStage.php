@@ -23,6 +23,7 @@ class ProjectPipelineStage extends Model {
 
   protected $casts = [
     'stage_order' => 'integer',
+    'is_system_default' => 'boolean',
     'completed_at' => 'datetime',
   ];
 

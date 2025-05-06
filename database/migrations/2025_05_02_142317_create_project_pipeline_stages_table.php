@@ -11,7 +11,7 @@ return new class extends Migration {
   public function up(): void {
     Schema::create('project_pipeline_stages', function (Blueprint $table) {
       $table->uuid('id')->primary();
-      $table->foreignId('project_id')->constrained('projects')->cascadeOnDelete();
+      $table->foreignId('project_id')->nullable()->constrained('projects')->cascadeOnDelete();
       $table->string('name'); // Specific name for this stage in this project
       $table->integer('stage_order')->default(0);
       $table->boolean('is_system_default')->default(false);

@@ -62,7 +62,7 @@ class ProjectPipelineStageController extends Controller {
       $newStage->save();
 
       // update current pipeline stage with the new stage id
-      if ($project->currentPipelineStage->id == $stage->id) {
+      if (isset($project->currentPipelineStage) && $project->currentPipelineStage->id == $stage->id) {
         $project->update(['current_project_pipeline_stage_id' => $newStage->id]);
       }
     }

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Project, ProjectPipelineStage } from '@/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ref, watch } from 'vue';
+import type { Project, ProjectPipelineStage } from '@/types';
 import { router, useForm } from '@inertiajs/vue3'; // Import router
 import { CheckCircle2, CirclePlus, GripVertical, Trash2 } from 'lucide-vue-next';
+import { ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import Draggable from 'vuedraggable';
 
@@ -16,33 +16,23 @@ const props = defineProps<{
 
 const stages = ref([...props.pipelineStages]);
 const currentStageId = ref(props.currentPipelineStage ? props.currentPipelineStage.id : stages.value.length > 0 ? stages.value[0].id : null);
+const isCurrentStage = (stage: ProjectPipelineStage) => stage.id === currentStageId.value;
 const isDragging = ref(false);
 
-watch(
-  () => props.pipelineStages,
-  (newStages) => (stages.value = newStages),
-);
-watch(
-  () => props.currentPipelineStage,
-  (newCurrentStage) => (currentStageId.value = newCurrentStage ? newCurrentStage.id : null),
-);
-
-// Pipeline stage actions
-const updateStageOrderForm = useForm({
-  stage_ids: stages.value.map((stage) => stage.id),
-});
-
+/* ==========================================================================
+ Pipeline stage actions
+ ========================================================================== */
+// Dragging
+const updateStageOrderForm = useForm({ stage_ids: stages.value.map((stage) => stage.id) });
 const handleDragEnd = (event) => {
   let dragginCurrent = false;
   if (event.item.getAttribute('data-current') === 'true') {
     console.log('yup');
     dragginCurrent = true;
   }
-
   isDragging.value = false;
   // Update the form data with the new order
   updateStageOrderForm.stage_ids = stages.value.map((stage) => stage.id);
-
   // Send the new order to the backend
   updateStageOrderForm.patch(route('projects.pipeline-stages.updateOrder', { project: props.project.id }), {
     preserveScroll: true,
@@ -69,10 +59,9 @@ const handleDragEnd = (event) => {
   });
 };
 
+// Deleting
 const deleteStage = (stageId: string) => {
-  if (!confirm('Are you sure you want to delete this stage?')) {
-    return;
-  }
+  if (!confirm('Are you sure you want to delete this stage?')) return;
 
   router.delete(route('projects.pipeline-stages.destroy', { project: props.project.id, stage: stageId }), {
     preserveScroll: true,
@@ -90,10 +79,10 @@ const deleteStage = (stageId: string) => {
   });
 };
 
+// Setting current stage
 const setCurrentStage = (stage: ProjectPipelineStage) => {
-  if (isCurrentStage(stage)) {
-    return;
-  }
+  if (isCurrentStage(stage)) return;
+
   const successHandler = () => {
     toast.success('Current stage updated successfully!');
     currentStageId.value = stage.id;
@@ -118,18 +107,13 @@ const apiSetCurrentStage = (stage: ProjectPipelineStage, successHandler: () => v
   );
 };
 
-const addStageForm = useForm({
-  name: '',
-});
-
+// Adding new stage
+const addStageForm = useForm({ name: '' });
 const addStage = () => {
   const stageName = prompt('Enter the name for the new pipeline stage:');
-  if (!stageName) {
-    return; // User cancelled or entered empty name
-  }
+  if (!stageName) return;
 
   addStageForm.name = stageName;
-
   addStageForm.post(route('projects.pipeline-stages.store', { project: props.project.id }), {
     preserveScroll: true,
     onSuccess: () => {
@@ -144,9 +128,17 @@ const addStage = () => {
   });
 };
 
-const isCurrentStage = (stage: ProjectPipelineStage) => {
-  return stage.id === currentStageId.value;
-};
+/* ==========================================================================
+ Watchers
+ ========================================================================== */
+watch(
+  () => props.pipelineStages,
+  (newStages) => (stages.value = newStages),
+);
+watch(
+  () => props.currentPipelineStage,
+  (newCurrentStage) => (currentStageId.value = newCurrentStage ? newCurrentStage.id : null),
+);
 </script>
 <template>
   <Card>

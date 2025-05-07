@@ -128,6 +128,25 @@ const addStage = () => {
   });
 };
 
+const renameStageForm = useForm({ name: '' });
+const stageRename = (event: Event) => {
+  const newName = event.target.value;
+  renameStageForm.name = newName;
+  const stageId = event.target.getAttribute('stage-id');
+  renameStageForm.patch(route('projects.pipeline-stages.update', [stageId]), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Stage name updated successfully!');
+      router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
+    },
+    onError: (errors) => {
+      console.error('Update stage name error:', errors);
+      toast.error('Failed to update stage name.');
+      router.reload({ only: ['pipelineStages', 'currentPipelineStage'] });
+    },
+  });
+};
+
 /* ==========================================================================
  Watchers
  ========================================================================== */
@@ -164,14 +183,12 @@ watch(
             ]"
             :data-current="isCurrentStage(stage) ? 'true' : 'false'"
           >
-            <div class="flex flex-grow flex-col items-center justify-center">
-              <!-- Check icon for current stage -->
+            <div class="flex max-w-full flex-grow flex-col items-center justify-center">
               <CheckCircle2 v-if="isCurrentStage(stage)" class="mb-2 h-6 w-6 text-primary" />
-              <!-- Clickable check icon to set as current stage -->
               <CheckCircle2 v-else @click="setCurrentStage(stage)" class="invisible mb-2 h-6 w-6 cursor-pointer text-gray-300 group-hover:visible">
                 <title>Set as current pipeline stage</title>
               </CheckCircle2>
-              <div class="font-semibold">{{ stage.name }}</div>
+              <input :value="stage.name" class="max-w-full border-0 bg-transparent py-2 text-center text-lg font-semibold" @change="stageRename" :stage-id="stage.id" />
             </div>
             <div class="mt-4 flex w-full justify-center gap-2">
               <!-- Drag handle -->

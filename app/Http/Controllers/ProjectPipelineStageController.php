@@ -12,7 +12,6 @@ class ProjectPipelineStageController extends Controller {
    * Store a newly created pipeline stage for a project.
    */
   public function store(Request $request, Project $project) {
-    // Assuming a policy exists for 'project.edit'
     $this->authorize('project.edit', $project);
 
     $validated = $request->validate([
@@ -26,12 +25,10 @@ class ProjectPipelineStageController extends Controller {
     $stage = $project->pipelineStages()->create([
       'name' => $validated['name'],
       'stage_order' => $nextOrder,
-      'is_system_default' => false, // Assuming new stages are not system defaults
-      'status' => 'pending', // Default status for a new stage
+      'is_system_default' => false,
       'notes' => null,
     ]);
 
-    // Redirect back to the project show page, Inertia will handle the reload
     return redirect()->back()->with('success', 'Pipeline stage added successfully.');
   }
 
@@ -39,7 +36,6 @@ class ProjectPipelineStageController extends Controller {
    * Update the order of pipeline stages for a project.
    */
   public function updateOrder(Request $request, Project $project) {
-    // Assuming a policy exists for 'project.edit'
     $this->authorize('project.edit', $project);
 
     $validated = $request->validate([
@@ -49,7 +45,6 @@ class ProjectPipelineStageController extends Controller {
 
     $stageIds = $validated['stage_ids'];
 
-    // ProjectPipelineStage::where('project_id', $project->id)->delete();
     foreach ($stageIds as $index => $stageId) {
       $stage = ProjectPipelineStage::find($stageId);
       if ($stage->is_system_default != true) {
@@ -74,7 +69,6 @@ class ProjectPipelineStageController extends Controller {
    * Set the current pipeline stage for a project.
    */
   public function setCurrent(Request $request, Project $project, ProjectPipelineStage $stage) {
-    // Assuming a policy exists for 'project.edit'
     $this->authorize('project.edit', $project);
 
     // Ensure the stage belongs to the project
@@ -90,15 +84,24 @@ class ProjectPipelineStageController extends Controller {
 
     $project->update(['current_project_pipeline_stage_id' => $stage->id]);
 
-    // Redirect back to the project show page, Inertia will handle the reload
     return redirect()->back()->with('success', 'Current pipeline stage updated successfully.');
   }
 
   /**
+   * Update stage name
+   */
+  public function update(Request $request, ProjectPipelineStage $stage) {
+    $this->authorize('project.edit', Project::class);
+    $validated = $request->validate([
+      'name' => 'required|string|max:255',
+    ]);
+    $stage->update(['name' => $validated['name']]);
+    return redirect()->back()->with('success', 'Stage name updated successfully.');
+  }
+  /**
    * Remove the specified pipeline stage from storage.
    */
   public function destroy(Project $project, ProjectPipelineStage $stage) {
-    // Assuming a policy exists for 'project.edit'
     $this->authorize('project.edit', $project);
 
     // Ensure the stage belongs to the project
@@ -119,7 +122,6 @@ class ProjectPipelineStageController extends Controller {
     // Or, fetch stages again after deletion to get the correct order.
     // Let's rely on fetching updated stages after redirect for simplicity.
 
-    // Redirect back to the project show page, Inertia will handle the reload
     return redirect()->back()->with('success', 'Pipeline stage deleted successfully.');
   }
 }

@@ -7,9 +7,9 @@ import { Link } from '@inertiajs/vue3';
 import AppLogo from './AppLogo.vue';
 
 const footerNavItems = [
-  { title: 'Superadmin', href: 'admin/user/switch/start/1' },
-  { title: 'Employee', href: 'admin/user/switch/start/2' },
-  { title: 'Client', href: 'admin/user/switch/start/3' },
+  { title: 'Superadmin', href: '/admin/user/switch/start/1' },
+  { title: 'Employee', href: '/admin/user/switch/start/2' },
+  { title: 'Client', href: '/admin/user/switch/start/3' },
 ];
 </script>
 

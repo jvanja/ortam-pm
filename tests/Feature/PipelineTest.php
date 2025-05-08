@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Organization;
 use App\Models\Project;
 use App\Models\ProjectPipelineStage;
 use App\Models\User;
@@ -31,6 +32,8 @@ class PipelineTest extends TestCase {
 
 
     $this->actingAs($this->user);
+
+    Organization::factory()->create();
 
     // Create a project for the user
     $this->project = Project::factory()->create();

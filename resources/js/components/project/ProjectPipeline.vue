@@ -27,7 +27,6 @@ const updateStageOrderForm = useForm({ stage_ids: stages.value.map((stage) => st
 const handleDragEnd = (event) => {
   let dragginCurrent = false;
   if (event.item.getAttribute('data-current') === 'true') {
-    console.log('yup');
     dragginCurrent = true;
   }
   isDragging.value = false;
@@ -188,7 +187,7 @@ watch(
               <CheckCircle2 v-else @click="setCurrentStage(stage)" class="invisible mb-2 h-6 w-6 cursor-pointer text-gray-300 group-hover:visible">
                 <title>Set as current pipeline stage</title>
               </CheckCircle2>
-              <input :value="stage.name" class="max-w-full border-0 bg-transparent py-2 text-center text-lg font-semibold" @change="stageRename" :stage-id="stage.id" />
+              <input :value="stage.name" class="max-w-full bg-transparent py-2 text-center text-lg font-semibold" @change="stageRename" :stage-id="stage.id" />
             </div>
             <div class="mt-4 flex w-full justify-center gap-2">
               <!-- Drag handle -->

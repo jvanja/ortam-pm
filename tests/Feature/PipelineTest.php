@@ -33,6 +33,7 @@ class PipelineTest extends TestCase {
 
     $this->actingAs($this->user);
 
+    // Needed to create a project
     Organization::factory()->create();
 
     // Create a project for the user
@@ -443,7 +444,6 @@ class PipelineTest extends TestCase {
 
     // Refresh project and assert current stage ID is the new ID of Stage C
     $this->project->refresh();
-    dd($newStageC->id, $this->project->current_project_pipeline_stage_id);
     $this->assertEquals($newStageC->id, $this->project->current_project_pipeline_stage_id);
 
     // Assert the order of the new stages

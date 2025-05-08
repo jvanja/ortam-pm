@@ -220,15 +220,12 @@ class PipelineTest extends TestCase {
       'is_system_default' => false,
     ]);
 
-    // dd($this->project->id, $stageFromAnotherProject->project_id);
     // Attempt to delete the stage from the other project using the current project's route
     $response = $this->delete(route('projects.pipeline-stages.destroy', [$this->project, $stageFromAnotherProject]));
 
-
-    // dd($response);
     // Expect a validation error (422) because the stage project_id doesn't match the route project_id
     $response->assertStatus(422);
-    $response->assertJsonValidationErrors(['stage']); // Controller throws ValidationException with 'stage' key
+    $response->assertExactJson(['stage' => 'The selected stage does not belong to this project.']);
 
     // Assert the stage still exists
     $this->assertDatabaseHas('project_pipeline_stages', ['id' => $stageFromAnotherProject->id]);
@@ -240,7 +237,7 @@ class PipelineTest extends TestCase {
   public function test_can_set_current_system_default_stage_as_current(): void {
     // Create a system default stage (e.g., project_id is null, is_system_default is true)
     $systemDefaultStage = ProjectPipelineStage::create([
-      'project_id' => 1, // Or maybe another project's ID, controller checks is_system_default first
+      'project_id' => null, // System default stages typically have project_id null
       'name' => 'System Default Stage',
       'stage_order' => 1,
       'is_system_default' => true, // Important: system default

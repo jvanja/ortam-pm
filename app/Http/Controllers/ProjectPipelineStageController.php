@@ -106,7 +106,8 @@ class ProjectPipelineStageController extends Controller {
 
     // Ensure the stage belongs to the project
     if ($stage->project_id != $project->id) {
-      throw ValidationException::withMessages(['stage' => 'The selected stage does not belong to this project.']);
+      // throw ValidationException::withMessages(['stage' => 'The selected stage does not belong to this project.']);
+      return response()->json([ 'stage'   =>  'The selected stage does not belong to this project.'], 422);
     }
 
     // Prevent deleting the current stage directly? Or handle it?

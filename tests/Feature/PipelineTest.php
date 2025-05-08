@@ -95,8 +95,7 @@ class PipelineTest extends TestCase {
     ]);
 
     $response->assertRedirect();
-    // Note: Controller currently returns 'Pipeline stage added successfully.' for updateOrder
-    $response->assertSessionHas('success', 'Pipeline stage added successfully.');
+    $response->assertSessionHas('success', 'Pipeline stage reordered successfully.');
 
     // Assert old stages are deleted (non-system default)
     $this->assertDatabaseMissing('project_pipeline_stages', ['id' => $stageA->id]);
@@ -275,7 +274,7 @@ class PipelineTest extends TestCase {
     ]);
 
     $response->assertRedirect();
-    $response->assertSessionHas('success', 'Pipeline stage added successfully.'); // Still expecting the incorrect message
+    $response->assertSessionHas('success', 'Pipeline stage reordered successfully.');
 
     // Assert old stages are deleted
     $this->assertDatabaseMissing('project_pipeline_stages', ['id' => $stageA->id]);
@@ -322,7 +321,7 @@ class PipelineTest extends TestCase {
       'stage_ids' => $newOrderIds,
     ]);
     $responseReorder->assertRedirect();
-    $responseReorder->assertSessionHas('success', 'Pipeline stage added successfully.'); // Still expecting the incorrect message
+    $responseReorder->assertSessionHas('success', 'Pipeline stage reordered successfully.');
 
     // Find the new stage corresponding to the original Stage B (by name)
     $newStageB = ProjectPipelineStage::where('project_id', $this->project->id)
@@ -366,7 +365,7 @@ class PipelineTest extends TestCase {
       'stage_ids' => $newOrderIds,
     ]);
     $responseReorder->assertRedirect();
-    $responseReorder->assertSessionHas('success', 'Pipeline stage added successfully.'); // Still expecting the incorrect message
+    $responseReorder->assertSessionHas('success', 'Pipeline stage reordered successfully.');
 
     // Find the new stages after reordering
     $newStageA = ProjectPipelineStage::where('project_id', $this->project->id)->where('name', 'Stage A')->first();
@@ -431,7 +430,7 @@ class PipelineTest extends TestCase {
       'stage_ids' => $newOrderIds,
     ]);
     $responseReorder->assertRedirect();
-    $responseReorder->assertSessionHas('success', 'Pipeline stage added successfully.'); // Still expecting the incorrect message
+    $responseReorder->assertSessionHas('success', 'Pipeline stage reordered successfully.');
 
     // Find the new stages after reordering
     $newStageA = ProjectPipelineStage::where('project_id', $this->project->id)->where('name', 'Stage A')->first();

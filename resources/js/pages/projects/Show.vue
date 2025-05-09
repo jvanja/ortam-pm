@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ProjectPipeline, ProjectDetailsCard, ProjectEmployeesCard } from '@/components/project';
-import type { BreadcrumbItem, Client, Project, ProjectPipelineStage, User } from '@/types';
+import { ProjectPipeline, ProjectDetailsCard, ProjectEmployeesCard, ProjectInvoicesCard } from '@/components/project';
+import type { BreadcrumbItem, Client, Project, ProjectPipelineStage, User, Invoice } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -12,6 +12,7 @@ const props = defineProps<{
   employees: User[];
   pipelineStages: ProjectPipelineStage[];
   currentPipelineStage: ProjectPipelineStage | null;
+  invoices: Invoice[];
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -58,7 +59,7 @@ const removeEmployee = (id: string) => {
 
       <Tabs default-value="pipeline" class="w-full h-full flex flex-col">
         <!-- Tab Navigation List -->
-        <TabsList class="justify-start rounded-none bg-transparent gap-4">
+        <TabsList class="justify-start rounded-none bg-transparent gap-4"> <!-- Updated grid-cols to 4 -->
           <TabsTrigger value="pipeline" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
             Pipeline
           </TabsTrigger>
@@ -68,10 +69,13 @@ const removeEmployee = (id: string) => {
           <TabsTrigger value="employees" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
             Employees
           </TabsTrigger>
+           <TabsTrigger value="invoices" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
+            Invoices
+          </TabsTrigger>
         </TabsList>
 
         <!-- Tab Content -->
-        <div class="flex-1 flex flex-col gap-4 mt-4"> <!-- Container for tab content -->
+        <div class="flex-1 flex flex-col gap-4 mt-4">
           <TabsContent value="pipeline" class="flex-1">
             <ProjectPipeline :project="project" :pipelineStages="pipelineStages" :currentPipelineStage />
           </TabsContent>
@@ -80,6 +84,9 @@ const removeEmployee = (id: string) => {
           </TabsContent>
           <TabsContent value="employees" class="flex-1">
             <ProjectEmployeesCard :employees="employees" :projectEmployeeForm="projectEmployeeForm" :removeEmployee="removeEmployee" />
+          </TabsContent>
+           <TabsContent value="invoices" class="flex-1">
+            <ProjectInvoicesCard :invoices="invoices" />
           </TabsContent>
         </div>
       </Tabs>

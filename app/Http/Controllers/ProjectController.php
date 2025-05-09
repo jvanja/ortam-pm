@@ -91,12 +91,14 @@ class ProjectController extends Controller {
       $project->pipelineStages = ProjectPipelineStage::where('is_system_default', '=', true)->get();
     }
     $employees = $project->users()->get();
+    $invoices = $project->invoices()->get();
     $client = $project->client()->first();
 
     return Inertia::render('projects/Show', [
       'project' => $project,
       'client' => $client,
       'employees' => $employees,
+      'invoices' => $invoices,
       'pipelineStages' => $project->pipelineStages,
       'currentPipelineStage' => $project->currentPipelineStage,
     ]);

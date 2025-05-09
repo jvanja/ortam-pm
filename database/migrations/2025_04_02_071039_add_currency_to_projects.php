@@ -10,7 +10,7 @@ return new class extends Migration {
    */
   public function up(): void {
     Schema::table('projects', function (Blueprint $table) {
-      $table->text('currency')->nullable()->after('budget');
+      $table->text('currency')->after('budget');
     });
   }
 

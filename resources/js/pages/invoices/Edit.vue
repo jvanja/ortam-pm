@@ -99,17 +99,20 @@ function deleteInvoice() {
         <!-- Amount (Editable) -->
         <div>
           <Label for="amount">Amount</Label>
-          <Input
-            id="amount"
-            v-model="form.amount"
-            type="number"
-            step="0.01"
-            placeholder="Enter amount"
-            required
-            class="mt-1"
-            :disabled="form.processing"
-            aria-describedby="amount-error"
-          />
+
+          <div class="flex w-full max-w-sm items-center gap-2">
+            <Input
+              id="amount"
+              v-model="form.amount"
+              type="number"
+              step="0.01"
+              placeholder="Enter amount"
+              required
+              class="mt-1"
+              :disabled="form.processing"
+              aria-describedby="amount-error"
+            />{{ invoice.project.currency }}
+          </div>
           <p v-if="form.errors.amount" id="amount-error" class="mt-1 text-sm text-destructive">
             {{ form.errors.amount }}
           </p>

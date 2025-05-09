@@ -5,11 +5,11 @@ import type { Invoice } from '@/types';
 
 const props = defineProps<{
   invoices: Invoice[];
+  currency: string;
 }>();
 
-// Helper function to format currency (basic example)
 const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: props.currency }).format(amount);
 };
 </script>
 

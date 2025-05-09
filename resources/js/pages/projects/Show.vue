@@ -50,6 +50,13 @@ const removeEmployee = (id: string) => {
   });
 };
 
+// set hash to tab value
+const tabChange = (tab: string | number) => {
+  window.location.hash = String(tab);
+}
+
+const defaultTab = window.location.hash.slice(1) || 'pipeline';
+
 </script>
 <template>
   <Head title="Project" />
@@ -57,7 +64,7 @@ const removeEmployee = (id: string) => {
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="flex h-full flex-col rounded-xl p-4">
 
-      <Tabs default-value="pipeline" class="w-full h-full flex flex-col">
+      <Tabs :default-value="defaultTab" class="w-full h-full flex flex-col" @update:model-value="tabChange">
         <!-- Tab Navigation List -->
         <TabsList class="justify-start rounded-none bg-transparent gap-4"> <!-- Updated grid-cols to 4 -->
           <TabsTrigger value="pipeline" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">

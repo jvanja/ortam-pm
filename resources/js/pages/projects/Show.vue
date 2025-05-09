@@ -4,6 +4,11 @@ import { ProjectPipeline, ProjectDetailsCard, ProjectEmployeesCard } from '@/com
 import type { BreadcrumbItem, Client, Project, ProjectPipelineStage, User } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
+// Remove ref as shadcn-vue Tabs manages state internally
+// import { ref } from 'vue';
+
+// Import shadcn-vue Tabs components
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const props = defineProps<{
   project: Project;
@@ -17,6 +22,9 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Projects', href: '/projects' },
   { title: props.project.type!, href: '' },
 ];
+
+// Remove activeTab state as shadcn-vue Tabs manages it
+// const activeTab = ref('pipeline'); // Default to 'pipeline' tab
 
 // Keep the form logic and functions in the parent component
 const form = useForm({ ...props.project });
@@ -54,15 +62,36 @@ const removeEmployee = (id: string) => {
   <Head title="Project" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
-    <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-      <!-- Pipeline Stages Section -->
-      <ProjectPipeline :project="project" :pipelineStages="pipelineStages" :currentPipelineStage />
+    <div class="flex h-full flex-col rounded-xl p-4">
 
-      <!-- Project Details Section (Moved to Component) -->
-      <ProjectDetailsCard :project="project" :client="client" :form="form" :submit="submit" />
+      <Tabs default-value="pipeline" class="w-full h-full flex flex-col">
+        <!-- Tab Navigation List -->
+        <TabsList class="justify-start rounded-none bg-transparent gap-4">
+          <TabsTrigger value="pipeline" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
+            Pipeline
+          </TabsTrigger>
+          <TabsTrigger value="details" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
+            Details
+          </TabsTrigger>
+          <TabsTrigger value="employees" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
+            Employees
+          </TabsTrigger>
+        </TabsList>
 
-      <!-- Employees Section (Moved to Component) -->
-      <ProjectEmployeesCard :employees="employees" :projectEmployeeForm="projectEmployeeForm" :removeEmployee="removeEmployee" />
+        <!-- Tab Content -->
+        <div class="flex-1 flex flex-col gap-4 mt-4"> <!-- Container for tab content -->
+          <TabsContent value="pipeline" class="flex-1">
+            <ProjectPipeline :project="project" :pipelineStages="pipelineStages" :currentPipelineStage />
+          </TabsContent>
+          <TabsContent value="details" class="flex-1">
+            <ProjectDetailsCard :project="project" :client="client" :form="form" :submit="submit" />
+          </TabsContent>
+          <TabsContent value="employees" class="flex-1">
+            <ProjectEmployeesCard :employees="employees" :projectEmployeeForm="projectEmployeeForm" :removeEmployee="removeEmployee" />
+          </TabsContent>
+        </div>
+      </Tabs>
+
     </div>
   </AppLayout>
 </template>

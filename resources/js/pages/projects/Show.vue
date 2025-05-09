@@ -4,10 +4,6 @@ import { ProjectPipeline, ProjectDetailsCard, ProjectEmployeesCard } from '@/com
 import type { BreadcrumbItem, Client, Project, ProjectPipelineStage, User } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
-// Remove ref as shadcn-vue Tabs manages state internally
-// import { ref } from 'vue';
-
-// Import shadcn-vue Tabs components
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const props = defineProps<{
@@ -23,12 +19,8 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: props.project.type!, href: '' },
 ];
 
-// Remove activeTab state as shadcn-vue Tabs manages it
-// const activeTab = ref('pipeline'); // Default to 'pipeline' tab
-
 // Keep the form logic and functions in the parent component
 const form = useForm({ ...props.project });
-
 const submit = () => {
   form.patch(route('projects.update', [props.project.id]), {
     preserveScroll: true,

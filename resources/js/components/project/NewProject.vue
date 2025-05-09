@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
-import { toast } from 'vue-sonner';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Head, useForm } from '@inertiajs/vue3';
+import currencies from 'currency-codes';
+import { toast } from 'vue-sonner';
 
 const form = useForm({
   type: '',
@@ -14,6 +16,7 @@ const form = useForm({
   status: '',
   opening_date: '',
   budget: 0,
+  currency: '',
   sales_representative_name: '',
   deadline: '',
   client_id: '',
@@ -24,7 +27,7 @@ const submit = () => {
     preserveScroll: true,
     onSuccess: () => {
       toast.success('Project created successfully!', {
-        style: { background: '#6ee7b7', color: '#000' }
+        style: { background: '#6ee7b7', color: '#000' },
       });
     },
   });
@@ -79,8 +82,23 @@ const submit = () => {
 
         <div class="space-y-2">
           <Label for="budget">Budget</Label>
-          <Input v-model="form.budget" type="number" id="budget" placeholder="Enter budget" />
-          <div class="text-sm text-red-500" v-if="form.errors.budget">{{ form.errors.budget }}</div>
+          <div class="flex gap-2">
+            <div>
+              <Input v-model="form.budget" type="number" id="budget" placeholder="Enter budget" />
+              <div class="text-sm text-red-500" v-if="form.errors.budget">{{ form.errors.budget }}</div>
+            </div>
+            <div>
+              <Select id="currency" defaultValue="USD" v-model="form.currency">
+                <SelectTrigger id="currency" class="mt-0">
+                  <SelectValue placeholder="Currency" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem v-for="code in currencies.codes()" :key="code" :value="code">{{ code }}</SelectItem>
+                </SelectContent>
+              </Select>
+              <div class="text-sm text-red-500" v-if="form.errors.currency">{{ form.errors.currency }}</div>
+            </div>
+          </div>
         </div>
 
         <div class="space-y-2">

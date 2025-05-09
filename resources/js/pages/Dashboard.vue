@@ -29,7 +29,7 @@ const chartOptions = (project: Project) => {
   };
 };
 const getSeries = (project: Project) => {
-  // console.log(project);
+  console.log(project);
   return [70];
 };
 

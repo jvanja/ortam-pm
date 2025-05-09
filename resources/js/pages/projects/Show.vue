@@ -86,7 +86,7 @@ const removeEmployee = (id: string) => {
             <ProjectEmployeesCard :employees="employees" :projectEmployeeForm="projectEmployeeForm" :removeEmployee="removeEmployee" />
           </TabsContent>
            <TabsContent value="invoices" class="flex-1">
-            <ProjectInvoicesCard :invoices="invoices" :currency="project.currency" />
+            <ProjectInvoicesCard :invoices="invoices" :currency="project.currency!" />
           </TabsContent>
         </div>
       </Tabs>

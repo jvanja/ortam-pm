@@ -34,10 +34,10 @@ class InvoiceController extends Controller {
    * Display the specified resource.
    */
   public function show(Invoice $invoice) {
-    // $this->authorize('invoice.view', Invoice::class);
+    $this->authorize('invoice.view', Invoice::class);
 
-    // Load necessary relationships if needed, e.g., client, project
-    $invoice->load(['client', 'project']);
+    // Load necessary relationships
+    $invoice->load(['client', 'project', 'organization']);
 
     return Inertia::render('invoices/Show', [
       'invoice' => $invoice,
@@ -48,16 +48,22 @@ class InvoiceController extends Controller {
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit(string $id) {
-    //
+  public function edit(Invoice $invoice) {
+    $this->authorize('invoice.edit', Invoice::class);
+
+    // Load necessary relationships if needed, e.g., client, project
+    $invoice->load(['client', 'project']);
+
+    return Inertia::render('invoices/Edit', [
+      'invoice' => $invoice,
+    ]);
   }
 
   /**
    * Update the specified resource in storage.
    */
   public function update(Request $request, Invoice $invoice): RedirectResponse {
-    // Optional: Add authorization check - ensure the user can update this invoice
-    // $this->authorize('update', $invoice);
+    $this->authorize('invoice.edit', Invoice::class);
 
     $validated = $request->validate([
       'amount' => ['required', 'numeric', 'min:0'],
@@ -78,8 +84,7 @@ class InvoiceController extends Controller {
    * Remove the specified resource from storage.
    */
   public function destroy(Invoice $invoice): RedirectResponse {
-    // Optional: Add authorization check - ensure the user can delete this invoice
-    // $this->authorize('delete', $invoice);
+    $this->authorize('invoice.delete', Invoice::class);
 
     $invoice->delete();
 

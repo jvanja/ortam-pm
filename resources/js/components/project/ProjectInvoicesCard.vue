@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'; // Assuming shadcn-vue table components
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import type { Invoice } from '@/types';
 
 const props = defineProps<{
@@ -40,10 +40,10 @@ const formatCurrency = (amount: number) => {
             <TableCell>
               <div class="flex items-center gap-2">
                 <div class="text-sm text-gray-900">
-                  <a :href="`/invoices/${invoice.id}/view`">View</a>
+                  <a :href="`/invoices/${invoice.id}`">View</a>
                 </div>
                 <div class="text-sm text-gray-900">
-                  <a :href="`/invoices/${invoice.id}`">Edit</a>
+                  <a :href="`/invoices/${invoice.id}/edit`">Edit</a>
                 </div>
               </div>
             </TableCell>

@@ -16,6 +16,13 @@ class ProjectController extends Controller {
     $this->authorize('project.view', Project::class);
 
     $searchQuery = $request->input('search');
+    $managerFilter = $request->input('manager') === 'all' ? '' : $request->input('manager');
+    $statusFilter = $request->input('status') === 'all' ? '' : $request->input('status');
+
+    // Fetch distinct managers and statuses for filter options
+    $managers = Project::distinct()->pluck('manager')->filter()->sort()->values()->toArray();
+    $statuses = Project::distinct()->pluck('status')->filter()->sort()->values()->toArray();
+
 
     $projects = Project::query()
       ->when($searchQuery, function (Builder $query, string $search) {
@@ -23,6 +30,12 @@ class ProjectController extends Controller {
         $query->where('type', 'like', "%{$search}%")
           ->orWhere('department', 'like', "%{$search}%")
           ->orWhere('address', 'like', "%{$search}%");
+      })
+      ->when($managerFilter, function (Builder $query, string $manager) {
+        $query->where('manager', $manager);
+      })
+      ->when($statusFilter, function (Builder $query, string $status) {
+        $query->where('status', $status);
       })
       ->latest()
       ->paginate(10);
@@ -45,7 +58,13 @@ class ProjectController extends Controller {
           'total' => $projects->total(),
         ]
       ],
-      'filters' => ['search' => $searchQuery]
+      'filters' => [
+          'search' => $searchQuery,
+          'manager' => $managerFilter,
+          'status' => $statusFilter,
+      ],
+      'managers' => $managers,
+      'statuses' => $statuses,
     ]);
   }
 

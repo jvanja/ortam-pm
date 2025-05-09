@@ -14,7 +14,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\ProjectPipelineStageController; // Import the new controller
+use App\Http\Controllers\ProjectPipelineStageController;
+use App\Http\Controllers\FileController; // Import the FileController
 
 Route::get('/', function () {
   if (Auth::check()) {
@@ -55,6 +56,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::delete('/projects/{project}/pipeline-stages/{stage}', [ProjectPipelineStageController::class, 'destroy'])->name('projects.pipeline-stages.destroy');
   Route::post('/projects/{project}/pipeline-stages', [ProjectPipelineStageController::class, 'store'])->name('projects.pipeline-stages.store');
 
+  // File Routes
+  Route::post('/files/{model}/{uuid}/store', [FileController::class, 'store'])->name('files.store');
+  Route::delete('/files/{file}', [FileController::class, 'destroy'])->name('files.destroy');
 
   Route::resource('clients', ClientController::class);
 

@@ -80,6 +80,13 @@ class Project extends Model {
     return $this->hasMany(ProjectPipelineHistory::class)->orderBy('changed_at');
   }
 
+  /**
+   * Get the files associated with the project.
+   */
+  public function files(): HasMany {
+    return $this->hasMany(File::class);
+  }
+
   // public function workload(): BelongsToMany {
   //   return $this->belongsToMany(Workload::class);
   // }

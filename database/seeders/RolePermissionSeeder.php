@@ -115,6 +115,16 @@ class RolePermissionSeeder extends Seeder {
           'invoice.approve',
         ]
       ],
+      [
+        'group_name' => 'files',
+        'permissions' => [
+          'file.create',
+          'file.view',
+          'file.edit',
+          'file.delete',
+          'file.approve',
+        ]
+      ],
     ];
 
     // - Admin : can access and edit everything and can approve time sheets

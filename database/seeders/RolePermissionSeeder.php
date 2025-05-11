@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -164,6 +165,7 @@ class RolePermissionSeeder extends Seeder {
           'name' => 'Vanja Jelic',
           'email' => 'jelicvanja@gmail.com',
           'password' => bcrypt('jeremy11'),
+          'organization_id' => Organization::first(),
         ],
         [
           'name' => 'Employee Jelic',

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\Language;
@@ -9,6 +10,7 @@ use App\Enums\ProjectStatus;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Project extends Model {
   use HasFactory;
@@ -38,6 +40,19 @@ class Project extends Model {
     'deadline' => 'date',
     'budget' => 'float',
   ];
+
+  /**
+   * The "booted" method of the model.
+   *
+   * @return void
+   */
+  protected static function booted() {
+    static::addGlobalScope('organization', function (Builder $builder) {
+      if (Auth::check()) {
+        $builder->where('organization_id', Auth::user()->organization_id);
+      }
+    });
+  }
 
   public function client(): BelongsTo {
     return $this->belongsTo(Client::class);

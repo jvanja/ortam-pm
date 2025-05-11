@@ -8,8 +8,9 @@ import AppLogo from './AppLogo.vue';
 
 const footerNavItems = [
   { title: 'Superadmin', href: '/admin/user/switch/start/1' },
-  { title: 'Employee', href: '/admin/user/switch/start/2' },
-  { title: 'Client', href: '/admin/user/switch/start/3' },
+  { title: 'Admin', href: '/admin/user/switch/start/2' },
+  { title: 'Employee', href: '/admin/user/switch/start/3' },
+  { title: 'Client', href: '/admin/user/switch/start/4' },
 ];
 </script>
 

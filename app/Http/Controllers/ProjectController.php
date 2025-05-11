@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProjectPipelineStage;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -15,21 +16,25 @@ class ProjectController extends Controller {
   public function index(Request $request) {
     $this->authorize('project.view', Project::class);
 
+    $user = Auth::user();
     $searchQuery = $request->input('search');
     $managerFilter = $request->input('manager') === 'all' ? '' : $request->input('manager');
     $statusFilter = $request->input('status') === 'all' ? '' : $request->input('status');
 
+    $organizationProjects = Project::where('organization_id', $user->organization_id);
+
     // Fetch distinct managers and statuses for filter options
-    $managers = Project::distinct()->pluck('manager')->filter()->sort()->values()->toArray();
-    $statuses = Project::distinct()->pluck('status')->filter()->sort()->values()->toArray();
+    $managers = $organizationProjects->distinct()->pluck('manager')->filter()->sort()->values()->toArray();
+    $statuses = $organizationProjects->distinct()->pluck('status')->filter()->sort()->values()->toArray();
 
-
-    $projects = Project::query()
+    $projects = $organizationProjects
       ->when($searchQuery, function (Builder $query, string $search) {
         // Search in 'type', 'department', 'address', etc. Adjust fields as needed.
-        $query->where('type', 'like', "%{$search}%")
-          ->orWhere('department', 'like', "%{$search}%")
-          ->orWhere('address', 'like', "%{$search}%");
+        $query->where(function (Builder $subQuery) use ($search) {
+          $subQuery->where('type', 'like', "%{$search}%")
+            ->orWhere('department', 'like', "%{$search}%")
+            ->orWhere('address', 'like', "%{$search}%");
+        });
       })
       ->when($managerFilter, function (Builder $query, string $manager) {
         $query->where('manager', $manager);
@@ -59,9 +64,9 @@ class ProjectController extends Controller {
         ]
       ],
       'filters' => [
-          'search' => $searchQuery,
-          'manager' => $managerFilter,
-          'status' => $statusFilter,
+        'search' => $searchQuery,
+        'manager' => $managerFilter,
+        'status' => $statusFilter,
       ],
       'managers' => $managers,
       'statuses' => $statuses,

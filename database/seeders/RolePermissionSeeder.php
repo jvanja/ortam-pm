@@ -148,6 +148,7 @@ class RolePermissionSeeder extends Seeder {
             ]
           );
           $superAdminRole->givePermissionTo($permission);
+          $adminRole->givePermissionTo($permission);
           if ($permissionGroup === 'timesheet') {
             $employeeRole->givePermissionTo($permission);
           }
@@ -159,11 +160,17 @@ class RolePermissionSeeder extends Seeder {
     // $employeeRole->givePermissionTo($viewPermission);
 
     User::factory()
-      ->count(3)
+      ->count(4)
       ->sequence(
         [
           'name' => 'Vanja Jelic',
           'email' => 'jelicvanja@gmail.com',
+          'password' => bcrypt('jeremy11'),
+          'organization_id' => Organization::first(),
+        ],
+        [
+          'name' => 'Organization Admin',
+          'email' => 'admin@gmail.com',
           'password' => bcrypt('jeremy11'),
           'organization_id' => Organization::first(),
         ],
@@ -183,8 +190,10 @@ class RolePermissionSeeder extends Seeder {
     $user = User::find(1);
     $user->assignRole('superadmin');
     $user = User::find(2);
-    $user->assignRole('employee');
+    $user->assignRole('admin');
     $user = User::find(3);
+    $user->assignRole('employee');
+    $user = User::find(4);
     $user->assignRole('client');
   }
 }

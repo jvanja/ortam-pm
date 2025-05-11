@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 
 class Client extends Model {
   use HasFactory;
@@ -22,6 +24,19 @@ class Client extends Model {
   protected $casts = [
     'id' => 'string',
   ];
+
+  /**
+   * The "booted" method of the model.
+   *
+   * @return void
+   */
+  protected static function booted() {
+    static::addGlobalScope('organization', function (Builder $builder) {
+      if (Auth::check()) {
+        $builder->where('organization_id', Auth::user()->organization_id);
+      }
+    });
+  }
 
   public function quotes(): HasMany {
     return $this->hasMany(Quote::class);

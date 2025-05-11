@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import { Invoice, Project, Client, Organization } from '@/types'; // Assuming you have a type definition for Invoice
+import { router, useForm } from '@inertiajs/vue3';
+
 type InvoiceWithProject = Invoice & { project: Project, client: Client, organization: Organization };
 
 // Define the props expected by this component
@@ -14,6 +16,33 @@ const printInvoice = () => {
 
 const formatCurrency = (amount: number) => {
   return `${amount.toFixed(2)} ${props.invoice.project.currency}`;
+};
+
+// Form for sending the invoice
+const form = useForm({
+  id: props.invoice.id,
+});
+
+// Method to send the invoice
+const sendInvoice = () => {
+  if (confirm('Are you sure you want to send this invoice?')) {
+    console.log(props.invoice.id);
+    form.post(route('invoices.send', [props.invoice.id]), {
+      onSuccess: () => {
+        // Handle success, maybe show a flash message (handled by Inertia redirects)
+      },
+      onError: (errors) => {
+        // Handle errors, e.g., client email missing
+        console.error('Error sending invoice:', errors);
+        // You might want to display a user-friendly error message
+        if (errors && errors.error) {
+             alert(errors.error); // Display the error message from the backend
+        } else {
+             alert('Failed to send invoice.');
+        }
+      },
+    });
+  }
 };
 
 </script>
@@ -38,6 +67,7 @@ const formatCurrency = (amount: number) => {
         <p>{{ invoice.client?.contact_person }}</p>
         <p><strong>{{ invoice.client?.company_name }}</strong></p>
         <p>{{ invoice.client?.address }}</p>
+        <p>{{ invoice.client?.email }}</p> <!-- Display client email -->
       </div>
     </div>
 
@@ -78,6 +108,8 @@ const formatCurrency = (amount: number) => {
     </div>
 
     <div class="print-button-container no-print">
+      <!-- Add the Send Invoice button -->
+      <button @click="sendInvoice" :disabled="!invoice.client?.email">Send Invoice</button>
       <button @click="printInvoice">Print Invoice</button>
     </div>
   </div>
@@ -155,6 +187,10 @@ const formatCurrency = (amount: number) => {
 .print-button-container {
   text-align: center;
   margin-top: 30px;
+  /* Add some spacing between buttons */
+  & button {
+      margin: 0 5px;
+  }
 }
 
 .print-button-container button {

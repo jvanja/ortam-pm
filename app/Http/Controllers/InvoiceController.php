@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InvoiceSent; // Import the new Mailable
 use App\Models\Invoice;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail; // Import the Mail facade
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
@@ -42,6 +44,38 @@ class InvoiceController extends Controller {
     return Inertia::render('invoices/Show', [
       'invoice' => $invoice,
     ]);
+  }
+
+  /**
+   * Send the specified invoice via email.
+   */
+  public function send(Invoice $invoice): RedirectResponse {
+    // Authorize the action (you might need a specific 'invoice.send' policy)
+    $this->authorize('invoice.edit', $invoice); // Using 'edit' as a placeholder, adjust if needed
+
+    // Ensure client relationship is loaded for the email address
+    $invoice->load('client', 'project');
+
+    // Check if the client has an email address
+    if (empty($invoice->client->email)) {
+        // Use Inertia's flash messages or redirect with error
+        return redirect()->back()->with('error', 'Client does not have an email address.');
+    }
+
+    // Send the email
+    // - TODO:
+    // remove my email below after testing
+    Mail::to('jelicvanja@gmail.com')->send(new InvoiceSent($invoice));
+    // Mail::to($invoice->client->email)->send(new InvoiceSent($invoice));
+
+    // Update the invoice status to 'sent' if it's not already paid or cancelled
+    if (!in_array($invoice->status, ['paid', 'cancelled'])) {
+        $invoice->status = 'sent';
+        $invoice->save();
+    }
+
+    // Use Inertia's flash messages or redirect with success
+    return redirect()->back()->with('success', 'Invoice sent successfully!');
   }
 
 

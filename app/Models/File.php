@@ -16,7 +16,7 @@ class File extends Model {
    * @var array<int, string>
    */
   protected $fillable = [
-    'project_id',
+    'parent_id',
     'name',
     'path',
     'mime_type',

@@ -11,6 +11,7 @@ return new class extends Migration {
   public function up(): void {
     Schema::create('files', function (Blueprint $table) {
       $table->uuid('id')->primary();
+      $table->uuid('parent_id');
       $table->timestamps();
       $table->string('name');
       $table->string('path');

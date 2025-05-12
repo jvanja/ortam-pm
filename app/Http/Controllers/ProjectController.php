@@ -107,6 +107,14 @@ class ProjectController extends Controller {
   }
 
   /**
+   * Show the new project form
+   */
+  public function create() {
+    return Inertia::render('projects/Add');
+  }
+
+
+  /**
    * Store a newly created resource in storage.
    */
   public function store(Request $request) {

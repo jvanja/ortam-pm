@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { BreadcrumbItem } from '@/types';
+import NewProject from '@/components/project/NewProject.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
+import type { BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Projects', href: '/projects' }];
@@ -9,6 +10,8 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Projects', href: '/projects' }]
   <Head title="Project" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
-    <NewProject></NewProject>
+    <div class="p-8">
+      <NewProject></NewProject>
+    </div>
   </AppLayout>
 </template>

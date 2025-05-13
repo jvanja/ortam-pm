@@ -2,10 +2,11 @@
 import LatestProjectsChart from '@/components/dashboard/LatestProjectsChart.vue';
 import Heading from '@/components/Heading.vue';
 import NewProject from '@/components/project/NewProject.vue';
-import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Project } from '@/types';
 import { Head } from '@inertiajs/vue3';
+import { FolderOpenDotIcon } from 'lucide-vue-next';
 
 defineProps<{ projects: Project[] }>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
@@ -23,15 +24,21 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
       <section>
         <Heading title="Actions" description="" />
         <div class="grid grid-cols-3 gap-2">
-          <div>
-            <Button variant="outline" class="cursor-pointer"><a :href="`/projects/new`" class="text-sm hover:text-primary">New Project</a></Button>
-          </div>
-          <div>
-            <Button variant="outline" class="cursor-pointer"><a :href="`/new-project/`" class="text-sm hover:text-primary">New proposal</a></Button>
-          </div>
-          <div>
-            <Button variant="outline" class="cursor-pointer"><a :href="`/new-project/`" class="text-sm hover:text-primary">New Invoice</a></Button>
-          </div>
+          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800">
+            <FolderOpenDotIcon color="#3e9392" />
+            <a :href="`/projects/create`" class="text-sm hover:text-primary">new project ></a>
+            <p>Create a new project by filling up a basic new project form</p>
+          </Card>
+          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800">
+            <FolderOpenDotIcon color="#e32884" />
+            <a :href="`/projects/create`" class="text-sm hover:text-primary">new project ></a>
+            <p>Create a new project by filling up a basic new project form</p>
+          </Card>
+          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800">
+            <FolderOpenDotIcon color="#2339c3" />
+            <a :href="`/projects/create`" class="text-sm hover:text-primary">new project ></a>
+            <p>Create a new project by filling up a basic new project form</p>
+          </Card>
         </div>
       </section>
     </div>

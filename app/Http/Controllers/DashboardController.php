@@ -15,7 +15,7 @@ class DashboardController extends Controller {
     }
 
     if ($user->hasRole(['superadmin', 'admin'])) {
-      $latestProjects = Project::latest()->take(3)->get();
+      $latestProjects = Project::with(['pipelineStages', 'currentPipelineStage'])->latest()->take(3)->get();
       return Inertia::render('Dashboard', [
         'projects' => $latestProjects,
       ]);

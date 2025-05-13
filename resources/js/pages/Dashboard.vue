@@ -4,11 +4,12 @@ import Heading from '@/components/Heading.vue';
 import NewProject from '@/components/project/NewProject.vue';
 import { Card } from '@/components/ui/card';
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem, Project } from '@/types';
+import type { BreadcrumbItem, Project, ProjectPipelineStage } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import { FolderOpenDotIcon } from 'lucide-vue-next';
+type ProjectWithPipelineStages = Project & { pipeline_stages: ProjectPipelineStage[]; current_pipeline_stage: ProjectPipelineStage };
 
-defineProps<{ projects: Project[] }>();
+defineProps<{ projects: ProjectWithPipelineStages[] }>();
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
 </script>
 
@@ -22,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
         <LatestProjectsChart :projects="projects" />
       </section>
       <section>
-        <Heading title="Actions" description="" />
+        <Heading title="Actions" description="Set up a new project, client or a report" />
         <div class="grid grid-cols-3 gap-2">
           <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800">
             <FolderOpenDotIcon color="#3e9392" />

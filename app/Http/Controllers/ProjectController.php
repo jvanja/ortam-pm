@@ -71,18 +71,6 @@ class ProjectController extends Controller {
   }
 
   /**
-   * Get the latest 3 projects for the dashboard
-   */
-  public function latestProjects() {
-    $this->authorize('project.view', Project::class);
-    $latestProjects = Project::latest()->take(3)->get();
-
-    return Inertia::render('Dashboard', [
-      'projects' => $latestProjects,
-    ]);
-  }
-
-  /**
    * Display the specified resource.
    */
   public function show($id) {

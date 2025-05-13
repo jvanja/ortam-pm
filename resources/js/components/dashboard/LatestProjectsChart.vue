@@ -13,7 +13,7 @@ const chartOptions = (project: ProjectWithPipelineStages) => {
     plotOptions: {
       radialBar: {
         hollow: {
-          size: '70%',
+          size: '80%',
         },
       },
     },
@@ -41,8 +41,8 @@ const getSeries = (project: ProjectWithPipelineStages) => {
       </div>
       <div class="text-sm text-center"><span class="font-semibold">{{ project.type }}</span></div>
       <div class="flex justify-center gap-2">
-        <Button variant="default"><a :href="`/projects/${project.id}`">Edit</a></Button>
-        <Button variant="destructive">Delete</Button>
+        <Button variant="link"><a :href="`/projects/${project.id}`">Edit</a></Button>
+        <Button variant="link" class="text-red-500">Delete</Button>
       </div>
     </div>
   </div>

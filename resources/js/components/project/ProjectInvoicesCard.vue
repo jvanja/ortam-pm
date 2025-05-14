@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { PlusCircle } from 'lucide-vue-next';
 import type { Invoice } from '@/types';
 
 const props = defineProps<{
@@ -19,9 +20,8 @@ const formatCurrency = (amount: number) => {
       <CardTitle>Invoices</CardTitle>
     </CardHeader>
     <CardContent>
-      <div v-if="invoices.length === 0" class="text-center text-muted-foreground">No invoices found for this project.</div>
+      <div v-if="invoices.length === 0" class="text-muted-foreground">No invoices found for this project.</div>
       <Table v-else>
-        <TableCaption>A list of invoices for this project.</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Invoice #</TableHead>
@@ -50,6 +50,11 @@ const formatCurrency = (amount: number) => {
           </TableRow>
         </TableBody>
       </Table>
+        <div class="rounded-lg border-2 border-dashed p-1 px-4 py-2 bg-teal-50 dark:bg-neutral-800">
+          <a href="/invoices/create/" class="flex flex-1 items-center gap-2 text-sm text-green-700">
+            <PlusCircle class="text-green-700" />
+            Add invoice</a>
+        </div>
     </CardContent>
   </Card>
 </template>

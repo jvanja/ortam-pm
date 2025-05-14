@@ -46,7 +46,8 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
     <div v-else class="flex flex-col gap-4 p-8">
       <Heading title="Projects" description="You currently have no projects" />
       Let's create some
-      <NewProject></NewProject>
+      <!-- TODO: get the clients and languages here -->
+      <NewProject :clients="[]" :languages="[]" />
     </div>
   </AppLayout>
 </template>

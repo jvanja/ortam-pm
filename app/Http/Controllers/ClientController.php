@@ -63,13 +63,22 @@ class ClientController extends Controller {
       'email' => 'nullable|email|max:255',
     ]);
 
+    $backToProject = $request->input('backToProject');
+
     $client = Client::create([
       ...$validated,
       'organization_id' => Auth::user()->organization_id,
     ]);
+    if ($backToProject) {
 
-    // return redirect()->back()->with(['success' => 'Client created successfully', 'client' => $client]);
-    return redirect()->back()->with('success_message', 'Yay it worked');
+      return redirect()->route('projects.create', ['clientId' => $client->id])
+        ->with('message', 'Client created successfully');
+    } else {
+
+      return redirect()->route('clients.create', $client->id)
+        ->with('message', 'Client created successfully');
+    }
+
   }
 
   /**

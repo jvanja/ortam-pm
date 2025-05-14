@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Invoice;
 use Inertia\Inertia;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller {
   /**
@@ -53,6 +54,22 @@ class ClientController extends Controller {
    */
   public function store(Request $request) {
     $this->authorize('client.create', Client::class);
+
+    $validated = $request->validate([
+      'company_name' => 'required|string|max:255',
+      'contact_person' => 'nullable|string|max:255',
+      'address' => 'nullable|string|max:255',
+      'phone' => 'nullable|string|max:255',
+      'email' => 'nullable|email|max:255',
+    ]);
+
+    $client = Client::create([
+      ...$validated,
+      'organization_id' => Auth::user()->organization_id,
+    ]);
+
+    // return redirect()->back()->with(['success' => 'Client created successfully', 'client' => $client]);
+    return redirect()->back()->with('success_message', 'Yay it worked');
   }
 
   /**
@@ -87,7 +104,7 @@ class ClientController extends Controller {
       'company_name' => 'string',
       'contact_person' => 'sometimes|string',
       'address' => 'sometimes|string',
-      'phone' => 'sometmees:string',
+      'phone' => 'sometimes|string', // Corrected 'sometmees' to 'sometimes'
       'email' => 'sometimes|email',
       'organization_id' => 'nullable|exists:organizations,id'
     ]);

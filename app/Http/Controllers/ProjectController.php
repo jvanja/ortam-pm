@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\ProjectPipelineStage;
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -98,7 +99,8 @@ class ProjectController extends Controller {
    * Show the new project form
    */
   public function create() {
-    return Inertia::render('projects/Add');
+    $clients = Client::select('id', 'company_name')->get();
+    return Inertia::render('projects/Add', ['clients' => $clients]);
   }
 
 

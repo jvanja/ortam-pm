@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import type { Project, ProjectPipelineStage } from '@/types';
 import { router, useForm } from '@inertiajs/vue3'; // Import router
 import { CheckCircle2, CirclePlus, GripVertical, Trash2 } from 'lucide-vue-next';
-import { ref, watch, onMounted } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import Draggable from 'vuedraggable';
 
@@ -162,10 +162,8 @@ watch(
  Lifecycle hooks
  ========================================================================== */
 onMounted(() => {
-console.log('mount')
-  document.querySelector('.pipeline-step[data-current=true]')!.scrollIntoView()
-})
-
+  document.querySelector('.pipeline-step[data-current=true]')!.scrollIntoView();
+});
 </script>
 <template>
   <Card>
@@ -196,7 +194,12 @@ console.log('mount')
               <CheckCircle2 v-else @click="setCurrentStage(stage)" class="invisible mb-2 h-6 w-6 cursor-pointer text-gray-300 group-hover:visible">
                 <title>Set as current pipeline stage</title>
               </CheckCircle2>
-              <input :value="stage.name" class="max-w-full bg-transparent py-2 text-center text-lg font-semibold" @change="stageRename" :stage-id="stage.id" />
+              <input
+                :value="stage.name"
+                class="max-w-full bg-transparent py-2 text-center text-lg font-semibold"
+                @change="stageRename"
+                :stage-id="stage.id"
+              />
             </div>
             <div class="mt-4 flex w-full justify-center gap-2">
               <!-- Drag handle -->

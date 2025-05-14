@@ -7,7 +7,10 @@ import { toast } from 'vue-sonner';
 
 const emit = defineEmits(['client-created', 'cancel']);
 
+const { backToProject  }= defineProps<{ backToProject: boolean }>();
+
 const form = useForm({
+  backToProject,
   company_name: '',
   contact_person: '',
   address: '',
@@ -17,12 +20,15 @@ const form = useForm({
 
 const submit = () => {
   form.post(route('clients.store'), {
-    onSuccess: (response: any) => {
-      console.log(response);
-      const newClient = response.props.client; // Adjust based on actual response structure if needed
-      toast.success(`New client created successfully!`);
-      emit('client-created', newClient);
-      form.reset();
+    onSuccess: () => {
+      const newClient = form;
+      if (newClient) {
+        toast.success(`New client created successfully!`);
+        emit('client-created', newClient);
+        form.reset();
+      } else {
+        toast.error('Client created but response data not received');
+      }
     },
     onError: () => {
       toast.error('Failed to create client.');

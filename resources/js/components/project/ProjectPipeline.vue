@@ -24,7 +24,7 @@ const isDragging = ref(false);
  ========================================================================== */
 // Dragging
 const updateStageOrderForm = useForm({ stage_ids: stages.value.map((stage) => stage.id) });
-const handleDragEnd = (event) => {
+const handleDragEnd = (event: {newTarget: HTMLElement, newIndex: number, item: HTMLElement}) => {
   let dragginCurrent = false;
   if (event.item.getAttribute('data-current') === 'true') {
     dragginCurrent = true;
@@ -129,9 +129,10 @@ const addStage = () => {
 
 const renameStageForm = useForm({ name: '' });
 const stageRename = (event: Event) => {
-  const newName = event.target.value;
+  const target = event.target as HTMLInputElement;
+  const newName = target.value;
   renameStageForm.name = newName;
-  const stageId = event.target.getAttribute('stage-id');
+  const stageId = target.getAttribute('stage-id');
   renameStageForm.patch(route('projects.pipeline-stages.update', [stageId]), {
     preserveScroll: true,
     onSuccess: () => {

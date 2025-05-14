@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Project;
+use App\Models\ProjectPipelineStage;
 use Inertia\Inertia;
 
 class DashboardController extends Controller {
@@ -15,7 +16,13 @@ class DashboardController extends Controller {
     }
 
     if ($user->hasRole(['superadmin', 'admin'])) {
+      $defaultStages = ProjectPipelineStage::where('is_system_default', '1')->get();
       $latestProjects = Project::with(['pipelineStages', 'currentPipelineStage'])->latest()->take(3)->get();
+      foreach($latestProjects as $project) {
+        if(count($project->pipelineStages) == 0) {
+          $project->pipelineStages = $defaultStages;
+        }
+      }
       return Inertia::render('Dashboard', [
         'projects' => $latestProjects,
       ]);

@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Project, ProjectPipelineStage } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import { FolderOpenDotIcon } from 'lucide-vue-next';
+import { FolderPlus, UserRoundPlus, ReceiptText } from 'lucide-vue-next';
 type ProjectWithPipelineStages = Project & { pipeline_stages: ProjectPipelineStage[]; current_pipeline_stage: ProjectPipelineStage };
 
 defineProps<{ projects: ProjectWithPipelineStages[] }>();
@@ -25,20 +25,20 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
       <section>
         <Heading title="Actions" description="Set up a new project, client or a report" />
         <div class="grid grid-cols-3 gap-2">
-          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800">
-            <FolderOpenDotIcon color="#3e9392" />
-            <a :href="`/projects/create`" class="text-sm hover:text-primary">new project ></a>
-            <p>Create a new project by filling up a basic new project form</p>
+          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800 text-sm">
+            <FolderPlus color="#3e9392" />
+            <a :href="`/projects/create`" class="hover:text-primary">new project ></a>
+            <p class="text-muted-foreground">Create a new project by filling up a basic new project form</p>
           </Card>
-          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800">
-            <FolderOpenDotIcon color="#e32884" />
-            <a :href="`/projects/create`" class="text-sm hover:text-primary">new project ></a>
-            <p>Create a new project by filling up a basic new project form</p>
+          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800 text-sm">
+            <UserRoundPlus color="#e32884" />
+            <a :href="`/clients/create`" class="hover:text-primary">new client ></a>
+            <p class="text-muted-foreground">Create a new client and associate it to a project</p>
           </Card>
-          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800">
-            <FolderOpenDotIcon color="#2339c3" />
-            <a :href="`/projects/create`" class="text-sm hover:text-primary">new project ></a>
-            <p>Create a new project by filling up a basic new project form</p>
+          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800 text-sm">
+            <ReceiptText color="#2339c3" />
+            <a :href="`/projects/create`" class="hover:text-primary">new invoice ></a>
+            <p class="text-muted-foreground">Create a new invoice</p>
           </Card>
         </div>
       </section>

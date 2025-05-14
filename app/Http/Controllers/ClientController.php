@@ -50,6 +50,13 @@ class ClientController extends Controller {
   }
 
   /**
+   * Show the new project form
+   */
+  public function create() {
+    return Inertia::render('clients/Add', []);
+  }
+
+  /**
    * Store a newly created resource in storage.
    */
   public function store(Request $request) {

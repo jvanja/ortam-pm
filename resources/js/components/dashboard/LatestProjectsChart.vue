@@ -24,11 +24,13 @@ const chartOptions = (project: ProjectWithPipelineStages) => {
   };
 };
 const getSeries = (project: ProjectWithPipelineStages) => {
-  const projectStagesLength = project.pipeline_stages.length;
+  // @ts-expect-error pipelineStages is added as default stages for new projects
+  const stages = project.pipeline_stages.length === 0 ? project.pipelineStages : project.pipeline_stages;
+  const projectStagesLength = stages.length;
   const currentStageIndex =
-    project.pipeline_stages.findIndex((stage: ProjectPipelineStage) => stage.id === project.current_project_pipeline_stage_id) + 1;
+    stages.findIndex((stage: ProjectPipelineStage) => stage.id === project.current_project_pipeline_stage_id) + 1;
 
-  const percentage = Math.round((100 / projectStagesLength) * currentStageIndex);
+  const percentage = Math.round((100 / projectStagesLength) * currentStageIndex) || 0;
   return [percentage];
 };
 </script>

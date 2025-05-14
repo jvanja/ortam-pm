@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import type { Project, ProjectPipelineStage } from '@/types';
 import { router, useForm } from '@inertiajs/vue3'; // Import router
 import { CheckCircle2, CirclePlus, GripVertical, Trash2 } from 'lucide-vue-next';
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { toast } from 'vue-sonner';
 import Draggable from 'vuedraggable';
 
@@ -157,6 +157,15 @@ watch(
   () => props.currentPipelineStage,
   (newCurrentStage) => (currentStageId.value = newCurrentStage ? newCurrentStage.id : null),
 );
+
+/* ==========================================================================
+ Lifecycle hooks
+ ========================================================================== */
+onMounted(() => {
+console.log('mount')
+  document.querySelector('.pipeline-step[data-current=true]')!.scrollIntoView()
+})
+
 </script>
 <template>
   <Card>
@@ -177,7 +186,7 @@ watch(
         <template #item="{ element: stage }">
           <div
             :class="[
-              'group flex min-w-[150px] flex-col items-center justify-between rounded-lg border p-4 text-center',
+              'pipeline-step group flex min-w-[150px] flex-col items-center justify-between rounded-lg border p-4 text-center',
               isCurrentStage(stage) ? 'border-primary bg-lime-50 dark:bg-lime-900/50' : 'border-gray-200 dark:border-gray-700',
             ]"
             :data-current="isCurrentStage(stage) ? 'true' : 'false'"

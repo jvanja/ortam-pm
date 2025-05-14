@@ -5,12 +5,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Client } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 import currencies from 'currency-codes';
-import { ref, watch } from 'vue';
+import { upperFirst } from 'lodash-es';
+import { computed, onMounted, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 
-const { clients } = defineProps<{ clients: Client[] }>();
+const { clients, languages } = defineProps<{ clients: Client[]; languages: any }>();
+const page = usePage()
+const org_id = computed(() => page.props.auth.user.organization_id )
+
 // State for the two-step process
 const currentStep = ref<'select_client' | 'create_client'>('select_client');
 const selectedClientId = ref<string | null>(null);
@@ -19,15 +23,16 @@ const form = useForm({
   type: '',
   department: '',
   manager: '',
-  language: '',
+  language: 'english',
   address: '',
   status: '',
   opening_date: '',
   budget: 0,
-  currency: '',
+  currency: 'USD',
   sales_representative_name: '',
   deadline: '',
-  client_id: null as string | null, // Initialize as null
+  client_id: null as string | null,
+  organization_id: org_id.value
 });
 
 // Watch for changes in selectedClientId and update the form
@@ -60,11 +65,10 @@ const submit = () => {
 };
 
 // Handle client creation success from NewClientForm
-const handleClientCreated = (newClient: { id: string; company_name: string }) => {
-  console.log(newClient);
-  // clients.value.push(newClient);
-  selectedClientId.value = newClient.id;
-  // Switch back to the select client step
+const handleClientCreated = () => {
+  const url = new URL(window.location.href);
+  const newClientId = url.searchParams.get('clientId');
+  selectedClientId.value = newClientId;
   currentStep.value = 'select_client';
 };
 
@@ -72,6 +76,12 @@ const handleClientCreated = (newClient: { id: string; company_name: string }) =>
 const handleCancelCreateClient = () => {
   currentStep.value = 'select_client';
 };
+
+onMounted(() => {
+  const url = new URL(window.location.href);
+  const newClientId = url.searchParams.get('clientId');
+  selectedClientId.value = newClientId;
+});
 </script>
 
 <template>
@@ -124,7 +134,14 @@ const handleCancelCreateClient = () => {
 
           <div class="space-y-2">
             <Label for="language">Project Language</Label>
-            <Input v-model="form.language" id="language" placeholder="Enter project language" />
+            <Select id="language" :defaultValue="form.language" v-model="form.language">
+              <SelectTrigger id="language" class="mt-0">
+                <SelectValue placeholder="English" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem v-for="lang in languages" :key="lang" :value="lang">{{ upperFirst(lang) }}</SelectItem>
+              </SelectContent>
+            </Select>
             <div class="text-sm text-red-500" v-if="form.errors.language">{{ form.errors.language }}</div>
           </div>
 
@@ -132,12 +149,6 @@ const handleCancelCreateClient = () => {
             <Label for="address">Project Address</Label>
             <Input v-model="form.address" id="address" placeholder="Enter project address" />
             <div class="text-sm text-red-500" v-if="form.errors.address">{{ form.errors.address }}</div>
-          </div>
-
-          <div class="space-y-2">
-            <Label for="status">Project Status</Label>
-            <Input v-model="form.status" id="status" placeholder="Enter project status" />
-            <div class="text-sm text-red-500" v-if="form.errors.status">{{ form.errors.status }}</div>
           </div>
 
           <div class="space-y-2">
@@ -188,8 +199,8 @@ const handleCancelCreateClient = () => {
 
     <!-- Step 2: Create New Client -->
     <div v-if="currentStep === 'create_client'" class="space-y-6">
-      <h2 class="text-xl font-semibold">Step 1: Create New Client</h2>
-      <NewClient @client-created="handleClientCreated" @cancel="handleCancelCreateClient" />
+      <h2 class="text-xl font-semibold">Create New Client</h2>
+      <NewClient @client-created="handleClientCreated" @cancel="handleCancelCreateClient" :back-to-project="true" />
     </div>
   </div>
 </template>

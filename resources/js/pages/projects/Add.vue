@@ -5,14 +5,14 @@ import type { BreadcrumbItem, Client } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Projects', href: '/projects' }];
-const {clients} = defineProps<{clients: Client[]}>();
+const {clients, languages} = defineProps<{clients: Client[]; languages: any}>();
 </script>
 <template>
   <Head title="Project" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-8">
-      <NewProject :clients />
+      <NewProject :clients :languages />
     </div>
   </AppLayout>
 </template>

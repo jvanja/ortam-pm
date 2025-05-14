@@ -14,15 +14,15 @@ return new class extends Migration {
     Schema::create('projects', function (Blueprint $table) {
       $table->id();
       $table->string('type');
-      $table->string('department');
-      $table->string('manager');
+      $table->string('department')->nullable();
+      $table->string('manager')->nullable();
       $table->enum('language', [Language::English->value, Language::French->value]);
-      $table->string('address');
-      $table->float('budget');
-      $table->string('sales_representative_name');
+      $table->string('address')->nullable();
+      $table->float('budget')->nullable();
+      $table->string('sales_representative_name')->nullable();
       $table->enum('status', [ProjectStatus::Ongoing->value, ProjectStatus::Completed->value, ProjectStatus::Canceled->value]);
-      $table->date('opening_date');
-      $table->date('deadline');
+      $table->date('opening_date')->nullable();
+      $table->date('deadline')->nullable();
       $table->foreignId('client_id')->constrained()->onUpdate('cascade');
       $table->foreignId('organization_id')->constrained()->onUpdate('cascade');
       $table->timestamps();

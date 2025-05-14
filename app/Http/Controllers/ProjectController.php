@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Language;
 use App\Models\Client;
 use App\Models\ProjectPipelineStage;
 use Illuminate\Http\Request;
@@ -100,7 +101,8 @@ class ProjectController extends Controller {
    */
   public function create() {
     $clients = Client::select('id', 'company_name')->get();
-    return Inertia::render('projects/Add', ['clients' => $clients]);
+    $languages = Language::cases();
+    return Inertia::render('projects/Add', ['clients' => $clients, 'languages' => $languages]);
   }
 
 
@@ -113,16 +115,17 @@ class ProjectController extends Controller {
 
     $validated = $request->validate([
       'type' => 'required|string',
-      'department' => 'required|string',
-      'manager' => 'required|string',
+      'department' => 'nullable|string',
+      'manager' => 'nullable|string',
       'language' => 'required|string',
-      'address' => 'required|string',
-      'status' => 'required|string',
-      'opening_date' => 'required|date',
-      'budget' => 'required|numeric',
-      'sales_representative_name' => 'required|string',
-      'deadline' => 'required|date',
-      'client_id' => 'nullable|exists:clients,id'
+      'address' => 'nullable|string',
+      'opening_date' => 'nullable|date',
+      'budget' => 'nullable|numeric',
+      'currency' => 'required|string',
+      'sales_representative_name' => 'nullable|string',
+      'deadline' => 'nullable|date',
+      'client_id' => 'nullable|exists:clients,id',
+      'organization_id' => 'exists:organizations,id'
     ]);
 
     $project = Project::create($validated);

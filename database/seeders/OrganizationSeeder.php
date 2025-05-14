@@ -13,6 +13,6 @@ class OrganizationSeeder extends Seeder {
     Organization::factory()->create([
       'name' => 'Ortam Groupe',
     ]);
-    Organization::factory(2)->create();
+    // Organization::factory(2)->create();
   }
 }

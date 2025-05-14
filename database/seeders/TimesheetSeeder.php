@@ -10,6 +10,6 @@ class TimesheetSeeder extends Seeder {
    * Run the database seeds.
    */
   public function run(): void {
-    Timesheet::factory(500)->create();
+    Timesheet::factory(50)->create();
   }
 }

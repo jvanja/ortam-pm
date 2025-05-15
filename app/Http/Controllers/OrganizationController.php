@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -48,12 +50,12 @@ class OrganizationController extends Controller {
   public function editBranding(Request $request): Response {
     $org_id = $request->user()->organization_id;
     $organization = Organization::find($org_id);
+
     return Inertia::render('settings/Branding', [
       'name' => $organization->name,
       'address' => $organization->address,
-      // branding fields
       'logo' => $organization->logo,
-      'brandColor' => $organization->brand_color,
+      'brand_color' => $organization->brand_color,
     ]);
   }
 
@@ -74,40 +76,31 @@ class OrganizationController extends Controller {
   /**
    * Update the specified resource in storage.
    */
-  public function updateBranding(Request $request, Organization $organization): Response {
+  public function updateBranding(Request $request, Organization $organization) {
     $validated = $request->validate([
-      'logo' => 'nullable|mimes:jpg,jpeg,png|max:2048', // Added nullable for logo
+      'logo' => 'nullable|mimes:jpg,jpeg,png|max:2048',
       'brand_color' => 'nullable|string|max:255',
     ]);
 
-    dd($validated['logo']); //  <---- This returns Undefined array key "logo"
 
-    // You can now access validated data like $validated['logo'] and $validated['brand_color']
-    // Implement your logic here to handle file upload and update the organization
-
-    // Example: Handle logo upload
-    // if ($request->hasFile('logo')) {
-    //     $path = $request->file('logo')->store('logos', 'public'); // Store in 'storage/app/public/logos'
-    //     $organization->logo = $path; // Save the path to the database
-    // }
+    $path = $request->file('logo')->store('logos', 'public'); // Store in 'storage/app/public/logos'
+    if ($path) {
+      $imageUrl = Storage::url($path); // Generate the public URL
+      $organization->logo = $imageUrl;
+    } else {
+      // Handle error: file not stored
+      return redirect()->back()->with('error', 'Failed to upload logo.');
+    }
 
     // Example: Update brand color
-    // if (isset($validated['brand_color'])) {
-    //     $organization->brand_color = $validated['brand_color'];
-    // }
+    if (isset($validated['brand_color'])) {
+      $organization->brand_color = $validated['brand_color'];
+    }
 
-    // $organization->save(); // Save the changes
+    $organization->save();
 
     // Redirect or return a response
-    // return redirect()->back()->with('success', 'Branding updated successfully.');
-    // Or if you want to re-render the page with updated data:
-     return Inertia::render('settings/Branding', [
-       'logo' => $organization->logo, // Pass updated logo path
-       'brandColor' => $organization->brand_color, // Pass updated brand color
-       // You might need to fetch the organization again or pass relevant data
-       'name' => $organization->name,
-       'address' => $organization->address,
-     ]);
+    return redirect()->back()->with('success', 'Branding updated successfully.');
   }
   /**
    * Remove the specified resource from storage.

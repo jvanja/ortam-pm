@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import HeadingSmall from '@/components/HeadingSmall.vue';
 import { TransitionRoot } from '@headlessui/vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
-import HeadingSmall from '@/components/HeadingSmall.vue';
 
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,7 @@ import { SharedData, User, type BreadcrumbItem } from '@/types';
 
 interface Props {
   logo?: string;
-  brandColor?: string;
+  brand_color?: string;
 }
 
 const props = defineProps<Props>();
@@ -27,15 +27,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const form = useForm({
   logo: props.logo,
-  brandColor: props.brandColor,
+  brand_color: props.brand_color,
 });
+
+console.log(props.logo);
 
 const page = usePage<SharedData>();
 const user = page.props.auth.user as User;
 
 const submit = () => {
   // Corrected route name to match routes/settings.php
-  form.patch(route('organization.branding.update', [user.organization_id]), {
+  form.post(route('organization.branding.update', [user.organization_id]), {
     preserveScroll: true,
     onSuccess: () => console.log('Organization branding updated!'),
     onError: (msg) => console.error('Failed to update organization branding', msg),
@@ -53,15 +55,19 @@ const submit = () => {
         <form @submit.prevent="submit" class="space-y-6">
           <div class="grid gap-2">
             <Label for="logo">Logo</Label>
-            <Input type="file" @input="form.logo = $event.target.files[0]" />
+
+            <div class="flex gap-2">
+              <img v-if="logo" :src="logo" class="h-10 w-10 object-cover" />
+              <Input type="file" @input="form.logo = $event.target.files[0]" class="hidden" />
+            </div>
             <progress v-if="form.progress" :value="form.progress.percentage" max="100">{{ form.progress.percentage }}%</progress>
             <InputError class="mt-2" :message="form.errors.logo" />
           </div>
 
           <div class="grid gap-2">
-            <Label for="brandColor">Brand color</Label>
-            <Input id="brandColor" type="text" class="mt-1 block w-full" v-model="form.brandColor" required placeholder="#ff00ff" />
-            <InputError class="mt-2" :message="form.errors.brandColor" />
+            <Label for="brand_color">Brand color</Label>
+            <Input id="brand_color" type="text" class="mt-1 block w-full" v-model="form.brand_color" required placeholder="#ff00ff" />
+            <InputError class="mt-2" :message="form.errors.brand_color" />
           </div>
 
           <div class="flex items-center gap-4">

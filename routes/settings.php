@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/organization', [OrganizationController::class, 'edit'])->name('organization.edit');
     Route::patch('settings/organization/{organization}', [OrganizationController::class, 'update'])->name('organization.update');
     Route::get('settings/branding', [OrganizationController::class, 'editBranding'])->name('organization.edit');
-    Route::patch('settings/branding/{organization}', [OrganizationController::class, 'updateBranding'])->name('organization.branding.update');
+    Route::post('settings/branding/{organization}', [OrganizationController::class, 'updateBranding'])->name('organization.branding.update');
 
     Route::get('settings/password', [PasswordController::class, 'edit'])->name('password.edit');
     Route::put('settings/password', [PasswordController::class, 'update'])->name('password.update');

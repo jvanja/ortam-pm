@@ -27,7 +27,11 @@ class OrganizationController extends Controller {
    */
   public function store(Request $request) {
     $validated = $request->validate([
-      'name' => ['required', 'string', 'max:255', 'unique:organizations,name'], // Added unique constraint
+      'name' => ['required', 'string', 'max:255', 'unique:organizations,name'],
+      'address' => 'nullable|string|max:255',
+        // - TODO: first upload file to get the path and then save it to the database
+      'logo' => 'nullable|string|max:255',
+      'brand_color' => 'nullable|string|max:255',
     ]);
 
     // Create the organization
@@ -49,9 +53,21 @@ class OrganizationController extends Controller {
     return Inertia::render('settings/Organization', [
       'name' => $organization->name,
       'address' => $organization->address,
-      // - TODO:
-      // add branding fields
-      'logo' => 'link_to_logo',
+    ]);
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function editBranding(Request $request): Response {
+    $org_id = $request->user()->organization_id;
+    $organization = Organization::find($org_id);
+    return Inertia::render('settings/Branding', [
+      'name' => $organization->name,
+      'address' => $organization->address,
+      // branding fields
+      'logo' => $organization->logo,
+      'brandColor' => $organization->brand_color,
     ]);
   }
 

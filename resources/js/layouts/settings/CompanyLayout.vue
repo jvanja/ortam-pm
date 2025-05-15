@@ -25,7 +25,7 @@ const currentPath = window.location.pathname;
 
     <div class="flex flex-col space-y-8 md:space-y-0 lg:flex-row lg:space-x-12 lg:space-y-0">
       <aside class="w-full max-w-xl lg:w-48">
-        <nav class="flex flex-col space-x-0 space-y-1">
+        <nav class="flex flex-row lg:flex-col space-x-0 space-y-1">
           <Button
             v-for="item in sidebarNavItems"
             :key="item.href"

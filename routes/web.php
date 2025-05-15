@@ -66,8 +66,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
   Route::resource('timesheets', TimesheetController::class);
 
+  // Invoices
   Route::resource('invoices', InvoiceController::class);
-  // Add the route for sending invoices
   Route::post('/invoices/{invoice}/send', [InvoiceController::class, 'send'])->name('invoices.send');
 
 

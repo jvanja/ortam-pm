@@ -34,10 +34,11 @@ const page = usePage<SharedData>();
 const user = page.props.auth.user as User;
 
 const submit = () => {
+  // Corrected route name to match routes/settings.php
   form.patch(route('organization.branding.update', [user.organization_id]), {
     preserveScroll: true,
-    onSuccess: () => console.log('Organization created!'),
-    onError: (msg) => console.error('Failed to create organization', msg),
+    onSuccess: () => console.log('Organization branding updated!'),
+    onError: (msg) => console.error('Failed to update organization branding', msg),
   });
 };
 </script>

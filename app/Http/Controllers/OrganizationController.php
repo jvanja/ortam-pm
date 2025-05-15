@@ -8,19 +8,6 @@ use Inertia\Inertia;
 use Inertia\Response;
 
 class OrganizationController extends Controller {
-  /**
-   * Display a listing of the resource.
-   */
-  public function index() {
-    //
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   */
-  public function create() {
-    //
-  }
 
   /**
    * Store a newly created resource in storage.
@@ -29,8 +16,7 @@ class OrganizationController extends Controller {
     $validated = $request->validate([
       'name' => ['required', 'string', 'max:255', 'unique:organizations,name'],
       'address' => 'nullable|string|max:255',
-        // - TODO: first upload file to get the path and then save it to the database
-      'logo' => 'nullable|string|max:255',
+      'logo' => 'nullable,mimes:jpg,jpeg,png|max:2048',
       'brand_color' => 'nullable|string|max:255',
     ]);
 
@@ -74,10 +60,34 @@ class OrganizationController extends Controller {
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request) {
-    //
+  public function update(Request $request, Organization $organization) {
+    $validated = $request->validate([
+      'name' => 'string|max:255|unique:organizations,name',
+      'address' => 'nullable|string|max:255',
+    ]);
+
+    $organization->update($validated);
+    return redirect()->back();
   }
 
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function updateBranding(Request $request, Organization $organization): Response {
+    $validated = $request->validate([
+      'logo' => 'mimes:jpg,jpeg,png|max:2048',
+      'brand_color' => 'nullable|string|max:255',
+    ]);
+    // if ($request->hasFile('logo')) {
+    //   $path = $request->file('logo')->store('uploads', 'public');
+    // dd($path);
+    // }
+
+    dd($validated);
+    $organization->update($validated);
+    return Inertia::render('settings/Organization', []);
+  }
   /**
    * Remove the specified resource from storage.
    */

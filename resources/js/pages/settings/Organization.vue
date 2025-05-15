@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TransitionRoot } from '@headlessui/vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import InputError from '@/components/InputError.vue';
@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/CompanyLayout.vue';
-import { type BreadcrumbItem } from '@/types';
+import { SharedData, User, type BreadcrumbItem } from '@/types';
 
 interface Props {
   name?: string;
@@ -27,14 +27,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const form = useForm({
   name: props.name,
-  address: props.address
+  address: props.address,
 });
 
+const page = usePage<SharedData>();
+const user = page.props.auth.user as User;
+
 const submit = () => {
-  form.post(route('organizations.store'), {
-    // Optional: Add callbacks for success/error handling
-    // onSuccess: () => console.log('Organization created!'),
-    // onError: () => console.error('Failed to create organization'),
+  form.patch(route('organization.update', [user.organization_id]), {
+    preserveScroll: true,
+    onSuccess: () => console.log('Organization created!'),
+    onError: () => console.error('Failed to create organization'),
   });
 };
 </script>

@@ -14,8 +14,8 @@ return new class extends Migration {
       $table->timestamps();
       $table->string('name');
       $table->string('address');
-      $table->string('logo');
-      $table->string('brand_color');
+      $table->string('logo')->nullable();
+      $table->string('brand_color')->nulable();
     });
 
     // add organization_id to the users table

@@ -70,7 +70,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::resource('invoices', InvoiceController::class);
   Route::post('/invoices/{invoice}/send', [InvoiceController::class, 'send'])->name('invoices.send');
 
-
   Route::post('/organizations', [OrganizationController::class, 'store'])->name('organizations.store');
 
   Route::resource('employees', EmployeesController::class)->only(['index']); // Keep only index for now if others aren't used

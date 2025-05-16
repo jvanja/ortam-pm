@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
-import { Invoice, Project, Client, Organization } from '@/types'; // Assuming you have a type definition for Invoice
+import { Invoice, InvoiceItem, Project, Client, Organization } from '@/types'; // Assuming you have a type definition for Invoice
 import { useForm } from '@inertiajs/vue3';
+import { useDateFormat } from '@vueuse/core'
 
-type InvoiceWithProject = Invoice & { project: Project, client: Client, organization: Organization };
+type InvoiceWithProject = Invoice & { project: Project, client: Client, organization: Organization, invoice_items: InvoiceItem[] };
 
 // Define the props expected by this component
 const props = defineProps<{
   invoice: InvoiceWithProject;
 }>();
 
-const printInvoice = () => {
-  window.print();
-};
+const printInvoice = () => { window.print(); };
 
-const formatCurrency = (amount: number) => {
-  return `${amount.toFixed(2)} ${props.invoice.project.currency}`;
-};
 
 // Form for sending the invoice
 const form = useForm({
@@ -45,13 +41,15 @@ const sendInvoice = () => {
   }
 };
 
+const formatCurrency = (amount: number) => `${(amount / 100)} ${props.invoice.currency}`;
+const total_amount = props.invoice.invoice_items.reduce((acc, item) => acc + (Number(item.unit_price) / 1), 0);
 </script>
 
 <template>
   <div class="invoice-container">
     <div class="invoice-header">
-      <h1>Invoice #{{ invoice.invoice_number }}</h1>
-      <p>Invoice date{{ invoice.created_at }}</p>
+      <h1>Invoice #{{ invoice.serial_number }}</h1>
+      <p>Invoice date  {{ useDateFormat(invoice.created_at, 'YYYY-MM-DD') }}</p>
     </div>
 
     <div class="invoice-details">
@@ -76,20 +74,22 @@ const sendInvoice = () => {
         <thead>
           <tr>
             <th>Description</th>
+            <th class="text-right">Quantity</th>
             <th class="text-right">Amount</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Project: {{ invoice.project?.type }}</td>
-            <td class="text-right">{{ formatCurrency(invoice.amount) }}</td>
+          <tr v-for="item in invoice.invoice_items" :key="item.id">
+            <td>{{ item.description }}</td>
+            <td>{{ item.quantity }}</td>
+            <td class="text-right">{{ formatCurrency(Number(item.unit_price)) }}</td>
           </tr>
           <!-- Add more line items here if your invoice structure supports it -->
         </tbody>
         <tfoot>
           <tr>
-            <td class="text-right"><strong>Total:</strong></td>
-            <td class="text-right"><strong>{{ formatCurrency(invoice.amount) }}</strong></td>
+            <td colspan="2" class="text-right"><strong>Total:</strong></td>
+            <td class="text-right"><strong>{{ formatCurrency(total_amount) }}</strong></td>
           </tr>
         </tfoot>
       </table>
@@ -98,13 +98,14 @@ const sendInvoice = () => {
     <!-- Add sections for notes, terms, etc. if needed -->
     <div class="invoice-notes">
       <h2>Notes:</h2>
-      <p>Thank you for your business!</p>
+      <p>{{ invoice.description }}</p>
     </div>
 
     <div class="invoice-footer">
       <!-- Add footer details like bank info, etc. -->
       How to pay this invoice:
       ---
+      <p><strong>Thank you for your business!</strong></p>
     </div>
 
     <div class="print-button-container no-print">

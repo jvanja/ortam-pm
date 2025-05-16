@@ -13,14 +13,14 @@ export interface cache_locksEntity {
   'owner': string;
 }
 export interface clientsEntity {
-  'address': string;
+  'address'?: string | null;
   'company_name': string;
   'contact_person': string;
   'created_at'?: Date | null;
   'email': string;
   'id'?: string;
   'organization_id': string;
-  'phone': string;
+  'phone'?: string | null;
   'updated_at'?: Date | null;
 }
 export interface failed_jobsEntity {
@@ -32,6 +32,16 @@ export interface failed_jobsEntity {
   'queue': string;
   'uuid': string;
 }
+export interface filesEntity {
+  'created_at'?: Date | null;
+  'id': string;
+  'mime_type': string;
+  'name': string;
+  'parent_id': string;
+  'path': string;
+  'size': string;
+  'updated_at'?: Date | null;
+}
 export interface invitationsEntity {
   'created_at'?: Date | null;
   'email': string;
@@ -42,15 +52,59 @@ export interface invitationsEntity {
   'token': string;
   'updated_at'?: Date | null;
 }
-export interface invoicesEntity {
-  'amount': number;
-  'client_id': string;
+export interface invoice_itemsEntity {
   'created_at'?: Date | null;
+  'currency'?: string | null;
+  'description'?: string | null;
+  'discount_percentage'?: number | null;
   'id'?: string;
-  'invoice_number': string;
-  'organization_id': string;
-  'project_id': string;
-  'status': 'draft' | 'sent' | 'paid' | 'canceled' | 'overdue';
+  'invoice_id': string;
+  'label'?: string | null;
+  'metadata'?: Object | null;
+  'quantity'?: number;
+  'quantity_unit'?: string | null;
+  'tax_percentage'?: number | null;
+  'unit_discount'?: string | null;
+  'unit_price'?: string | null;
+  'unit_tax'?: string | null;
+  'updated_at'?: Date | null;
+}
+export interface invoicesEntity {
+  'buyer_id'?: string | null;
+  'buyer_information'?: Object | null;
+  'buyer_type'?: string | null;
+  'client_id'?: string;
+  'created_at'?: Date | null;
+  'currency'?: string | null;
+  'description'?: string | null;
+  'discount_amount'?: string | null;
+  'discounts'?: Object | null;
+  'due_at'?: Date | null;
+  'id'?: string;
+  'invoiceable_id'?: string | null;
+  'invoiceable_type'?: string | null;
+  'logo'?: any | null;
+  'metadata'?: Object | null;
+  'parent_id'?: string | null;
+  'project_id'?: string;
+  'seller_id'?: string | null;
+  'seller_information'?: Object | null;
+  'seller_type'?: string | null;
+  'serial_number': string;
+  'serial_number_count': string;
+  'serial_number_format': string;
+  'serial_number_month'?: number | null;
+  'serial_number_prefix'?: string | null;
+  'serial_number_serie'?: string | null;
+  'serial_number_year'?: number | null;
+  'state': string;
+  'state_set_at'?: Date | null;
+  'subtotal_amount'?: string | null;
+  'tax_amount'?: string | null;
+  'tax_exempt'?: string | null;
+  'tax_type'?: string | null;
+  'total_amount'?: string | null;
+  'type'?: string;
   'updated_at'?: Date | null;
 }
 export interface job_batchesEntity {
@@ -91,8 +145,10 @@ export interface model_has_rolesEntity {
 }
 export interface organizationsEntity {
   'address': string;
+  'brand_color': string;
   'created_at'?: Date | null;
   'id'?: string;
+  'logo'?: string | null;
   'name': string;
   'updated_at'?: Date | null;
 }
@@ -143,7 +199,7 @@ export interface project_pipeline_stagesEntity {
   'is_system_default'?: any;
   'name': string;
   'notes'?: string | null;
-  'project_id': string;
+  'project_id'?: string | null;
   'stage_order'?: number;
   'status'?: string;
   'updated_at'?: Date | null;
@@ -155,20 +211,20 @@ export interface project_userEntity {
   'user_id': string;
 }
 export interface projectsEntity {
-  'address': string;
-  'budget': number;
+  'address'?: string | null;
+  'budget'?: number | null;
   'client_id': string;
   'created_at'?: Date | null;
-  'currency'?: string | null;
+  'currency': string;
   'current_project_pipeline_stage_id'?: string | null;
-  'deadline': Date;
-  'department': string;
+  'deadline'?: Date | null;
+  'department'?: string | null;
   'id'?: string;
   'language': 'english' | 'french';
-  'manager': string;
-  'opening_date': Date;
+  'manager'?: string | null;
+  'opening_date'?: Date | null;
   'organization_id': string;
-  'sales_representative_name': string;
+  'sales_representative_name'?: string | null;
   'status': 'ongoing' | 'completed' | 'canceled';
   'type': string;
   'updated_at'?: Date | null;

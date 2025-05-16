@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Enums\InvoiceStatus; // Import the InvoiceStatus enum
 use App\Mail\InvoiceSent; // Import the new Mailable
 use App\Models\Client; // Import the Client model
-use App\Models\Invoice;
 use App\Models\Project; // Import the Project model
+use Elegantly\Invoices\Models\Invoice;
+use Elegantly\Invoices\Models\InvoiceItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail; // Import the Mail facade
@@ -66,8 +67,13 @@ class InvoiceController extends Controller {
   public function show(Invoice $invoice) {
     $this->authorize('invoice.view', Invoice::class);
 
-    // Load necessary relationships
-    $invoice->load(['client', 'project', 'organization']);
+    $project = Project::find($invoice->project_id);
+    $client = Client::find($invoice->client_id);
+    $invoice_items = InvoiceItem::where('invoice_id', $invoice->id)->get();
+
+    $invoice->project = $project;
+    $invoice->client = $client;
+    $invoice->invoice_items = $invoice_items;
 
     return Inertia::render('invoices/Show', [
       'invoice' => $invoice,

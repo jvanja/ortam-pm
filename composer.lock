@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "09f2c027ab8578bf8a1d404018acd91c",
+    "content-hash": "95555815b9ec6fb3ff91d85b5c058497",
     "packages": [
         {
             "name": "ahmedsaoud31/laravel-permission-to-vuejs",
@@ -190,6 +190,63 @@
                 }
             ],
             "time": "2025-02-28T13:11:00+00:00"
+        },
+        {
+            "name": "brick/money",
+            "version": "0.10.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brick/money.git",
+                "reference": "779c1d3b708e4dd37fe8a32a189b9f241b52f194"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brick/money/zipball/779c1d3b708e4dd37fe8a32a189b9f241b52f194",
+                "reference": "779c1d3b708e4dd37fe8a32a189b9f241b52f194",
+                "shasum": ""
+            },
+            "require": {
+                "brick/math": "~0.12.0|~0.13.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "brick/varexporter": "~0.5.0",
+                "ext-dom": "*",
+                "ext-pdo": "*",
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpunit/phpunit": "^10.1",
+                "vimeo/psalm": "6.3.0"
+            },
+            "suggest": {
+                "ext-intl": "Required to format Money objects"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brick\\Money\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Money and currency library",
+            "keywords": [
+                "brick",
+                "currency",
+                "money"
+            ],
+            "support": {
+                "issues": "https://github.com/brick/money/issues",
+                "source": "https://github.com/brick/money/tree/0.10.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/BenMorel",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-03-05T13:00:01+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -789,6 +846,157 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "elegantly/laravel-invoices",
+            "version": "v4.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ElegantEngineeringTech/laravel-invoices.git",
+                "reference": "6d4bc6b5593a9522003aa0a6e8d2406dbd90cf61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ElegantEngineeringTech/laravel-invoices/zipball/6d4bc6b5593a9522003aa0a6e8d2406dbd90cf61",
+                "reference": "6d4bc6b5593a9522003aa0a6e8d2406dbd90cf61",
+                "shasum": ""
+            },
+            "require": {
+                "dompdf/dompdf": "^3.1",
+                "elegantly/laravel-money": "^2.1.0",
+                "illuminate/contracts": "^11.0||^12.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.14"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.14",
+                "nunomaduro/collision": "^8.1.1",
+                "orchestra/testbench": "^9.0.0||^10.0.0",
+                "pestphp/pest": "^3.0",
+                "pestphp/pest-plugin-arch": "^3.0",
+                "pestphp/pest-plugin-laravel": "^3.0",
+                "phpstan/extension-installer": "^1.3||^2.0",
+                "phpstan/phpstan-deprecation-rules": "^1.1||^2.0",
+                "phpstan/phpstan-phpunit": "^1.3||^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Invoice": "Elegantly\\Invoices\\Facades\\Invoice"
+                    },
+                    "providers": [
+                        "Elegantly\\Invoices\\InvoiceServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Elegantly\\Invoices\\": "src",
+                    "Elegantly\\Invoices\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Quentin Gabriele",
+                    "email": "quentin.gabriele@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Store invoices safely in your Laravel application",
+            "homepage": "https://github.com/ElegantEngineeringTech/laravel-invoices",
+            "keywords": [
+                "Elegantly",
+                "invoices",
+                "laravel",
+                "laravel-invoices"
+            ],
+            "support": {
+                "issues": "https://github.com/ElegantEngineeringTech/laravel-invoices/issues",
+                "source": "https://github.com/ElegantEngineeringTech/laravel-invoices/tree/v4.1.1"
+            },
+            "time": "2025-03-19T14:37:27+00:00"
+        },
+        {
+            "name": "elegantly/laravel-money",
+            "version": "v2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ElegantEngineeringTech/laravel-money.git",
+                "reference": "935e888f521673ddd05c6402d0c85aad0ea5ed99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ElegantEngineeringTech/laravel-money/zipball/935e888f521673ddd05c6402d0c85aad0ea5ed99",
+                "reference": "935e888f521673ddd05c6402d0c85aad0ea5ed99",
+                "shasum": ""
+            },
+            "require": {
+                "brick/money": "^0.10.0",
+                "illuminate/contracts": "^10.0||^11.0||^12.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.13.0"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.14",
+                "nunomaduro/collision": "^8.1.1||^7.10.0",
+                "orchestra/testbench": "^8.22.0||^9.0.0||^10.0.0",
+                "pestphp/pest": "^3.0",
+                "pestphp/pest-plugin-arch": "^3.0",
+                "pestphp/pest-plugin-laravel": "^3.0",
+                "phpstan/extension-installer": "^1.3||^2.0",
+                "phpstan/phpstan-deprecation-rules": "^1.1||^2.0",
+                "phpstan/phpstan-phpunit": "^1.3||^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Elegantly\\Money\\MoneyServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Elegantly\\Money\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Quentin Gabriele",
+                    "email": "quentin.gabriele@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Use Brick/Money in your Laravel app",
+            "homepage": "https://github.com/ElegantEngineeringTech/laravel-money",
+            "keywords": [
+                "Elegantly",
+                "laravel",
+                "laravel-money",
+                "money"
+            ],
+            "support": {
+                "issues": "https://github.com/ElegantEngineeringTech/laravel-money/issues",
+                "source": "https://github.com/ElegantEngineeringTech/laravel-money/tree/v2.2.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/ElegantEngineeringTech",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-04-14T16:55:22+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -3765,6 +3973,67 @@
                 "source": "https://github.com/MyIntervals/PHP-CSS-Parser/tree/v8.8.0"
             },
             "time": "2025-03-23T17:59:05+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.92.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "d20b1969f836d210459b78683d85c9cd5c5f508c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/d20b1969f836d210459b78683d85c9cd5c5f508c",
+                "reference": "d20b1969f836d210459b78683d85c9cd5c5f508c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^9.28|^10.0|^11.0|^12.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "orchestra/testbench": "^7.7|^8.0|^9.0|^10.0",
+                "pestphp/pest": "^1.23|^2.1|^3.1",
+                "phpunit/php-code-coverage": "^9.0|^10.0|^11.0",
+                "phpunit/phpunit": "^9.5.24|^10.5|^11.5",
+                "spatie/pest-plugin-test-time": "^1.1|^2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.92.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-04-11T15:27:14+00:00"
         },
         {
             "name": "spatie/laravel-permission",

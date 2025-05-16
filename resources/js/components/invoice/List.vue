@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import type { Invoice } from '@/types';
 import { useDateFormat } from '@vueuse/core';
-import { PlusCircle } from 'lucide-vue-next';
+import { Currency, PlusCircle } from 'lucide-vue-next';
 
 const props = defineProps({
   invoices: Array<Invoice>,
@@ -12,6 +12,7 @@ const props = defineProps({
     default: 'USD',
   },
 });
+console.log(props.currency)
 const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: props.currency }).format(amount);
 };
@@ -36,16 +37,16 @@ const formatCurrency = (amount: number) => {
           <TableBody>
             <TableRow v-for="invoice in props.invoices" :key="invoice.id">
               <TableCell class="whitespace-nowrap px-6 py-4">
-                <div class="text-sm">{{ invoice.invoice_number }}</div>
+                <div class="text-sm">{{ invoice.serial_number }}</div>
               </TableCell>
               <TableCell class="whitespace-nowrap px-6 py-4">
                 <div class="text-sm">{{ useDateFormat(invoice.created_at, 'YYYY-MM-DD') }}</div>
               </TableCell>
               <TableCell class="whitespace-nowrap px-6 py-4">
-                <div class="text-sm">{{ formatCurrency(invoice.amount) }}</div>
+                <div class="text-sm">{{ formatCurrency(Number(invoice.total_amount)) }}</div>
               </TableCell>
               <TableCell class="whitespace-nowrap px-6 py-4">
-                <div class="text-sm">{{ invoice.status }}</div>
+                <div class="text-sm">{{ invoice.state }}</div>
               </TableCell>
               <TableCell class="whitespace-nowrap px-6 py-4">
                 <div class="flex items-center gap-2">

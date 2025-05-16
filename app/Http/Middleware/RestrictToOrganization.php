@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Invoice;
 use App\Models\Project;
 use Closure;
 use Illuminate\Http\Request;
@@ -27,11 +26,11 @@ class RestrictToOrganization {
       if (!$model) {
         abort(404, 'Project not found.');
       }
-    } elseif ($invoiceId) {
-      $model = Invoice::find($invoiceId);
-      if (!$model) {
-        abort(404, 'Invoice not found.');
-      }
+    // } elseif ($invoiceId) {
+    //   $model = Invoice::find($invoiceId);
+    //   if (!$model) {
+    //     abort(404, 'Invoice not found.');
+    //   }
     } else {
       // No relevant model in the route, proceed
       return $next($request);

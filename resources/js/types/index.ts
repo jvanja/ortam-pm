@@ -28,6 +28,7 @@ export interface SharedData extends PageProps {
 import type {
   clientsEntity,
   invitationsEntity,
+  invoice_itemsEntity,
   invoicesEntity,
   organizationsEntity,
   p_c_a_reportsEntity,
@@ -65,6 +66,12 @@ export interface Client extends Omit<clientsEntity, 'id' | 'created_at' | 'updat
 }
 
 export interface Invoice extends Omit<invoicesEntity, 'id' | 'created_at' | 'updated_at'> {
+  id: string; // Assuming ID is always present
+  created_at: Date | string;
+  updated_at: Date | string | null;
+}
+
+export interface InvoiceItem extends Omit<invoice_itemsEntity, 'id' | 'created_at' | 'updated_at'> {
   id: string; // Assuming ID is always present
   created_at: Date | string;
   updated_at: Date | string | null;

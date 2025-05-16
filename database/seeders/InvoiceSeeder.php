@@ -11,8 +11,8 @@ class InvoiceSeeder extends Seeder {
    * Run the database seeds.
    */
   public function run(): void {
-    Invoice::factory(100)->create()->each(function ($invoice) {
-      InvoiceItem::factory(3)->create(['invoice_id' => $invoice->id]);
-    });
+    // Invoice::factory(100)->create()->each(function ($invoice) {
+    //   InvoiceItem::factory(3)->create(['invoice_id' => $invoice->id]);
+    // });
   }
 }

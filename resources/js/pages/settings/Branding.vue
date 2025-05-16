@@ -55,6 +55,7 @@ const submit = () => {
             <Label for="logo">Logo</Label>
 
             <div class="flex gap-2">
+              <!-- @vue-ignore -->
               <img v-if="logo" :src="logo" class="h-10 w-10 object-cover" @click="$refs.file.$el.click()" />
               <Input type="file" @input="form.logo = $event.target.files[0]" class="" ref="file" />
             </div>

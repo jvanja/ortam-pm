@@ -3,7 +3,7 @@
 
 Dear {{ $invoice->client->contact_person ?? $invoice->client->company_name }},
 
-Please find attached Invoice #{{ $invoice->serial_number }} for the amount of {{ number_format($invoice->total_amount, 2) }} {{ $invoice->project->currency }}.
+Please find attached Invoice #{{ $invoice->serial_number }} for the amount of {{ $invoice->total_amount }}.
 
 This invoice is for the project: **{{ $invoice->project->type }}**.
 

@@ -26,7 +26,7 @@ const sendInvoice = () => {
     console.log(props.invoice.id);
     form.post(route('invoices.send', [props.invoice.id]), {
       onSuccess: () => {
-        // Handle success, maybe show a flash message (handled by Inertia redirects)
+        console.log('Invoice sent successfully!');
       },
       onError: (errors) => {
         // Handle errors, e.g., client email missing

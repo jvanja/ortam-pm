@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\InvoiceStatus; // Import the InvoiceStatus enum
 use App\Mail\InvoiceSent; // Import the new Mailable
+use App\Models\Client; // Import the Client model
 use App\Models\Invoice;
+use App\Models\Project; // Import the Project model
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail; // Import the Mail facade
@@ -22,14 +25,39 @@ class InvoiceController extends Controller {
    * Show the form for creating a new resource.
    */
   public function create() {
-    return Inertia::render('invoices/Add');
+    // Fetch clients and projects for the dropdowns
+    // Assuming Client and Project models have the organization global scope
+    $clients = Client::orderBy('company_name')->get(['id', 'company_name']);
+    $projects = Project::orderBy('type')->get(['id', 'type']);
+
+    // Get the available invoice statuses from the enum
+    $statuses = InvoiceStatus::cases();
+    return Inertia::render('invoices/Add', [
+        'clients' => $clients,
+        'projects' => $projects,
+        'statuses' => $statuses, // Pass statuses to the frontend
+    ]);
   }
 
   /**
    * Store a newly created resource in storage.
    */
   public function store(Request $request) {
-    //
+    // Validate the incoming request data
+    $validated = $request->validate([
+        'amount' => ['required', 'numeric', 'min:0'],
+        'status' => ['required', 'string', Rule::in(InvoiceStatus::cases())], // Validate against enum values
+        'project_id' => ['required', 'exists:projects,id'], // Ensure project exists
+        'client_id' => ['required', 'exists:clients,id'], // Ensure client exists
+        // invoice_number can be generated in the backend if needed, or added here if manual
+    ]);
+
+    // Create the new invoice
+    // The organization_id will be automatically added by the global scope on the Invoice model
+    $invoice = Invoice::create($validated);
+
+    // Redirect to the newly created invoice's show page
+    return redirect()->route('invoices.show', $invoice)->with('success', 'Invoice created successfully!');
   }
 
   /**

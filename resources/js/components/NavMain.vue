@@ -54,7 +54,7 @@ const hasPermission = (permission: string) => {
     <SidebarMenu>
       <SidebarMenuItem v-for="item in mainNavItems" :key="item.title">
         <SidebarMenuButton as-child :is-active="item.href === page.url">
-          <Link v-if="hasPermission(item.permission)" :href="item.href">
+          <Link v-if="hasPermission(item.permission)" :href="item.href" :title="item.title">
             <component :is="item.icon" />
             <span>{{ item.title }}</span>
           </Link>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
 class Invoice extends Model {
@@ -14,7 +15,6 @@ class Invoice extends Model {
 
   protected $fillable = [
     'invoice_number',
-    'amount',
     'status',
     'project_id',
     'client_id',
@@ -22,8 +22,6 @@ class Invoice extends Model {
   ];
 
   protected $casts = [
-    'id' => 'string',
-    'amount' => 'float',
     'status' => InvoiceStatus::class,
   ];
 
@@ -38,6 +36,10 @@ class Invoice extends Model {
         $builder->where('organization_id', Auth::user()->organization_id);
       }
     });
+  }
+
+  public function invoiceItems(): HasMany {
+    return $this->hasMany(InvoiceItem::class);
   }
 
   public function project(): BelongsTo {

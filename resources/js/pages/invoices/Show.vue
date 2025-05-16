@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import { Invoice, Project, Client, Organization } from '@/types'; // Assuming you have a type definition for Invoice
-import { router, useForm } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 
 type InvoiceWithProject = Invoice & { project: Project, client: Client, organization: Organization };
 

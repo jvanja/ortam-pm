@@ -2,6 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Client, Invoice } from '@/types';
 import ObjectList from '@/components/ObjectList.vue'; // Import ObjectList
+import InvoicesList from '@/components/invoice/List.vue';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
-import { useDateFormat } from '@vueuse/core';
 
 // Define props including projects
 const props = defineProps<{
@@ -22,8 +22,6 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Clients', href: '/clients' },
   { title: props.client.company_name, href: '' },
 ];
-
-console.log(props)
 const client = { ...props.client };
 const form = useForm(client);
 const submit = () => {
@@ -76,67 +74,8 @@ const submit = () => {
         </Card>
         <!-- End Projects Card -->
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Invoices</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div class="overflow-x-auto">
-              <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                  <tr>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Invoice Number
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Date
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Amount
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Status
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"/>
-                  </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                  <tr v-for="invoice in props.invoices" :key="invoice.id">
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="text-sm text-gray-900">{{ invoice.invoice_number }}</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm text-gray-900">{{ useDateFormat(invoice.created_at, 'YYYY-MM-DD') }}</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="text-sm text-gray-900">{{ invoice.amount }}</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="text-sm text-gray-900">{{ invoice.status ? 'Paid' : 'Not paid'}}</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                      <div class="text-sm text-gray-900">
-                        <a :href="`/invoices/${invoice.id}/edit`">Edit</a>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
+        <!-- Invoices -->
+        <InvoicesList :invoices currency="EUR"></InvoicesList>
       </div>
     </div>
   </AppLayout>

@@ -10,6 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -75,20 +76,20 @@ function deleteInvoice() {
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-6">
-      <table class="mb-4 min-w-full divide-y divide-gray-200 border">
-        <thead class="bg-gray-50">
-          <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">client</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">project</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-200 bg-white">
-          <tr>
-            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{{ invoice.client.company_name }}</td>
-            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-900">{{ invoice.project.type }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table class="mb-4 min-w-full divide-y divide-gray-200 border">
+        <TableHeader>
+          <TableRow>
+            <TableHead scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">client</TableHead>
+            <TableHead scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">project</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody class="divide-y divide-gray-200">
+          <TableRow>
+            <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ invoice.client.company_name }}</TableCell>
+            <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ invoice.project.type }}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
 
       <form @submit.prevent="updateInvoice" class="space-y-6 rounded border bg-card p-6 text-card-foreground shadow">
         <div>

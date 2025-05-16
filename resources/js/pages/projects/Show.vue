@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ProjectPipeline, ProjectDetailsCard, ProjectEmployeesCard, ProjectInvoicesCard } from '@/components/project';
+import { ProjectPipeline, ProjectDetailsCard, ProjectEmployeesCard } from '@/components/project';
+import InvoicesList from '@/components/invoice/List.vue';
 import type { BreadcrumbItem, Client, Project, ProjectPipelineStage, User, Invoice } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
@@ -93,7 +94,7 @@ const defaultTab = window.location.hash.slice(1) || 'pipeline';
             <ProjectEmployeesCard :employees="employees" :projectEmployeeForm="projectEmployeeForm" :removeEmployee="removeEmployee" />
           </TabsContent>
            <TabsContent value="invoices" class="flex-1">
-            <ProjectInvoicesCard :invoices="invoices" :currency="project.currency!" />
+            <InvoicesList :invoices="invoices" :currency="project.currency || 'USD'"/>
           </TabsContent>
         </div>
       </Tabs>

@@ -83,13 +83,15 @@ class OrganizationController extends Controller {
     ]);
 
 
-    $path = $request->file('logo')->store('logos', 'public'); // Store in 'storage/app/public/logos'
-    if ($path) {
-      $imageUrl = Storage::url($path); // Generate the public URL
-      $organization->logo = $imageUrl;
-    } else {
-      // Handle error: file not stored
-      return redirect()->back()->with('error', 'Failed to upload logo.');
+    if ($request->hasFile('logo')) {
+      $path = $request->file('logo')->store('logos', 'public'); // Store in 'storage/app/public/logos'
+      if ($path) {
+        $imageUrl = Storage::url($path); // Generate the public URL
+        $organization->logo = $imageUrl;
+      } else {
+        // Handle error: file not stored
+        return redirect()->back()->with('error', 'Failed to upload logo.');
+      }
     }
 
     // Example: Update brand color

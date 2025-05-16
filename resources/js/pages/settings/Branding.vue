@@ -26,11 +26,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const form = useForm({
-  logo: props.logo,
+  logo: null,
   brand_color: props.brand_color,
 });
-
-console.log(props.logo);
 
 const page = usePage<SharedData>();
 const user = page.props.auth.user as User;
@@ -57,8 +55,8 @@ const submit = () => {
             <Label for="logo">Logo</Label>
 
             <div class="flex gap-2">
-              <img v-if="logo" :src="logo" class="h-10 w-10 object-cover" />
-              <Input type="file" @input="form.logo = $event.target.files[0]" class="hidden" />
+              <img v-if="logo" :src="logo" class="h-10 w-10 object-cover" @click="$refs.file.$el.click()" />
+              <Input type="file" @input="form.logo = $event.target.files[0]" class="" ref="file" />
             </div>
             <progress v-if="form.progress" :value="form.progress.percentage" max="100">{{ form.progress.percentage }}%</progress>
             <InputError class="mt-2" :message="form.errors.logo" />
@@ -66,7 +64,16 @@ const submit = () => {
 
           <div class="grid gap-2">
             <Label for="brand_color">Brand color</Label>
-            <Input id="brand_color" type="text" class="mt-1 block w-full" v-model="form.brand_color" required placeholder="#ff00ff" />
+            <p class="text-sm text-neutral-400">Used for documents you sent out like invoices and emails.</p>
+            <Input
+              id="brand_color"
+              type="color"
+              class="mt-1 block size-[100px]"
+              v-model="form.brand_color"
+              :value="form.brand_color"
+              required
+              placeholder="#ff00ff"
+            />
             <InputError class="mt-2" :message="form.errors.brand_color" />
           </div>
 

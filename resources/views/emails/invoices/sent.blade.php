@@ -1,9 +1,9 @@
 @component('mail::message')
-# Invoice #{{ $invoice->invoice_number }}
+# Invoice #{{ $invoice->serial_number }}
 
 Dear {{ $invoice->client->contact_person ?? $invoice->client->company_name }},
 
-Please find attached Invoice #{{ $invoice->invoice_number }} for the amount of {{ number_format($invoice->amount, 2) }} {{ $invoice->project->currency }}.
+Please find attached Invoice #{{ $invoice->serial_number }} for the amount of {{ number_format($invoice->total_amount, 2) }} {{ $invoice->project->currency }}.
 
 This invoice is for the project: **{{ $invoice->project->type }}**.
 
@@ -19,5 +19,5 @@ Thank you for your business!
 
 Regards,
 
-{{ $invoice->organization->name ?? config('app.name') }}
+{{ $invoice->project->organization->name ?? config('app.name') }}
 @endcomponent

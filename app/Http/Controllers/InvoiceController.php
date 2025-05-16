@@ -87,8 +87,11 @@ class InvoiceController extends Controller {
     // Authorize the action (you might need a specific 'invoice.send' policy)
     $this->authorize('invoice.edit', $invoice); // Using 'edit' as a placeholder, adjust if needed
 
-    // Ensure client relationship is loaded for the email address
-    $invoice->load('client', 'project');
+    $project = Project::find($invoice->project_id);
+    $client = Client::find($invoice->client_id);
+
+    $invoice->project = $project;
+    $invoice->client = $client;
 
     // Check if the client has an email address
     if (empty($invoice->client->email)) {

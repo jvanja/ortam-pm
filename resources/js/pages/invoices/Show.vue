@@ -1,18 +1,19 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
-import { Invoice, InvoiceItem, Project, Client, Organization } from '@/types'; // Assuming you have a type definition for Invoice
+import { Client, Invoice, InvoiceItem, Organization, Project } from '@/types'; // Assuming you have a type definition for Invoice
 import { useForm } from '@inertiajs/vue3';
-import { useDateFormat } from '@vueuse/core'
+import { useDateFormat } from '@vueuse/core';
+import { defineProps } from 'vue';
 
-type InvoiceWithProject = Invoice & { project: Project, client: Client, organization: Organization, invoice_items: InvoiceItem[] };
+type InvoiceWithProject = Invoice & { project: Project; client: Client; organization: Organization; invoice_items: InvoiceItem[] };
 
 // Define the props expected by this component
 const props = defineProps<{
   invoice: InvoiceWithProject;
 }>();
 
-const printInvoice = () => { window.print(); };
-
+const printInvoice = () => {
+  window.print();
+};
 
 // Form for sending the invoice
 const form = useForm({
@@ -32,30 +33,32 @@ const sendInvoice = () => {
         console.error('Error sending invoice:', errors);
         // You might want to display a user-friendly error message
         if (errors && errors.error) {
-             alert(errors.error); // Display the error message from the backend
+          alert(errors.error); // Display the error message from the backend
         } else {
-             alert('Failed to send invoice.');
+          alert('Failed to send invoice.');
         }
       },
     });
   }
 };
 
-const formatCurrency = (amount: number) => `${(amount / 100)} ${props.invoice.currency}`;
-const total_amount = props.invoice.invoice_items.reduce((acc, item) => acc + (Number(item.unit_price) / 1), 0);
+const formatCurrency = (amount: number) => `${amount / 100} ${props.invoice.currency}`;
+const total_amount = props.invoice.invoice_items.reduce((acc, item) => acc + Number(item.unit_price) / 1, 0);
 </script>
 
 <template>
   <div class="invoice-container">
     <div class="invoice-header">
       <h1>Invoice #{{ invoice.serial_number }}</h1>
-      <p>Invoice date  {{ useDateFormat(invoice.created_at, 'YYYY-MM-DD') }}</p>
+      <p>Invoice date {{ useDateFormat(invoice.created_at, 'YYYY-MM-DD') }}</p>
     </div>
 
     <div class="invoice-details">
       <div class="organization-details">
         <h2>From:</h2>
-        <p><strong>{{ invoice.organization?.name }}</strong></p>
+        <p>
+          <strong>{{ invoice.organization?.name }}</strong>
+        </p>
         <p>{{ invoice.project?.manager }}</p>
         <p>{{ invoice.organization?.address }}</p>
       </div>
@@ -63,9 +66,12 @@ const total_amount = props.invoice.invoice_items.reduce((acc, item) => acc + (Nu
       <div class="client-details">
         <h2>To:</h2>
         <p>{{ invoice.client?.contact_person }}</p>
-        <p><strong>{{ invoice.client?.company_name }}</strong></p>
+        <p>
+          <strong>{{ invoice.client?.company_name }}</strong>
+        </p>
         <p>{{ invoice.client?.address }}</p>
-        <p>{{ invoice.client?.email }}</p> <!-- Display client email -->
+        <p>{{ invoice.client?.email }}</p>
+        <!-- Display client email -->
       </div>
     </div>
 
@@ -89,7 +95,9 @@ const total_amount = props.invoice.invoice_items.reduce((acc, item) => acc + (Nu
         <tfoot>
           <tr>
             <td colspan="2" class="text-right"><strong>Total:</strong></td>
-            <td class="text-right"><strong>{{ formatCurrency(total_amount) }}</strong></td>
+            <td class="text-right">
+              <strong>{{ formatCurrency(total_amount) }}</strong>
+            </td>
           </tr>
         </tfoot>
       </table>
@@ -103,8 +111,7 @@ const total_amount = props.invoice.invoice_items.reduce((acc, item) => acc + (Nu
 
     <div class="invoice-footer">
       <!-- Add footer details like bank info, etc. -->
-      How to pay this invoice:
-      ---
+      How to pay this invoice: ---
       <p><strong>Thank you for your business!</strong></p>
     </div>
 
@@ -190,7 +197,7 @@ const total_amount = props.invoice.invoice_items.reduce((acc, item) => acc + (Nu
   margin-top: 30px;
   /* Add some spacing between buttons */
   & button {
-      margin: 0 5px;
+    margin: 0 5px;
   }
 }
 

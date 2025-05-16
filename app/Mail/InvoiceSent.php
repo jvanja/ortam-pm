@@ -2,13 +2,12 @@
 
 namespace App\Mail;
 
-use App\Models\Invoice;
+use Elegantly\Invoices\Models\Invoice;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Attachment; // Import Attachment
 
 class InvoiceSent extends Mailable {
   use Queueable, SerializesModels;
@@ -30,7 +29,7 @@ class InvoiceSent extends Mailable {
    */
   public function envelope(): Envelope {
     return new Envelope(
-      subject: 'Invoice #' . $this->invoice->invoice_number . ' from ' . ($this->invoice->organization->name ?? config('app.name')),
+      subject: 'Invoice #' . $this->invoice->serial_number . ' from ' . ($this->project->organization->name ?? config('app.name')),
     );
   }
 
@@ -52,12 +51,8 @@ class InvoiceSent extends Mailable {
    * @return array<int, \Illuminate\Mail\Mailables\Attachment>
    */
   public function attachments(): array {
-    // You could add an attachment here, e.g., a PDF of the invoice
-    // return [
-    //     Attachment::fromPath(storage_path('app/invoices/invoice_' . $this->invoice->id . '.pdf'))
-    //         ->as('invoice_' . $this->invoice->invoice_number . '.pdf')
-    //         ->withMime('application/pdf'),
-    // ];
-    return [];
+    return [
+      $this->invoice->toMailAttachment()
+    ];
   }
 }

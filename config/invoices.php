@@ -9,7 +9,7 @@ use Elegantly\Invoices\Models\InvoiceItem;
 
 return [
 
-    'model_invoice' => Invoice::class,
+    'model_invoice' => \App\Models\Invoice::class,
     'model_invoice_item' => InvoiceItem::class,
 
     'discount_class' => InvoiceDiscount::class,
@@ -40,7 +40,7 @@ return [
          * - SSSS-CCCC: 0001-0123
          * - YYCCCC: 220123
          */
-        'format' => 'PPYYCCCC',
+        'format' => 'PPP-YYMMCCCC',
 
         /**
          * Define the default prefix used for each invoice type
@@ -111,7 +111,8 @@ return [
         /**
          * The template used to render the PDF
          */
-        'template' => 'default.layout',
+        'template' => 'emails.invoices.pdf.invoice',
+        // 'template' => 'default.layout',
 
         'template_data' => [
             /**

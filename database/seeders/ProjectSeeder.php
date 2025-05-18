@@ -31,7 +31,11 @@ class ProjectSeeder extends Seeder {
         'project_id' => $proj->id,
         'client_id' => $proj->client_id,
       ])->each(function ($invoice) {
-        InvoiceItemFactory::new()->count(3)->create(['invoice_id' => $invoice->id]);
+          InvoiceItemFactory::new()->count(3)->create([
+            'invoice_id' => $invoice->id,
+            'quantity' => 1,
+            'tax_percentage' => 0,
+          ]);
       });
     });
   }

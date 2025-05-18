@@ -6,7 +6,7 @@ use App\Enums\InvoiceStatus; // Import the InvoiceStatus enum
 use App\Mail\InvoiceSent; // Import the new Mailable
 use App\Models\Client; // Import the Client model
 use App\Models\Project; // Import the Project model
-use Elegantly\Invoices\Models\Invoice;
+use App\Models\Invoice;
 use Elegantly\Invoices\Models\InvoiceItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -75,8 +75,10 @@ class InvoiceController extends Controller {
     $invoice->client = $client;
     $invoice->invoice_items = $invoice_items;
 
+    $invoice_view = $invoice->toPdfInvoice()->view()->toHtml();
     return Inertia::render('invoices/Show', [
       'invoice' => $invoice,
+      'invoice_view' => $invoice_view,
     ]);
   }
 

@@ -101,13 +101,13 @@ class InvoiceController extends Controller {
   public function edit(Invoice $invoice) {
     $this->authorize('invoice.edit', Invoice::class);
 
-    $clients = Client::orderBy('company_name')->get(['id', 'company_name']);
-    $projects = Project::orderBy('type')->get(['id', 'type']);
+    $client = Client::find($invoice->client_id);
+    $project = Project::find($invoice->project_id);
 
     return Inertia::render('invoices/Edit', [
       'invoice' => $invoice,
-      'clients' => $clients,
-      'projects' => $projects,
+      'client' => $client,
+      'project' => $project,
     ]);
   }
 

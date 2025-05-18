@@ -22,17 +22,18 @@ import { toast } from 'vue-sonner';
 
 // Define props to receive invoice data from the controller
 const props = defineProps<{ invoice: Invoice, client: Client, project: Project  }>();
+console.log(props.project);
 
 // Breadcrumbs for navigation
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Invoices', href: route('invoices.index') }, // Assuming route('invoices.index') exists
-  { title: `Invoice #${props.invoice.serial_nmber}`, href: '' },
+  { title: `Invoice #${props.invoice.serial_number}`, href: '' },
 ];
 
 // Form helper for updating the invoice
 const form = useForm({
-  amount: props.invoice.amount,
-  status: props.invoice.status,
+  amount: props.invoice.total_amount,
+  state: props.invoice.state,
 });
 
 // Available invoice statuses (adjust as needed)
@@ -72,7 +73,7 @@ function deleteInvoice() {
 </script>
 
 <template>
-  <Head :title="`Invoice number: ${invoice.serial_nmber}`" />
+  <Head :title="`Invoice number: ${invoice.serial_number}`" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-6">
@@ -85,16 +86,16 @@ function deleteInvoice() {
         </TableHeader>
         <TableBody class="divide-y divide-gray-200">
           <TableRow>
-            <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ invoice.client.company_name }}</TableCell>
-            <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ invoice.project.type }}</TableCell>
+            <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ client.company_name }}</TableCell>
+            <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ project.type }}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
 
       <form @submit.prevent="updateInvoice" class="space-y-6 rounded border bg-card p-6 text-card-foreground shadow">
         <div>
-          <Label for="serial_nmber">Invoice Number</Label>
-          <Input id="serial_nmber" :model-value="invoice.serial_nmber" disabled class="mt-1 bg-muted" />
+          <Label for="serial_number">Invoice Number</Label>
+          <Input id="serial_number" :model-value="invoice.serial_number" disabled class="mt-1 bg-muted" />
         </div>
 
         <!-- Amount (Editable) -->
@@ -112,19 +113,19 @@ function deleteInvoice() {
               class="mt-1"
               :disabled="form.processing"
               aria-describedby="amount-error"
-            />{{ invoice.project.currency }}
+            />{{ invoice.currency }}
           </div>
           <p v-if="form.errors.amount" id="amount-error" class="mt-1 text-sm text-destructive">
             {{ form.errors.amount }}
           </p>
         </div>
 
-        <!-- Status (Editable Dropdown) -->
+        <!-- state (Editable Dropdown) -->
         <div>
-          <Label for="status">Status</Label>
-          <Select v-model="form.status" :disabled="form.processing">
-            <SelectTrigger id="status" class="mt-1" aria-describedby="status-error">
-              <SelectValue placeholder="Select status" />
+          <Label for="state">State</Label>
+          <Select v-model="form.state" :disabled="form.processing">
+            <SelectTrigger id="state" class="mt-1" aria-describedby="state-error">
+              <SelectValue placeholder="Select state" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -134,8 +135,8 @@ function deleteInvoice() {
               </SelectGroup>
             </SelectContent>
           </Select>
-          <p v-if="form.errors.status" id="status-error" class="mt-1 text-sm text-destructive">
-            {{ form.errors.status }}
+          <p v-if="form.errors.state" id="state-error" class="mt-1 text-sm text-destructive">
+            {{ form.errors.state }}
           </p>
         </div>
 
@@ -150,7 +151,7 @@ function deleteInvoice() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the invoice #{{ invoice.serial_nmber }}.
+                  This action cannot be undone. This will permanently delete the invoice #{{ invoice.serial_number }}.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

@@ -12,7 +12,7 @@ import { Head, useForm } from '@inertiajs/vue3'; // Import useForm
 const props = defineProps<{
   clients: { id: string; company_name: string }[];
   projects: { id: string; type: string }[];
-  statuses: { name: string; value: string }[]; // Assuming enum cases are passed as objects with name/value
+  states: { name: string; value: string }[]; // Assuming enum cases are passed as objects with name/value
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Invoices', href: '/invoices' }];
@@ -20,7 +20,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Invoices', href: '/invoices' }]
 // Initialize the form using useForm
 const form = useForm({
   amount: 0.0,
-  status: 'draft', // Default status
+  state: 'draft', // Default state
   project_id: '',
   client_id: '',
 });
@@ -48,22 +48,22 @@ const submit = () => {
           <InputError class="mt-2" :message="form.errors.amount" />
         </div>
 
-        <!-- Status -->
+        <!-- state -->
         <div class="mb-4">
-          <Label for="status" value="Status" />
-          <Select v-model="form.status" required>
+          <Label for="state" value="state" />
+          <Select v-model="form.state" required>
             <SelectTrigger>
-              <SelectValue placeholder="Invoice status" />
+              <SelectValue placeholder="Invoice state" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem id="status" v-for="status in statuses" :key="status.value" :value="status">
-                  {{ status }}
+                <SelectItem v-for="state in states" :key="state.value" :value="state">
+                  {{ state }}
                 </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
-          <InputError class="mt-2" :message="form.errors.status" />
+          <InputError class="mt-2" :message="form.errors.state" />
         </div>
 
         <!-- Client -->

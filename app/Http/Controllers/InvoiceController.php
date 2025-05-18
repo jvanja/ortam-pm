@@ -22,12 +22,12 @@ class InvoiceController extends Controller {
   public function create() {
     $clients = Client::orderBy('company_name')->get(['id', 'company_name']);
     $projects = Project::orderBy('type')->get(['id', 'type']);
-
     $states = InvoiceState::cases();
+
     return Inertia::render('invoices/Add', [
         'clients' => $clients,
         'projects' => $projects,
-        'state' => $states,
+        'states' => $states,
     ]);
   }
 
@@ -36,7 +36,7 @@ class InvoiceController extends Controller {
    */
   public function store(Request $request) {
     $validated = $request->validate([
-        'amount' => ['required', 'numeric', 'min:0'],
+        'total_amount' => ['required', 'numeric', 'min:0'],
         'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
         'project_id' => ['required', 'exists:projects,id'],
         'client_id' => ['required', 'exists:clients,id'],
@@ -118,7 +118,7 @@ class InvoiceController extends Controller {
     $this->authorize('invoice.edit', Invoice::class);
 
     $validated = $request->validate([
-      'amount' => ['required', 'numeric', 'min:0'],
+      'total_amount' => ['required', 'numeric', 'min:0'],
       'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
     ]);
 

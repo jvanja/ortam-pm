@@ -22,7 +22,6 @@ import { toast } from 'vue-sonner';
 
 // Define props to receive invoice data from the controller
 const props = defineProps<{ invoice: Invoice, client: Client, project: Project  }>();
-console.log(props.project);
 
 // Breadcrumbs for navigation
 const breadcrumbs: BreadcrumbItem[] = [

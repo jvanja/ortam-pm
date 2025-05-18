@@ -111,8 +111,7 @@ return [
         /**
          * The template used to render the PDF
          */
-        'template' => 'emails.invoices.pdf.invoice',
-        // 'template' => 'default.layout',
+        'template' => 'default.layout',
 
         'template_data' => [
             /**

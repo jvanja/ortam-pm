@@ -2,41 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\InvoiceStatus; // Import the InvoiceStatus enum
-use App\Mail\InvoiceSent; // Import the new Mailable
-use App\Models\Client; // Import the Client model
-use App\Models\Project; // Import the Project model
+use Elegantly\Invoices\Enums\InvoiceState;
+use App\Mail\InvoiceSent;
+use App\Models\Client;
+use App\Models\Project;
 use App\Models\Invoice;
 use Elegantly\Invoices\Models\InvoiceItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail; // Import the Mail facade
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class InvoiceController extends Controller {
-  /**
-   * Display a listing of the resource.
-   */
-  public function index() {
-    //
-  }
 
   /**
    * Show the form for creating a new resource.
    */
   public function create() {
-    // Fetch clients and projects for the dropdowns
-    // Assuming Client and Project models have the organization global scope
     $clients = Client::orderBy('company_name')->get(['id', 'company_name']);
     $projects = Project::orderBy('type')->get(['id', 'type']);
 
-    // Get the available invoice statuses from the enum
-    $statuses = InvoiceStatus::cases();
+    $states = InvoiceState::cases();
     return Inertia::render('invoices/Add', [
         'clients' => $clients,
         'projects' => $projects,
-        'statuses' => $statuses, // Pass statuses to the frontend
+        'state' => $states,
     ]);
   }
 
@@ -44,20 +35,15 @@ class InvoiceController extends Controller {
    * Store a newly created resource in storage.
    */
   public function store(Request $request) {
-    // Validate the incoming request data
     $validated = $request->validate([
         'amount' => ['required', 'numeric', 'min:0'],
-        'status' => ['required', 'string', Rule::in(InvoiceStatus::cases())], // Validate against enum values
-        'project_id' => ['required', 'exists:projects,id'], // Ensure project exists
-        'client_id' => ['required', 'exists:clients,id'], // Ensure client exists
-        // invoice_number can be generated in the backend if needed, or added here if manual
+        'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
+        'project_id' => ['required', 'exists:projects,id'],
+        'client_id' => ['required', 'exists:clients,id'],
     ]);
 
-    // Create the new invoice
-    // The organization_id will be automatically added by the global scope on the Invoice model
     $invoice = Invoice::create($validated);
 
-    // Redirect to the newly created invoice's show page
     return redirect()->route('invoices.show', $invoice)->with('success', 'Invoice created successfully!');
   }
 
@@ -75,6 +61,7 @@ class InvoiceController extends Controller {
     $invoice->client = $client;
     $invoice->invoice_items = $invoice_items;
 
+    /** @disregard [OPTIONAL_CODE] [OPTION_DESCRIPTION] */
     $invoice_view = $invoice->toPdfInvoice()->view()->toHtml();
     return Inertia::render('invoices/Show', [
       'invoice' => $invoice,
@@ -86,8 +73,7 @@ class InvoiceController extends Controller {
    * Send the specified invoice via email.
    */
   public function send(Invoice $invoice): RedirectResponse {
-    // Authorize the action (you might need a specific 'invoice.send' policy)
-    $this->authorize('invoice.edit', $invoice); // Using 'edit' as a placeholder, adjust if needed
+    $this->authorize('invoice.edit', $invoice);
 
     $project = Project::find($invoice->project_id);
     $client = Client::find($invoice->client_id);
@@ -97,23 +83,14 @@ class InvoiceController extends Controller {
 
     // Check if the client has an email address
     if (empty($invoice->client->email)) {
-        // Use Inertia's flash messages or redirect with error
         return redirect()->back()->with('error', 'Client does not have an email address.');
     }
 
     // Send the email
-    // - TODO:
-    // remove my email below after testing
+    // - TODO: remove my email below after testing
     Mail::to('jelicvanja@gmail.com')->send(new InvoiceSent($invoice));
     // Mail::to($invoice->client->email)->send(new InvoiceSent($invoice));
 
-    // Update the invoice status to 'sent' if it's not already paid or cancelled
-    if (!in_array($invoice->status, ['paid', 'cancelled'])) {
-        $invoice->status = 'sent';
-        $invoice->save();
-    }
-
-    // Use Inertia's flash messages or redirect with success
     return redirect()->back()->with('success', 'Invoice sent successfully!');
   }
 
@@ -124,11 +101,13 @@ class InvoiceController extends Controller {
   public function edit(Invoice $invoice) {
     $this->authorize('invoice.edit', Invoice::class);
 
-    // Load necessary relationships if needed, e.g., client, project
-    $invoice->load(['client', 'project']);
+    $clients = Client::orderBy('company_name')->get(['id', 'company_name']);
+    $projects = Project::orderBy('type')->get(['id', 'type']);
 
     return Inertia::render('invoices/Edit', [
       'invoice' => $invoice,
+      'clients' => $clients,
+      'projects' => $projects,
     ]);
   }
 
@@ -140,15 +119,11 @@ class InvoiceController extends Controller {
 
     $validated = $request->validate([
       'amount' => ['required', 'numeric', 'min:0'],
-      // Ensure status is one of the allowed values
-      'status' => ['required', 'string', Rule::in(['draft', 'sent', 'paid', 'cancelled', 'overdue'])],
+      'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
     ]);
 
     $invoice->update($validated);
 
-    // Redirect back to the invoice show page with a success message
-    // Using redirect()->back() might be better if the user could edit from other pages
-    // return redirect()->route('invoices.show', $invoice)->with('success', 'Invoice updated successfully!');
     return redirect()->back()->with('success', 'Invoice updated successfully!');
   }
 
@@ -161,8 +136,6 @@ class InvoiceController extends Controller {
 
     $invoice->delete();
 
-    // Redirect to the index page after deletion with a success message
-    // Ensure you have an 'invoices.index' route defined
-    return redirect()->route('invoices.index')->with('success', 'Invoice deleted successfully!');
+    return redirect()->back()->with('success', 'Invoice deleted successfully!');
   }
 }

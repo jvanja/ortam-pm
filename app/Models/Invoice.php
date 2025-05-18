@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Elegantly\Invoices\Models\Invoice as BaseInvoice;
-use Elegantly\Invoices\Pdf\PdfInvoice;
+//use Elegantly\Invoices\Pdf\PdfInvoice;
+use App\Services\PdfInvoice;
 use Elegantly\Invoices\Enums\InvoiceType;
 use Elegantly\Invoices\Enums\InvoiceState;
 use Elegantly\Invoices\Support\Buyer;

@@ -16,17 +16,17 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem, Client, Invoice, Project } from '@/types'; // Assuming Invoice type is defined in types
+import type { BreadcrumbItem, Client, Invoice, Project } from '@/types';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
 
 // Define props to receive invoice data from the controller
-const props = defineProps<{ invoice: Invoice & { client: Client; project: Project } }>();
+const props = defineProps<{ invoice: Invoice, client: Client, project: Project  }>();
 
 // Breadcrumbs for navigation
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Invoices', href: route('invoices.index') }, // Assuming route('invoices.index') exists
-  { title: `Invoice #${props.invoice.invoice_number}`, href: '' },
+  { title: `Invoice #${props.invoice.serial_nmber}`, href: '' },
 ];
 
 // Form helper for updating the invoice
@@ -72,7 +72,7 @@ function deleteInvoice() {
 </script>
 
 <template>
-  <Head :title="`Invoice number: ${invoice.invoice_number}`" />
+  <Head :title="`Invoice number: ${invoice.serial_nmber}`" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-6">
@@ -93,8 +93,8 @@ function deleteInvoice() {
 
       <form @submit.prevent="updateInvoice" class="space-y-6 rounded border bg-card p-6 text-card-foreground shadow">
         <div>
-          <Label for="invoice_number">Invoice Number</Label>
-          <Input id="invoice_number" :model-value="invoice.invoice_number" disabled class="mt-1 bg-muted" />
+          <Label for="serial_nmber">Invoice Number</Label>
+          <Input id="serial_nmber" :model-value="invoice.serial_nmber" disabled class="mt-1 bg-muted" />
         </div>
 
         <!-- Amount (Editable) -->
@@ -150,7 +150,7 @@ function deleteInvoice() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete the invoice #{{ invoice.invoice_number }}.
+                  This action cannot be undone. This will permanently delete the invoice #{{ invoice.serial_nmber }}.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

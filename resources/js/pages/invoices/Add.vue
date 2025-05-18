@@ -19,7 +19,6 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Invoices', href: '/invoices' }]
 
 // Initialize the form using useForm
 const form = useForm({
-  amount: 0.0,
   state: 'draft', // Default state
   project_id: '',
   client_id: '',
@@ -41,13 +40,6 @@ const submit = () => {
       <h1 class="mb-6 text-2xl font-semibold">Create New Invoice</h1>
 
       <form @submit.prevent="submit" class="max-w-lg rounded-md p-6 shadow-md">
-        <!-- Amount -->
-        <div class="mb-4">
-          <Label for="amount" value="Amount" />
-          <Input id="amount" type="number" step="0.01" class="mt-1 block w-full" v-model="form.amount" required autofocus />
-          <InputError class="mt-2" :message="form.errors.amount" />
-        </div>
-
         <!-- state -->
         <div class="mb-4">
           <Label for="state" value="state" />

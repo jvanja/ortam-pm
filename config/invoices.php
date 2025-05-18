@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Elegantly\Invoices\Enums\InvoiceType;
 use Elegantly\Invoices\InvoiceDiscount;
-use Elegantly\Invoices\Models\Invoice;
 use Elegantly\Invoices\Models\InvoiceItem;
 
 return [

@@ -3,10 +3,7 @@
 namespace App\Models;
 
 use Elegantly\Invoices\Models\Invoice as BaseInvoice;
-//use Elegantly\Invoices\Pdf\PdfInvoice;
 use App\Services\PdfInvoice;
-use Elegantly\Invoices\Enums\InvoiceType;
-use Elegantly\Invoices\Enums\InvoiceState;
 use Elegantly\Invoices\Support\Buyer;
 use Elegantly\Invoices\Support\Seller;
 
@@ -44,7 +41,7 @@ class Invoice extends BaseInvoice {
       items: $this->items->map(fn($item) => $item->toPdfInvoiceItem())->all(),
       tax_label: $this->getTaxLabel(),
       discounts: $this->getDiscounts(),
-      logo: $this->getLogo() ?? 'path/to/custom/logo.png', // Example custom logo
+      logo: $this->getLogo(),
     );
   }
 }

@@ -103,9 +103,11 @@ class InvoiceController extends Controller {
 
     $client = Client::find($invoice->client_id);
     $project = Project::find($invoice->project_id);
+    $invoice_items = InvoiceItem::where('invoice_id', $invoice->id)->get();
 
     return Inertia::render('invoices/Edit', [
       'invoice' => $invoice,
+      'invoice_items' => $invoice_items,
       'client' => $client,
       'project' => $project,
     ]);

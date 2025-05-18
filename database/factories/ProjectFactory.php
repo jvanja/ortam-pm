@@ -31,7 +31,7 @@ class ProjectFactory extends Factory {
       'status' => fake()->randomElement(ProjectStatus::cases()),
       'opening_date' => fake()->date(),
       'deadline' => fake()->dateTimeBetween('now', '+1 year'),
-      'client_id' => Client::factory(),
+      'client_id' => Client::inRandomOrder()->first(),
       'organization_id' => Organization::inRandomOrder()->first(),
       'current_project_pipeline_stage_id' => null,
     ];

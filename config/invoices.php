@@ -39,7 +39,8 @@ return [
          * - SSSS-CCCC: 0001-0123
          * - YYCCCC: 220123
          */
-        'format' => 'PPP-YYMMCCCC',
+        // 'format' => 'PPP-YYMMCCCC',
+        'format' => 'PP-YYCCCC',
 
         /**
          * Define the default prefix used for each invoice type

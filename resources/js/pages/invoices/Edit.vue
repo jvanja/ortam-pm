@@ -10,35 +10,30 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem, Client, Invoice, Project } from '@/types';
+import type { BreadcrumbItem, Client, Invoice, InvoiceItem, Project } from '@/types';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
 
-// Define props to receive invoice data from the controller
-const props = defineProps<{ invoice: Invoice, client: Client, project: Project  }>();
+const props = defineProps<{ invoice: Invoice; invoice_items: InvoiceItem[]; client: Client; project: Project }>();
 
-// Breadcrumbs for navigation
 const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Invoices', href: route('invoices.index') }, // Assuming route('invoices.index') exists
   { title: `Invoice #${props.invoice.serial_number}`, href: '' },
 ];
 
-// Form helper for updating the invoice
 const form = useForm({
-  amount: props.invoice.total_amount,
+  amount: props.invoice.total_amount!,
   state: props.invoice.state,
 });
 
-// Available invoice statuses (adjust as needed)
 const invoiceStatuses = ['draft', 'sent', 'paid', 'cancelled', 'overdue'];
 
-// Function to handle saving changes
 function updateInvoice() {
   form.put(route('invoices.update', [props.invoice.id]), {
     // Assuming route('invoices.update') exists
@@ -53,15 +48,11 @@ function updateInvoice() {
   });
 }
 
-// Function to handle deleting the invoice
 function deleteInvoice() {
   router.delete(route('invoices.destroy', [props.invoice.id]), {
-    // Assuming route('invoices.destroy') exists
     preserveScroll: true,
     onSuccess: () => {
-      // Redirect or show success message. Redirecting to index is common.
       toast.success('Invoice deleted successfully!');
-      // router.visit(route('invoices.index')); // Optional: redirect after delete
     },
     onError: (errors) => {
       const firstError = Object.values(errors)[0];
@@ -69,6 +60,12 @@ function deleteInvoice() {
     },
   });
 }
+
+const getItemTotal = (item: InvoiceItem) => {
+  return formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1));
+}
+const formatCurrency = (amount: number) => `${Number(amount) / 100} ${props.invoice.currency}`;
+const getTotalAmount = props.invoice_items.reduce((acc, item) => acc + Number(item.unit_price) / 1, 0);
 </script>
 
 <template>
@@ -97,26 +94,32 @@ function deleteInvoice() {
           <Input id="serial_number" :model-value="invoice.serial_number" disabled class="mt-1 bg-muted" />
         </div>
 
-        <!-- Amount (Editable) -->
-        <div>
-          <Label for="amount">Amount</Label>
-
-          <div class="flex w-full max-w-sm items-center gap-2">
-            <Input
-              id="amount"
-              v-model="form.amount"
-              type="number"
-              step="0.01"
-              placeholder="Enter amount"
-              required
-              class="mt-1"
-              :disabled="form.processing"
-              aria-describedby="amount-error"
-            />{{ invoice.currency }}
-          </div>
-          <p v-if="form.errors.amount" id="amount-error" class="mt-1 text-sm text-destructive">
-            {{ form.errors.amount }}
-          </p>
+        <!-- Invoice Items -->
+        <div class="flex flex-col gap-4">
+          <Table class="min-w-full divide-y divide-gray-200">
+            <TableHeader>
+              <TableRow class="text-gray-500">
+                <TableHead class="whitespace-nowrap border-b py-2 pr-2 text-left text-xs font-normal"> Description </TableHead>
+                <TableHead class="whitespace-nowrap border-b p-2 text-left text-xs font-normal"> Quantity </TableHead>
+                <TableHead class="whitespace-nowrap border-b p-2 text-left text-xs font-normal">Unit price</TableHead>
+                <TableHead class="p-0"></TableHead>
+                <TableHead class="whitespace-nowrap border-b py-2 pl-2 text-right text-xs font-normal"> Amount </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow v-for="item in invoice_items" :key="item.id">
+                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ item.label }}</TableCell>
+                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ item.quantity }}</TableCell>
+                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ formatCurrency(Number(item.unit_price!)) }}</TableCell>
+                <TableCell class="whitespace-nowrap px-6 py-4 text-sm"></TableCell>
+                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ getItemTotal(item) }}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell colspan="4" class="font-semibold">Total</TableCell>
+                <TableCell class="whitespace-nowrap px-6 py-4 text-normal font-semibold"> {{ formatCurrency(Number(invoice.total_amount)) }}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
 
         <!-- state (Editable Dropdown) -->

@@ -25,9 +25,9 @@ class InvoiceController extends Controller {
     $states = InvoiceState::cases();
 
     return Inertia::render('invoices/Add', [
-        'clients' => $clients,
-        'projects' => $projects,
-        'states' => $states,
+      'clients' => $clients,
+      'projects' => $projects,
+      'states' => $states,
     ]);
   }
 
@@ -36,10 +36,10 @@ class InvoiceController extends Controller {
    */
   public function store(Request $request) {
     $validated = $request->validate([
-        'total_amount' => ['required', 'numeric', 'min:0'],
-        'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
-        'project_id' => ['required', 'exists:projects,id'],
-        'client_id' => ['required', 'exists:clients,id'],
+      'total_amount' => ['required', 'numeric', 'min:0'],
+      'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
+      'project_id' => ['required', 'exists:projects,id'],
+      'client_id' => ['required', 'exists:clients,id'],
     ]);
 
     $invoice = Invoice::create($validated);
@@ -83,7 +83,7 @@ class InvoiceController extends Controller {
 
     // Check if the client has an email address
     if (empty($invoice->client->email)) {
-        return redirect()->back()->with('error', 'Client does not have an email address.');
+      return redirect()->back()->with('error', 'Client does not have an email address.');
     }
 
     // Send the email

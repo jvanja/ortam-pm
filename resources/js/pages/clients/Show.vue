@@ -16,7 +16,7 @@ import { computed } from 'vue';
 const props = defineProps<{
   client: Client;
   invoices: Invoice[];
-  projects: { id: string; name: string }[]; // Add projects prop
+  projects: { id: string; name: string }[];
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -33,7 +33,6 @@ const submit = () => {
     },
   });
 };
-console.log(props.client.address);
 const clientAddress = computed(() => JSON.parse(props.client.address))
 </script>
 <template>

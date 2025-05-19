@@ -4,17 +4,19 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import type { Invoice } from '@/types';
 import { useDateFormat } from '@vueuse/core';
 import { PlusCircle } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 const props = defineProps({
   invoices: Array<Invoice>,
+  clientId: String,
+  projectId: String,
   currency: {
     type: String,
     default: 'USD',
   },
 });
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: props.currency }).format(amount);
-};
+const formatCurrency = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: props.currency }).format(amount);
+const queryParams = computed(() => (props.clientId ? 'clientId=' + props.clientId : '') + (props.projectId ? '&projectId=' + props.projectId : ''));
 </script>
 <template>
   <Card>
@@ -61,7 +63,7 @@ const formatCurrency = (amount: number) => {
           </TableBody>
         </Table>
         <div class="rounded-lg border-2 border-dashed border-teal-400 bg-teal-50 p-1 px-4 py-2 dark:bg-neutral-800">
-          <a href="/invoices/create/" class="flex flex-1 items-center gap-2 text-sm text-green-700">
+          <a :href="`/invoices/create/?${queryParams}`" class="flex flex-1 items-center gap-2 text-sm text-green-700">
             <PlusCircle class="text-green-700" />
             Add invoice</a
           >

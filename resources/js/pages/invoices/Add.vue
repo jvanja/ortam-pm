@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
+import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3'; // Import useForm
-import { computed } from 'vue'; // Import computed
+import { Head, useForm, usePage } from '@inertiajs/vue3'; // Import useForm
 import { PlusCircle } from 'lucide-vue-next'; // Import PlusCircle
+import { computed } from 'vue'; // Import computed
+import { getQuery } from '@/lib/utils';
 
 const props = defineProps<{
   clients: { id: string; company_name: string }[];
@@ -22,8 +23,8 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Invoices', href: '/invoices' }]
 
 const form = useForm({
   state: 'draft',
-  project_id: '',
-  client_id: '',
+  project_id: getQuery().projectId || '',
+  client_id: getQuery().clientId || '',
   description: '',
   items: [
     {
@@ -51,7 +52,7 @@ const addItem = () => {
 
 const formatCurrency = (amount: number) => `${Number(amount).toFixed(2)} USD`; // Format to 2 decimal places
 
-const getItemTotal = (item: {unit_price: number, quantity: number}) => {
+const getItemTotal = (item: { unit_price: number; quantity: number }) => {
   const quantity = Number(item.quantity) || 0; // Default to 0 if not a valid number
   const unitPrice = Number(item.unit_price) || 0; // Default to 0 if not a valid number
   return quantity * unitPrice;
@@ -168,7 +169,7 @@ const totalAmount = computed(() => {
               </TableRow>
               <TableRow>
                 <TableCell colspan="3" class="font-semibold">Total</TableCell>
-                <TableCell class="text-normal whitespace-nowrap px-2 py-4 font-semibold text-right"> {{ formatCurrency(totalAmount) }}</TableCell>
+                <TableCell class="text-normal whitespace-nowrap px-2 py-4 text-right font-semibold"> {{ formatCurrency(totalAmount) }}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

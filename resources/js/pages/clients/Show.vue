@@ -82,7 +82,7 @@ const clientAddress = computed(() => JSON.parse(props.client.address))
         <!-- End Projects Card -->
 
         <!-- Invoices -->
-        <InvoicesList :invoices currency="EUR"></InvoicesList>
+        <InvoicesList :invoices currency="EUR" :client-id="props.client.id" />
       </div>
     </div>
   </AppLayout>

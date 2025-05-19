@@ -94,7 +94,7 @@ const defaultTab = window.location.hash.slice(1) || 'pipeline';
             <ProjectEmployeesCard :employees="employees" :projectEmployeeForm="projectEmployeeForm" :removeEmployee="removeEmployee" />
           </TabsContent>
            <TabsContent value="invoices" class="flex-1">
-            <InvoicesList :invoices="invoices" :currency="project.currency || 'USD'"/>
+            <InvoicesList :invoices="invoices" :currency="project.currency || 'USD'" :client-id="client.id" :project-id="project.id" />
           </TabsContent>
         </div>
       </Tabs>

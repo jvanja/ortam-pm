@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use App\Models\Organization;
+use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware {
   /**
@@ -35,7 +36,7 @@ class HandleInertiaRequests extends Middleware {
   public function share(Request $request): array {
     if ($request->user()) {
       $organization_id =  $request->user()->organization_id;
-      if($organization_id) {
+      if ($organization_id) {
         $organization = Organization::find($organization_id)->name;
       } else {
         $organization = false;
@@ -52,6 +53,12 @@ class HandleInertiaRequests extends Middleware {
         'roles' => $request->user() ? $request->user()->roles->pluck('name') : [],
         'permissions' => $request->user() ? $request->user()->getPermissionsViaRoles()->pluck('name') : [],
       ],
+      'ziggy' => function () use ($request) {
+        return array_merge((new Ziggy)->toArray(), [
+          'location' => $request->url(),
+          'query' => $request->query()
+        ]);
+      },
     ];
   }
 }

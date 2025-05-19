@@ -9,6 +9,8 @@ import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3'; // Import useForm
+import { computed } from 'vue'; // Import computed
+import { PlusCircle } from 'lucide-vue-next'; // Import PlusCircle
 
 const props = defineProps<{
   clients: { id: string; company_name: string }[];
@@ -38,9 +40,27 @@ const submit = () => {
   // form.post(route('invoices.store'));
 };
 
-const totalAmount = 0;
-const formatCurrency = (amount: number) => `${Number(amount)} USD`;
-const getItemTotal = (item: {unit_price: number, quantity: number}) => formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1));
+// Add a new item to the form
+const addItem = () => {
+  form.items.push({
+    label: '',
+    quantity: 1,
+    unit_price: 0,
+  });
+};
+
+const formatCurrency = (amount: number) => `${Number(amount).toFixed(2)} USD`; // Format to 2 decimal places
+
+const getItemTotal = (item: {unit_price: number, quantity: number}) => {
+  const quantity = Number(item.quantity) || 0; // Default to 0 if not a valid number
+  const unitPrice = Number(item.unit_price) || 0; // Default to 0 if not a valid number
+  return quantity * unitPrice;
+};
+
+// Computed property to calculate the total amount of all items
+const totalAmount = computed(() => {
+  return form.items.reduce((sum, item) => sum + getItemTotal(item), 0);
+});
 </script>
 
 <template>
@@ -90,7 +110,7 @@ const getItemTotal = (item: {unit_price: number, quantity: number}) => formatCur
         <!-- Project -->
         <div class="mb-4">
           <Label for="project_id">Project</Label>
-          <Select id="client_id" v-model="form.project_id" required>
+          <Select id="project_id" v-model="form.project_id" required>
             <SelectTrigger>
               <SelectValue placeholder="Invoice project" />
             </SelectTrigger>
@@ -124,22 +144,22 @@ const getItemTotal = (item: {unit_price: number, quantity: number}) => formatCur
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
+              <TableRow v-for="(item, index) in form.items" :key="index">
                 <TableCell class="px-2 py-4 text-sm">
-                  <Input v-model="form.items[0].label!" class="mt-1" />
+                  <Input v-model="item.label" class="mt-1" />
                 </TableCell>
                 <TableCell class="px-2 py-4 text-sm">
-                  <Input v-model="form.items[0].quantity!" class="mt-1" type="number" />
+                  <Input v-model="item.quantity" class="mt-1" type="number" min="1" />
                 </TableCell>
                 <TableCell class="px-2 py-4 text-sm">
-                  <CurrencyInput v-model="form.items[0].unit_price" class="mt-1" :options="{ currency: 'USD' }" />
+                  <CurrencyInput v-model="item.unit_price" class="mt-1" :options="{ currency: 'USD' }" />
                 </TableCell>
-                <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">{{ getItemTotal(form.items[0]) }}</TableCell>
+                <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">{{ formatCurrency(getItemTotal(item)) }}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell colspan="4" class="px-2 py-4">
                   <div class="rounded-lg border-2 border-dashed border-teal-400 bg-teal-50 p-1 px-4 py-2 dark:bg-neutral-800">
-                    <button class="flex w-full flex-1 items-center gap-2 text-sm text-green-700">
+                    <button type="button" @click="addItem" class="flex w-full flex-1 items-center gap-2 text-sm text-green-700">
                       <PlusCircle class="text-green-700" />
                       Add new item
                     </button>
@@ -147,8 +167,8 @@ const getItemTotal = (item: {unit_price: number, quantity: number}) => formatCur
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell colspan="4" class="font-semibold">Total</TableCell>
-                <TableCell class="text-normal whitespace-nowrap px-2 py-4 font-semibold"> {{ formatCurrency(Number(totalAmount)) }}</TableCell>
+                <TableCell colspan="3" class="font-semibold">Total</TableCell>
+                <TableCell class="text-normal whitespace-nowrap px-2 py-4 font-semibold text-right"> {{ formatCurrency(totalAmount) }}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

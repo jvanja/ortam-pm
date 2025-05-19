@@ -37,7 +37,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
           </Card>
           <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800 text-sm">
             <ReceiptText color="#2339c3" />
-            <a :href="`/projects/create`" class="hover:text-primary">new invoice ></a>
+            <a :href="`/invoices/create`" class="hover:text-primary">new invoice ></a>
             <p class="text-muted-foreground">Create a new invoice</p>
           </Card>
         </div>

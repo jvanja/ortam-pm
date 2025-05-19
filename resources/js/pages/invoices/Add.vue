@@ -4,32 +4,43 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3'; // Import useForm
 
-// Define props received from the controller
 const props = defineProps<{
   clients: { id: string; company_name: string }[];
   projects: { id: string; type: string }[];
-  states: { name: string; value: string }[]; // Assuming enum cases are passed as objects with name/value
+  states: { name: string; value: string }[];
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Invoices', href: '/invoices' }];
 
-// Initialize the form using useForm
 const form = useForm({
-  state: 'draft', // Default state
+  state: 'draft',
   project_id: '',
   client_id: '',
+  description: '',
+  items: [
+    {
+      label: '',
+      quantity: 1,
+      unit_price: 0,
+    },
+  ],
 });
 
 // Handle form submission
 const submit = () => {
-  form.post(route('invoices.store')); // Assuming you have a route named 'invoices.store'
+  console.log(form);
+  // form.post(route('invoices.store'));
 };
 
-// Prepare options for select inputs
+const totalAmount = 0;
+const formatCurrency = (amount: number) => `${Number(amount)} USD`;
+const getItemTotal = (item: {unit_price: number, quantity: number}) => formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1));
 </script>
 
 <template>
@@ -39,10 +50,10 @@ const submit = () => {
     <div class="p-8">
       <h1 class="mb-6 text-2xl font-semibold">Create New Invoice</h1>
 
-      <form @submit.prevent="submit" class="max-w-lg rounded-md p-6 shadow-md">
+      <form @submit.prevent="submit" class="space-y-6 rounded border bg-card p-6 text-card-foreground shadow">
         <!-- state -->
         <div class="mb-4">
-          <Label for="state" value="state" />
+          <Label for="state">Invoice state</Label>
           <Select v-model="form.state" required>
             <SelectTrigger>
               <SelectValue placeholder="Invoice state" />
@@ -60,14 +71,14 @@ const submit = () => {
 
         <!-- Client -->
         <div class="mb-4">
-          <Label for="client_id" value="Client" />
+          <Label for="client_id">Client</Label>
           <Select id="client_id" v-model="form.client_id" required>
             <SelectTrigger>
               <SelectValue placeholder="Invoice client" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem v-for="client in clients" :key="client.id" :value="client.company_name">
+                <SelectItem v-for="client in clients" :key="client.id" :value="client.id">
                   {{ client.company_name }}
                 </SelectItem>
               </SelectGroup>
@@ -78,20 +89,69 @@ const submit = () => {
 
         <!-- Project -->
         <div class="mb-4">
-          <Label for="project_id" value="Project" />
+          <Label for="project_id">Project</Label>
           <Select id="client_id" v-model="form.project_id" required>
             <SelectTrigger>
               <SelectValue placeholder="Invoice project" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem v-for="project in projects" :key="project.id" :value="project.type">
+                <SelectItem v-for="project in projects" :key="project.id" :value="project.id">
                   {{ project.type }}
                 </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
           <InputError class="mt-2" :message="form.errors.project_id" />
+        </div>
+
+        <!-- Description -->
+        <div class="mb-4">
+          <Label for="description">Description</Label>
+          <Input id="description" v-model="form.description" type="textarea" required />
+          <InputError class="mt-2" :message="form.errors.description" />
+        </div>
+
+        <!-- Invoice Items -->
+        <div class="flex flex-col gap-4">
+          <Table class="min-w-full divide-y divide-gray-200">
+            <TableHeader>
+              <TableRow class="text-gray-500">
+                <TableHead class="border-b p-2 text-left text-xs font-normal" style="width: 60%">Description</TableHead>
+                <TableHead class="border-b p-2 text-left text-xs font-normal">Quantity</TableHead>
+                <TableHead class="border-b p-2 text-left text-xs font-normal">Unit price</TableHead>
+                <TableHead class="border-b p-2 text-right text-xs font-normal">Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell class="px-2 py-4 text-sm">
+                  <Input v-model="form.items[0].label!" class="mt-1" />
+                </TableCell>
+                <TableCell class="px-2 py-4 text-sm">
+                  <Input v-model="form.items[0].quantity!" class="mt-1" type="number" />
+                </TableCell>
+                <TableCell class="px-2 py-4 text-sm">
+                  <CurrencyInput v-model="form.items[0].unit_price" class="mt-1" :options="{ currency: 'USD' }" />
+                </TableCell>
+                <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">{{ getItemTotal(form.items[0]) }}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell colspan="4" class="px-2 py-4">
+                  <div class="rounded-lg border-2 border-dashed border-teal-400 bg-teal-50 p-1 px-4 py-2 dark:bg-neutral-800">
+                    <button class="flex w-full flex-1 items-center gap-2 text-sm text-green-700">
+                      <PlusCircle class="text-green-700" />
+                      Add new item
+                    </button>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell colspan="4" class="font-semibold">Total</TableCell>
+                <TableCell class="text-normal whitespace-nowrap px-2 py-4 font-semibold"> {{ formatCurrency(Number(totalAmount)) }}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
 
         <!-- Submit Button -->

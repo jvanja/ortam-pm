@@ -83,9 +83,9 @@ const submit = () => {
             <h3>Company Address</h3>
             <div>
               <div class="grid grid-cols-4 gap-2">
-                <Label for="address">Street</Label>
+                <Label for="street">Street</Label>
                 <Input
-                  id="address"
+                  id="street"
                   type="text"
                   class="mt-1 block w-full col-span-3"
                   v-model="form.address.street"
@@ -99,7 +99,7 @@ const submit = () => {
               <div class="grid grid-cols-4 gap-2">
                 <Label for="city">City</Label>
                 <Input
-                  id="address"
+                  id="city"
                   type="text"
                   class="mt-1 block w-full col-span-3"
                   v-model="form.address.city"
@@ -111,7 +111,7 @@ const submit = () => {
             </div>
             <div>
               <div class="grid grid-cols-4 gap-2">
-                <Label for="address">State</Label>
+                <Label for="state">State</Label>
                 <Input
                   id="state"
                   type="text"

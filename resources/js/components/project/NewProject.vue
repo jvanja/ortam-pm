@@ -12,8 +12,9 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 
 const { clients, languages } = defineProps<{ clients: Client[]; languages: any }>();
-const page = usePage()
-const org_id = computed(() => page.props.auth.user.organization_id )
+const page = usePage();
+// @ts-expect-error The user is added in HandleInertiaRequest and always exists
+const org_id = computed(() => page.props.auth.user.organization_id);
 
 // State for the two-step process
 const currentStep = ref<'select_client' | 'create_client'>('select_client');
@@ -32,7 +33,7 @@ const form = useForm({
   sales_representative_name: '',
   deadline: '',
   client_id: null as string | null,
-  organization_id: org_id.value
+  organization_id: org_id.value,
 });
 
 // Watch for changes in selectedClientId and update the form

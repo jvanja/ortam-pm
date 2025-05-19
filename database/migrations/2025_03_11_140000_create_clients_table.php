@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('company_name');
             $table->string('contact_person');
-            $table->string('address')->nullable();
+            $table->json('address');
             $table->string('phone')->nullable();
             $table->string('email');
             $table->foreignId('organization_id')->constrained()->onUpdate('cascade');

@@ -18,7 +18,13 @@ class ClientFactory extends Factory {
     return [
       'company_name' => fake()->company(),
       'contact_person' => fake()->name(),
-      'address' => fake()->address(),
+      'address' => json_encode([
+        'street' => fake()->streetAddress(),
+        'city' => fake()->city(),
+        'postal_code' => fake()->postcode(),
+        'state' => fake()->state(),
+        'country' => 'United States',
+      ]),
       'phone' => fake()->phoneNumber(),
       'email' => fake()->email(),
       'organization_id' => Organization::inRandomOrder()->first(),

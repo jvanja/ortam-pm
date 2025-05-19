@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import type { Invoice } from '@/types';
 import { useDateFormat } from '@vueuse/core';
-import { Currency, PlusCircle } from 'lucide-vue-next';
+import { PlusCircle } from 'lucide-vue-next';
 
 const props = defineProps({
   invoices: Array<Invoice>,

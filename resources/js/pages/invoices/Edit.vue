@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Client, Invoice, Project } from '@/types';
 import { Head, router, useForm } from '@inertiajs/vue3';
@@ -39,6 +40,7 @@ const form = useForm({
 
 const invoiceStatuses = props.invoice_states;
 
+  console.log(form);
 function updateInvoice() {
   console.log(form);
   // form.put(route('invoices.update', [props.invoice.id]), {
@@ -67,10 +69,8 @@ function deleteInvoice() {
   });
 }
 
-const getItemTotal = (item: InvoiceItem) => {
-  return formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1));
-};
-const formatCurrency = (amount: number) => `${Number(amount) / 100} ${props.invoice.currency}`;
+const formatCurrency = (amount: number) => `${Number(amount)} ${props.invoice.currency}`;
+const getItemTotal = (item: InvoiceItem) => formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1));
 </script>
 
 <template>
@@ -87,8 +87,8 @@ const formatCurrency = (amount: number) => `${Number(amount) / 100} ${props.invo
         </TableHeader>
         <TableBody class="divide-y divide-gray-200">
           <TableRow>
-            <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ client.company_name }}</TableCell>
-            <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ project.type }}</TableCell>
+            <TableCell class="px-6 py-4 text-sm">{{ client.company_name }}</TableCell>
+            <TableCell class="px-6 py-4 text-sm">{{ project.type }}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -104,31 +104,28 @@ const formatCurrency = (amount: number) => `${Number(amount) / 100} ${props.invo
           <Table class="min-w-full divide-y divide-gray-200">
             <TableHeader>
               <TableRow class="text-gray-500">
-                <TableHead class="whitespace-nowrap border-b py-2 pr-2 text-left text-xs font-normal">Description</TableHead>
-                <TableHead class="whitespace-nowrap border-b p-2 text-left text-xs font-normal">Quantity</TableHead>
-                <TableHead class="whitespace-nowrap border-b p-2 text-left text-xs font-normal">Unit price</TableHead>
-                <TableHead></TableHead>
-                <TableHead class="whitespace-nowrap border-b py-2 pl-2 text-right text-xs font-normal">Amount</TableHead>
+                <TableHead class="border-b p-2 text-left text-xs font-normal" style="width:60%">Description</TableHead>
+                <TableHead class="border-b p-2 text-left text-xs font-normal">Quantity</TableHead>
+                <TableHead class="border-b p-2 text-left text-xs font-normal">Unit price</TableHead>
+                <TableHead class="border-b p-2 text-right text-xs font-normal">Amount</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               <TableRow v-for="(item, index) in items" :key="item.id">
-                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">
+                <TableCell class="px-2 py-4 text-sm">
                   <Input v-model="form.items[index].label!" class="mt-1" />
                 </TableCell>
-                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">
-                  <Input v-model="form.items[index].quantity!" class="mt-1" />
+                <TableCell class="px-2 py-4 text-sm">
+                  <Input v-model="form.items[index].quantity!" class="mt-1" type="number" />
                 </TableCell>
-                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">
-                  <Input v-model="form.items[index].unit_price!" class="mt-1" />
-                  {{ formatCurrency(Number(item.unit_price!)) }}
+                <TableCell class="px-2 py-4 text-sm">
+                  <CurrencyInput v-model="form.items[index].unit_price" class="mt-1" :options="{ currency: invoice.currency }" />
                 </TableCell>
-                <TableCell></TableCell>
-                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ getItemTotal(item) }}</TableCell>
+                <TableCell class="whitespace-nowrap px-2 py-4 text-sm text-right">{{ getItemTotal(form.items[index]) }}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell colspan="4" class="font-semibold">Total</TableCell>
-                <TableCell class="text-normal whitespace-nowrap px-6 py-4 font-semibold">
+                <TableCell class="whitespace-nowrap text-normal px-2 py-4 font-semibold">
                   {{ formatCurrency(Number(invoice.total_amount)) }}</TableCell
                 >
               </TableRow>

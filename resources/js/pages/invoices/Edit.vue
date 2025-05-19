@@ -143,7 +143,7 @@ const getItemTotal = (item: InvoiceItem) => formatCurrency(Number(item.unit_pric
             <SelectContent>
               <SelectGroup>
                 <SelectItem v-for="statusOption in invoiceStatuses" :key="statusOption" :value="statusOption">
-                  {{ statusOption.charAt(0).toUpperCase() + statusOption.slice(1) }}
+                  {{ (statusOption as string).charAt(0).toUpperCase() + (statusOption as string).slice(1) }}
                 </SelectItem>
               </SelectGroup>
             </SelectContent>

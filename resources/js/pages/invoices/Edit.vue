@@ -16,36 +16,42 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem, Client, Invoice, InvoiceItem, Project } from '@/types';
+import type { BreadcrumbItem, Client, Invoice, Project } from '@/types';
 import { Head, router, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import { toast } from 'vue-sonner';
 
-const props = defineProps<{ invoice: Invoice; invoice_items: InvoiceItem[]; client: Client; project: Project }>();
+type InvoiceItem = {'id': number, 'label': string, 'quantity': number, 'unit_price': number, 'description': string};
+const props = defineProps<{ invoice: Invoice; invoice_items: InvoiceItem[]; client: Client; project: Project; invoice_states: [] }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-  { title: 'Invoices', href: route('invoices.index') }, // Assuming route('invoices.index') exists
+  { title: 'Invoices', href: '',},
   { title: `Invoice #${props.invoice.serial_number}`, href: '' },
 ];
+
+const items = ref(props.invoice_items);
 
 const form = useForm({
   amount: props.invoice.total_amount!,
   state: props.invoice.state,
+  items: items.value
 });
 
-const invoiceStatuses = ['draft', 'sent', 'paid', 'cancelled', 'overdue'];
+const invoiceStatuses = props.invoice_states;
 
 function updateInvoice() {
-  form.put(route('invoices.update', [props.invoice.id]), {
-    // Assuming route('invoices.update') exists
-    preserveScroll: true,
-    onSuccess: () => {
-      toast.success('Invoice updated successfully!');
-    },
-    onError: (errors) => {
-      const firstError = Object.values(errors)[0];
-      toast.error(firstError || 'Failed to update invoice. Please try again.');
-    },
-  });
+  console.log(form);
+  // form.put(route('invoices.update', [props.invoice.id]), {
+  //   // Assuming route('invoices.update') exists
+  //   preserveScroll: true,
+  //   onSuccess: () => {
+  //     toast.success('Invoice updated successfully!');
+  //   },
+  //   onError: (errors) => {
+  //     const firstError = Object.values(errors)[0];
+  //     toast.error(firstError || 'Failed to update invoice. Please try again.');
+  //   },
+  // });
 }
 
 function deleteInvoice() {
@@ -63,9 +69,8 @@ function deleteInvoice() {
 
 const getItemTotal = (item: InvoiceItem) => {
   return formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1));
-}
+};
 const formatCurrency = (amount: number) => `${Number(amount) / 100} ${props.invoice.currency}`;
-const getTotalAmount = props.invoice_items.reduce((acc, item) => acc + Number(item.unit_price) / 1, 0);
 </script>
 
 <template>
@@ -99,24 +104,33 @@ const getTotalAmount = props.invoice_items.reduce((acc, item) => acc + Number(it
           <Table class="min-w-full divide-y divide-gray-200">
             <TableHeader>
               <TableRow class="text-gray-500">
-                <TableHead class="whitespace-nowrap border-b py-2 pr-2 text-left text-xs font-normal"> Description </TableHead>
-                <TableHead class="whitespace-nowrap border-b p-2 text-left text-xs font-normal"> Quantity </TableHead>
+                <TableHead class="whitespace-nowrap border-b py-2 pr-2 text-left text-xs font-normal">Description</TableHead>
+                <TableHead class="whitespace-nowrap border-b p-2 text-left text-xs font-normal">Quantity</TableHead>
                 <TableHead class="whitespace-nowrap border-b p-2 text-left text-xs font-normal">Unit price</TableHead>
-                <TableHead class="p-0"></TableHead>
-                <TableHead class="whitespace-nowrap border-b py-2 pl-2 text-right text-xs font-normal"> Amount </TableHead>
+                <TableHead></TableHead>
+                <TableHead class="whitespace-nowrap border-b py-2 pl-2 text-right text-xs font-normal">Amount</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow v-for="item in invoice_items" :key="item.id">
-                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ item.label }}</TableCell>
-                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ item.quantity }}</TableCell>
-                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ formatCurrency(Number(item.unit_price!)) }}</TableCell>
-                <TableCell class="whitespace-nowrap px-6 py-4 text-sm"></TableCell>
+              <TableRow v-for="(item, index) in items" :key="item.id">
+                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">
+                  <Input v-model="form.items[index].label!" class="mt-1" />
+                </TableCell>
+                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">
+                  <Input v-model="form.items[index].quantity!" class="mt-1" />
+                </TableCell>
+                <TableCell class="whitespace-nowrap px-6 py-4 text-sm">
+                  <Input v-model="form.items[index].unit_price!" class="mt-1" />
+                  {{ formatCurrency(Number(item.unit_price!)) }}
+                </TableCell>
+                <TableCell></TableCell>
                 <TableCell class="whitespace-nowrap px-6 py-4 text-sm">{{ getItemTotal(item) }}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell colspan="4" class="font-semibold">Total</TableCell>
-                <TableCell class="whitespace-nowrap px-6 py-4 text-normal font-semibold"> {{ formatCurrency(Number(invoice.total_amount)) }}</TableCell>
+                <TableCell class="text-normal whitespace-nowrap px-6 py-4 font-semibold">
+                  {{ formatCurrency(Number(invoice.total_amount)) }}</TableCell
+                >
               </TableRow>
             </TableBody>
           </Table>

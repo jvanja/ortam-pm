@@ -119,13 +119,24 @@ class ClientController extends Controller {
     $validated = $request->validate([
       'company_name' => 'string',
       'contact_person' => 'sometimes|string',
-      'address' => 'sometimes|string',
-      'phone' => 'sometimes|string', // Corrected 'sometmees' to 'sometimes'
-      'email' => 'sometimes|email',
-      'organization_id' => 'nullable|exists:organizations,id'
+      'address.street' => 'required|string|max:255',
+      'address.city' => 'required|string|max:255',
+      'address.state' => 'required|string|max:255',
+      'address.postal_code' => 'required|string|max:20',
+      'phone' => 'sometimes|string',
+      'email' => 'required|email',
+      'organization_id' => 'exists:organizations,id'
     ]);
 
-    $client->update($validated);
+    $client->update([
+      'name' => $validated['name'],
+      'company_name' => $validated['company_name'],
+      'contact_person' => $validated['contact_person'],
+      'address' => json_encode($validated['address']),
+      'phone' => $validated['phone'],
+      'email' => $validated['email'],
+      'organization_id' => $validated['organization_id']
+    ]);
 
     return redirect()->back()->with('success', 'Client updated successfully');
   }

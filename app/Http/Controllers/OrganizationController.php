@@ -64,12 +64,18 @@ class OrganizationController extends Controller {
    */
   public function update(Request $request, Organization $organization) {
     $validated = $request->validate([
-      'name' => 'string|max:255|unique:organizations,name',
-      'address' => 'nullable|string|max:255',
+      'name' => 'string|max:255',
+      'address.street' => 'required|string|max:255',
+      'address.city' => 'required|string|max:255',
+      'address.state' => 'required|string|max:255',
+      'address.postal_code' => 'required|string|max:20',
     ]);
 
-    $organization->update($validated);
-    return redirect()->back();
+    $organization->update([
+      'name' => $validated['name'],
+      'address' => json_encode($validated['address']),
+    ]);
+    return back()->with('status', 'Organization updated!');
   }
 
 

@@ -10,10 +10,11 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/CompanyLayout.vue';
 import { SharedData, User, type BreadcrumbItem } from '@/types';
+import { reactive, ref } from 'vue';
 
 interface Props {
-  name?: string;
-  address?: string;
+  name: string;
+  address: string;
 }
 
 const props = defineProps<Props>();
@@ -25,9 +26,30 @@ const breadcrumbs: BreadcrumbItem[] = [
   },
 ];
 
+// Safely parse props.address with a fallback
+const parsedAddress = ref(
+  (() => {
+    try {
+      return JSON.parse(props.address) || {};
+    } catch (e) {
+      console.error('Failed to parse address:', e);
+      return {};
+    }
+  })()
+);
+
+// Initialize a reactive address object
+const orgAddress = reactive({
+  street: parsedAddress.value.street || '',
+  city: parsedAddress.value.city || '',
+  state: parsedAddress.value.state || '',
+  postal_code: parsedAddress.value.postal_code || '',
+});
+
+
 const form = useForm({
   name: props.name,
-  address: props.address,
+  address: orgAddress
 });
 
 const page = usePage<SharedData>();
@@ -58,16 +80,63 @@ const submit = () => {
           </div>
 
           <div class="grid gap-2">
-            <Label for="address">Company address</Label>
-            <Input
-              id="address"
-              type="text"
-              class="mt-1 block w-full"
-              v-model="form.address"
-              required
-              autocomplete="address-line1"
-              placeholder="Company address"
-            />
+            <h3>Company Address</h3>
+            <div>
+              <div class="grid grid-cols-4 gap-2">
+                <Label for="address">Street</Label>
+                <Input
+                  id="address"
+                  type="text"
+                  class="mt-1 block w-full col-span-3"
+                  v-model="form.address.street"
+                  required
+                  autocomplete="address-line1"
+                  placeholder="Company address"
+                />
+              </div>
+            </div>
+            <div>
+              <div class="grid grid-cols-4 gap-2">
+                <Label for="city">City</Label>
+                <Input
+                  id="address"
+                  type="text"
+                  class="mt-1 block w-full col-span-3"
+                  v-model="form.address.city"
+                  required
+                  autocomplete="address-city"
+                  placeholder="City"
+                />
+              </div>
+            </div>
+            <div>
+              <div class="grid grid-cols-4 gap-2">
+                <Label for="address">State</Label>
+                <Input
+                  id="state"
+                  type="text"
+                  class="mt-1 block w-full col-span-3"
+                  v-model="form.address.state"
+                  required
+                  autocomplete="address-state"
+                  placeholder="State"
+                />
+              </div>
+            </div>
+            <div>
+              <div class="grid grid-cols-4 gap-2">
+                <Label for="code">Postal Code</Label>
+                <Input
+                  id="code"
+                  type="text"
+                  class="mt-1 block w-full col-span-3"
+                  v-model="form.address.postal_code"
+                  required
+                  autocomplete="address-code"
+                  placeholder="Postal code"
+                />
+              </div>
+            </div>
             <InputError class="mt-2" :message="form.errors.address" />
           </div>
 

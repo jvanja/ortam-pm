@@ -13,7 +13,7 @@ return new class extends Migration {
       $table->id();
       $table->timestamps();
       $table->string('name');
-      $table->string('address');
+      $table->json('address');
       $table->string('logo')->nullable();
       $table->string('brand_color')->nulable();
     });

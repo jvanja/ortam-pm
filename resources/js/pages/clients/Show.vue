@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Client, Invoice } from '@/types';
-import ObjectList from '@/components/ObjectList.vue'; // Import ObjectList
+import ObjectList from '@/components/ObjectList.vue';
 import InvoicesList from '@/components/invoice/List.vue';
 
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Head, useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
+import { computed } from 'vue';
 
 // Define props including projects
 const props = defineProps<{
@@ -32,6 +33,8 @@ const submit = () => {
     },
   });
 };
+console.log(props.client.address);
+const clientAddress = computed(() => JSON.parse(props.client.address))
 </script>
 <template>
   <Head title="Client" />
@@ -42,7 +45,12 @@ const submit = () => {
         <Card>
           <CardHeader>
             <CardTitle>{{ client.company_name }}</CardTitle>
-            <CardDescription>{{ client.address }}</CardDescription>
+            <CardDescription>
+              {{ clientAddress.street }}<br>
+              {{ clientAddress.city }}<br>
+              {{ clientAddress.state }} {{ clientAddress.postal_code }}<br>
+              {{ clientAddress.country }}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form @submit.prevent="submit" class="space-y-6">

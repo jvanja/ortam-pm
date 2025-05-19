@@ -12,7 +12,6 @@ const props = defineProps({
     default: 'USD',
   },
 });
-console.log(props.currency)
 const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: props.currency }).format(amount);
 };

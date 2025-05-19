@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Brick\Money\Money;
 use Elegantly\Invoices\Enums\InvoiceState;
 use App\Mail\InvoiceSent;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\Invoice;
+use Elegantly\Invoices\Enums\InvoiceType;
 use Elegantly\Invoices\Models\InvoiceItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -41,8 +43,42 @@ class InvoiceController extends Controller {
       'project_id' => ['required', 'exists:projects,id'],
       'client_id' => ['required', 'exists:clients,id'],
     ]);
+    $project = Project::find($validated->project_id);
+    $client = Client::find($validated->client_id);
 
-    $invoice = Invoice::create($validated);
+    $invoice = new Invoice([
+      'type' => $validated->type,
+      'state' => $validated->state,
+      'description' => $validated->description,
+      'currency' => $project->currency,
+      'seller_information' => config('invoices.default_seller'),
+      'buyer_information' => [
+        'name' => $client->company_name,
+        'address' => [
+          'street' => $client->address->street,
+          'city' => $client->address->city,
+          'postal_code' => $client->postal_code,
+          'state' => $client->address->state,
+          'country' => $client->address->country,
+        ],
+        'email' => $client->email,
+        // 'tax_number' => "FR123456789",
+      ],
+    ]);
+    $invoice->buyer()->associate($validated->client_id); // optionnally associate the invoice to any model
+
+    $invoice->save();
+
+    $invoice->items()->saveMany([
+      new InvoiceItem([
+        'unit_price' => Money::of(100, 'USD'),
+        'unit_tax' => Money::of(20, 'USD'),
+        'currency' => 'USD',
+        'quantity' => 1,
+        'label' => 'A label for my item',
+        'description' => 'A description for my item',
+      ]),
+    ]);
 
     return redirect()->route('invoices.show', $invoice)->with('success', 'Invoice created successfully!');
   }

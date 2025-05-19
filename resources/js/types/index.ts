@@ -43,7 +43,7 @@ import type {
 // Dates are Date objects or null
 
 export interface User extends Omit<usersEntity, 'id' | 'created_at' | 'updated_at' | 'email_verified_at'> {
-  id: string; // Assuming ID is always present when User object is used
+  id: string;
   email_verified_at: Date | string | null; // Allow string for potential serialization differences
   created_at: Date | string;
   updated_at: Date | string;
@@ -51,18 +51,23 @@ export interface User extends Omit<usersEntity, 'id' | 'created_at' | 'updated_a
 }
 
 export interface Project extends Omit<projectsEntity, 'id' | 'created_at' | 'updated_at' | 'deadline' | 'opening_date'> {
-  id: string; // Assuming ID is always present
-  // Use address or another field for display name if 'name' doesn't exist
-  // name: string; // Remove this if not in projectsEntity
+  id: string;
   created_at: Date | string | null;
   updated_at: Date | string | null;
   deadline: Date | string; // Allow string
   opening_date: Date | string; // Allow string
 }
 export interface Client extends Omit<clientsEntity, 'id' | 'created_at' | 'updated_at'> {
-  id: string; // Assuming ID is always present
+  id: string;
   created_at: Date | string | null;
   updated_at: Date | string | null;
+  // address?: {
+  //   'street': string | null
+  //   'city': string | null
+  //   'postal_code': string | null
+  //   'state': string | null
+  //   'country': string | null
+  // }
 }
 
 export interface Invoice extends Omit<invoicesEntity, 'id' | 'created_at' | 'updated_at'> {

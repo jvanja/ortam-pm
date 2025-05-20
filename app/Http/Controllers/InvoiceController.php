@@ -42,43 +42,56 @@ class InvoiceController extends Controller {
       'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
       'project_id' => ['required', 'exists:projects,id'],
       'client_id' => ['required', 'exists:clients,id'],
+      'description' => ['string'],
     ]);
-    $project = Project::find($validated->project_id);
-    $client = Client::find($validated->client_id);
+    \Validator::make($request->items, [
+      'label' => 'required|string',
+      'description' => 'string',
+      'unit_price' => 'required|numeric',
+      'quantity' => 'required|numeric',
+    ]);
 
+    $project = Project::find($validated['project_id']);
+    $client = Client::find($validated['client_id']);
+
+    $clientAddress = json_decode($client->address);
     $invoice = new Invoice([
-      'type' => $validated->type,
-      'state' => $validated->state,
-      'description' => $validated->description,
+      'type' => 'invoice',
+      'state' => $validated['state'],
+      'description' => $validated['description'],
+      'total_amount' => $validated['total_amount'],
       'currency' => $project->currency,
       'seller_information' => config('invoices.default_seller'),
       'buyer_information' => [
         'name' => $client->company_name,
         'address' => [
-          'street' => $client->address->street,
-          'city' => $client->address->city,
-          'postal_code' => $client->postal_code,
-          'state' => $client->address->state,
-          'country' => $client->address->country,
+          'street' => $clientAddress->street,
+          'city' => $clientAddress->city,
+          'postal_code' => $clientAddress->state,
+          'country' => $clientAddress->country,
         ],
         'email' => $client->email,
         // 'tax_number' => "FR123456789",
       ],
     ]);
-    $invoice->buyer()->associate($validated->client_id); // optionnally associate the invoice to any model
+    $invoice->buyer()->associate($validated['client_id']); // optionnally associate the invoice to any model
 
     $invoice->save();
 
-    $invoice->items()->saveMany([
-      new InvoiceItem([
-        'unit_price' => Money::of(100, 'USD'),
-        'unit_tax' => Money::of(20, 'USD'),
-        'currency' => 'USD',
-        'quantity' => 1,
-        'label' => 'A label for my item',
-        'description' => 'A description for my item',
-      ]),
-    ]);
+    foreach ($request->items as $item) {
+      $invoiceItem = new InvoiceItem($item);
+      $invoice->items()->save($invoiceItem);
+    }
+    // $invoice->items()->saveMany([
+    //   new InvoiceItem([
+    //     'unit_price' => Money::of(100, 'USD'),
+    //     'unit_tax' => Money::of(20, 'USD'),
+    //     'currency' => 'USD',
+    //     'quantity' => 1,
+    //     'label' => 'A label for my item',
+    //     'description' => 'A description for my item',
+    //   ]),
+    // ]);
 
     return redirect()->route('invoices.show', $invoice)->with('success', 'Invoice created successfully!');
   }

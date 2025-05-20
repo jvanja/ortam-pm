@@ -7,13 +7,13 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem } from '@/types';
-import { Head, useForm, usePage } from '@inertiajs/vue3'; // Import useForm
-import { PlusCircle } from 'lucide-vue-next'; // Import PlusCircle
-import { computed } from 'vue'; // Import computed
 import { getQuery } from '@/lib/utils';
+import type { BreadcrumbItem } from '@/types';
+import { Head, useForm } from '@inertiajs/vue3';
+import { PlusCircle } from 'lucide-vue-next';
+import { computed } from 'vue';
 
-const props = defineProps<{
+defineProps<{
   clients: { id: string; company_name: string }[];
   projects: { id: string; type: string }[];
   states: { name: string; value: string }[];
@@ -26,6 +26,7 @@ const form = useForm({
   project_id: getQuery().projectId || '',
   client_id: getQuery().clientId || '',
   description: '',
+  total_amount: 0,
   items: [
     {
       label: '',
@@ -37,8 +38,8 @@ const form = useForm({
 
 // Handle form submission
 const submit = () => {
-  console.log(form);
-  // form.post(route('invoices.store'));
+  form.total_amount = totalAmount.value;
+  form.post(route('invoices.store'));
 };
 
 // Add a new item to the form
@@ -53,15 +54,13 @@ const addItem = () => {
 const formatCurrency = (amount: number) => `${Number(amount).toFixed(2)} USD`; // Format to 2 decimal places
 
 const getItemTotal = (item: { unit_price: number; quantity: number }) => {
-  const quantity = Number(item.quantity) || 0; // Default to 0 if not a valid number
-  const unitPrice = Number(item.unit_price) || 0; // Default to 0 if not a valid number
+  const quantity = Number(item.quantity) || 0;
+  const unitPrice = Number(item.unit_price) || 0;
   return quantity * unitPrice;
 };
 
 // Computed property to calculate the total amount of all items
-const totalAmount = computed(() => {
-  return form.items.reduce((sum, item) => sum + getItemTotal(item), 0);
-});
+const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getItemTotal(item), 0));
 </script>
 
 <template>
@@ -72,7 +71,7 @@ const totalAmount = computed(() => {
       <h1 class="mb-6 text-2xl font-semibold">Create New Invoice</h1>
 
       <form @submit.prevent="submit" class="space-y-6 rounded border bg-card p-6 text-card-foreground shadow">
-        <!-- state -->
+        <!-- Invoice state -->
         <div class="mb-4">
           <Label for="state">Invoice state</Label>
           <Select v-model="form.state" required>
@@ -169,7 +168,9 @@ const totalAmount = computed(() => {
               </TableRow>
               <TableRow>
                 <TableCell colspan="3" class="font-semibold">Total</TableCell>
-                <TableCell class="text-normal whitespace-nowrap px-2 py-4 text-right font-semibold"> {{ formatCurrency(totalAmount) }}</TableCell>
+                <TableCell class="text-normal whitespace-nowrap px-2 py-4 text-right font-semibold">
+                  {{ formatCurrency(totalAmount) }}
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>

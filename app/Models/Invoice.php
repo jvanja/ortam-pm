@@ -37,7 +37,7 @@ class Invoice extends BaseInvoice {
       created_at: $this->created_at,
       buyer: Buyer::fromArray($this->buyer_information ?? []),
       seller: Seller::fromArray($this->seller_information ?? []),
-      description: $this->description . ' - Custom Addition', // Example customization
+      description: $this->description,
       items: $this->items->map(fn($item) => $item->toPdfInvoiceItem())->all(),
       tax_label: $this->getTaxLabel(),
       discounts: $this->getDiscounts(),

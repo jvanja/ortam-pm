@@ -1,5 +1,4 @@
 <div>
-    CUSTOM INVOICE
     <table class="mb-8 w-full">
         <tbody>
             <tr>

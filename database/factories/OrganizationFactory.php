@@ -16,7 +16,10 @@ class OrganizationFactory extends Factory {
   public function definition(): array {
     return [
       'name' => fake()->company(),
+      'email' => fake()->safeEmail(),
+      'phone_number' => fake()->phoneNumber(),
       'address' => json_encode([
+        'name' => 'Ortam Groupe',
         'street' => fake()->streetAddress(),
         'city' => fake()->city(),
         'postal_code' => fake()->postcode(),

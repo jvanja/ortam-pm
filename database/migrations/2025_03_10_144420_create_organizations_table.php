@@ -13,6 +13,8 @@ return new class extends Migration {
       $table->id();
       $table->timestamps();
       $table->string('name');
+      $table->string('email')->unique();
+      $table->string('phone_number')->nullable();
       $table->json('address');
       $table->string('logo')->nullable();
       $table->string('brand_color')->nulable();

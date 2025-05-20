@@ -40,26 +40,26 @@ const form = useForm({
 
 const invoiceStatuses = props.invoice_states;
 
-  console.log(form);
 function updateInvoice() {
-  console.log(form);
-  // form.put(route('invoices.update', [props.invoice.id]), {
-  //   // Assuming route('invoices.update') exists
-  //   preserveScroll: true,
-  //   onSuccess: () => {
-  //     toast.success('Invoice updated successfully!');
-  //   },
-  //   onError: (errors) => {
-  //     const firstError = Object.values(errors)[0];
-  //     toast.error(firstError || 'Failed to update invoice. Please try again.');
-  //   },
-  // });
+  form.put(route('invoices.update', [props.invoice.id]), {
+    // Assuming route('invoices.update') exists
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Invoice updated successfully!');
+    },
+    onError: (errors) => {
+      const firstError = Object.values(errors)[0];
+      toast.error(firstError || 'Failed to update invoice. Please try again.');
+    },
+  });
 }
 
 function deleteInvoice() {
   router.delete(route('invoices.destroy', [props.invoice.id]), {
     preserveScroll: true,
     onSuccess: () => {
+      // - TODO:
+      // Make sure this redirects back as it currently shows 404 on delted invoice
       toast.success('Invoice deleted successfully!');
     },
     onError: (errors) => {

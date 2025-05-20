@@ -70,7 +70,7 @@ function submitInvite() {
                 {{ employee.role }}
               </td>
               <td class="whitespace-nowrap px-6 py-4 text-sm text-muted-foreground">
-                <Button variant="default"><a :href="`/employees/${employee.id}`" class="text-sm hover:text-primary">Edit</a></Button>
+                <Button variant="default"><a :href="`/users/${employee.id}`" class="text-sm hover:text-primary">Edit</a></Button>
               </td>
             </tr>
           </tbody>

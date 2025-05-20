@@ -17,9 +17,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const user = { ...props.user };
 const form = useForm(user);
 const submit = () => {
-  console.log(form);
-  /* @ts-expect-error This is fine */
-  form.patch(route('users.update', props.user.id), {
+  form.patch(route('users.update', [props.user.id]), {
     preserveScroll: true,
     onSuccess: () => {
       toast.success('User has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });

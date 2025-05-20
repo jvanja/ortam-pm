@@ -146,10 +146,17 @@ class RegisteredUserController extends Controller {
    * Update user by {id}
    */
   public function update($user_id, Request $request) {
-    dd($request->session()->all());
+    $this->authorize('profile.edit', User::class);
+
+    // validate email
+    $validated = $request->validate([
+     'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+    ]);
 
     $user = User::find($user_id);
-    return redirect()->back();
+    $user->update($validated);
+
+    return redirect()->back()->with('success', 'User updated successfully');
   }
 
   /**

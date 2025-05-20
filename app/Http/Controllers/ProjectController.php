@@ -85,7 +85,7 @@ class ProjectController extends Controller {
     }
     // $employees = $project->users()->get();
     // $employees = User::with('projects')->get();
-    $employees = User::with('projects')->get()->map(function ($user) {
+    $employees = User::with(['projects', 'roles'])->get()->map(function ($user) {
       $user->project_ids = $user->projects->pluck('id')->toArray();
       return $user;
     });

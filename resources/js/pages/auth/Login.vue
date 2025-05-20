@@ -14,7 +14,6 @@ defineProps<{
   canResetPassword: boolean;
 }>();
 
-console.log(usePage().props);
 const form = useForm({
   // - TODO:
   // Remove these!

@@ -20,18 +20,15 @@ class RestrictToOrganization {
     $user = Auth::user();
     // Check for project or invoice route parameters
     $projectId = $request->route('project');
-    $invoiceId = $request->route('invoice');
+    $invoice = $request->route('invoice');
 
     // Resolve the model instance based on the parameter
     if ($projectId) {
-      Log::info('Project ID: ' . $projectId);
       $model = Project::find($projectId);
       if (!$model) {
         abort(404, 'Project not found.');
       }
-    } elseif ($invoiceId) {
-      Log::info('Invoice ID: ' . $invoiceId);
-      $invoice = Invoice::find($invoiceId);
+    } elseif ($invoice) {
       $model = Project::find($invoice->project_id);
       if (!$model) {
         abort(404, 'Invoice not found.');

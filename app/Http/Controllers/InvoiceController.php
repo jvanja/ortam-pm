@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Brick\Money\Money;
 use Elegantly\Invoices\Enums\InvoiceState;
 use App\Mail\InvoiceSent;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\Invoice;
-use Elegantly\Invoices\Enums\InvoiceType;
 use Elegantly\Invoices\Models\InvoiceItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -82,17 +80,6 @@ class InvoiceController extends Controller {
       $invoiceItem = new InvoiceItem($item);
       $invoice->items()->save($invoiceItem);
     }
-    // $invoice->items()->saveMany([
-    //   new InvoiceItem([
-    //     'unit_price' => Money::of(100, 'USD'),
-    //     'unit_tax' => Money::of(20, 'USD'),
-    //     'currency' => 'USD',
-    //     'quantity' => 1,
-    //     'label' => 'A label for my item',
-    //     'description' => 'A description for my item',
-    //   ]),
-    // ]);
-
     return redirect()->route('invoices.show', $invoice)->with('success', 'Invoice created successfully!');
   }
 

@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Invoice;
 use App\Models\Project;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class RestrictToOrganization {
@@ -22,23 +24,29 @@ class RestrictToOrganization {
 
     // Resolve the model instance based on the parameter
     if ($projectId) {
+      Log::info('Project ID: ' . $projectId);
       $model = Project::find($projectId);
       if (!$model) {
         abort(404, 'Project not found.');
       }
-    // } elseif ($invoiceId) {
-    //   $model = Invoice::find($invoiceId);
-    //   if (!$model) {
-    //     abort(404, 'Invoice not found.');
-    //   }
+    } elseif ($invoiceId) {
+      Log::info('Invoice ID: ' . $invoiceId);
+      $invoice = Invoice::find($invoiceId);
+      $model = Project::find($invoice->project_id);
+      if (!$model) {
+        abort(404, 'Invoice not found.');
+      }
     } else {
       // No relevant model in the route, proceed
       return $next($request);
     }
-
-    // Check if the model belongs to the user's organization
-    if (!$user->hasRole('superadmin') && $user->organization_id !== $model->organization_id) {
-      abort(403, 'You do not have access to this resource.');
+    //  TODO:
+    // Perhaps restrict only certain routes with this dd($request->route()->getName());
+    if (isset($model->organization_id)) {
+      // Check if the model belongs to the user's organization
+      if (!$user->hasRole('superadmin') && $user->organization_id !== $model->organization_id) {
+        abort(403, 'You do not have access to this resource.');
+      }
     }
 
     return $next($request);

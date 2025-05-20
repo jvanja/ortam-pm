@@ -42,6 +42,7 @@ const getSeries = (project: ProjectWithPipelineStages) => {
         <apexchart :options="chartOptions(project)" :series="getSeries(project)"></apexchart>
       </div>
       <div class="text-sm text-center"><span class="font-semibold">{{ project.type }}</span></div>
+      <div class="text-sm text-center"><span>-- {{ project.status }} --</span></div>
       <div class="flex justify-center gap-2">
         <Button variant="link"><a :href="`/projects/${project.id}`">Edit</a></Button>
         <Button variant="link" class="text-red-500">Delete</Button>

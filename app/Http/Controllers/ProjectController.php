@@ -26,10 +26,8 @@ class ProjectController extends Controller {
     $managers = Project::distinct()->pluck('manager')->filter()->sort()->values()->toArray();
     $statuses = Project::distinct()->pluck('status')->filter()->sort()->values()->toArray();
 
-
     $projects = Project::query()
       ->when($searchQuery, function (Builder $query, string $search) {
-        // Search in 'type', 'department', 'address', etc. Adjust fields as needed.
         $query->where(function (Builder $subQuery) use ($search) {
           $subQuery->where('type', 'like', "%{$search}%")
             ->orWhere('department', 'like', "%{$search}%")
@@ -83,8 +81,6 @@ class ProjectController extends Controller {
     if ($project->pipelineStages->count() == 0) {
       $project->pipelineStages = ProjectPipelineStage::where('is_system_default', '=', true)->get();
     }
-    // $employees = $project->users()->get();
-    // $employees = User::with('projects')->get();
     $employees = User::with(['projects', 'roles'])->get()->map(function ($user) {
       $user->project_ids = $user->projects->pluck('id')->toArray();
       return $user;
@@ -170,11 +166,6 @@ class ProjectController extends Controller {
 
   /**
    * Remove an employee from the project.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Models\Project  $project
-   * @param  int|string  $userId
-   * @return \Illuminate\Http\RedirectResponse
    */
   public function removeEmployee(Request $request, Project $project, $userId) {
     $this->authorize('project.edit', Project::class);
@@ -189,11 +180,6 @@ class ProjectController extends Controller {
 
   /**
    * Add an employee to the project.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Models\Project  $project
-   * @param  int|string  $userId
-   * @return \Illuminate\Http\RedirectResponse
    */
   public function addEmployee(Request $request, Project $project, $userId) {
     $this->authorize('project.edit', Project::class);
@@ -205,6 +191,7 @@ class ProjectController extends Controller {
     }
     return redirect()->back()->with('error', 'Employee already found in project.');
   }
+
   /**
    * Remove the specified resource from storage.
    */

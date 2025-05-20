@@ -51,6 +51,20 @@ const removeEmployee = (id: string) => {
   });
 };
 
+const addEmployeeForm = useForm({ employeesIds });
+const assignEmployee = (id: string) => {
+  if(!id) return;
+  addEmployeeForm.post(route('projects.employee.add', [props.project, id]), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Employee added successfully!', { style: { background: '#6ee7b7', color: '#000' } });
+    },
+    onError: (errors) => {
+      console.error('Add employee error:', errors);
+      toast.error('Failed to add employee.');
+    },
+  });
+};
 // set hash to tab value
 const tabChange = (tab: string | number) => {
   window.location.hash = String(tab);
@@ -91,7 +105,7 @@ const defaultTab = window.location.hash.slice(1) || 'pipeline';
             <ProjectDetailsCard :project="project" :client="client" :form="form" :submit="submit" />
           </TabsContent>
           <TabsContent value="employees" class="flex-1">
-            <ProjectEmployeesCard :employees="employees" :projectEmployeeForm="projectEmployeeForm" :removeEmployee="removeEmployee" />
+            <ProjectEmployeesCard :projectId="project.id" :employees="employees" :projectEmployeeForm="projectEmployeeForm" :removeEmployee="removeEmployee" :assignEmployee="assignEmployee" />
           </TabsContent>
            <TabsContent value="invoices" class="flex-1">
             <InvoicesList :invoices="invoices" :currency="project.currency || 'USD'" :client-id="client.id" :project-id="project.id" />

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\Language;
 use App\Models\Client;
 use App\Models\ProjectPipelineStage;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Inertia\Inertia;
@@ -82,7 +83,12 @@ class ProjectController extends Controller {
     if ($project->pipelineStages->count() == 0) {
       $project->pipelineStages = ProjectPipelineStage::where('is_system_default', '=', true)->get();
     }
-    $employees = $project->users()->get();
+    // $employees = $project->users()->get();
+    // $employees = User::with('projects')->get();
+    $employees = User::with('projects')->get()->map(function ($user) {
+      $user->project_ids = $user->projects->pluck('id')->toArray();
+      return $user;
+    });
     $invoices = $project->invoices()->get();
     $client = $project->client()->first();
 
@@ -171,19 +177,34 @@ class ProjectController extends Controller {
    * @return \Illuminate\Http\RedirectResponse
    */
   public function removeEmployee(Request $request, Project $project, $userId) {
-
     $this->authorize('project.edit', Project::class);
 
     // Check if the employee is assigned to the project
     if ($project->users()->where('user_id', $userId)->exists()) {
       $project->users()->detach($userId);
-
       return redirect()->back()->with('success', 'Employee removed successfully.');
     }
-
     return redirect()->back()->with('error', 'Employee not found in project.');
   }
 
+  /**
+   * Add an employee to the project.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Models\Project  $project
+   * @param  int|string  $userId
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function addEmployee(Request $request, Project $project, $userId) {
+    $this->authorize('project.edit', Project::class);
+
+    // Check if the employee is assigned to the project
+    if (!$project->users()->where('user_id', $userId)->exists()) {
+      $project->users()->attach($userId);
+      return redirect()->back()->with('success', 'Employee added successfully.');
+    }
+    return redirect()->back()->with('error', 'Employee already found in project.');
+  }
   /**
    * Remove the specified resource from storage.
    */

@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
   Route::resource('projects', ProjectController::class);
   Route::delete('/projects/{project}/remove-employee/{userId}', [ProjectController::class, 'removeEmployee'])->name('projects.employee.remove');
+  Route::post('/projects/{project}/add-employee/{userId}', [ProjectController::class, 'addEmployee'])->name('projects.employee.add');
 
   // Project Pipeline Stage Routes
   Route::patch('/projects/{project}/pipeline-stages/order', [ProjectPipelineStageController::class, 'updateOrder'])->name('projects.pipeline-stages.updateOrder');

@@ -174,8 +174,9 @@ class InvoiceController extends Controller {
   public function destroy(Invoice $invoice): RedirectResponse {
     $this->authorize('invoice.delete', Invoice::class);
 
+    $project_id = $invoice->project_id;
     $invoice->delete();
 
-    return redirect()->back()->with('success', 'Invoice deleted successfully!');
+    return redirect(route('projects.show', [$project_id]))->withFragment('#invoices')->with('success', 'Invoice deleted successfully!');
   }
 }

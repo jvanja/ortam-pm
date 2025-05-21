@@ -58,8 +58,6 @@ function deleteInvoice() {
   router.delete(route('invoices.destroy', [props.invoice.id]), {
     preserveScroll: true,
     onSuccess: () => {
-      // - TODO:
-      // Make sure this redirects back as it currently shows 404 on delted invoice
       toast.success('Invoice deleted successfully!');
     },
     onError: (errors) => {

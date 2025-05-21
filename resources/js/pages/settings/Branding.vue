@@ -48,8 +48,8 @@ const submit = () => {
     <Head :title="breadcrumbs[0].title" />
 
     <SettingsLayout>
-      <div class="flex flex-col space-y-6">
-        <HeadingSmall title="" description="Update your company's branding" />
+      <div class="flex flex-col space-y-6 py-6">
+        <HeadingSmall title="Update your company's branding" description="Change the way your outgoing documents like invoices look." />
         <form @submit.prevent="submit" class="space-y-6">
           <div class="grid gap-2">
             <Label for="logo">Logo</Label>

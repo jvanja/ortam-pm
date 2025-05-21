@@ -7,13 +7,17 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/CompanyLayout.vue';
+import countries from '@/lib/countries';
 import { SharedData, User, type BreadcrumbItem } from '@/types';
 import { reactive, ref } from 'vue';
 
 interface Props {
   name: string;
+  email: string;
+  phone_number: string;
   address: string;
 }
 
@@ -35,7 +39,7 @@ const parsedAddress = ref(
       console.error('Failed to parse address:', e);
       return {};
     }
-  })()
+  })(),
 );
 
 // Initialize a reactive address object
@@ -44,12 +48,14 @@ const orgAddress = reactive({
   city: parsedAddress.value.city || '',
   state: parsedAddress.value.state || '',
   postal_code: parsedAddress.value.postal_code || '',
+  country: parsedAddress.value.country || '',
 });
-
 
 const form = useForm({
   name: props.name,
-  address: orgAddress
+  email: props.email,
+  phone_number: props.phone_number,
+  address: orgAddress,
 });
 
 const page = usePage<SharedData>();
@@ -69,8 +75,8 @@ const submit = () => {
     <Head title="Company settings" />
 
     <SettingsLayout>
-      <div class="flex flex-col space-y-6">
-        <HeadingSmall title="" description="Update your company's basic information" />
+      <div class="flex flex-col space-y-6 py-6">
+        <HeadingSmall title="Update your company's basic information" description="" />
 
         <form @submit.prevent="submit" class="space-y-6">
           <div class="grid gap-2">
@@ -80,14 +86,26 @@ const submit = () => {
           </div>
 
           <div class="grid gap-2">
-            <h3>Company Address</h3>
+            <Label for="email">Email</Label>
+            <Input id="email" class="mt-1 block w-full" v-model="form.email" required autocomplete="email" placeholder="Email address" />
+            <InputError class="mt-2" :message="form.errors.email" />
+          </div>
+
+          <div class="grid gap-2">
+            <Label for="phone_number">Phone number</Label>
+            <Input id="phone_number" class="mt-1 block w-full" v-model="form.phone_number" required autocomplete="tel" placeholder="Phone number" />
+            <InputError class="mt-2" :message="form.errors.phone_number" />
+          </div>
+
+          <div class="my-12 py-4">
+            <HeadingSmall title="Company address" description="These section will show on your documents like invoices and timesheets" class="mb-2" />
             <div>
-              <div class="grid grid-cols-4 gap-2">
+              <div class="grid grid-cols-4 items-center gap-2">
                 <Label for="street">Street</Label>
                 <Input
                   id="street"
                   type="text"
-                  class="mt-1 block w-full col-span-3"
+                  class="col-span-3 mt-1 block w-full"
                   v-model="form.address.street"
                   required
                   autocomplete="address-line1"
@@ -96,12 +114,12 @@ const submit = () => {
               </div>
             </div>
             <div>
-              <div class="grid grid-cols-4 gap-2">
+              <div class="grid grid-cols-4 items-center gap-2">
                 <Label for="city">City</Label>
                 <Input
                   id="city"
                   type="text"
-                  class="mt-1 block w-full col-span-3"
+                  class="col-span-3 mt-1 block w-full"
                   v-model="form.address.city"
                   required
                   autocomplete="address-city"
@@ -110,12 +128,12 @@ const submit = () => {
               </div>
             </div>
             <div>
-              <div class="grid grid-cols-4 gap-2">
+              <div class="grid grid-cols-4 items-center gap-2">
                 <Label for="state">State</Label>
                 <Input
                   id="state"
                   type="text"
-                  class="mt-1 block w-full col-span-3"
+                  class="col-span-3 mt-1 block w-full"
                   v-model="form.address.state"
                   required
                   autocomplete="address-state"
@@ -124,17 +142,35 @@ const submit = () => {
               </div>
             </div>
             <div>
-              <div class="grid grid-cols-4 gap-2">
+              <div class="grid grid-cols-4 items-center gap-2">
                 <Label for="code">Postal Code</Label>
                 <Input
                   id="code"
                   type="text"
-                  class="mt-1 block w-full col-span-3"
+                  class="col-span-3 mt-1 block w-full"
                   v-model="form.address.postal_code"
                   required
                   autocomplete="address-code"
                   placeholder="Postal code"
                 />
+              </div>
+            </div>
+            <div>
+              <div class="grid grid-cols-4 items-center gap-2">
+                <Label for="country">Country</Label>
+                <Select v-model="form.address.country" required>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Country" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Task Types</SelectLabel>
+                      <SelectItem v-for="country in countries" :key="country.countryShortCode" :value="country.countryName">
+                        {{ country.countryName }}
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
             <InputError class="mt-2" :message="form.errors.address" />

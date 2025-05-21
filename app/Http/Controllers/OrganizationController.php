@@ -78,6 +78,8 @@ class OrganizationController extends Controller {
 
     $organization->update([
       'name' => $validated['name'],
+      'email' => $validated['email'],
+      'phone_number' => $validated['phone_number'],
       'address' => json_encode($validated['address']),
     ]);
     return back()->with('status', 'Organization updated!');

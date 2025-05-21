@@ -62,6 +62,7 @@ const page = usePage<SharedData>();
 const user = page.props.auth.user as User;
 
 const submit = () => {
+  console.log(form.data());
   form.patch(route('organization.update', [user.organization_id]), {
     preserveScroll: true,
     onSuccess: () => console.log('Organization created!'),

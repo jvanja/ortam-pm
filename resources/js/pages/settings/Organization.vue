@@ -150,7 +150,7 @@ const submit = () => {
             </div>
             <div class="grid grid-cols-4 items-center gap-2">
               <Label for="country">Country</Label>
-              <Select v-model="form.address.country" required>
+              <Select id="country" v-model="form.address.country" required>
                 <SelectTrigger>
                   <SelectValue placeholder="Country" />
                 </SelectTrigger>

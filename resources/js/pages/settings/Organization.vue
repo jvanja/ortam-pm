@@ -97,81 +97,71 @@ const submit = () => {
             <InputError class="mt-2" :message="form.errors.phone_number" />
           </div>
 
-          <div class="my-12 py-4">
+          <div class="my-12 grid gap-2 py-4">
             <HeadingSmall title="Company address" description="These section will show on your documents like invoices and timesheets" class="mb-2" />
-            <div>
-              <div class="grid grid-cols-4 items-center gap-2">
-                <Label for="street">Street</Label>
-                <Input
-                  id="street"
-                  type="text"
-                  class="col-span-3 mt-1 block w-full"
-                  v-model="form.address.street"
-                  required
-                  autocomplete="address-line1"
-                  placeholder="Company address"
-                />
-              </div>
+            <div class="grid grid-cols-4 items-center gap-2">
+              <Label for="street">Street</Label>
+              <Input
+                id="street"
+                type="text"
+                class="col-span-3 mt-1 block w-full"
+                v-model="form.address.street"
+                required
+                autocomplete="address-line1"
+                placeholder="Company address"
+              />
             </div>
-            <div>
-              <div class="grid grid-cols-4 items-center gap-2">
-                <Label for="city">City</Label>
-                <Input
-                  id="city"
-                  type="text"
-                  class="col-span-3 mt-1 block w-full"
-                  v-model="form.address.city"
-                  required
-                  autocomplete="address-city"
-                  placeholder="City"
-                />
-              </div>
+            <div class="grid grid-cols-4 items-center gap-2">
+              <Label for="city">City</Label>
+              <Input
+                id="city"
+                type="text"
+                class="col-span-3 mt-1 block w-full"
+                v-model="form.address.city"
+                required
+                autocomplete="address-city"
+                placeholder="City"
+              />
             </div>
-            <div>
-              <div class="grid grid-cols-4 items-center gap-2">
-                <Label for="state">State</Label>
-                <Input
-                  id="state"
-                  type="text"
-                  class="col-span-3 mt-1 block w-full"
-                  v-model="form.address.state"
-                  required
-                  autocomplete="address-state"
-                  placeholder="State"
-                />
-              </div>
+            <div class="grid grid-cols-4 items-center gap-2">
+              <Label for="state">State</Label>
+              <Input
+                id="state"
+                type="text"
+                class="col-span-3 mt-1 block w-full"
+                v-model="form.address.state"
+                required
+                autocomplete="address-state"
+                placeholder="State"
+              />
             </div>
-            <div>
-              <div class="grid grid-cols-4 items-center gap-2">
-                <Label for="code">Postal Code</Label>
-                <Input
-                  id="code"
-                  type="text"
-                  class="col-span-3 mt-1 block w-full"
-                  v-model="form.address.postal_code"
-                  required
-                  autocomplete="address-code"
-                  placeholder="Postal code"
-                />
-              </div>
+            <div class="grid grid-cols-4 items-center gap-2">
+              <Label for="code">Postal Code</Label>
+              <Input
+                id="code"
+                type="text"
+                class="col-span-3 mt-1 block w-full"
+                v-model="form.address.postal_code"
+                required
+                autocomplete="address-code"
+                placeholder="Postal code"
+              />
             </div>
-            <div>
-              <div class="grid grid-cols-4 items-center gap-2">
-                <Label for="country">Country</Label>
-                <Select v-model="form.address.country" required>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Task Types</SelectLabel>
-                      <SelectItem v-for="country in countries" :key="country.countryShortCode" :value="country.countryName">
-                        {{ country.countryName }}
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
+            <div class="grid grid-cols-4 items-center gap-2">
+              <Label for="country">Country</Label>
+              <Select v-model="form.address.country" required>
+                <SelectTrigger>
+                  <SelectValue placeholder="Country" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Task Types</SelectLabel>
+                    <SelectItem v-for="country in countries" :key="country.countryShortCode" :value="country.countryName">
+                      {{ country.countryName }}
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             <InputError class="mt-2" :message="form.errors.address" />
           </div>

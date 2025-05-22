@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProjectType;
 use App\Models\Client;
 use App\Models\Organization;
 use App\Enums\Language;
 use App\Enums\ProjectStatus;
-use App\Models\ProjectPipelineStage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +20,7 @@ class ProjectFactory extends Factory {
    */
   public function definition(): array {
     return [
-      'type' => fake()->sentence(5),
+      'type' => fake()->randomElement(ProjectType::cases()),
       'department' => fake()->word(),
       'manager' => fake()->name(),
       'language' => fake()->randomElement(Language::cases()),

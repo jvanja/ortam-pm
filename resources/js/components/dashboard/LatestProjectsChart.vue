@@ -4,6 +4,11 @@ import type { Project, ProjectPipelineStage } from '@/types';
 type ProjectWithPipelineStages = Project & { pipeline_stages: ProjectPipelineStage[]; current_pipeline_stage: ProjectPipelineStage };
 
 const { projects } = defineProps<{ projects: ProjectWithPipelineStages[] }>();
+const fillColors = {
+  ongoing: '#00b39f',
+  canceled: '#ff0000',
+  completed: '#4B0082',
+}
 const chartOptions = (project: ProjectWithPipelineStages) => {
   return {
     chart: {
@@ -18,7 +23,7 @@ const chartOptions = (project: ProjectWithPipelineStages) => {
       },
     },
     fill: {
-      colors: project.status === 'canceled' ? '#ff0000' : '#0000ff',
+      colors: fillColors[project.status]
     },
     labels: [project.current_pipeline_stage.name],
   };

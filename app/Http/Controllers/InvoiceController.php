@@ -37,47 +37,53 @@ class InvoiceController extends Controller {
   public function store(Request $request) {
     $validated = $request->validate([
       'total_amount' => ['required', 'numeric', 'min:0'],
-      'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
+      'state' => ['required', 'string', Rule::in(array_column(InvoiceState::cases(), 'value'))],
       'project_id' => ['required', 'exists:projects,id'],
       'client_id' => ['required', 'exists:clients,id'],
-      'description' => ['string'],
-    ]);
-    \Validator::make($request->items, [
-      'label' => 'required|string',
-      'description' => 'string',
-      'unit_price' => 'required|numeric',
-      'quantity' => 'required|numeric',
+      'description' => ['nullable', 'string'],
+      'items' => ['required', 'array', 'min:1'],
+      'items.*.label' => ['required', 'string'],
+      'items.*.description' => ['nullable', 'string'],
+      'items.*.unit_price' => ['required', 'numeric', 'min:0'],
+      'items.*.quantity' => ['required', 'numeric', 'min:1'],
     ]);
 
     $project = Project::find($validated['project_id']);
     $client = Client::find($validated['client_id']);
 
-    $clientAddress = json_decode($client->address);
+    // Decode client address safely
+    $clientAddress = json_decode($client->address ?? '{}', true);
+
     $invoice = new Invoice([
       'type' => 'invoice',
       'state' => $validated['state'],
-      'description' => $validated['description'],
+      'description' => $validated['description'] ?? null, // Use validated description, default to null
       'total_amount' => $validated['total_amount'],
-      'currency' => $project->currency,
+      'currency' => $project->currency ?? 'USD',
       'seller_information' => config('invoices.default_seller'),
       'buyer_information' => [
         'name' => $client->company_name,
         'address' => [
-          'street' => $clientAddress->street,
-          'city' => $clientAddress->city,
-          'postal_code' => $clientAddress->state,
-          'country' => $clientAddress->country,
+          'street' => $clientAddress['street'] ?? null,
+          'city' => $clientAddress['city'] ?? null,
+          'postal_code' => $clientAddress['state'] ?? null, // Assuming state is postal_code based on your code
+          'country' => $clientAddress['country'] ?? null,
         ],
         'email' => $client->email,
-        // 'tax_number' => "FR123456789",
+        // 'tax_number' => "FR123456789", // Example, keep commented or remove if not used
       ],
     ]);
     $invoice->buyer()->associate($validated['client_id']); // optionnally associate the invoice to any model
 
     $invoice->save();
 
-    foreach ($request->items as $item) {
-      $invoiceItem = new InvoiceItem($item);
+    foreach ($validated['items'] as $itemData) {
+      $invoiceItem = new InvoiceItem([
+          'label' => $itemData['label'],
+          'description' => $itemData['description'] ?? null,
+          'quantity' => $itemData['quantity'],
+          'unit_price' => $itemData['unit_price'],
+      ]);
       $invoice->items()->save($invoiceItem);
     }
     return redirect()->route('invoices.show', $invoice)->with('success', 'Invoice created successfully!');
@@ -155,25 +161,35 @@ class InvoiceController extends Controller {
    * Update the specified resource in storage.
    */
   public function update(Request $request, Invoice $invoice): RedirectResponse {
-    $this->authorize('invoice.edit', Invoice::class);
+    $this->authorize('invoice.edit', $invoice);
 
     $validated = $request->validate([
       'total_amount' => ['required', 'numeric', 'min:0'],
-      'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
+      'description' => ['nullable', 'string'],
+      'state' => ['required', 'string', Rule::in(array_column(InvoiceState::cases(), 'value'))],
+      'items' => ['required', 'array', 'min:1'],
+      'items.*.id' => ['nullable', 'exists:invoice_items,id'],
+      'items.*.label' => ['required', 'string'],
+      'items.*.description' => ['nullable', 'string'],
+      'items.*.unit_price' => ['required', 'numeric', 'min:0'],
+      'items.*.quantity' => ['required', 'numeric', 'min:1'],
     ]);
 
-    \Validator::make($request->items, [
-      'label' => 'required|string',
-      'description' => 'string',
-      'unit_price' => 'required|numeric',
-      'quantity' => 'required|numeric',
+    $invoice->update([
+        'total_amount' => $validated['total_amount'],
+        'state' => $validated['state'],
+        'description' => $validated['description'] ?? null,
     ]);
-    $invoice->update($validated);
-    $invoice->save();
-    $invoice->items()->delete(); // delete old items
 
-    foreach ($request->items as $item) {
-      $invoiceItem = new InvoiceItem($item);
+    $invoice->items()->delete();
+
+    foreach ($validated['items'] as $itemData) { // Use validated items
+      $invoiceItem = new InvoiceItem([
+          'label' => $itemData['label'],
+          'description' => $itemData['description'] ?? null,
+          'quantity' => $itemData['quantity'],
+          'unit_price' => $itemData['unit_price'],
+      ]);
       $invoice->items()->save($invoiceItem);
     }
 

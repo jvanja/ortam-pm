@@ -75,12 +75,13 @@ class InvoiceTest extends TestCase {
   /** @test */
   public function invoice_can_be_created(): void {
     $invoiceData = [
-      'type' => InvoiceType::Invoice,
+      'type' => InvoiceType::Invoice->value, // Changed from InvoiceType::Invoice
       'state' => InvoiceState::Draft->value,
       'project_id' => $this->project->id,
       'client_id' => $this->client->id,
       'description' => 'Test Invoice Description',
       'total_amount' => 15000,
+      'buyer_information' => $this->client->address,
       'items' => [
         [
           'label' => 'Item 1',
@@ -99,8 +100,16 @@ class InvoiceTest extends TestCase {
 
     $response = $this->post(route('invoices.store'), $invoiceData);
 
+    // Assert the redirect happened first
+    $response->assertRedirect();
+
+    // Find the newly created invoice after the redirect
+    // Using first() is okay here because RefreshDatabase ensures a clean state for each test
     $invoice = Invoice::first();
-    $response->assertRedirect(route('invoices.show', Invoice::first())); // Assuming only one invoice is created
+    $this->assertNotNull($invoice, 'Invoice was not created in the database.'); // Add a check just in case
+
+    // Now assert the redirect URL using the found invoice
+    $response->assertRedirect(route('invoices.show', $invoice));
     $response->assertSessionHas('success', 'Invoice created successfully!');
 
     $this->assertDatabaseCount('invoices', 1);
@@ -119,7 +128,8 @@ class InvoiceTest extends TestCase {
     $this->assertEquals($this->client->company_name, $buyerInfo['name']);
     $this->assertEquals('123 Client St', $buyerInfo['address']['street']);
     $this->assertEquals('Clientville', $buyerInfo['address']['city']);
-    $this->assertEquals('CL', $buyerInfo['address']['postal_code']); // Check mapping
+    $this->assertEquals('Montana', $buyerInfo['address']['state']);
+    $this->assertEquals('93456', $buyerInfo['address']['postal_code']);
     $this->assertEquals('USA', $buyerInfo['address']['country']);
     $this->assertEquals($this->client->email, $buyerInfo['email']);
 

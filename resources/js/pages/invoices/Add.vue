@@ -10,7 +10,7 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { getQuery } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
-import { PlusCircle } from 'lucide-vue-next';
+import { PlusCircle, X as DeleteIcon } from 'lucide-vue-next';
 import { computed } from 'vue';
 
 defineProps<{
@@ -41,6 +41,10 @@ const submit = () => {
   form.total_amount = totalAmount.value;
   form.post(route('invoices.store'));
 };
+
+const deleteItem = (index: number) => {
+  form.items = form.items.filter((item, i) => i !== index);
+}
 
 // Add a new item to the form
 const addItem = () => {
@@ -141,6 +145,7 @@ const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getIte
                 <TableHead class="border-b p-2 text-left text-xs font-normal">Quantity</TableHead>
                 <TableHead class="border-b p-2 text-left text-xs font-normal">Unit price</TableHead>
                 <TableHead class="border-b p-2 text-right text-xs font-normal">Amount</TableHead>
+                <TableHead class="border-b p-2 text-right text-xs font-normal"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -155,9 +160,12 @@ const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getIte
                   <CurrencyInput v-model="item.unit_price" class="mt-1" :options="{ currency: 'USD' }" />
                 </TableCell>
                 <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">{{ formatCurrency(getItemTotal(item)) }}</TableCell>
+                <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">
+                  <Button variant="ghost" class="text-red-500" @click="deleteItem(index)" :disabled="form.items.length === 1"><DeleteIcon width="12"/></Button>
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell colspan="4" class="px-2 py-4">
+                <TableCell colspan="5" class="px-2 py-4">
                   <div class="rounded-lg border-2 border-dashed border-teal-400 bg-teal-50 p-1 px-4 py-2 dark:bg-neutral-800">
                     <button type="button" @click="addItem" class="flex w-full flex-1 items-center gap-2 text-sm text-green-700">
                       <PlusCircle class="text-green-700" />

@@ -48,7 +48,7 @@ const getInvoiceTotal = () => {
 
 const invoiceStatuses = props.invoice_states;
 
-function updateInvoice() {
+const updateInvoice = () => {
   form.transform((data) => ({
     ...data,
     total_amount: 1
@@ -65,7 +65,7 @@ function updateInvoice() {
   });
 }
 
-function deleteInvoice() {
+const deleteInvoice = () => {
   router.delete(route('invoices.destroy', [props.invoice.id]), {
     preserveScroll: true,
     onSuccess: () => {

@@ -15,9 +15,12 @@ const props = defineProps<{
   removeEmployee: (id: string) => void;
   assignEmployee: (id: string) => void;
 }>();
+const newEmployeeId = ref('');
+const roleToClass = (roles: [{ id: string; name: string }]) => {
+  return roles.some(role  => role.name === 'accountant') ? 'bg-red-600 text-white' : 'no';
+};
 // @ts-expect-error project_ids are added in the backend
 const projectEmployees = computed(() => props.employees.filter((employee) => employee.project_ids.includes(props.projectId)));
-const newEmployeeId = ref('');
 </script>
 
 <template>
@@ -39,20 +42,20 @@ const newEmployeeId = ref('');
           </TableHeader>
           <TableBody>
             <TableRow v-for="employee in projectEmployees" :key="employee.id">
-              <TableCell class="whitespace-nowrap px-6 py-4">
-                <div class="text-sm">{{ employee.name }}</div>
-              </TableCell>
-              <TableCell class="whitespace-nowrap px-6 py-4">
-                <div class="flex gap-2">
-                  <span v-for="role in employee.roles" :key="role.id" class="badge badge-ghost badge-sm">{{ role.name }}</span>
-                </div>
-              </TableCell>
-              <TableCell class="whitespace-nowrap px-6 py-4 text-right">
-                <div class="flex gap-2 justify-end">
-                  <Button variant="default"><a :href="`/users/${employee.id}`">View employee</a></Button>
-                  <Button variant="destructive" @click="removeEmployee(employee.id!)">Remove</Button>
-                </div>
-              </TableCell>
+                <TableCell class="whitespace-nowrap px-6 py-4">
+                  <div class="text-sm">{{ employee.name }}</div>
+                </TableCell>
+                <TableCell class="whitespace-nowrap">
+                  <div class="flex gap-2 px-6 py-4" :class="roleToClass(employee.roles)">
+                    <span v-for="role in employee.roles" :key="role.id" class="badge badge-ghost badge-sm">{{ role.name }}</span>
+                  </div>
+                </TableCell>
+                <TableCell class="whitespace-nowrap px-6 py-4 text-right">
+                  <div class="flex justify-end gap-2">
+                    <Button variant="default"><a :href="`/users/${employee.id}`">View employee</a></Button>
+                    <Button variant="destructive" @click="removeEmployee(employee.id!)">Remove</Button>
+                  </div>
+                </TableCell>
             </TableRow>
           </TableBody>
         </Table>

@@ -162,7 +162,19 @@ class InvoiceController extends Controller {
       'state' => ['required', 'string', Rule::in(InvoiceState::cases())],
     ]);
 
+    \Validator::make($request->items, [
+      'label' => 'required|string',
+      'description' => 'string',
+      'unit_price' => 'required|numeric',
+      'quantity' => 'required|numeric',
+    ]);
     $invoice->update($validated);
+    $invoice->save();
+
+    foreach ($request->items as $item) {
+      $invoiceItem = InvoiceItem::find($item['id']);
+      $invoiceItem->update($item);
+    }
 
     return redirect()->back()->with('success', 'Invoice updated successfully!');
   }

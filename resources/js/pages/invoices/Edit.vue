@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,33 +16,42 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem, Client, Invoice, Project } from '@/types';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { toast } from 'vue-sonner';
 
-type InvoiceItem = {'id': number, 'label': string, 'quantity': number, 'unit_price': number, 'description': string};
+type InvoiceItem = { id: number; label: string; quantity: number; unit_price: number; description: string };
 const props = defineProps<{ invoice: Invoice; invoice_items: InvoiceItem[]; client: Client; project: Project; invoice_states: [] }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
-  { title: 'Invoices', href: '',},
+  { title: 'Invoices', href: '' },
   { title: `Invoice #${props.invoice.serial_number}`, href: '' },
 ];
 
-const items = ref(props.invoice_items);
+const items = ref([...props.invoice_items]);
 
 const form = useForm({
-  amount: props.invoice.total_amount!,
+  total_amount: props.invoice.total_amount,
   state: props.invoice.state,
-  items: items.value
+  items: items.value,
 });
+
+const formatCurrency = (amount: number) => new Intl.NumberFormat('us-EN', { style: 'currency', currency: props.invoice.currency! }).format(amount);
+const getItemTotal = (item: InvoiceItem) => formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1));
+const getInvoiceTotal = () => {
+  const total = form.items.reduce((acc, item) => acc + Number(item.unit_price) * (item.quantity ? item.quantity : 1), 0);
+  return total;
+};
 
 const invoiceStatuses = props.invoice_states;
 
 function updateInvoice() {
-  form.put(route('invoices.update', [props.invoice.id]), {
+  form.transform((data) => ({
+    ...data,
+    total_amount: 1
+  })).put(route('invoices.update', [props.invoice.id]), {
     // Assuming route('invoices.update') exists
     preserveScroll: true,
     onSuccess: () => {
@@ -66,9 +76,6 @@ function deleteInvoice() {
     },
   });
 }
-
-const formatCurrency = (amount: number) => `${Number(amount)} ${props.invoice.currency}`;
-const getItemTotal = (item: InvoiceItem) => formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1));
 </script>
 
 <template>
@@ -102,7 +109,7 @@ const getItemTotal = (item: InvoiceItem) => formatCurrency(Number(item.unit_pric
           <Table class="min-w-full divide-y divide-gray-200">
             <TableHeader>
               <TableRow class="text-gray-500">
-                <TableHead class="border-b p-2 text-left text-xs font-normal" style="width:60%">Description</TableHead>
+                <TableHead class="border-b p-2 text-left text-xs font-normal" style="width: 60%">Description</TableHead>
                 <TableHead class="border-b p-2 text-left text-xs font-normal">Quantity</TableHead>
                 <TableHead class="border-b p-2 text-left text-xs font-normal">Unit price</TableHead>
                 <TableHead class="border-b p-2 text-right text-xs font-normal">Amount</TableHead>
@@ -117,15 +124,15 @@ const getItemTotal = (item: InvoiceItem) => formatCurrency(Number(item.unit_pric
                   <Input v-model="form.items[index].quantity!" class="mt-1" type="number" />
                 </TableCell>
                 <TableCell class="px-2 py-4 text-sm">
-                  <CurrencyInput v-model="form.items[index].unit_price" class="mt-1" :options="{ currency: invoice.currency }" />
+                  <CurrencyInput v-model="form.items[index].unit_price" class="mt-1" :options="{ currency: invoice.currency, precision: 2 }" />
                 </TableCell>
-                <TableCell class="whitespace-nowrap px-2 py-4 text-sm text-right">{{ getItemTotal(form.items[index]) }}</TableCell>
+                <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">
+                  {{ getItemTotal(form.items[index]) }}
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell colspan="4" class="font-semibold">Total</TableCell>
-                <TableCell class="whitespace-nowrap text-normal px-2 py-4 font-semibold">
-                  {{ formatCurrency(Number(invoice.total_amount)) }}</TableCell
-                >
+                <TableCell class="text-normal whitespace-nowrap px-2 py-4 font-semibold"> {{ formatCurrency(getInvoiceTotal()) }}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

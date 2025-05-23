@@ -5,9 +5,11 @@ namespace Tests\Feature;
 use App\Mail\InvoiceSent;
 use App\Models\Client;
 use App\Models\Invoice;
+use App\Models\Organization;
 use App\Models\Project;
 use App\Models\User;
 use Elegantly\Invoices\Enums\InvoiceState;
+use Elegantly\Invoices\Enums\InvoiceType;
 use Elegantly\Invoices\Models\InvoiceItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -18,6 +20,7 @@ class InvoiceTest extends TestCase {
   protected User $user;
   protected Client $client;
   protected Project $project;
+  protected Organization $organization;
 
   protected function setUp(): void {
     parent::setUp();
@@ -26,18 +29,25 @@ class InvoiceTest extends TestCase {
     $this->user = User::factory()->create();
     $this->actingAs($this->user);
 
+    $this->organization = Organization::factory()->create();
     // Create a client and project for testing
     $this->client = Client::factory()->create([
+      'company_name' => 'Client Company',
       'address' => json_encode([
         'street' => '123 Client St',
         'city' => 'Clientville',
-        'state' => 'CL', // Assuming this maps to postal_code in buyer_information
+        'state' => 'Montana',
+        'postal_code' => '93456',
         'country' => 'USA',
       ]),
       'email' => 'client@example.com',
+      'organization_id' => 1,
     ]);
     $this->project = Project::factory()->create([
-      'currency' => 'EUR', // Use a different currency to test it's saved
+      'type' => 'project name',
+      'currency' => 'USD',
+      'organization_id' => 1,
+      'client_id' => $this->client->id,
     ]);
 
     // Ensure default seller config exists for invoice creation
@@ -65,34 +75,35 @@ class InvoiceTest extends TestCase {
   /** @test */
   public function invoice_can_be_created(): void {
     $invoiceData = [
+      'type' => InvoiceType::Invoice,
       'state' => InvoiceState::Draft->value,
       'project_id' => $this->project->id,
       'client_id' => $this->client->id,
       'description' => 'Test Invoice Description',
-      'total_amount' => 150.00, // This should match item totals in a real app, but backend calculates from items
+      'total_amount' => 15000,
       'items' => [
         [
           'label' => 'Item 1',
           'description' => 'Description for item 1',
           'quantity' => 2,
-          'unit_price' => 50.00,
+          'unit_price' => 5000,
         ],
         [
           'label' => 'Item 2',
           'description' => null, // Test nullable description
           'quantity' => 1,
-          'unit_price' => 50.00,
+          'unit_price' => 5000,
         ],
       ],
     ];
 
     $response = $this->post(route('invoices.store'), $invoiceData);
 
+    $invoice = Invoice::first();
     $response->assertRedirect(route('invoices.show', Invoice::first())); // Assuming only one invoice is created
     $response->assertSessionHas('success', 'Invoice created successfully!');
 
     $this->assertDatabaseCount('invoices', 1);
-    $invoice = Invoice::first();
 
     $this->assertEquals($invoiceData['state'], $invoice->state);
     $this->assertEquals($invoiceData['project_id'], $invoice->project_id);

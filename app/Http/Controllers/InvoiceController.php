@@ -170,10 +170,11 @@ class InvoiceController extends Controller {
     ]);
     $invoice->update($validated);
     $invoice->save();
+    $invoice->items()->delete(); // delete old items
 
     foreach ($request->items as $item) {
-      $invoiceItem = InvoiceItem::find($item['id']);
-      $invoiceItem->update($item);
+      $invoiceItem = new InvoiceItem($item);
+      $invoice->items()->save($invoiceItem);
     }
 
     return redirect()->back()->with('success', 'Invoice updated successfully!');

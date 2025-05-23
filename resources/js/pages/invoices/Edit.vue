@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
+import { PlusCircle, X as DeleteIcon } from 'lucide-vue-next';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -76,6 +77,21 @@ function deleteInvoice() {
     },
   });
 }
+
+const deleteItem = (id: number) => {
+  items.value = items.value.filter((item) => item.id !== id);
+  form.items = items.value.filter((item) => item.id !== id);
+}
+
+const addItem = () => {
+  form.items.push({
+    id: 0, // added this to silence the ts error; id is added in the backend
+    label: '',
+    description: '',
+    quantity: 1,
+    unit_price: 0,
+  });
+};
 </script>
 
 <template>
@@ -113,10 +129,11 @@ function deleteInvoice() {
                 <TableHead class="border-b p-2 text-left text-xs font-normal">Quantity</TableHead>
                 <TableHead class="border-b p-2 text-left text-xs font-normal">Unit price</TableHead>
                 <TableHead class="border-b p-2 text-right text-xs font-normal">Amount</TableHead>
+                <TableHead class="border-b p-2 text-right text-xs font-normal"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow v-for="(item, index) in items" :key="item.id">
+              <TableRow v-for="(item, index) in form.items" :key="item.id">
                 <TableCell class="px-2 py-4 text-sm">
                   <Input v-model="form.items[index].label!" class="mt-1" />
                 </TableCell>
@@ -128,6 +145,19 @@ function deleteInvoice() {
                 </TableCell>
                 <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">
                   {{ getItemTotal(form.items[index]) }}
+                </TableCell>
+                <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">
+                  <Button variant="ghost" class="text-red-500" @click="deleteItem(item.id)" :disabled="items.length === 1"><DeleteIcon width="12"/></Button>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell colspan="5" class="px-2 py-4">
+                  <div class="rounded-lg border-2 border-dashed border-teal-400 bg-teal-50 p-1 px-4 py-2 dark:bg-neutral-800">
+                    <button type="button" @click="addItem" class="flex w-full flex-1 items-center gap-2 text-sm text-green-700">
+                      <PlusCircle class="text-green-700" />
+                      Add new item
+                    </button>
+                  </div>
                 </TableCell>
               </TableRow>
               <TableRow>

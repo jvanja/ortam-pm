@@ -120,7 +120,7 @@ const defaultTab = window.location.hash.slice(1) || 'pipeline';
             <ProjectNotes :project="project" />
           </TabsContent>
            <TabsContent value="files" class="flex-1">
-            <ProjectFiles :invoices="invoices" :currency="project.currency || 'USD'" :client-id="client.id" :project-id="project.id" />
+            <ProjectFiles :project="project" />
           </TabsContent>
         </div>
       </Tabs>

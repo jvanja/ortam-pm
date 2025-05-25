@@ -127,7 +127,8 @@ class ProjectController extends Controller {
       'sales_representative_name' => 'nullable|string',
       'deadline' => 'nullable|date',
       'client_id' => 'nullable|exists:clients,id',
-      'organization_id' => 'exists:organizations,id'
+      'organization_id' => 'exists:organizations,id',
+      'notes' => 'nullable|string'
     ]);
 
     $project = Project::create($validated);
@@ -156,7 +157,8 @@ class ProjectController extends Controller {
       'currency' => 'sometimes|string',
       'sales_representative_name' => 'sometimes|string',
       'deadline' => 'sometimes|date',
-      'client_id' => 'nullable|exists:clients,id'
+      'client_id' => 'nullable|exists:clients,id',
+      'notes' => 'nullable|string'
     ]);
 
     $project->update($validated);

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { Project } from '@/types';
 import { useForm } from '@inertiajs/vue3';
@@ -40,7 +39,7 @@ const submit = () => {
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div class="flex flex-col space-y-1.5">
             <Label htmlFor="type">Project Notes</Label>
-            <Textarea id="type" :placeholder="form.notes" v-model="form.notes" />
+            <textarea id="type" :placeholder="form.notes" v-model="form.notes" class="border border-1"/>
           </div>
         </div>
         <div class="flex w-full justify-end">

@@ -13,7 +13,7 @@ export interface cache_locksEntity {
   'owner': string;
 }
 export interface clientsEntity {
-  'address': string;
+  'address': Object;
   'company_name': string;
   'contact_person': string;
   'created_at'?: Date | null;
@@ -144,12 +144,14 @@ export interface model_has_rolesEntity {
   'role_id': string;
 }
 export interface organizationsEntity {
-  'address': string;
+  'address': Object;
   'brand_color': string;
   'created_at'?: Date | null;
+  'email': string;
   'id'?: string;
   'logo'?: string | null;
   'name': string;
+  'phone_number'?: string | null;
   'updated_at'?: Date | null;
 }
 export interface p_c_a_reportsEntity {
@@ -163,7 +165,7 @@ export interface p_c_a_reportsEntity {
   'name': string;
   'non_residential_units'?: number;
   'numbers_of_floors': number;
-
+  
   /* Percentage of total lot area */
   'occupation_of_the_building': number;
   'occupation_of_the_property': string;
@@ -171,10 +173,10 @@ export interface p_c_a_reportsEntity {
   'project_id': string;
   'residential_units': number;
   'structure': string;
-
+  
   /* Measured in square meters */
   'surface_area_of_the_building': number;
-
+  
   /* Measured in square meters */
   'total_site_area': number;
   'updated_at'?: Date | null;
@@ -222,6 +224,7 @@ export interface projectsEntity {
   'id'?: string;
   'language': 'english' | 'french';
   'manager'?: string | null;
+  'notes'?: string | null;
   'opening_date'?: Date | null;
   'organization_id': string;
   'sales_representative_name'?: string | null;

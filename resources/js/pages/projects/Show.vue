@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { ProjectPipeline, ProjectDetailsCard, ProjectEmployeesCard } from '@/components/project';
+import { ProjectPipeline, ProjectDetailsCard, ProjectEmployeesCard, ProjectNotes, ProjectFiles } from '@/components/project';
 import InvoicesList from '@/components/invoice/List.vue';
 import type { BreadcrumbItem, Client, Project, ProjectPipelineStage, User, Invoice } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
@@ -94,6 +94,12 @@ const defaultTab = window.location.hash.slice(1) || 'pipeline';
            <TabsTrigger value="invoices" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
             Invoices
           </TabsTrigger>
+           <TabsTrigger value="notes" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
+            Notes
+          </TabsTrigger>
+           <TabsTrigger value="files" class="relative h-9 rounded-none border-b-2 border-b-transparent bg-transparent px-4 pb-3 pt-2 font-semibold text-muted-foreground shadow-none transition-none data-[state=active]:border-b-primary data-[state=active]:text-foreground data-[state=active]:shadow-none">
+            Files
+          </TabsTrigger>
         </TabsList>
 
         <!-- Tab Content -->
@@ -109,6 +115,12 @@ const defaultTab = window.location.hash.slice(1) || 'pipeline';
           </TabsContent>
            <TabsContent value="invoices" class="flex-1">
             <InvoicesList :invoices="invoices" :currency="project.currency || 'USD'" :client-id="client.id" :project-id="project.id" />
+          </TabsContent>
+           <TabsContent value="notes" class="flex-1">
+            <ProjectNotes :project="project" />
+          </TabsContent>
+           <TabsContent value="files" class="flex-1">
+            <ProjectFiles :invoices="invoices" :currency="project.currency || 'USD'" :client-id="client.id" :project-id="project.id" />
           </TabsContent>
         </div>
       </Tabs>

@@ -31,6 +31,7 @@ class Project extends Model {
     'client_id',
     'organization_id',
     'current_project_pipeline_stage_id',
+    'notes',
   ];
 
   protected $casts = [

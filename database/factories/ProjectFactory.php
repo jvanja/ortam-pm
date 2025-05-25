@@ -34,6 +34,7 @@ class ProjectFactory extends Factory {
       'client_id' => Client::inRandomOrder()->first(),
       'organization_id' => Organization::inRandomOrder()->first(),
       'current_project_pipeline_stage_id' => null,
+      'notes' => fake()->paragraph(),
     ];
   }
 }

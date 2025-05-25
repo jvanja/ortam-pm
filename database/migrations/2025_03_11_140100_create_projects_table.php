@@ -25,6 +25,7 @@ return new class extends Migration {
       $table->date('deadline')->nullable();
       $table->foreignId('client_id')->constrained()->onUpdate('cascade');
       $table->foreignId('organization_id')->constrained()->onUpdate('cascade');
+      $table->longText('notes')->nullable();
       $table->timestamps();
     });
 

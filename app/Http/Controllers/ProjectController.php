@@ -209,8 +209,7 @@ class ProjectController extends Controller {
     $uploadedFile = $validated['file'];
 
     // Store the file in storage/app/public/projects/{project_id}/files
-    // The putFile method automatically generates a unique filename
-    $path = Storage::putFile('public/' . $project->id . '/files', $uploadedFile);
+    $path = $uploadedFile->store('files/project/' . $project->id, 'public');
 
     // Create a database record for the file
     $file = new File([

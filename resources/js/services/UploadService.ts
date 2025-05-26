@@ -29,9 +29,8 @@ export const UploadService = {
       });
 
       // Handle successful upload
-      message = response.data.message; // Display success message from API
-    } catch (error) {
-      // Handle errors during upload
+      message = response.data.message;
+    } catch(error: any) {
       if (error.response) {
         // Server responded with an error status code
         message = error.response.data?.message || 'Upload failed. Please try again.';

@@ -2,7 +2,7 @@
 import Dropzone from '@/components/dropzone/Dropzone.vue';
 import FilesList from '@/components/dropzone/FilesList.vue';
 import { UploadService, message, progress, uploading } from '@/services/UploadService';
-import { ProjectFile, Project } from '@/types';
+import { Project, ProjectFile } from '@/types';
 
 const props = defineProps<{
   project: Project & {
@@ -31,8 +31,8 @@ const errorMessage = '';
   <Dropzone :errorMessage="errorMessage" @submit:files="submit" />
   <FilesList v-if="project.files.length > 0" :filesData="project.files" />
   <div v-if="uploading">
-  Progress: {{ progress }} <br />
-  Message: {{ message }} <br />
-  Uploading: {{ uploading }} <br />
+    Progress: {{ progress }} <br />
+    Message: {{ message }} <br />
+    Uploading: {{ uploading }} <br />
   </div>
 </template>

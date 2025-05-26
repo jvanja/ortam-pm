@@ -12,6 +12,10 @@ const PDF = `<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' view
     <path d='M16 13H8'/>
     <path d='M16 17H8'/>
   </svg>`;
+
+const formatSize = (fileSize: number) => {
+  return (fileSize / (1024 * 1024)).toFixed(2) + ' MB';
+}
 </script>
 <template>
   <div v-if="filesData.length > 0" class="mt-3 flex flex-col gap-2">
@@ -28,12 +32,12 @@ const PDF = `<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' view
           <div class="flex flex-col gap-0">
             <div class="text-[0.85rem] font-medium leading-snug">{{ file.name.split('.').slice(0, -1).join('.') }}</div>
             <div class="text-[0.7rem] leading-tight text-gray-500">
-              .{{ file.name.split('.').pop() }} • {{ (file.size / (1024 * 1024)).toFixed(2) }} MB
+              .{{ file.name.split('.').pop() }} • {{ formatSize(file.size) }}
             </div>
           </div>
-          <p>Name: {{ file.name }}</p>
-          <p>Size: {{ file.size }}</p>
-          <p>Type: {{ file.mime_type }}</p>
+          <div>
+            <a :href="'/' + file.path" target="_blank" class="text-blue-500 hover:underline">Download</a>
+          </div>
         </div>
       </div>
     </div>

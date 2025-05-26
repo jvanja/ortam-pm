@@ -101,25 +101,6 @@ class Project extends Model {
    * Get the files associated with the project.
    */
   public function files(): HasMany {
-    return $this->hasMany(File::class);
+    return $this->hasMany(File::class, 'parent_id');
   }
-
-  // public function workload(): BelongsToMany {
-  //   return $this->belongsToMany(Workload::class);
-  // }
-  //
-  //
-  // public function timeSheets(): HasMany {
-  //   return $this->hasMany(TimeSheet::class);
-  // }
-  // public function quote(): BelongsTo {
-  //   return $this->belongsTo(Quote::class);
-  // }
-  //
-  // public function addInvoice(float $amount): Invoice {
-  //   $invoice = Invoice::create([
-  //     'amount' => $amount,
-  //   ]);
-  //   return $invoice;
-  // }
 }

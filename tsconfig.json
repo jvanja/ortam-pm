@@ -40,7 +40,7 @@
         // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
         // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
         "typeRoots": [
-          "./resources/js/types",
+          "./resources/js/types"
         ],
         "types": [
             "vite/client",
@@ -105,7 +105,7 @@
         // "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
         // "strictBuiltinIteratorReturn": true,              /* Built-in iterators are instantiated with a 'TReturn' type of 'undefined' instead of 'any'. */
         // "noImplicitThis": true,                           /* Enable error reporting when 'this' is given the type 'any'. */
-        // "useUnknownInCatchVariables": true,               /* Default catch clause variables as 'unknown' instead of 'any'. */
+        "useUnknownInCatchVariables": true,               /* Default catch clause variables as 'unknown' instead of 'any'. */
         // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */
         // "noUnusedLocals": true,                           /* Enable error reporting when local variables aren't read. */
         // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read. */

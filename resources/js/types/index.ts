@@ -27,6 +27,7 @@ export interface SharedData extends PageProps {
 // Import base entity types
 import type {
   clientsEntity,
+  filesEntity,
   invitationsEntity,
   invoice_itemsEntity,
   invoicesEntity,
@@ -104,18 +105,26 @@ export interface Invitation extends Omit<invitationsEntity, 'id' | 'created_at' 
 export type TaskPerformedEnum = 'visit' | 'research' | 'fieldwork' | 'report';
 
 export interface TimeSheet extends Omit<time_sheetsEntity, 'id' | 'created_at' | 'updated_at' | 'task_performed'> {
-  id: string; // Assuming ID is always present
-  task_performed: TaskPerformedEnum; // Use the specific enum type
-  details?: string | null; // Add optional details field
+  id: string;
+  task_performed: TaskPerformedEnum;
+  details?: string | null;
   created_at: Date | string;
   updated_at: Date | string | null;
-  project?: Project; // Optional relation using our defined Project type
-  user?: User; // Optional relation using our defined User type
-  organization?: Organization; // Optional relation using our defined Organization type
+  project?: Project;
+  user?: User;
+  organization?: Organization;
 }
 
 export interface ProjectPipelineStage extends Omit<project_pipeline_stagesEntity, 'id' | 'created_at' | 'updated_at'> {
-  id: string; // Assuming ID is always present
+  id: string;
+  created_at: Date | string | null;
+  updated_at: Date | string | null;
+}
+
+export interface ProjectFile extends Omit<filesEntity, 'id' | 'created_at' | 'updated_at' | 'size'> {
+  id: string;
+  lastModified: Date | string;
+  size: number;
   created_at: Date | string | null;
   updated_at: Date | string | null;
 }

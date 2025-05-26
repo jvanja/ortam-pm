@@ -15,7 +15,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProjectPipelineStageController;
-use App\Http\Controllers\FileController; // Import the FileController
+use App\Http\Controllers\FileController;
 
 Route::get('/', function () {
   if (Auth::check()) {
@@ -49,6 +49,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::resource('projects', ProjectController::class);
   Route::delete('/projects/{project}/remove-employee/{userId}', [ProjectController::class, 'removeEmployee'])->name('projects.employee.remove');
   Route::post('/projects/{project}/add-employee/{userId}', [ProjectController::class, 'addEmployee'])->name('projects.employee.add');
+  Route::post('/projects/{project}/uploadFile', [ProjectController::class, 'uploadFile'])->name('projects.file.add');
 
   // Project Pipeline Stage Routes
   Route::patch('/projects/{project}/pipeline-stages/order', [ProjectPipelineStageController::class, 'updateOrder'])->name('projects.pipeline-stages.updateOrder');

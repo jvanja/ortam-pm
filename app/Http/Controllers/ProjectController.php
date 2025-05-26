@@ -6,8 +6,10 @@ use App\Enums\Language;
 use App\Models\Client;
 use App\Models\ProjectPipelineStage;
 use App\Models\User;
+use App\Models\File;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -77,7 +79,7 @@ class ProjectController extends Controller {
   public function show($id) {
     $this->authorize('project.edit', Project::class);
 
-    $project = Project::with(['pipelineStages', 'currentPipelineStage'])->findOrFail($id);
+    $project = Project::with(['pipelineStages', 'currentPipelineStage', 'files'])->findOrFail($id);
     if ($project->pipelineStages->count() == 0) {
       $project->pipelineStages = ProjectPipelineStage::where('is_system_default', '=', true)->get();
     }
@@ -169,7 +171,7 @@ class ProjectController extends Controller {
   /**
    * Remove an employee from the project.
    */
-  public function removeEmployee(Request $request, Project $project, $userId) {
+  public function removeEmployee(Project $project, $userId) {
     $this->authorize('project.edit', Project::class);
 
     // Check if the employee is assigned to the project
@@ -183,7 +185,7 @@ class ProjectController extends Controller {
   /**
    * Add an employee to the project.
    */
-  public function addEmployee(Request $request, Project $project, $userId) {
+  public function addEmployee(Project $project, $userId) {
     $this->authorize('project.edit', Project::class);
 
     // Check if the employee is assigned to the project
@@ -193,6 +195,36 @@ class ProjectController extends Controller {
     }
     return redirect()->back()->with('error', 'Employee already found in project.');
   }
+
+  /**
+   * Store project file
+   */
+  public function uploadFile(Request $request, Project $project) {
+    $this->authorize('project.edit', Project::class);
+
+    $validated = $request->validate([
+      'file' => 'required|file|max:10240', // Max 10MB file size
+    ]);
+
+    $uploadedFile = $validated['file'];
+
+    // Store the file in storage/app/public/projects/{project_id}/files
+    // The putFile method automatically generates a unique filename
+    $path = Storage::putFile('public/' . $project->id . '/files', $uploadedFile);
+
+    // Create a database record for the file
+    $file = new File([
+      'name' => $uploadedFile->getClientOriginalName(),
+      'path' => $path, // Store the path returned by Storage::putFile
+      'mime_type' => $uploadedFile->getMimeType(),
+      'size' => $uploadedFile->getSize(),
+    ]);
+
+    $project->files()->save($file);
+
+    return redirect()->back()->with('success', 'File uploaded successfully.');
+  }
+
 
   /**
    * Remove the specified resource from storage.

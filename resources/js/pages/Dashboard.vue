@@ -26,6 +26,11 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
         <Heading title="Actions" description="Set up a new project, client or a report" />
         <div class="grid grid-cols-3 gap-2">
           <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800 text-sm">
+            <ReceiptText color="#2339c3" />
+            <a :href="`/invoices/create`" class="hover:text-primary">new proposal ></a>
+            <p class="text-muted-foreground">Create a new proposal</p>
+          </Card>
+          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800 text-sm">
             <FolderPlus color="#3e9392" />
             <a :href="`/projects/create`" class="hover:text-primary">new project ></a>
             <p class="text-muted-foreground">Create a new project by filling up a basic new project form</p>
@@ -34,11 +39,6 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
             <UserRoundPlus color="#e32884" />
             <a :href="`/clients/create`" class="hover:text-primary">new client ></a>
             <p class="text-muted-foreground">Create a new client and associate it to a project</p>
-          </Card>
-          <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800 text-sm">
-            <ReceiptText color="#2339c3" />
-            <a :href="`/invoices/create`" class="hover:text-primary">new invoice ></a>
-            <p class="text-muted-foreground">Create a new invoice</p>
           </Card>
         </div>
       </section>

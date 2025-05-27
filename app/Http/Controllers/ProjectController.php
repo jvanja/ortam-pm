@@ -79,7 +79,7 @@ class ProjectController extends Controller {
       ],
       'managers' => $managers,
       'statuses' => $statuses,
-      'dates' => $dates,
+      'dates' => array_values($dates), // array_values returns array instead of an object
     ]);
   }
 

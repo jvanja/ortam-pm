@@ -41,7 +41,7 @@ const updatePage = (page: number) => {
     :default-page="currentPage"
     @update:page="updatePage"
   >
-    <PaginationList v-slot="{ items }" class="flex items-center gap-1">
+    <PaginationList v-slot="{ items }" class="flex items-center gap-1" v-if="pagesMeta.last_page > 1">
       <PaginationFirst />
       <PaginationPrev />
 

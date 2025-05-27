@@ -30,7 +30,6 @@ const props = defineProps<{
   statuses: string[];
   dates: string[];
 }>();
-console.log(props)
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Projects', href: '/projects' }];
 
@@ -41,7 +40,7 @@ const selectedDate = ref(props.filters.date || '');
 
 const objects = computed(() =>
   props.projects.data.map((project) => {
-    return { id: project.id!, name: project.type };
+    return { id: project.id!, name: project.type, deadline: project.deadline };
   }),
 );
 
@@ -124,10 +123,10 @@ const cleanFilters = (filters: { manager: string; status: string, date: string }
             </Select>
           </div>
           <div class="grid gap-1">
-            <Label for="date">Filter by Date</Label>
+            <Label for="date">Project deadline</Label>
             <Select v-model="selectedDate">
               <SelectTrigger class="w-full">
-                <SelectValue placeholder="Select a date" />
+                <SelectValue placeholder="Select a year" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>

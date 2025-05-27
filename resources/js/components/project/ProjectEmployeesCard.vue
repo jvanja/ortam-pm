@@ -4,25 +4,55 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import type { User } from '@/types';
-import type { InertiaForm } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import { PlusCircle } from 'lucide-vue-next';
 import { computed, ref } from 'vue';
+import { toast } from 'vue-sonner';
+
+type UserWithRoles = User & { roles: [{ id: string; name: string }] };
 
 const props = defineProps<{
   projectId: string;
-  employees: User[];
-  projectEmployeeForm: InertiaForm<{ employeesIds: string[] }>;
-  removeEmployee: (id: string) => void;
-  assignEmployee: (id: string) => void;
+  employees: UserWithRoles[];
 }>();
+
 const newEmployeeId = ref('');
 const roleToClass = (roles: [{ id: string; name: string }]) => {
-  return roles.some(role  => role.name === 'accountant') ? 'bg-red-600 text-white' : 'no';
+  return roles.some((role) => role.name === 'accountant') ? 'bg-red-600 text-white' : 'no';
 };
 // @ts-expect-error project_ids are added in the backend
 const projectEmployees = computed(() => props.employees.filter((employee) => employee.project_ids.includes(props.projectId)));
-</script>
 
+const employeesIds = props.employees.map((employee) => employee.id);
+const projectEmployeeForm = useForm({ employeesIds });
+const removeEmployee = (id: string) => {
+  projectEmployeeForm.delete(route('projects.employee.remove', [props.projectId, id]), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Employee has been removed successfully!', { style: { background: '#6ee7b7', color: '#000' } });
+    },
+    onError: (errors) => {
+      console.error('Remove employee error:', errors);
+      toast.error('Failed to remove employee.');
+    },
+  });
+};
+
+const addEmployeeForm = useForm({ employeesIds });
+const assignEmployee = (id: string) => {
+  if (!id) return;
+  addEmployeeForm.post(route('projects.employee.add', [props.projectId, id]), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Employee added successfully!', { style: { background: '#6ee7b7', color: '#000' } });
+    },
+    onError: (errors) => {
+      console.error('Add employee error:', errors);
+      toast.error('Failed to add employee.');
+    },
+  });
+};
+</script>
 <template>
   <Card>
     <CardHeader>
@@ -42,20 +72,20 @@ const projectEmployees = computed(() => props.employees.filter((employee) => emp
           </TableHeader>
           <TableBody>
             <TableRow v-for="employee in projectEmployees" :key="employee.id">
-                <TableCell class="whitespace-nowrap px-6 py-4">
-                  <div class="text-sm">{{ employee.name }}</div>
-                </TableCell>
-                <TableCell class="whitespace-nowrap">
-                  <div class="flex gap-2 px-6 py-4" :class="roleToClass(employee.roles)">
-                    <span v-for="role in employee.roles" :key="role.id" class="badge badge-ghost badge-sm">{{ role.name }}</span>
-                  </div>
-                </TableCell>
-                <TableCell class="whitespace-nowrap px-6 py-4 text-right">
-                  <div class="flex justify-end gap-2">
-                    <Button variant="default"><a :href="`/users/${employee.id}`">View employee</a></Button>
-                    <Button variant="destructive" @click="removeEmployee(employee.id!)">Remove</Button>
-                  </div>
-                </TableCell>
+              <TableCell class="whitespace-nowrap px-6 py-4">
+                <div class="text-sm">{{ employee.name }}</div>
+              </TableCell>
+              <TableCell class="whitespace-nowrap">
+                <div class="flex gap-2 px-6 py-4" :class="roleToClass(employee.roles)">
+                  <span v-for="role in employee.roles" :key="role.id" class="badge badge-ghost badge-sm">{{ role.name }}</span>
+                </div>
+              </TableCell>
+              <TableCell class="whitespace-nowrap px-6 py-4 text-right">
+                <div class="flex justify-end gap-2">
+                  <Button variant="default"><a :href="`/users/${employee.id}`">View employee</a></Button>
+                  <Button variant="destructive" @click="removeEmployee(employee.id!)">Remove</Button>
+                </div>
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>

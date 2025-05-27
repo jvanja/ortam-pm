@@ -4,17 +4,31 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import type { Client, Project } from '@/types';
-import type { InertiaForm } from '@inertiajs/vue3';
+import type { Client, Project, User } from '@/types';
+import { useForm } from '@inertiajs/vue3';
 import currencies from 'currency-codes';
 import { ChevronRight } from 'lucide-vue-next';
+import { toast } from 'vue-sonner';
 
 const props = defineProps<{
   project: Project;
   client: Client;
-  form: InertiaForm<Project>;
-  submit: () => void;
+  employees: User[];
 }>();
+
+const form = useForm({ ...props.project });
+const submit = () => {
+  form.patch(route('projects.update', [props.project.id]), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Project has been updated successfully!', { style: { background: '#6ee7b7', color: '#000' } });
+    },
+    onError: (errors) => {
+      console.error('Project udpate error:', errors);
+      toast.error('Failed to update project. Please check the form for errors.');
+    },
+  });
+};
 </script>
 
 <template>
@@ -39,20 +53,27 @@ const props = defineProps<{
           </div>
           <div class="flex flex-col space-y-1.5">
             <Label htmlFor="department">Departament</Label>
-            <Input id="department" :placeholder="form.department" v-model="form.department" />
+            <Input id="department" :placeholder="form.department" v-model="form.department!" />
           </div>
           <div class="flex flex-col space-y-1.5">
             <Label htmlFor="rep">Representative Name</Label>
-            <Input id="rep" placeholder="Representative name" v-model="form.sales_representative_name" />
+            <Input id="rep" placeholder="Representative name" v-model="form.sales_representative_name!" />
           </div>
           <div class="flex flex-col space-y-1.5">
             <Label htmlFor="pm">Project Manager</Label>
-            <Input id="pm" :placeholder="project.manager" v-model="form.manager" />
+            <Select id="pm" :defaultValue="project.manager" v-model="form.manager">
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent position="popper">
+                <SelectItem v-for="user in employees" :key="user.id" :value="user.id">{{ user.name }}</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div class="flex flex-col space-y-1.5">
             <Label htmlFor="status">Status</Label>
-            <Select :defaultValue="project.status" v-model="form.status">
-              <SelectTrigger id="status">
+            <Select id="status" :defaultValue="project.status" v-model="form.status">
+              <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent position="popper">
@@ -65,9 +86,9 @@ const props = defineProps<{
           <div class="flex flex-col space-y-1.5">
             <Label htmlFor="budget">Budget</Label>
             <div class="flex gap-2">
-              <Input id="budget" v-model="form.budget" />
+              <Input id="budget" v-model="form.budget!" />
               <Select id="currency" :defaultValue="project.currency" v-model="form.currency">
-                <SelectTrigger id="currency" class="mt-0">
+                <SelectTrigger class="mt-0">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

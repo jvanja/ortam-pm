@@ -15,7 +15,7 @@ return new class extends Migration {
       $table->id();
       $table->string('type');
       $table->string('department')->nullable();
-      $table->string('manager')->nullable();
+      $table->foreignId('manager')->constrained('users')->onUpdate('cascade');
       $table->enum('language', [Language::English->value, Language::French->value]);
       $table->string('address')->nullable();
       $table->float('budget')->nullable();

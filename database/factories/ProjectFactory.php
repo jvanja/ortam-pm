@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Organization;
 use App\Enums\Language;
 use App\Enums\ProjectStatus;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +23,7 @@ class ProjectFactory extends Factory {
     return [
       'type' => fake()->randomElement(ProjectType::cases()),
       'department' => fake()->word(),
-      'manager' => fake()->name(),
+      'manager' => User::inRandomOrder()->first(),
       'language' => fake()->randomElement(Language::cases()),
       'address' => fake()->address(),
       'budget' => fake()->randomFloat(2, 1000, 10000),

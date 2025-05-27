@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import type { Project } from '@/types';
 import { useForm } from '@inertiajs/vue3';
 import { toast } from 'vue-sonner';
@@ -26,7 +27,6 @@ const submit = () => {
     },
   });
 };
-
 </script>
 
 <template>
@@ -36,11 +36,9 @@ const submit = () => {
     </CardHeader>
     <CardContent>
       <form @submit.prevent="submit" class="space-y-6">
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div class="flex flex-col space-y-1.5">
-            <Label htmlFor="type">Project Notes</Label>
-            <textarea id="type" :placeholder="form.notes" v-model="form.notes" class="border border-1"/>
-          </div>
+        <div class="flex flex-col space-y-1.5">
+          <Label htmlFor="type">Project Notes</Label>
+          <Textarea id="type" :placeholder="form.notes" v-model="form.notes" class="border-1 w-wull min-h-40 border" />
         </div>
         <div class="flex w-full justify-end">
           <Button :disabled="form.processing">Save</Button>
@@ -49,4 +47,3 @@ const submit = () => {
     </CardContent>
   </Card>
 </template>
-

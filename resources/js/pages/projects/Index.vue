@@ -25,16 +25,19 @@ const props = defineProps<{
       total: number;
     };
   };
-  filters: { search: string | null; manager: string | null; status: string | null };
+  filters: { search: string | null; manager: string | null; status: string | null, date: string | null };
   managers: string[];
   statuses: string[];
+  dates: string[];
 }>();
+console.log(props)
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Projects', href: '/projects' }];
 
 const searchQuery = ref(props.filters.search || '');
 const selectedManager = ref(props.filters.manager || '');
 const selectedStatus = ref(props.filters.status || '');
+const selectedDate = ref(props.filters.date || '');
 
 const objects = computed(() =>
   props.projects.data.map((project) => {
@@ -47,6 +50,7 @@ const currentFilters = computed(() => ({
   search: searchQuery.value,
   manager: selectedManager.value,
   status: selectedStatus.value,
+  date: selectedDate.value,
 }));
 
 // Watch for changes in any filter
@@ -76,7 +80,7 @@ const onPageChange = (page: number) => {
 };
 
 // Remove null or empty string filters before sending
-const cleanFilters = (filters: { manager: string; status: string }) => Object.fromEntries(Object.entries(filters).filter(([_, value]) => value !== null && value !== ''));
+const cleanFilters = (filters: { manager: string; status: string, date: string }) => Object.fromEntries(Object.entries(filters).filter(([_, value]) => value !== null && value !== ''));
 </script>
 
 <template>
@@ -115,6 +119,20 @@ const cleanFilters = (filters: { manager: string; status: string }) => Object.fr
                 <SelectItem value="all">All</SelectItem>
                 <SelectItem v-for="status in statuses" :key="status" :value="status">
                   {{ status }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div class="grid gap-1">
+            <Label for="date">Filter by Date</Label>
+            <Select v-model="selectedDate">
+              <SelectTrigger class="w-full">
+                <SelectValue placeholder="Select a date" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem v-for="date in dates" :key="date" :value="date">
+                  {{ date }}
                 </SelectItem>
               </SelectContent>
             </Select>

@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\File;
 use Illuminate\Http\Request;
 use App\Models\Project;
-use Illuminate\Support\Facades\Storage;
+// use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -23,10 +23,14 @@ class ProjectController extends Controller {
     $searchQuery = $request->input('search');
     $managerFilter = $request->input('manager') === 'all' ? '' : $request->input('manager');
     $statusFilter = $request->input('status') === 'all' ? '' : $request->input('status');
+    $dateFilter = $request->input('date') === 'all' ? '' : $request->input('date');
 
     // Fetch distinct managers and statuses for filter options
     $managers = Project::distinct()->pluck('manager')->filter()->sort()->values()->toArray();
     $statuses = Project::distinct()->pluck('status')->filter()->sort()->values()->toArray();
+    $dates = Project::distinct()->pluck('deadline')->filter()->sort()->values()->map(function (string $date) {
+      return substr($date, 0, 4);
+    })->unique()->toArray();
 
     $projects = Project::query()
       ->when($searchQuery, function (Builder $query, string $search) {
@@ -42,9 +46,13 @@ class ProjectController extends Controller {
       ->when($statusFilter, function (Builder $query, string $status) {
         $query->where('status', $status);
       })
+      ->when($dateFilter, function (Builder $query, string $date) {
+        $query->whereYear('deadline', $date);
+      })
       ->latest()
       ->paginate(10);
 
+    // dd($projects);
     return Inertia::render('projects/Index', [
       'projects' => [
         'data' => $projects->items(),
@@ -67,9 +75,11 @@ class ProjectController extends Controller {
         'search' => $searchQuery,
         'manager' => $managerFilter,
         'status' => $statusFilter,
+        'date' => $dateFilter,
       ],
       'managers' => $managers,
       'statuses' => $statuses,
+      'dates' => $dates,
     ]);
   }
 

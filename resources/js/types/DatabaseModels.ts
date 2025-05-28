@@ -223,7 +223,7 @@ export interface projectsEntity {
   'department'?: string | null;
   'id'?: string;
   'language': 'english' | 'french';
-  'manager'?: string | null;
+  'manager': string;
   'notes'?: string | null;
   'opening_date'?: Date | null;
   'organization_id': string;
@@ -271,7 +271,7 @@ export interface time_sheetsEntity {
   'id'?: string;
   'organization_id': string;
   'project_id': string;
-  'task_performed': 'visit' | 'research' | 'fieldwork' | 'report';
+  'task_performed': string;
   'updated_at'?: Date | null;
   'user_id': string;
   'worked_duration': number;

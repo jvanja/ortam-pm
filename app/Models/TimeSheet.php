@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Enums\Task;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +21,6 @@ class TimeSheet extends Model {
 
   protected $casts = [
     'id' => 'string',
-    'task_performed' => Task::class,
     'worked_duration' => 'float',
   ];
 
@@ -50,10 +48,4 @@ class TimeSheet extends Model {
   public function organization(): BelongsTo {
     return $this->belongsTo(Organization::class);
   }
-
-  // - TODO:
-  // Move to the controller
-  // public function getTotalHours(): float {
-  //   return $this->worked_duration;
-  // }
 }

@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Enums\Task;
 
 return new class extends Migration
 {
@@ -14,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('time_sheets', function (Blueprint $table) {
             $table->id();
-            $table->enum('task_performed', [Task::Visit->value, Task::Research->value, Task::Fieldwork->value, Task::Report->value]);
+            $table->string('task_performed');
             $table->float('worked_duration');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('project_id')->constrained();

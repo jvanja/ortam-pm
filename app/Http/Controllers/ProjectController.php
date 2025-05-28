@@ -90,7 +90,7 @@ class ProjectController extends Controller {
   public function show($id) {
     $this->authorize('project.edit', Project::class);
 
-    $project = Project::with(['pipelineStages', 'currentPipelineStage', 'files'])->findOrFail($id);
+    $project = Project::with(['pipelineStages', 'pipelineStages.tasks', 'currentPipelineStage', 'currentPipelineStage.tasks', 'files'])->findOrFail($id);
     if ($project->pipelineStages->count() == 0) {
       $project->pipelineStages = ProjectPipelineStage::where('is_system_default', '=', true)->get();
     }

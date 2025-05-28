@@ -197,7 +197,7 @@ export interface permissionsEntity {
 export interface project_pipeline_stagesEntity {
   'completed_at'?: Date | null;
   'created_at'?: Date | null;
-  'id': string;
+  'id'?: string;
   'is_system_default'?: any;
   'name': string;
   'notes'?: string | null;
@@ -271,6 +271,7 @@ export interface time_sheetsEntity {
   'id'?: string;
   'organization_id': string;
   'project_id': string;
+  'project_pipeline_stage_id': string;
   'task_performed': string;
   'updated_at'?: Date | null;
   'user_id': string;

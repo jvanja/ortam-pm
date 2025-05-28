@@ -7,12 +7,14 @@ import { CheckCircle2, CirclePlus, GripVertical, Trash2 } from 'lucide-vue-next'
 import { onMounted, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import Draggable from 'vuedraggable';
+import PipelineStageTasks from './PipelineStageTasks.vue';
 
 const props = defineProps<{
   project: Project;
   pipelineStages: ProjectPipelineStage[];
   currentPipelineStage: ProjectPipelineStage | null;
 }>();
+console.log(props)
 
 const stages = ref([...props.pipelineStages]);
 const currentStageId = ref(props.currentPipelineStage ? props.currentPipelineStage.id : stages.value.length > 0 ? stages.value[0].id : null);
@@ -228,6 +230,17 @@ onMounted(() => {
           </div>
         </template>
       </Draggable>
+    </CardContent>
+    <CardContent>
+      <div class="flex gap-4">
+        <div v-if="currentPipelineStage && currentPipelineStage.tasks" class="border">
+          <PipelineStageTasks :tasks="currentPipelineStage.tasks"></PipelineStageTasks>
+        </div>
+        <div v-if="currentPipelineStage && currentPipelineStage.notes" class="border">
+          Notes:
+          {{ currentPipelineStage.notes}}
+        </div>
+      </div>
     </CardContent>
   </Card>
 </template>

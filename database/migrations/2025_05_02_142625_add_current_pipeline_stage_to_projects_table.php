@@ -11,7 +11,7 @@ return new class extends Migration {
   public function up(): void {
     Schema::table('projects', function (Blueprint $table) {
       // Ensure the column type matches the primary key of project_pipeline_stages
-      $table->foreignUuid('current_project_pipeline_stage_id')
+      $table->foreignId('current_project_pipeline_stage_id')
         ->nullable()
         ->after('status') // Or adjust position as needed
         ->constrained('project_pipeline_stages')

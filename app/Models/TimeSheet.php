@@ -45,6 +45,10 @@ class TimeSheet extends Model {
     return $this->belongsTo(Project::class);
   }
 
+  public function pipelineStage(): BelongsTo {
+    return $this->belongsTo(ProjectPipelineStage::class);
+  }
+
   public function organization(): BelongsTo {
     return $this->belongsTo(Organization::class);
   }

@@ -10,7 +10,8 @@ return new class extends Migration {
    */
   public function up(): void {
     Schema::create('project_pipeline_stages', function (Blueprint $table) {
-      $table->uuid('id')->primary();
+      // $table->uuid('id')->primary();
+      $table->id();
       $table->foreignId('project_id')->nullable()->constrained('projects')->cascadeOnDelete();
       $table->string('name'); // Specific name for this stage in this project
       $table->integer('stage_order')->default(0);

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Organization;
+use App\Models\ProjectPipelineStage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,8 +21,9 @@ class TimesheetFactory extends Factory {
     return [
       'task_performed' => fake()->words(3, true),
       'worked_duration' => fake()->randomNumber(2),
-      'project_id' => Project::inRandomOrder()->first(),
       'user_id' => User::inRandomOrder()->first(),
+      'project_id' => Project::inRandomOrder()->first(),
+      'project_pipeline_stage_id' => ProjectPipelineStage::inRandomOrder()->first(),
       'organization_id' => Organization::inRandomOrder()->first(),
     ];
   }

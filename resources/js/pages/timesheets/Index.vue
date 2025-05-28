@@ -4,8 +4,9 @@ import ObjectList from '@/components/ObjectList.vue';
 import Pagination from '@/components/Pagination.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // Import Select components
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem, Project, TimeSheet } from '@/types';
+import type { BreadcrumbItem, Project, TimeSheet, User } from '@/types'; // Import User type
 import { Head, router } from '@inertiajs/vue3';
 import { debounce } from 'lodash-es';
 import { computed, ref, watch } from 'vue';
@@ -25,11 +26,16 @@ const props = defineProps<{
       total: number;
     };
   };
-  filters: { search: string | null };
+  filters: { search: string | null; user_id: string | null };
+  users: User[]; // Add users prop
 }>();
+console.log(props)
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Timesheets', href: '/timesheets' }];
 const searchQuery = ref(props.filters.search || '');
+const selectedUser = ref(props.filters.user_id || '');
+console.log(selectedUser)
+
 const timesheets = props.timesheets;
 const ts_created = timesheets.data.map((ts) => new Date(ts.created_at!).toLocaleDateString());
 const ts_hours = timesheets.data.map((ts) => ts.worked_duration);
@@ -80,7 +86,7 @@ watch(
   debounce((newValue: string) => {
     router.get(
       '/timesheets',
-      { search: newValue },
+      { search: newValue, user_id: selectedUser.value === '' ? null : selectedUser.value }, // Pass both filters
       {
         preserveState: true,
         preserveScroll: true, // Keep scroll position after update
@@ -89,10 +95,31 @@ watch(
     );
   }, 300),
 ); // Debounce requests by 300ms
+
+// Watch for changes in selectedUser
+watch(
+  selectedUser,
+  debounce((newValue: string) => {
+    router.get(
+      '/timesheets',
+      { search: searchQuery.value, user_id: newValue === '' ? null : newValue }, // Pass both filters
+      {
+        preserveState: true,
+        preserveScroll: true,
+        replace: true,
+      },
+    );
+  }, 300),
+);
+
 const currentPage = ref(props.timesheets.meta.current_page || 1);
 const onPageChange = (page: number) => {
   currentPage.value = page;
-  router.get('timesheets', { page: page }, { preserveScroll: true });
+  router.get(
+    'timesheets',
+    { page: page, search: searchQuery.value, user_id: selectedUser.value === '' ? null : selectedUser.value }, // Pass both filters
+    { preserveScroll: true },
+  );
 };
 </script>
 
@@ -106,8 +133,19 @@ const onPageChange = (page: number) => {
         <div id="chart">
           <apexchart :options="chartOptions" :series="series"></apexchart>
         </div>
-        <div class="grid gap-1">
+        <div class="grid gap-1 md:grid-cols-2">
           <Input id="search" v-model="searchQuery" class="mt-1 block w-full" placeholder="Search the timesheets..." />
+          <Select v-model="selectedUser">
+            <SelectTrigger class="w-full mt-1">
+              <SelectValue placeholder="Filter by user" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Users</SelectItem>
+              <SelectItem v-for="user in users" :key="user.id" :value="String(user.id)">
+                {{ user.name }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <ObjectList :objects="objects" type="timesheets" />
         <Pagination :currentPage="currentPage" :pagesMeta="timesheets.meta" :onPageChange="onPageChange" />

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Timesheet;
+use App\Models\User; // Import the User model
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -18,6 +19,12 @@ class TimesheetController extends Controller {
     $this->authorize('timesheet.view', Timesheet::class);
 
     $searchQuery = $request->input('search');
+    // $userId = $request->input('user_id'); // Get the user_id filter
+
+    $userFilter = $request->input('user_id') === 'all' ? '' : $request->input('user_id');
+
+    // Fetch all users to populate the select filter
+    $users = User::select('id', 'name')->orderBy('name')->get();
 
     $timesheets = Timesheet::query()
       ->when($searchQuery, function (Builder $query, string $search) {
@@ -25,6 +32,9 @@ class TimesheetController extends Controller {
           ->orWhereHas('project', function (Builder $query) use ($search) {
             $query->where('type', 'like', "%{$search}%");
           });
+      })
+      ->when($userFilter, function (Builder $query, string $userFilter) {
+        $query->where('user_id', $userFilter);
       })
       ->with('project')
       ->latest()
@@ -48,7 +58,11 @@ class TimesheetController extends Controller {
           'total' => $timesheets->total(),
         ]
       ],
-      'filters' => ['search' => $searchQuery]
+      'filters' => [
+        'search' => $searchQuery,
+        'user_id' => $userFilter,
+      ],
+      'users' => $users,
     ]);
   }
 

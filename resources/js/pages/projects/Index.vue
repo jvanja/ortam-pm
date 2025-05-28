@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/AppLayout.vue';
-import type { BreadcrumbItem, Project } from '@/types';
+import type { BreadcrumbItem, Project, User } from '@/types';
 import { Head, router } from '@inertiajs/vue3';
 import { debounce } from 'lodash-es';
 import { computed, ref, watch } from 'vue';
@@ -26,7 +26,7 @@ const props = defineProps<{
     };
   };
   filters: { search: string | null; manager: string | null; status: string | null, date: string | null };
-  managers: string[];
+  managers: User[];
   statuses: string[];
   dates: string[];
 }>();
@@ -102,8 +102,8 @@ const cleanFilters = (filters: { manager: string; status: string, date: string }
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All</SelectItem>
-                <SelectItem v-for="manager in managers" :key="manager" :value="manager">
-                  {{ manager }}
+                <SelectItem v-for="manager in managers" :key="manager.id" :value="String(manager.id)">
+                  {{ manager.name }}
                 </SelectItem>
               </SelectContent>
             </Select>

@@ -26,7 +26,8 @@ class ProjectController extends Controller {
     $dateFilter = $request->input('date') === 'all' ? '' : $request->input('date');
 
     // Fetch distinct managers and statuses for filter options
-    $managers = Project::distinct()->pluck('manager')->filter()->sort()->values()->toArray();
+    $managersIds = Project::distinct()->pluck('manager')->filter()->sort()->values()->toArray();
+    $managers = User::whereIn('id', $managersIds)->get();
     $statuses = Project::distinct()->pluck('status')->filter()->sort()->values()->toArray();
     $dates = Project::distinct()->pluck('deadline')->filter()->sort()->values()->map(function (string $date) {
       return substr($date, 0, 4);

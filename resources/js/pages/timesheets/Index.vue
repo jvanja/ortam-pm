@@ -29,12 +29,10 @@ const props = defineProps<{
   filters: { search: string | null; user_id: string | null };
   users: User[]; // Add users prop
 }>();
-console.log(props)
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Timesheets', href: '/timesheets' }];
 const searchQuery = ref(props.filters.search || '');
 const selectedUser = ref(props.filters.user_id || '');
-console.log(selectedUser)
 
 const timesheets = props.timesheets;
 const ts_created = timesheets.data.map((ts) => new Date(ts.created_at!).toLocaleDateString());

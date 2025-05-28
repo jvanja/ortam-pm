@@ -5,6 +5,7 @@ namespace App\Models;
 use Elegantly\Invoices\Models\Invoice as BaseInvoice;
 use App\Services\PdfInvoice;
 use Elegantly\Invoices\Support\Buyer;
+use Elegantly\Invoices\Support\PaymentInstruction;
 use Elegantly\Invoices\Support\Seller;
 
 class Invoice extends BaseInvoice {
@@ -42,6 +43,23 @@ class Invoice extends BaseInvoice {
       tax_label: $this->getTaxLabel(),
       discounts: $this->getDiscounts(),
       logo: $this->getLogo(),
+      paymentInstructions: [
+        new PaymentInstruction(
+          name: 'Bank Transfer',
+          description: 'Make a direct bank transfer using the details below.',
+          // qrcode: 'data:image/png;base64,' . base64_encode(
+          //   file_get_contents(__DIR__ . '/../resources/images/qrcode.png')
+          // ),
+          fields: [
+            'Bank Name' => 'Acme Bank',
+            'Account Number' => '12345678',
+            'IBAN' => 'GB12ACME12345678123456',
+            'SWIFT/BIC' => 'ACMEGB2L',
+            'Reference' => 'INV-0032/001',
+            '<a href="#">Pay online</a>',
+          ],
+        ),
+      ]
     );
   }
 }

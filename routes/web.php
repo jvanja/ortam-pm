@@ -15,6 +15,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProjectPipelineStageController;
+use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\FileController;
 
 Route::get('/', function () {
@@ -69,6 +70,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::resource('timesheets', TimesheetController::class);
 
   // Invoices
+  Route::resource('proposals', ProposalController::class);
   Route::resource('invoices', InvoiceController::class);
   Route::post('/invoices/{invoice}/send', [InvoiceController::class, 'send'])->name('invoices.send');
 

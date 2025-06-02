@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { TimeSheet } from '@/types';
 import { PlusCircle } from 'lucide-vue-next';
 defineProps<{
-  tasks: { id: string; task_performed: string }[];
+  tasks: TimeSheet[]
 }>();
 
 const addTask = () => {
@@ -17,6 +17,7 @@ const addTask = () => {
       <TableRow class="text-gray-500">
         <TableHead class="border-b p-2 text-left text-xs font-normal"><Checkbox /></TableHead>
         <TableHead class="border-b p-2 text-left text-xs font-normal">Task</TableHead>
+        <TableHead class="border-b p-2 text-left text-xs font-normal">User</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>
@@ -26,6 +27,9 @@ const addTask = () => {
         </TableCell>
         <TableCell class="px-2 py-4 text-sm">
           {{ task.task_performed }}
+        </TableCell>
+        <TableCell class="px-2 py-4 text-sm">
+          {{ task.user_id }}
         </TableCell>
       </TableRow>
       <TableRow>

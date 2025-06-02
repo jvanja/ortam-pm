@@ -27,7 +27,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
         <div class="grid grid-cols-3 gap-2">
           <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800 text-sm">
             <ReceiptText color="#2339c3" />
-            <a :href="`/invoices/create`" class="hover:text-primary">new proposal ></a>
+            <a :href="`/proposals/create`" class="hover:text-primary">new proposal ></a>
             <p class="text-muted-foreground">Create a new proposal</p>
           </Card>
           <Card class="flex flex-col space-y-4 bg-gray-50 p-4 dark:bg-neutral-800 text-sm">

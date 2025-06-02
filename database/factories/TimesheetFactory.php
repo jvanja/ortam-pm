@@ -9,7 +9,7 @@ use App\Models\ProjectPipelineStage;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Quote>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TimeSheet>
  */
 class TimesheetFactory extends Factory {
   /**

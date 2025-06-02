@@ -39,8 +39,8 @@ class Client extends Model {
     });
   }
 
-  public function quotes(): HasMany {
-    return $this->hasMany(Quote::class);
+  public function proposals(): HasMany {
+    return $this->hasMany(Proposal::class);
   }
 
   public function projects(): HasMany {

@@ -69,8 +69,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
   Route::resource('timesheets', TimesheetController::class);
 
-  // Invoices
+  // Proposals
   Route::resource('proposals', ProposalController::class);
+
+  // Invoices
   Route::resource('invoices', InvoiceController::class);
   Route::post('/invoices/{invoice}/send', [InvoiceController::class, 'send'])->name('invoices.send');
 

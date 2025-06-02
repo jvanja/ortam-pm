@@ -144,8 +144,8 @@ export interface model_has_rolesEntity {
   'role_id': string;
 }
 export interface organizationsEntity {
-  'address': Object;
-  'brand_color': string;
+  'address'?: Object | null;
+  'brand_color'?: string | null;
   'created_at'?: Date | null;
   'email': string;
   'id'?: string;

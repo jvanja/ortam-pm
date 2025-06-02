@@ -65,15 +65,24 @@ class ClientController extends Controller {
     $validated = $request->validate([
       'company_name' => 'required|string|max:255',
       'contact_person' => 'nullable|string|max:255',
-      'address' => 'nullable|string|max:255',
       'phone' => 'nullable|string|max:255',
       'email' => 'nullable|email|max:255',
+      'address.street' => 'nullable|string|max:255',
+      'address.city' => 'nullable|string|max:255',
+      'address.state' => 'nullable|string|max:255',
+      'address.postal_code' => 'nullable|string|max:20',
+      'address.country' => 'nullable|string|max:255',
     ]);
 
     $backToProject = $request->input('backToProject');
 
     $client = Client::create([
-      ...$validated,
+      // ...$validated,
+      'company_name' => $validated['company_name'],
+      'contact_person' => $validated['contact_person'],
+      'phone' => $validated['phone'],
+      'email' => $validated['email'],
+      'address' => json_encode($validated['address']),
       'organization_id' => Auth::user()->organization_id,
     ]);
     if ($backToProject) {

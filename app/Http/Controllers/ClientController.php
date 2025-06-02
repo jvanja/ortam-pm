@@ -74,10 +74,9 @@ class ClientController extends Controller {
       'address.country' => 'nullable|string|max:255',
     ]);
 
-    $backToProject = $request->input('backToProject');
+    $backRoute = $request->input('backRoute');
 
     $client = Client::create([
-      // ...$validated,
       'company_name' => $validated['company_name'],
       'contact_person' => $validated['contact_person'],
       'phone' => $validated['phone'],
@@ -85,12 +84,11 @@ class ClientController extends Controller {
       'address' => json_encode($validated['address']),
       'organization_id' => Auth::user()->organization_id,
     ]);
-    if ($backToProject) {
 
-      return redirect()->route('projects.create', ['clientId' => $client->id])
+    if ($backRoute) {
+      return redirect()->route($backRoute, ['clientId' => $client->id])
         ->with('message', 'Client created successfully');
     } else {
-
       return redirect()->route('clients.create', $client->id)
         ->with('message', 'Client created successfully');
     }

@@ -42,6 +42,7 @@ const form = useForm({
 
 // Handle form submission
 const submit = () => {
+  // TODO: remove logging after testing
   console.log(form.data());
   return;
   form.total_amount = totalAmount.value;
@@ -49,7 +50,7 @@ const submit = () => {
 };
 
 const deleteItem = (index: number) => {
-  form.items = form.items.filter((item, i) => i !== index);
+  form.items = form.items.filter((_, i) => i !== index);
 };
 
 // Add a new item to the form

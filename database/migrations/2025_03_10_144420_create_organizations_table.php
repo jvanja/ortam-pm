@@ -15,9 +15,9 @@ return new class extends Migration {
       $table->string('name');
       $table->string('email')->unique();
       $table->string('phone_number')->nullable();
-      $table->json('address');
+      $table->json('address')->nullable();
       $table->string('logo')->nullable();
-      $table->string('brand_color')->nulable();
+      $table->string('brand_color')->nullable();
     });
 
     // add organization_id to the users table

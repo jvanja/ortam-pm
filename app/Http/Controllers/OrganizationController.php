@@ -17,6 +17,7 @@ class OrganizationController extends Controller {
   public function store(Request $request) {
     $validated = $request->validate([
       'name' => ['required', 'string', 'max:255', 'unique:organizations,name'],
+      'email' => ['required', 'string', 'email', 'unique:organizations,email'],
       'address' => 'nullable|string|max:255',
       'logo' => 'nullable,mimes:jpg,jpeg,png|max:2048',
       'brand_color' => 'nullable|string|max:255',

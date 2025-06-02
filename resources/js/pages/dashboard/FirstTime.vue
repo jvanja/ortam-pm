@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label';
 
 const form = useForm({
   name: '',
+  email: '',
 });
 
 const submit = () => {
@@ -48,6 +49,22 @@ const submit = () => {
             <!-- Display validation errors if they exist -->
             <p v-if="form.errors.name" class="text-sm text-destructive">
               {{ form.errors.name }}
+            </p>
+          </div>
+          <div class="space-y-2">
+            <Label for="email">Organization Email</Label>
+            <Input
+              id="email"
+              type="email"
+              v-model="form.email"
+              placeholder="Organization's email address"
+              required
+              autofocus
+              :disabled="form.processing"
+            />
+            <!-- Display validation errors if they exist -->
+            <p v-if="form.errors.email" class="text-sm text-destructive">
+              {{ form.errors.email }}
             </p>
           </div>
         </CardContent>

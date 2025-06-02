@@ -11,7 +11,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Clients', href: '/clients' }];
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-8">
-      <NewClient :back-to-project="false" />
+      <NewClient back-route="clients.create" />
     </div>
   </AppLayout>
 </template>

@@ -201,7 +201,7 @@ onMounted(() => {
     <!-- Step 2: Create New Client -->
     <div v-if="currentStep === 'create_client'" class="space-y-6">
       <h2 class="text-xl font-semibold">Create New Client</h2>
-      <NewClient @client-created="handleClientCreated" @cancel="handleCancelCreateClient" :back-to-project="true" />
+      <NewClient @client-created="handleClientCreated" @cancel="handleCancelCreateClient" back-route="projects.create" />
     </div>
   </div>
 </template>

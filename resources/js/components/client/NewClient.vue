@@ -1,19 +1,30 @@
 <script setup lang="ts">
+import HeadingSmall from '@/components/HeadingSmall.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import countries from '@/lib/countries';
 import { useForm } from '@inertiajs/vue3';
+import { reactive } from 'vue';
 import { toast } from 'vue-sonner';
 
 const emit = defineEmits(['client-created', 'cancel']);
 
-const { backToProject  }= defineProps<{ backToProject: boolean }>();
+const { backRoute } = defineProps<{ backRoute: string | boolean }>();
+const orgAddress = reactive({
+  street: '',
+  city: '',
+  state: '',
+  postal_code: '',
+  country: '',
+});
 
 const form = useForm({
-  backToProject,
+  backRoute,
   company_name: '',
   contact_person: '',
-  address: '',
+  address: orgAddress,
   phone: '',
   email: '',
 });
@@ -39,7 +50,7 @@ const submit = () => {
 
 <template>
   <form @submit.prevent="submit" class="space-y-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
       <div class="space-y-2">
         <Label for="new-client-company-name">Company Name <span class="text-red-500">*</span></Label>
         <Input v-model="form.company_name" id="new-client-company-name" placeholder="Enter company name" required />
@@ -53,8 +64,67 @@ const submit = () => {
       </div>
 
       <div class="space-y-2">
-        <Label for="new-client-address">Address</Label>
-        <Input v-model="form.address" id="new-client-address" placeholder="Enter address" />
+        <HeadingSmall title="Client address" class="mb-2" />
+        <div class="grid grid-cols-4 items-center gap-2">
+          <Label for="street">Street</Label>
+          <Input
+            id="street"
+            type="text"
+            class="col-span-3 mt-1 block w-full"
+            v-model="form.address.street"
+            required
+            autocomplete="address-line1"
+            placeholder="Company address"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-2">
+          <Label for="city">City</Label>
+          <Input
+            id="city"
+            type="text"
+            class="col-span-3 mt-1 block w-full"
+            v-model="form.address.city"
+            required
+            autocomplete="address-city"
+            placeholder="City"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-2">
+          <Label for="state">State</Label>
+          <Input
+            id="state"
+            type="text"
+            class="col-span-3 mt-1 block w-full"
+            v-model="form.address.state"
+            autocomplete="address-state"
+            placeholder="State"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-2">
+          <Label for="code">Postal Code</Label>
+          <Input
+            id="code"
+            type="text"
+            class="col-span-3 mt-1 block w-full"
+            v-model="form.address.postal_code"
+            required
+            autocomplete="address-code"
+            placeholder="Postal code"
+          />
+        </div>
+        <div class="grid grid-cols-4 items-center gap-2">
+          <Label for="country">Country</Label>
+          <Select id="country" v-model="form.address.country" required>
+            <SelectTrigger>
+              <SelectValue placeholder="Country" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem v-for="country in countries" :key="country.countryShortCode" :value="country.countryName">
+                {{ country.countryName }}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <div class="text-sm text-red-500" v-if="form.errors.address">{{ form.errors.address }}</div>
       </div>
 

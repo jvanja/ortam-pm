@@ -33,7 +33,7 @@ class ProjectSeeder extends Seeder {
         'project_id' => $proj->id,
         'client_id' => $proj->client_id,
         'seller_information' => json_decode(
-          '{"name":"' . $org->name . '", "address":' . $org->address . ', "email":"' . $org->email . '", "phone_number":"' . $org->phone_number . '", "tax_number":"TX-123456"}', true),
+          '{"name":"' . $org->name . '", "address":' . $org->address . ', "email":"' . $org->email . '", "phone":"' . $org->phone . '", "tax_number":"TX-123456"}', true),
       ])->each(function ($invoice) {
           InvoiceItemFactory::new()->count(3)->create([
             'invoice_id' => $invoice->id,

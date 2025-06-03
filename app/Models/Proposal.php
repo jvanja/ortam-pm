@@ -101,7 +101,7 @@ class Proposal extends Model {
   public function seller_information(): array {
     return [
       'name' => $this->organization->name,
-      'phone' => $this->organization->phone_number,
+      'phone' => $this->organization->phone,
       'email' => $this->organization->email,
       'address' => json_decode($this->client->address, TRUE),
     ];

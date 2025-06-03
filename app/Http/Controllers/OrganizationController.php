@@ -43,7 +43,7 @@ class OrganizationController extends Controller {
       'name' => $organization->name,
       'address' => $organization->address,
       'email' => $organization->email,
-      'phone_number' => $organization->phone_number,
+      'phone' => $organization->phone,
     ]);
   }
 
@@ -69,7 +69,7 @@ class OrganizationController extends Controller {
     $validated = $request->validate([
       'name' => 'string|max:255',
       'email' => 'required|string|max:255|email',
-      'phone_number' => 'required|string|max:255',
+      'phone' => 'required|string|max:255',
       'address.street' => 'required|string|max:255',
       'address.city' => 'required|string|max:255',
       'address.state' => 'required|string|max:255',
@@ -80,7 +80,7 @@ class OrganizationController extends Controller {
     $organization->update([
       'name' => $validated['name'],
       'email' => $validated['email'],
-      'phone_number' => $validated['phone_number'],
+      'phone' => $validated['phone'],
       'address' => json_encode($validated['address']),
     ]);
     return back()->with('status', 'Organization updated!');

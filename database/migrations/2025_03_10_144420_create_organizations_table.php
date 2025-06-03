@@ -14,7 +14,7 @@ return new class extends Migration {
       $table->timestamps();
       $table->string('name');
       $table->string('email')->unique();
-      $table->string('phone_number')->nullable();
+      $table->string('phone')->nullable();
       $table->json('address')->nullable();
       $table->string('logo')->nullable();
       $table->string('brand_color')->nullable();

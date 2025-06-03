@@ -52,7 +52,7 @@ class ProposalController extends Controller {
   public function show(string $id) {
     $proposal = Proposal::with(['client', 'project'])->findOrFail($id);
 
-    return Inertia::render('proposals/Index', [
+    return Inertia::render('proposals/Show', [
       'proposal' => $proposal,
     ]);
 

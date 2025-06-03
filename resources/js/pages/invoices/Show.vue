@@ -18,7 +18,6 @@ const form = useForm({ id: props.invoice.id });
 
 const sendInvoice = () => {
   if (confirm('Are you sure you want to send this invoice?')) {
-    console.log(props.invoice.id);
     form.post(route('invoices.send', [props.invoice.id]), {
       onSuccess: () => {
         console.log('Invoice sent successfully!');
@@ -41,7 +40,7 @@ const sendInvoice = () => {
   <Head title="Create Invoice" class="no-print" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
-    <div class="mx-auto max-w-3xl p-8" v-html="props.invoice_view"></div>
+    <div class="mx-auto max-w-3xl p-8" v-html="invoice_view"></div>
     <div class="no-print flex gap-4 p-8">
       <Button @click="sendInvoice" :disabled="!invoice.client?.email">Send Invoice</Button>
       <Button @click="printInvoice">Print Invoice</Button>

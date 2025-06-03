@@ -89,6 +89,23 @@ class Proposal extends Model {
   public function getState(): string|ProposalState {
     return ProposalState::tryFrom($this->state) ?? $this->state;
   }
+
+  public function buyer_information(): array {
+    return [
+      'name' => $this->client->company_name,
+      'phone' => $this->client->phone,
+      'email' => $this->client->email,
+      'address' => json_decode($this->client->address, TRUE),
+    ];
+  }
+  public function seller_information(): array {
+    return [
+      'name' => $this->organization->name,
+      'phone' => $this->organization->phone_number,
+      'email' => $this->organization->email,
+      'address' => json_decode($this->client->address, TRUE),
+    ];
+  }
   /**
    * PdfInvoice method to customize the PDF generation.
    *
@@ -97,6 +114,8 @@ class Proposal extends Model {
   public function toPdfInvoice(): PdfProposal {
     return new PdfProposal(
       id: $this->id,
+      buyer: Buyer::fromArray($this->buyer_information() ?? []),
+      seller: Seller::fromArray($this->seller_information() ?? []),
       state: $this->getState(),
       title: $this->title,
       description: $this->description,

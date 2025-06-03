@@ -10,6 +10,8 @@ use Brick\Money\Money;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Elegantly\Invoices\Concerns\FormatForPdf;
+use Elegantly\Invoices\Support\Buyer;
+use Elegantly\Invoices\Support\Seller;
 use Illuminate\Http\Response;
 use Illuminate\Mail\Attachment;
 use Illuminate\Support\Arr;
@@ -29,6 +31,8 @@ class PdfProposal {
     // 'project_id',
     // 'invoice_id',
     // 'organization_id',
+    public Seller $seller = new Seller,
+    public Buyer $buyer = new Buyer,
 
     public ?string $title = null,
     public ?string $description = null,

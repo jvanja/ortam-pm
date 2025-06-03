@@ -232,18 +232,24 @@ export interface projectsEntity {
   'type': string;
   'updated_at'?: Date | null;
 }
-export interface quotesEntity {
-  'budget': number;
+export interface proposalsEntity {
+  'accepted_at'?: Date | null;
   'client_id': string;
   'created_at'?: Date | null;
+  'currency': string;
+  'description'?: string | null;
+  'expires_at'?: Date | null;
   'id'?: string;
-  'organization_id': string;
-  'project_address': string;
-  'project_id': string;
-  'project_type': string;
-  'quote_language': 'english' | 'french';
-  'quote_status': 'in_preparation' | 'sent' | 'approved' | 'rejected';
-  'sales_representative_name': string;
+  'invoice_id'?: string | null;
+  'organization_id'?: string | null;
+  'project_id'?: string | null;
+  'rejected_at'?: Date | null;
+  'sent_at'?: Date | null;
+  'state'?: 'draft' | 'sent' | 'viewed' | 'accepted' | 'rejected' | 'expired' | 'archived';
+  'subtotal_amount'?: number;
+  'tax_amount'?: number;
+  'title': string;
+  'total_amount'?: number;
   'updated_at'?: Date | null;
 }
 export interface role_has_permissionsEntity {

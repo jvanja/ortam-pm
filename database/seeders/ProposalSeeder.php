@@ -2,16 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Proposal;
 use Illuminate\Database\Seeder;
 
-class ProposalSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
-    {
-        //
-    }
+class ProposalSeeder extends Seeder {
+  /**
+   * Run the database seeds.
+   */
+  public function run(): void {
+    Proposal::factory(10)->create();
+  }
 }

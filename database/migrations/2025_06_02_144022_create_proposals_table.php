@@ -13,9 +13,6 @@ return new class extends Migration {
     Schema::create('proposals', function (Blueprint $table) {
       $table->id();
 
-      // Relationships
-      $table->foreignId('client_id')->constrained()->onDelete('cascade');
-      $table->foreignId('project_id')->nullable()->constrained()->onDelete('set null');
 
       // Proposal details
       $table->string('title');
@@ -27,6 +24,11 @@ return new class extends Migration {
 
       // State
       $table->enum('state', [ProposalStatus::Draft ->value, ProposalStatus::Sent->value, ProposalStatus::Viewed->value, ProposalStatus::Accepted->value, ProposalStatus::Rejected->value, ProposalStatus::Expired->value, ProposalStatus::Archived->value])->default('draft');
+
+      // Relationships
+      $table->foreignId('client_id')->constrained()->onDelete('cascade');
+      $table->foreignId('project_id')->nullable()->constrained()->onDelete('set null');
+      $table->foreignId('organization_id')->nullable()->constrained()->onDelete('set null');
 
       // Timestamps
       $table->timestamp('sent_at')->nullable();

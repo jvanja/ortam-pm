@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder {
       ProjectPipelineStageSeeder::class,
       ProjectSeeder::class,
       // InvoiceSeeder::class,
-      QuoteSeeder::class,
+      ProposalSeeder::class,
       TimesheetSeeder::class,
       PCASeeder::class,
       UserProjectSeeder::class,

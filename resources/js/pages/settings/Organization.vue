@@ -17,7 +17,7 @@ import { reactive, ref } from 'vue';
 interface Props {
   name: string;
   email: string;
-  phone_number: string;
+  phone: string;
   address: string;
 }
 
@@ -54,7 +54,7 @@ const orgAddress = reactive({
 const form = useForm({
   name: props.name,
   email: props.email,
-  phone_number: props.phone_number,
+  phone: props.phone,
   address: orgAddress,
 });
 
@@ -93,9 +93,9 @@ const submit = () => {
           </div>
 
           <div class="grid gap-2">
-            <Label for="phone_number">Phone number</Label>
-            <Input id="phone_number" class="mt-1 block w-full" v-model="form.phone_number" required autocomplete="tel" placeholder="Phone number" />
-            <InputError class="mt-2" :message="form.errors.phone_number" />
+            <Label for="phone">Phone number</Label>
+            <Input id="phone" class="mt-1 block w-full" v-model="form.phone" required autocomplete="tel" placeholder="Phone number" />
+            <InputError class="mt-2" :message="form.errors.phone" />
           </div>
 
           <div class="my-12 grid gap-2 py-4">

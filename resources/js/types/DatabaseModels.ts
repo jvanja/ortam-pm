@@ -151,7 +151,7 @@ export interface organizationsEntity {
   'id'?: string;
   'logo'?: string | null;
   'name': string;
-  'phone_number'?: string | null;
+  'phone'?: string | null;
   'updated_at'?: Date | null;
 }
 export interface p_c_a_reportsEntity {
@@ -245,7 +245,7 @@ export interface proposalsEntity {
   'project_id'?: string | null;
   'rejected_at'?: Date | null;
   'sent_at'?: Date | null;
-  'state'?: 'draft' | 'sent' | 'viewed' | 'accepted' | 'rejected' | 'expired' | 'archived';
+  'state': string;
   'subtotal_amount'?: number;
   'tax_amount'?: number;
   'title': string;

@@ -23,7 +23,8 @@ return new class extends Migration {
       $table->decimal('total_amount', 10, 2)->default(0.00);
 
       // State
-      $table->enum('state', [ProposalStatus::Draft ->value, ProposalStatus::Sent->value, ProposalStatus::Viewed->value, ProposalStatus::Accepted->value, ProposalStatus::Rejected->value, ProposalStatus::Expired->value, ProposalStatus::Archived->value])->default('draft');
+      $table->string('state');
+      // $table->enum('state', [ProposalStatus::Draft ->value, ProposalStatus::Sent->value, ProposalStatus::Viewed->value, ProposalStatus::Accepted->value, ProposalStatus::Rejected->value, ProposalStatus::Expired->value, ProposalStatus::Archived->value])->default('draft');
 
       // Relationships
       $table->foreignId('client_id')->constrained()->onDelete('cascade');

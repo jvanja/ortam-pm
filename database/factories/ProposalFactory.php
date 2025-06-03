@@ -35,16 +35,16 @@ class ProposalFactory extends Factory {
     $expiresAt = null;
 
     if (in_array($state, ['sent', 'viewed', 'accepted', 'rejected', 'expired'])) {
-      $currentSystemTime = new \DateTime();
       // $sentAt = $this->faker->dateTimeBetween('-1 year', 'now');
+      $currentSystemTime = new \DateTime();
       $sentAt = $this->faker->dateTimeBetween('-1 year', $currentSystemTime);
       $expiresAt = $this->faker->dateTimeBetween($sentAt, $sentAt->modify('+3 months'));
     }
     if ($state === 'accepted' && $sentAt) {
-      $acceptedAt = $this->faker->dateTimeBetween($sentAt, 'now');
+      // $acceptedAt = $this->faker->dateTimeBetween($sentAt, 'now');
     }
     if ($state === 'rejected' && $sentAt) {
-      $rejectedAt = $this->faker->dateTimeBetween($sentAt, 'now');
+      // $rejectedAt = $this->faker->dateTimeBetween($sentAt, 'now');
     }
 
     return [

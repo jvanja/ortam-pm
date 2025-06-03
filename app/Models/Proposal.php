@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use App\Enums\ProposalState;
+use Elegantly\Invoices\Support\Buyer;
+use Elegantly\Invoices\Support\PaymentInstruction;
+use Elegantly\Invoices\Support\Seller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Services\PdfProposal;
 
 class Proposal extends Model {
   use HasFactory;
@@ -81,9 +85,29 @@ class Proposal extends Model {
   public function organization(): BelongsTo {
     return $this->belongsTo(Organization::class);
   }
-  // You might also add methods for items within the proposal, e.g.,
-  // public function items(): HasMany
-  // {
-  //     return $this->hasMany(InvoiceItem::class);
-  // }
+
+  public function getState(): string|ProposalState {
+    return ProposalState::tryFrom($this->state) ?? $this->state;
+  }
+  /**
+   * PdfInvoice method to customize the PDF generation.
+   *
+   * @return PdfInvoice
+   */
+  public function toPdfInvoice(): PdfProposal {
+    return new PdfProposal(
+      id: $this->id,
+      state: $this->getState(),
+      title: $this->title,
+      description: $this->description,
+      currency: $this->currency,
+      subtotal_amount: $this->subtotal_amount,
+      tax_amount: $this->tax_amount,
+      total_amount: $this->total_amount,
+      sent_at: $this->sent_at,
+      accepted_at: $this->accepted_at,
+      rejected_at: $this->rejected_at,
+      expires_at: $this->expires_at,
+    );
+  }
 }

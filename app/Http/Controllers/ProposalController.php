@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\InvoiceSent;
 use App\Models\Client;
 use App\Models\Project;
-use App\Enums\ProposalStatus;
+use App\Enums\ProposalState;
 use App\Models\Proposal;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class ProposalController extends Controller {
   public function create() {
     $clients = Client::orderBy('company_name')->get(['id', 'company_name']);
     $projects = Project::orderBy('type')->get(['id', 'type']);
-    $states = ProposalStatus::cases();
+    $states = ProposalState::cases();
 
     return Inertia::render('proposals/Add', [
       'clients' => $clients,
@@ -51,9 +51,11 @@ class ProposalController extends Controller {
    */
   public function show(string $id) {
     $proposal = Proposal::with(['client', 'project'])->findOrFail($id);
+    $proposal_view = $proposal->toPdfInvoice()->view()->toHtml();
 
     return Inertia::render('proposals/Show', [
       'proposal' => $proposal,
+      'proposal_view' => $proposal_view,
     ]);
 
   }

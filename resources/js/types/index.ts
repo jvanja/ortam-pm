@@ -35,6 +35,7 @@ import type {
   p_c_a_reportsEntity,
   project_pipeline_stagesEntity,
   projectsEntity,
+  proposalsEntity,
   time_sheetsEntity,
   usersEntity,
 } from './DatabaseModels';
@@ -113,6 +114,12 @@ export interface TimeSheet extends Omit<time_sheetsEntity, 'id' | 'created_at' |
   project?: Project;
   user?: User;
   organization?: Organization;
+}
+
+export interface Proposal extends Omit<proposalsEntity, 'id' | 'created_at' | 'updated_at'> {
+  id: string;
+  created_at: Date | string | null;
+  updated_at: Date | string | null;
 }
 
 export interface ProjectPipelineStage extends Omit<project_pipeline_stagesEntity, 'id' | 'created_at' | 'updated_at'> {

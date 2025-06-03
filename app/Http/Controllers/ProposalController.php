@@ -16,6 +16,16 @@ use Inertia\Inertia;
 class ProposalController extends Controller {
 
   /**
+   * Display a listing of the resource.
+   */
+  public function index() {
+    $proposals = Proposal::with(['client', 'project'])->get();
+
+    return Inertia::render('proposals/Index', [
+      'proposals' => $proposals,
+    ]);
+  }
+  /**
    * Show the form for creating a new resource.
    */
   public function create() {
@@ -39,7 +49,13 @@ class ProposalController extends Controller {
   /**
    * Display the specified resource.
    */
-  public function show(Proposal $proposal) {
+  public function show(string $id) {
+    $proposal = Proposal::with(['client', 'project'])->findOrFail($id);
+
+    return Inertia::render('proposals/Index', [
+      'proposal' => $proposal,
+    ]);
+
   }
 
   /**

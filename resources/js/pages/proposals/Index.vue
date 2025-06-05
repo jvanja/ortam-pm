@@ -5,6 +5,7 @@ import Heading from '@/components/Heading.vue';
 import { Button } from '@/components/ui/button';
 import { BreadcrumbItem, Client, Project, Proposal } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
+import { formatDate } from '@/lib/utils';
 
 type ProposalWithProject = Proposal & { project: Project; client: Client; };
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Proposals', href: '/proposals' }]; // Corrected breadcrumb title and href
@@ -43,7 +44,7 @@ defineProps<{
             <TableCell>{{ proposal.project?.type }}</TableCell>
             <TableCell>{{ proposal.state }}</TableCell>
             <TableCell>{{proposal.currency}} {{ proposal.total_amount }}</TableCell>
-            <TableCell>{{ proposal.expires_at }}</TableCell>
+            <TableCell>{{ formatDate(proposal.expires_at) }}</TableCell>
             <TableCell class="flex gap-2 text-right">
               <Link :href="route('proposals.show', [proposal.id])">
                 <Button variant="outline" size="sm">View</Button>

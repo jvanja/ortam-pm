@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useDateFormat } from '@vueuse/core'
+import { formatDate } from '@/lib/utils';
 
 const props = defineProps<{
   timesheet: TimeSheet & { project: Project; user: User };
@@ -16,8 +16,6 @@ const breadcrumbs: BreadcrumbItem[] = [
   { title: 'Timesheets', href: '/timesheets' },
   { title: `Entry ${props.timesheet.id}`, href: `/timesheets/${props.timesheet.id}` }, // Dynamic breadcrumb
 ];
-const locale = localStorage.getItem('locale') || 'en';
-const formatDate = (date:string | Date) => useDateFormat(date, 'MMMM D, YYYY HH:mm A', { locales: locale })
 </script>
 
 <template>
@@ -29,7 +27,7 @@ const formatDate = (date:string | Date) => useDateFormat(date, 'MMMM D, YYYY HH:
         <CardHeader>
           <CardTitle>Timesheet Entry Details</CardTitle>
           <CardDescription>
-            Entry recorded by {{ timesheet.user?.name }} on {{ formatDate(timesheet.created_at) }}
+            Timesheet recorded by <strong><i>{{ timesheet.user?.name }}</i></strong> on {{ formatDate(timesheet.created_at) }}
           </CardDescription>
         </CardHeader>
         <CardContent class="space-y-4">

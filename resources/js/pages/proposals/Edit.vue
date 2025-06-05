@@ -22,6 +22,7 @@ import type { BreadcrumbItem, Client, Invoice, Project } from '@/types';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { toast } from 'vue-sonner';
+import { formatCurrency } from '@/lib/utils';
 
 type InvoiceItem = { id: number; label: string; quantity: number; unit_price: number; description: string };
 const props = defineProps<{ invoice: Invoice; invoice_items: InvoiceItem[]; client: Client; project: Project; invoice_states: [] }>();
@@ -39,8 +40,8 @@ const form = useForm({
   items: items.value,
 });
 
-const formatCurrency = (amount: number) => new Intl.NumberFormat('us-EN', { style: 'currency', currency: props.invoice.currency! }).format(amount);
-const getItemTotal = (item: InvoiceItem) => formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1));
+const currency = props.invoice.currency || props.project.currency;
+const getItemTotal = (item: InvoiceItem) => formatCurrency(Number(item.unit_price) * (item.quantity ? item.quantity : 1), currency);
 const getInvoiceTotal = () => {
   const total = form.items.reduce((acc, item) => acc + Number(item.unit_price) * (item.quantity ? item.quantity : 1), 0);
   return total;
@@ -162,7 +163,7 @@ const addItem = () => {
               </TableRow>
               <TableRow>
                 <TableCell colspan="4" class="font-semibold">Total</TableCell>
-                <TableCell class="text-normal whitespace-nowrap px-2 py-4 font-semibold"> {{ formatCurrency(getInvoiceTotal()) }}</TableCell>
+                <TableCell class="text-normal whitespace-nowrap px-2 py-4 font-semibold"> {{ formatCurrency(getInvoiceTotal(), currency) }}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

@@ -12,19 +12,23 @@ import type { BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { PlusCircle, X as DeleteIcon } from 'lucide-vue-next';
 import { computed } from 'vue';
+import { formatCurrency } from '@/lib/utils';
 
-defineProps<{
+const props = defineProps<{
   clients: { id: string; company_name: string }[];
-  projects: { id: string; type: string }[];
+  projects: { id: string; type: string, currency: string }[];
   states: { name: string; value: string }[];
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Invoices', href: '/invoices' }];
+const projectId = getQuery().projectId || null;
+const clientId = getQuery().clientId || null;
+const currency = props.projects.filter((project) => project.id === projectId)[0].currency;
 
 const form = useForm({
   state: 'draft',
-  project_id: getQuery().projectId || '',
-  client_id: getQuery().clientId || '',
+  project_id: projectId,
+  client_id: clientId,
   description: '',
   total_amount: 0,
   items: [
@@ -43,7 +47,7 @@ const submit = () => {
 };
 
 const deleteItem = (index: number) => {
-  form.items = form.items.filter((item, i) => i !== index);
+  form.items = form.items.filter((_, i) => i !== index);
 }
 
 // Add a new item to the form
@@ -54,8 +58,6 @@ const addItem = () => {
     unit_price: 0,
   });
 };
-
-const formatCurrency = (amount: number) => `${Number(amount).toFixed(2)} USD`; // Format to 2 decimal places
 
 const getItemTotal = (item: { unit_price: number; quantity: number }) => {
   const quantity = Number(item.quantity) || 0;
@@ -96,7 +98,7 @@ const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getIte
         <!-- Client -->
         <div class="mb-4">
           <Label for="client_id">Client</Label>
-          <Select id="client_id" v-model="form.client_id" required>
+          <Select id="client_id" v-model="form.client_id" required :disabled="clientId && !isNaN(clientId)">
             <SelectTrigger>
               <SelectValue placeholder="Invoice client" />
             </SelectTrigger>
@@ -114,7 +116,7 @@ const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getIte
         <!-- Project -->
         <div class="mb-4">
           <Label for="project_id">Project</Label>
-          <Select id="project_id" v-model="form.project_id" required>
+          <Select id="project_id" v-model="form.project_id" required :disabled="projectId && !isNaN(projectId)">
             <SelectTrigger>
               <SelectValue placeholder="Invoice project" />
             </SelectTrigger>
@@ -157,9 +159,9 @@ const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getIte
                   <Input v-model="item.quantity" class="mt-1" type="number" min="1" />
                 </TableCell>
                 <TableCell class="px-2 py-4 text-sm">
-                  <CurrencyInput v-model="item.unit_price" class="mt-1" :options="{ currency: 'USD' }" />
+                  <CurrencyInput v-model="item.unit_price" class="mt-1" :options="{ currency }" />
                 </TableCell>
-                <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">{{ formatCurrency(getItemTotal(item)) }}</TableCell>
+                <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">{{ formatCurrency(getItemTotal(item), currency) }}</TableCell>
                 <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">
                   <Button variant="ghost" class="text-red-500" @click="deleteItem(index)" :disabled="form.items.length === 1"><DeleteIcon width="12"/></Button>
                 </TableCell>
@@ -177,7 +179,7 @@ const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getIte
               <TableRow>
                 <TableCell colspan="3" class="font-semibold">Total</TableCell>
                 <TableCell class="text-normal whitespace-nowrap px-2 py-4 text-right font-semibold">
-                  {{ formatCurrency(totalAmount) }}
+                  {{ formatCurrency(totalAmount, currency) }}
                 </TableCell>
               </TableRow>
             </TableBody>

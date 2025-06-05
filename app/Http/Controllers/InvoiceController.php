@@ -21,7 +21,7 @@ class InvoiceController extends Controller {
    */
   public function create() {
     $clients = Client::orderBy('company_name')->get(['id', 'company_name']);
-    $projects = Project::orderBy('type')->get(['id', 'type']);
+    $projects = Project::orderBy('type')->get(['id', 'type', 'currency']);
     $states = InvoiceState::cases();
 
     return Inertia::render('invoices/Add', [

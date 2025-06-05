@@ -126,6 +126,16 @@ class RolePermissionSeeder extends Seeder {
           'file.approve',
         ]
       ],
+      [
+        'group_name' => 'proposals',
+        'permissions' => [
+          'proposal.create',
+          'proposal.view',
+          'proposal.edit',
+          'proposal.delete',
+          'proposal.approve',
+        ]
+      ],
     ];
 
     // - Admin : can access and edit everything and can approve time sheets

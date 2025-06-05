@@ -12,6 +12,12 @@ const mainNavItems = [
     permission: 'dashboard.view',
   },
   {
+    title: 'Proposals',
+    href: '/proposals',
+    icon: Clipboard,
+    permission: 'proposal.view',
+  },
+  {
     title: 'PCA Reports',
     href: '/pca-reports',
     icon: Clipboard,

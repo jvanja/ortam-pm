@@ -61,11 +61,28 @@ class ProposalController extends Controller {
   }
 
   /**
-   * Send the specified invoice via email.
+   * Send the specified proposal via email.
    */
   public function send(Proposal $proposal): RedirectResponse {
+    $this->authorize('proposal.edit', $proposal);
 
-    return redirect()->back()->with('success', 'Invoice sent successfully!');
+    $project = Project::find($proposal->project_id);
+    $client = Client::find($proposal->client_id);
+
+    $proposal->project = $project;
+    $proposal->client = $client;
+
+    // Check if the client has an email address
+    if (empty($proposal->client->email)) {
+      return redirect()->back()->with('error', 'Client does not have an email address.');
+    }
+
+    // Send the email
+    // - TODO: remove my email below after testing
+    Mail::to('jelicvanja@gmail.com')->send(new InvoiceSent($proposal));
+    // Mail::to($proposal->client->email)->send(new InvoiceSent($proposal));
+
+    return redirect()->back()->with('success', 'Proposal sent successfully!');
   }
 
 

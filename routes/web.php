@@ -71,6 +71,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
   // Proposals
   Route::resource('proposals', ProposalController::class);
+  Route::post('/proposals/{proposal}/send', [ProposalController::class, 'send'])->name('proposals.send');
 
   // Invoices
   Route::resource('invoices', InvoiceController::class);

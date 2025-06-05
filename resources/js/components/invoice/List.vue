@@ -5,17 +5,18 @@ import type { Invoice } from '@/types';
 import { useDateFormat } from '@vueuse/core';
 import { PlusCircle } from 'lucide-vue-next';
 import { computed } from 'vue';
+import { formatCurrency } from '@/lib/utils';
 
 const props = defineProps({
   invoices: Array<Invoice>,
   clientId: String,
   projectId: String,
-  currency: {
+  projectCurrency: {
     type: String,
     default: 'USD',
   },
 });
-const formatCurrency = (amount: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: props.currency }).format(amount);
+const currency = (invoice: Invoice) => invoice.currency || props.projectCurrency;
 const queryParams = computed(() => (props.clientId ? 'clientId=' + props.clientId : '') + (props.projectId ? '&projectId=' + props.projectId : ''));
 </script>
 <template>
@@ -44,7 +45,7 @@ const queryParams = computed(() => (props.clientId ? 'clientId=' + props.clientI
                 <div class="text-sm">{{ useDateFormat(invoice.created_at, 'YYYY-MM-DD') }}</div>
               </TableCell>
               <TableCell class="whitespace-nowrap px-6 py-4">
-                <div class="text-sm">{{ formatCurrency(Number(invoice.total_amount)) }}</div>
+                <div class="text-sm">{{ formatCurrency(Number(invoice.total_amount), currency(invoice)) }}</div>
               </TableCell>
               <TableCell class="whitespace-nowrap px-6 py-4">
                 <div class="text-sm">{{ invoice.state }}</div>

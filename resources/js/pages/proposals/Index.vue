@@ -30,8 +30,8 @@ defineProps<{
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>Title</TableHead>
             <TableHead>Client</TableHead>
-            <TableHead>Project</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Due Date</TableHead>
             <TableHead class="text-right">Actions</TableHead>
@@ -39,8 +39,8 @@ defineProps<{
         </TableHeader>
         <TableBody>
           <TableRow v-for="proposal in proposals" :key="proposal.id">
+            <TableCell>{{ proposal.title }}</TableCell>
             <TableCell>{{ proposal.client?.company_name }}</TableCell>
-            <TableCell>{{ proposal.project?.type }}</TableCell>
             <TableCell>{{ proposal.state }}</TableCell>
             <TableCell>{{ formatDate(proposal.expires_at || '') }}</TableCell>
             <TableCell class="flex gap-2 justify-end">

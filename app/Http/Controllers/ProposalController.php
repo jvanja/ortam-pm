@@ -90,6 +90,16 @@ class ProposalController extends Controller {
    * Show the form for editing the specified resource.
    */
   public function edit(Proposal $proposal) {
+    $this->authorize('proposal.edit', Proposal::class);
+
+    $client = Client::find($proposal->client_id);
+    $project = Project::find($proposal->project_id);
+
+    return Inertia::render('proposals/Edit', [
+      'proposal' => $proposal,
+      'client' => $client,
+      'project' => $project,
+    ]);
   }
 
   /**

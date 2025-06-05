@@ -29,7 +29,6 @@ defineProps<{
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>ID</TableHead>
             <TableHead>Client</TableHead>
             <TableHead>Project</TableHead>
             <TableHead>Status</TableHead>
@@ -40,16 +39,17 @@ defineProps<{
         </TableHeader>
         <TableBody>
           <TableRow v-for="proposal in proposals" :key="proposal.id">
-            <TableCell>{{ proposal.id }}</TableCell>
             <TableCell>{{ proposal.client?.company_name }}</TableCell>
             <TableCell>{{ proposal.project?.type }}</TableCell>
             <TableCell>{{ proposal.state }}</TableCell>
             <TableCell>{{proposal.currency}} {{ proposal.total_amount }}</TableCell>
             <TableCell>{{ proposal.expires_at }}</TableCell>
-            <TableCell class="text-right">
-              <!-- @vue-expect-error type conversion is fine -->
-              <Link :href="route('proposals.show', proposal.id)">
+            <TableCell class="flex gap-2 text-right">
+              <Link :href="route('proposals.show', [proposal.id])">
                 <Button variant="outline" size="sm">View</Button>
+              </Link>
+              <Link :href="route('proposals.edit', [proposal.id])">
+                <Button variant="outline" size="sm">Edit</Button>
               </Link>
             </TableCell>
           </TableRow>

@@ -76,6 +76,18 @@ export interface Invoice extends Omit<invoicesEntity, 'id' | 'created_at' | 'upd
   id: string; // Assuming ID is always present
   created_at: Date | string;
   updated_at: Date | string | null;
+  buyer_information: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    fields?: [];
+    company?: string;
+    tax_number?: string;
+    shipping_address?: string;
+    address?: {
+      [key: string]: number;
+    };
+  };
 }
 
 export interface InvoiceItem extends Omit<invoice_itemsEntity, 'id' | 'created_at' | 'updated_at'> {

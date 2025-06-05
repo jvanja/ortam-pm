@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ProjectType;
 use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\Organization;
@@ -48,7 +49,7 @@ class ProposalFactory extends Factory {
     }
 
     return [
-      'title' => $this->faker->sentence(3) . ' Proposal',
+      'title' => fake()->randomElement(ProjectType::cases()),
       'description' => $this->faker->paragraph(3),
       'currency' => $this->faker->currencyCode,
       'subtotal_amount' => $subtotal,

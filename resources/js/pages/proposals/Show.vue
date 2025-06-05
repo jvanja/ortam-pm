@@ -48,24 +48,26 @@ const sendProposal = () => {
   <Head title="Proposal" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
-    <div class="mx-auto max-w-3xl p-8" v-html="proposal_view"></div>
-    <div class="no-print flex gap-4 p-8">
-      <AlertDialog>
-        <AlertDialogTrigger as-child>
-          <Button :disabled="!proposal.client.email">Send Proposal</Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure you want to send this proposal?</AlertDialogTitle>
-            <AlertDialogDescription> You are about to send this proposal to {{ proposal.client.email }}. </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel :disabled="form.processing">Cancel</AlertDialogCancel>
-            <AlertDialogAction @click="sendProposal" :disabled="form.processing">Yes, send the proposal</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-      <Button @click="printProposal">Print Proposal</Button>
+    <div class="p-8">
+      <div class="mx-auto mb-[60px] max-w-3xl" v-html="proposal_view"></div>
+      <div class="no-print mb-4 flex justify-center gap-4">
+        <AlertDialog>
+          <AlertDialogTrigger as-child>
+            <Button :disabled="!proposal.client.email">Send Proposal</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure you want to send this proposal?</AlertDialogTitle>
+              <AlertDialogDescription> You are about to send this proposal to {{ proposal.client.email }}. </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel :disabled="form.processing">Cancel</AlertDialogCancel>
+              <AlertDialogAction @click="sendProposal" :disabled="form.processing">Yes, send the proposal</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+        <Button @click="printProposal">Print Proposal</Button>
+      </div>
     </div>
   </AppLayout>
 </template>

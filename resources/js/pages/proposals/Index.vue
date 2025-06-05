@@ -43,13 +43,9 @@ defineProps<{
             <TableCell>{{ proposal.project?.type }}</TableCell>
             <TableCell>{{ proposal.state }}</TableCell>
             <TableCell>{{ formatDate(proposal.expires_at || '') }}</TableCell>
-            <TableCell class="flex gap-2 text-right">
-              <Link :href="route('proposals.show', [proposal.id])">
-                <Button variant="outline" size="sm">View</Button>
-              </Link>
-              <Link :href="route('proposals.edit', [proposal.id])">
-                <Button variant="outline" size="sm">Edit</Button>
-              </Link>
+            <TableCell class="flex gap-2 justify-end">
+              <Button variant="outline" size="sm"><a :href="route('proposals.show', [proposal.id])">View</a></Button>
+              <Button :disabled="!(proposal.state === 'draft')" variant="outline" size="sm"><a :href="route('proposals.edit', [proposal.id])">Edit</a></Button>
             </TableCell>
           </TableRow>
           <TableRow v-if="proposals.length === 0">

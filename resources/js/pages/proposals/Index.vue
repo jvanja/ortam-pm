@@ -8,7 +8,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { formatDate } from '@/lib/utils';
 
 type ProposalWithProject = Proposal & { project: Project; client: Client; };
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Proposals', href: '/proposals' }]; // Corrected breadcrumb title and href
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Proposals', href: '/proposals' }];
 defineProps<{
   proposals: ProposalWithProject[];
 }>();
@@ -33,7 +33,6 @@ defineProps<{
             <TableHead>Client</TableHead>
             <TableHead>Project</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Amount</TableHead>
             <TableHead>Due Date</TableHead>
             <TableHead class="text-right">Actions</TableHead>
           </TableRow>
@@ -43,8 +42,7 @@ defineProps<{
             <TableCell>{{ proposal.client?.company_name }}</TableCell>
             <TableCell>{{ proposal.project?.type }}</TableCell>
             <TableCell>{{ proposal.state }}</TableCell>
-            <TableCell>{{proposal.currency}} {{ proposal.total_amount }}</TableCell>
-            <TableCell>{{ formatDate(proposal.expires_at) }}</TableCell>
+            <TableCell>{{ formatDate(proposal.expires_at || '') }}</TableCell>
             <TableCell class="flex gap-2 text-right">
               <Link :href="route('proposals.show', [proposal.id])">
                 <Button variant="outline" size="sm">View</Button>

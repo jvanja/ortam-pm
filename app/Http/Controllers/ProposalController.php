@@ -44,6 +44,21 @@ class ProposalController extends Controller {
    * Store a newly created resource in storage.
    */
   public function store(Request $request) {
+    $this->authorize('proposal.create', Proposal::class);
+
+    $validated = $request->validate([
+      'title' => ['required', 'string'],
+      'description' => ['required', 'string'],
+      'state' => ['required', 'string', Rule::in(array_column(ProposalState::cases(), 'value'))],
+      'client_id' => ['required', 'exists:clients,id'],
+      'project_id' => ['nullable', 'exists:projects,id'],
+      'currency' => ['required', 'string'],
+      'total_amount' => ['required', 'numeric', 'min:0'],
+      'organization_id' => ['exists:organizations,id'],
+    ]);
+    $proposal = Project::create($validated);
+    return redirect()->route('proposals.show', $proposal->id)
+      ->with('message', 'Proposal created successfully');
   }
 
   /**

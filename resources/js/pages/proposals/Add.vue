@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import NewClient from '@/components/client/NewClient.vue';
 import InputError from '@/components/InputError.vue';
-import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
+import Tiptap from '@/components/Tiptap.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,10 +10,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { getQuery } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
-import { Head, router, useForm } from '@inertiajs/vue3';
-import { X as DeleteIcon, PlusCircle } from 'lucide-vue-next';
+import { Head, router, useForm, usePage } from '@inertiajs/vue3';
+import currencies from 'currency-codes';
+import { PlusCircle } from 'lucide-vue-next';
 import { AcceptableValue } from 'reka-ui';
-import Tiptap from '@/components/Tiptap.vue'
 
 import { computed, onMounted, ref } from 'vue';
 
@@ -26,6 +26,9 @@ defineProps<{
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Proposals', href: '/proposals' }];
 const currentStep = ref<'select_client' | 'create_client'>('select_client'); // State for the two-step process
 const selectedClientId = ref<string | null>(null);
+const page = usePage();
+// @ts-expect-error The user is added in HandleInertiaRequest and always exists
+const org_id = computed(() => page.props.auth.user.organization_id);
 
 const form = useForm({
   state: 'draft',
@@ -41,49 +44,37 @@ const form = useForm({
 </ol>
 <h1>Payment</h1>Consequat culpa pariatur proident elit. Deserunt eu sit cupidatat sint Lorem proident Lorem laboris dolore eiusmod proident laborum ea minim consequat. Laboris do ad aute non. Labore fugiat velit pariatur et culpa do adipisicing enim sit exercitation. Irure sunt aliqua et est qui ipsum cillum eu laborum dolor reprehenderit do sit laborum nulla. In fugiat esse proident eiusmod laborum laboris quis nostrud voluptate cillum ullamco magna excepteur.
 `,
+  currency: 'USD',
+  subtotal_amount: 0,
+  tax_amount: 0,
   total_amount: 0,
-  items: [
-    {
-      label: '',
-      quantity: 1,
-      unit_price: 0,
-    },
-  ],
+  organization_id: org_id.value,
 });
 
 // Handle form submission
 const submit = () => {
   // TODO: remove logging after testing
+  form.total_amount = totalAmount.value;
   console.log(form.data());
   return;
-  form.total_amount = totalAmount.value;
-  form.post(route('invoices.store'));
+  form.post(route('proposals.store'));
 };
 
-const deleteItem = (index: number) => {
-  form.items = form.items.filter((_, i) => i !== index);
+/* ==========================================================================
+ Amount calculations
+ ========================================================================== */
+const formatCurrency = (amount: number) => `${Number(amount).toFixed(2)} ${form.currency}`; // Format to 2 decimal places
+
+const getTotalAmount = (subtotal, tax) => {
+  return subtotal + subtotal * tax;
 };
+const totalAmount = computed(() => form.subtotal_amount + form.subtotal_amount * form.tax_amount / 100);
 
-// Add a new item to the form
-const addItem = () => {
-  form.items.push({
-    label: '',
-    quantity: 1,
-    unit_price: 0,
-  });
-};
-
-const formatCurrency = (amount: number) => `${Number(amount).toFixed(2)} USD`; // Format to 2 decimal places
-
-const getItemTotal = (item: { unit_price: number; quantity: number }) => {
-  const quantity = Number(item.quantity) || 0;
-  const unitPrice = Number(item.unit_price) || 0;
-  return quantity * unitPrice;
-};
-
-// Computed property to calculate the total amount of all items
-const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getItemTotal(item), 0));
+/* ==========================================================================
+ Client selection and creation
+ ========================================================================== */
 const modelChanged = (modelValue: AcceptableValue) => {
+  console.log(modelValue);
   if (typeof modelValue === 'string' && modelValue.split('|')[0] === 'new') {
     const model = modelValue.split('|')[1];
     router.get(route(`${model}.create`) + `?source=proposals.create`);
@@ -103,6 +94,9 @@ const handleCancelCreateClient = () => {
   currentStep.value = 'select_client';
 };
 
+/* ==========================================================================
+ Lifecycle hooks
+ ========================================================================== */
 onMounted(() => {
   const url = new URL(window.location.href);
   const newClientId = url.searchParams.get('clientId');
@@ -166,44 +160,35 @@ onMounted(() => {
             <Table class="min-w-full divide-y divide-gray-200">
               <TableHeader>
                 <TableRow class="text-gray-500">
-                  <TableHead class="border-b p-2 text-left text-xs font-normal" style="width: 60%">Description</TableHead>
-                  <TableHead class="border-b p-2 text-left text-xs font-normal">Quantity</TableHead>
-                  <TableHead class="border-b p-2 text-left text-xs font-normal">Unit price</TableHead>
-                  <TableHead class="border-b p-2 text-right text-xs font-normal">Amount</TableHead>
-                  <TableHead class="border-b p-2 text-right text-xs font-normal"></TableHead>
+                  <TableHead class="border-b p-2 text-left text-xs font-normal">Sub total</TableHead>
+                  <TableHead class="border-b p-2 text-left text-xs font-normal" width="10%">Currency</TableHead>
+                  <TableHead class="border-b p-2 text-left text-xs font-normal" width="80">Tax amount</TableHead>
+                  <TableHead class="border-b p-2 text-right text-xs font-normal">Total</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow v-for="(item, index) in form.items" :key="index">
+                <TableRow>
                   <TableCell class="px-2 py-4 text-sm">
-                    <Input v-model="item.label" class="mt-1" />
+                    <Input id="subtotal" v-model="form.subtotal_amount" class="mt-1" type="number" min="0" />
                   </TableCell>
                   <TableCell class="px-2 py-4 text-sm">
-                    <Input v-model="item.quantity" class="mt-1" type="number" min="1" />
+                    <Select id="currency" defaultValue="USD" v-model="form.currency">
+                      <SelectTrigger id="currency" class="mt-0">
+                        <SelectValue placeholder="Currency" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem v-for="code in currencies.codes()" :key="code" :value="code">{{ code }}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <div class="text-sm text-red-500" v-if="form.errors.currency">{{ form.errors.currency }}</div>
                   </TableCell>
-                  <TableCell class="px-2 py-4 text-sm">
-                    <CurrencyInput v-model="item.unit_price" class="mt-1" :options="{ currency: 'USD' }" />
+                  <TableCell class="relative max-w-sm items-center px-2 py-4 text-sm">
+                    <Input id="tax" v-model="form.tax_amount" class="mt-1" type="number" min="0" />
+                    <span class="absolute inset-y-0 end-2 flex items-center justify-center px-2">
+                      %
+                    </span>
                   </TableCell>
-                  <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">{{ formatCurrency(getItemTotal(item)) }}</TableCell>
                   <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">
-                    <Button variant="ghost" class="text-red-500" @click="deleteItem(index)" :disabled="form.items.length === 1"
-                      ><DeleteIcon width="12"
-                    /></Button>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell colspan="5" class="px-2 py-4">
-                    <div class="rounded-lg border-2 border-dashed border-teal-400 bg-teal-50 p-1 px-4 py-2 dark:bg-neutral-800">
-                      <button type="button" @click="addItem" class="flex w-full flex-1 items-center gap-2 text-sm text-green-700">
-                        <PlusCircle class="text-green-700" />
-                        Add new item
-                      </button>
-                    </div>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell colspan="3" class="font-semibold">Total</TableCell>
-                  <TableCell class="text-normal whitespace-nowrap px-2 py-4 text-right font-semibold">
                     {{ formatCurrency(totalAmount) }}
                   </TableCell>
                 </TableRow>

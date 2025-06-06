@@ -55,6 +55,7 @@ class ProposalController extends Controller {
       'currency' => ['required', 'string'],
       'subtotal_amount' => ['required', 'numeric', 'min:0'],
       'total_amount' => ['required', 'numeric', 'min:0'],
+      'expires_at' => ['nullable', 'date'],
       'organization_id' => ['exists:organizations,id'],
     ]);
     $proposal = Proposal::create($validated);

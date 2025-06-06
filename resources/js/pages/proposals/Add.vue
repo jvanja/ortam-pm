@@ -3,18 +3,26 @@ import NewClient from '@/components/client/NewClient.vue';
 import InputError from '@/components/InputError.vue';
 import Tiptap from '@/components/Tiptap.vue';
 import { Button } from '@/components/ui/button';
+import {
+  CalendarDate,
+  DateFormatter,
+  type DateValue,
+  getLocalTimeZone,
+} from '@internationalized/date'
+import { Calendar as CalendarIcon } from 'lucide-vue-next'
+import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { getQuery } from '@/lib/utils';
+import { cn, getQuery } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
 import { Head, router, useForm, usePage } from '@inertiajs/vue3';
 import currencies from 'currency-codes';
 import { PlusCircle } from 'lucide-vue-next';
 import { AcceptableValue } from 'reka-ui';
-
 import { computed, onMounted, ref } from 'vue';
 import { toast } from 'vue-sonner';
 
@@ -34,7 +42,6 @@ const org_id = computed(() => page.props.auth.user.organization_id);
 const form = useForm({
   state: 'draft',
   title: '',
-  // client_id: getQuery().clientId || '',
   client_id: '',
   description: `
 <h1>Scope</h1>Below is a high-level breakdown of deliverables, their estimated times.
@@ -50,11 +57,13 @@ const form = useForm({
   subtotal_amount: 0,
   tax_amount: 0,
   total_amount: 0,
+  expires_at: '',
   organization_id: org_id.value,
 });
 
 // Handle form submission
 const submit = () => {
+  form.expires_at = expires_date.value!.toDate(getLocalTimeZone()).toISOString()
   form.total_amount = totalAmount.value;
   form.client_id = selectedClientId.value;
   form.post(route('proposals.store'), {
@@ -75,13 +84,12 @@ const submit = () => {
  Amount calculations
  ========================================================================== */
 const formatCurrency = (amount: number) => `${Number(amount).toFixed(2)} ${form.currency}`; // Format to 2 decimal places
-const totalAmount = computed(() => form.subtotal_amount + form.subtotal_amount * form.tax_amount / 100);
+const totalAmount = computed(() => form.subtotal_amount + (form.subtotal_amount * form.tax_amount) / 100);
 
 /* ==========================================================================
  Client selection and creation
  ========================================================================== */
 const modelChanged = (modelValue: AcceptableValue) => {
-  console.log(modelValue);
   if (typeof modelValue === 'string' && modelValue.split('|')[0] === 'new') {
     const model = modelValue.split('|')[1];
     router.get(route(`${model}.create`) + `?source=proposals.create`);
@@ -90,7 +98,7 @@ const modelChanged = (modelValue: AcceptableValue) => {
 
 // Handle client creation success from NewClientForm
 const handleClientCreated = () => {
-  const newClientId:string = getQuery().clientId || '';
+  const newClientId: string = getQuery().clientId || '';
   selectedClientId.value = newClientId;
   currentStep.value = 'select_client';
 };
@@ -101,10 +109,20 @@ const handleCancelCreateClient = () => {
 };
 
 /* ==========================================================================
+ Calendar
+ ========================================================================== */
+const df = new DateFormatter('en-US', {
+  dateStyle: 'long',
+})
+
+const expires_date = ref<DateValue>()
+const today = new Date()
+
+/* ==========================================================================
  Lifecycle hooks
  ========================================================================== */
 onMounted(() => {
-  const newClientId:string = getQuery().clientId || '';
+  const newClientId: string = getQuery().clientId || '';
   selectedClientId.value = newClientId;
 });
 </script>
@@ -160,7 +178,7 @@ onMounted(() => {
             <InputError class="mt-2" :message="form.errors.description" />
           </div>
 
-          <!-- Proposal Items -->
+          <!-- Proposal Amount -->
           <div class="flex flex-col gap-4">
             <Table class="min-w-full divide-y divide-gray-200">
               <TableHeader>
@@ -189,9 +207,7 @@ onMounted(() => {
                   </TableCell>
                   <TableCell class="relative max-w-sm items-center px-2 py-4 text-sm">
                     <Input id="tax" v-model="form.tax_amount" class="mt-1" type="number" min="0" />
-                    <span class="absolute inset-y-0 end-2 flex items-center justify-center px-2">
-                      %
-                    </span>
+                    <span class="absolute inset-y-0 end-2 flex items-center justify-center px-2"> % </span>
                   </TableCell>
                   <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">
                     {{ formatCurrency(totalAmount) }}
@@ -199,6 +215,26 @@ onMounted(() => {
                 </TableRow>
               </TableBody>
             </Table>
+          </div>
+
+          <!-- Expires -->
+          <div class="mb-4">
+            <div class="flex flex-col">
+              <Label class="mb-2">Expires At</Label>
+              <Popover>
+                <PopoverTrigger as-child>
+                  <Button variant="outline" :class="cn('w-[280px] justify-start text-left font-normal', !expires_date && 'text-muted-foreground')">
+                    <CalendarIcon class="mr-2 h-4 w-4" />
+                    {{ expires_date ? df.format(expires_date.toDate(getLocalTimeZone())) : 'Pick a date' }}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent class="w-auto p-0">
+                  <Calendar v-model="expires_date" initial-focus :min-value="new CalendarDate(today.getFullYear(), today.getMonth() + 1, today.getDate())" />
+                </PopoverContent>
+              </Popover>
+              <p class="text-sm text-muted-foreground">This proposal expiration date</p>
+            </div>
+            <InputError class="mt-2" :message="form.errors.expires_at" />
           </div>
 
           <!-- Submit Button -->

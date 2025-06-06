@@ -110,4 +110,19 @@
       </tr>
     </tbody>
   </table>
+
+  @if ($proposal->expires_at)
+    <table class="mb-8 w-full">
+      <tbody>
+        <tr>
+          <td class="p-0 align-top">
+            <p class="mb-4 text-sm">
+              <strong> {{ __('This proposal will expire on:') }} {{ date_format($proposal->expires_at, 'F d Y') }}</strong>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  @endif
+
 </div>

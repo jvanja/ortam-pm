@@ -71,3 +71,14 @@ const sendProposal = () => {
     </div>
   </AppLayout>
 </template>
+<style scoped>
+:deep(ul), :deep(ol) {
+  padding-left: 2rem;
+  list-style: auto;
+}
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+</style>

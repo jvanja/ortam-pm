@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NewClient from '@/components/client/NewClient.vue'; // Import the new component
+import NewClient from '@/components/client/NewClient.vue';
 import InputError from '@/components/InputError.vue';
 import CurrencyInput from '@/components/invoice/CurrencyInput.vue';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,8 @@ import type { BreadcrumbItem } from '@/types';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { X as DeleteIcon, PlusCircle } from 'lucide-vue-next';
 import { AcceptableValue } from 'reka-ui';
+import Tiptap from '@/components/Tiptap.vue'
+
 import { computed, onMounted, ref } from 'vue';
 
 defineProps<{
@@ -29,7 +31,7 @@ const form = useForm({
   state: 'draft',
   title: '',
   client_id: getQuery().clientId || '',
-  description: '',
+  description: 'Blah',
   total_amount: 0,
   items: [
     {
@@ -109,7 +111,7 @@ onMounted(() => {
 
         <form @submit.prevent="submit" class="space-y-6">
           <div class="mb-4">
-            <Input id="description" v-model="form.state" type="textarea" class="hidden" disabled />
+            <Input id="state" v-model="form.state" type="textarea" class="hidden" disabled />
           </div>
 
           <!-- Client -->
@@ -145,8 +147,8 @@ onMounted(() => {
 
           <!-- Description -->
           <div class="mb-4">
-            <Label for="description">Description</Label>
-            <Input id="description" v-model="form.description" type="textarea" required />
+            <Label>Description</Label>
+            <Tiptap v-model="form.description" />
             <InputError class="mt-2" :message="form.errors.description" />
           </div>
 

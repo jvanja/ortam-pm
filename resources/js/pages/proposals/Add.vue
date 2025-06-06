@@ -27,7 +27,7 @@ const selectedClientId = ref<string | null>(null);
 
 const form = useForm({
   state: 'draft',
-  project_id: getQuery().projectId || '',
+  title: '',
   client_id: getQuery().clientId || '',
   description: '',
   total_amount: 0,
@@ -138,23 +138,9 @@ onMounted(() => {
 
           <!-- Project -->
           <div class="mb-4">
-            <Label for="project_id">Project</Label>
-            <Select id="project_id" v-model="form.project_id" @update:modelValue="modelChanged" required>
-              <SelectTrigger>
-                <SelectValue placeholder="Proposal project" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem v-for="project in projects" :key="project.id" :value="project.id">
-                    {{ project.type }}
-                  </SelectItem>
-                  <SelectItem value="new|projects" class="bg-teal-50 p-1 px-4 py-2 dark:bg-neutral-800">
-                    <div class="flex items-center gap-2"><PlusCircle class="text-green-700" />Add new project</div>
-                  </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            <InputError class="mt-2" :message="form.errors.project_id" />
+            <Label for="title">Proposal title</Label>
+            <Input id="title" v-model="form.title" required />
+            <InputError class="mt-2" :message="form.errors.title" />
           </div>
 
           <!-- Description -->

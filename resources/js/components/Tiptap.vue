@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import StarterKit from '@tiptap/starter-kit';
+import StarterKit from '@tiptap/starter-kit'; // StarterKit is a set of extensions for tiptap
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import { onBeforeUnmount } from 'vue';
 
@@ -35,5 +35,44 @@ onBeforeUnmount(() => {
 .ProseMirror:focus,
 .ProseMirror-focused {
   outline: none;
+}
+.tiptap {
+  font-size: 14px;
+}
+.tiptap :first-child {
+  margin-top: 0;
+}
+.tiptap h1,
+.tiptap h2,
+.tiptap h3,
+.tiptap h4,
+.tiptap h5,
+.tiptap h6 {
+  line-height: 1.1;
+  margin-top: 2.5rem;
+  text-wrap: pretty;
+  font-weight: bold;
+}
+
+.tiptap h1 {
+  font-size: 1.4em;
+}
+
+.tiptap h2 {
+  font-size: 1.2em;
+}
+
+.tiptap h3 {
+  font-size: 1.1em;
+}
+
+.tiptap p {
+  margin: 0.5em 0;
+}
+.tiptap ol,
+.tiptap ul,
+.tiptap menu {
+  padding-left: 1.4rem;
+  list-style: auto;
 }
 </style>

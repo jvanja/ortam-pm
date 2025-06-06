@@ -13,6 +13,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 import { PlusCircle, X as DeleteIcon } from 'lucide-vue-next';
 import { computed } from 'vue';
 import { formatCurrency } from '@/lib/utils';
+import { toast } from 'vue-sonner';
 
 const props = defineProps<{
   clients: { id: string; company_name: string }[];
@@ -43,7 +44,18 @@ const form = useForm({
 // Handle form submission
 const submit = () => {
   form.total_amount = totalAmount.value;
-  form.post(route('invoices.store'));
+  form.post(route('invoices.store'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Invoice created successfully!', {
+        style: { background: '#6ee7b7', color: '#000' },
+      });
+      form.reset(); // Optionally reset form and step after success
+    },
+    onError: () => {
+      toast.error('Failed to save invoice.');
+    },
+  });
 };
 
 const deleteItem = (index: number) => {

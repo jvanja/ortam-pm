@@ -14,12 +14,7 @@ const editor = useEditor({
   content: props.modelValue,
   extensions: [StarterKit],
   onUpdate: () => {
-    // HTML
-    console.log(this);
     emit('update:modelValue', editor.value!.getHTML());
-
-    // JSON
-    // this.$emit('update:modelValue', this.editor.getJSON())
   },
 });
 onBeforeUnmount(() => {

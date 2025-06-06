@@ -53,10 +53,11 @@ class ProposalController extends Controller {
       'client_id' => ['required', 'exists:clients,id'],
       'project_id' => ['nullable', 'exists:projects,id'],
       'currency' => ['required', 'string'],
+      'subtotal_amount' => ['required', 'numeric', 'min:0'],
       'total_amount' => ['required', 'numeric', 'min:0'],
       'organization_id' => ['exists:organizations,id'],
     ]);
-    $proposal = Project::create($validated);
+    $proposal = Proposal::create($validated);
     return redirect()->route('proposals.show', $proposal->id)
       ->with('message', 'Proposal created successfully');
   }

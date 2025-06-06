@@ -16,6 +16,7 @@ import { PlusCircle } from 'lucide-vue-next';
 import { AcceptableValue } from 'reka-ui';
 
 import { computed, onMounted, ref } from 'vue';
+import { toast } from 'vue-sonner';
 
 defineProps<{
   clients: { id: string; company_name: string }[];
@@ -25,7 +26,7 @@ defineProps<{
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Proposals', href: '/proposals' }];
 const currentStep = ref<'select_client' | 'create_client'>('select_client'); // State for the two-step process
-const selectedClientId = ref<string | null>(null);
+const selectedClientId = ref<string>('');
 const page = usePage();
 // @ts-expect-error The user is added in HandleInertiaRequest and always exists
 const org_id = computed(() => page.props.auth.user.organization_id);
@@ -33,7 +34,8 @@ const org_id = computed(() => page.props.auth.user.organization_id);
 const form = useForm({
   state: 'draft',
   title: '',
-  client_id: getQuery().clientId || '',
+  // client_id: getQuery().clientId || '',
+  client_id: '',
   description: `
 <h1>Scope</h1>Below is a high-level breakdown of deliverables, their estimated times.
 <h1>Deliverables</h1>Consequat culpa pariatur proident elit.
@@ -53,21 +55,26 @@ const form = useForm({
 
 // Handle form submission
 const submit = () => {
-  // TODO: remove logging after testing
   form.total_amount = totalAmount.value;
-  console.log(form.data());
-  return;
-  form.post(route('proposals.store'));
+  form.client_id = selectedClientId.value;
+  form.post(route('proposals.store'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      toast.success('Proposal created successfully!', {
+        style: { background: '#6ee7b7', color: '#000' },
+      });
+      form.reset(); // Optionally reset form and step after success
+    },
+    onError: () => {
+      toast.error('Failed to save proposal.');
+    },
+  });
 };
 
 /* ==========================================================================
  Amount calculations
  ========================================================================== */
 const formatCurrency = (amount: number) => `${Number(amount).toFixed(2)} ${form.currency}`; // Format to 2 decimal places
-
-const getTotalAmount = (subtotal, tax) => {
-  return subtotal + subtotal * tax;
-};
 const totalAmount = computed(() => form.subtotal_amount + form.subtotal_amount * form.tax_amount / 100);
 
 /* ==========================================================================
@@ -83,8 +90,7 @@ const modelChanged = (modelValue: AcceptableValue) => {
 
 // Handle client creation success from NewClientForm
 const handleClientCreated = () => {
-  const url = new URL(window.location.href);
-  const newClientId = url.searchParams.get('clientId');
+  const newClientId:string = getQuery().clientId || '';
   selectedClientId.value = newClientId;
   currentStep.value = 'select_client';
 };
@@ -98,8 +104,7 @@ const handleCancelCreateClient = () => {
  Lifecycle hooks
  ========================================================================== */
 onMounted(() => {
-  const url = new URL(window.location.href);
-  const newClientId = url.searchParams.get('clientId');
+  const newClientId:string = getQuery().clientId || '';
   selectedClientId.value = newClientId;
 });
 </script>

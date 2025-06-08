@@ -41,14 +41,22 @@ class InvoiceTest extends TestCase {
         'country' => 'USA',
       ]),
       'email' => 'client@example.com',
-      'organization_id' => 1,
+      'organization_id' => $this->organization->id,
     ]);
+    // Assert client was created and exists
+    $this->assertNotNull($this->client, 'Client object should not be null after factory creation.');
+    $this->assertDatabaseHas('clients', ['id' => $this->client->id]);
+
     $this->project = Project::factory()->create([
       'type' => 'project name',
       'currency' => 'USD',
-      'organization_id' => 1,
+      'organization_id' => $this->organization->id,
       'client_id' => $this->client->id,
     ]);
+    // Assert project was created and exists
+    $this->assertNotNull($this->project, 'Project object should not be null after factory creation.');
+    $this->assertDatabaseHas('projects', ['id' => $this->project->id]);
+
 
     // Ensure default seller config exists for invoice creation
     config(['invoices.default_seller' => [
@@ -74,6 +82,7 @@ class InvoiceTest extends TestCase {
 
   /** @test */
   public function invoice_can_be_created(): void {
+    $buyerInfo = json_decode($client->address ?? '{}', true);
     $invoiceData = [
       'type' => InvoiceType::Invoice->value, // Changed from InvoiceType::Invoice
       'state' => InvoiceState::Draft->value,
@@ -81,7 +90,8 @@ class InvoiceTest extends TestCase {
       'client_id' => $this->client->id,
       'description' => 'Test Invoice Description',
       'total_amount' => 15000,
-      'buyer_information' => $this->client->address,
+      'currency' => 'USD',
+      'buyer_information' => $buyerInfo,
       'items' => [
         [
           'label' => 'Item 1',

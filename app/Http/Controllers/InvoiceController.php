@@ -44,12 +44,13 @@ class InvoiceController extends Controller {
       'items' => ['required', 'array', 'min:1'],
       'items.*.label' => ['required', 'string'],
       'items.*.description' => ['nullable', 'string'],
-      'items.*.unit_price' => ['required', 'numeric', 'min:0'],
+      'items.*.unit_price' => ['required', 'numeric', 'min:1'],
       'items.*.quantity' => ['required', 'numeric', 'min:1'],
     ]);
 
-    $project = Project::find($validated['project_id']);
-    $client = Client::find($validated['client_id']);
+    // Use findOrFail to ensure the models exist, otherwise an exception will be thrown
+    $project = Project::findOrFail($validated['project_id']);
+    $client = Client::findOrFail($validated['client_id']);
 
     // Decode client address safely
     $clientAddress = json_decode($client->address ?? '{}', true);
@@ -66,7 +67,8 @@ class InvoiceController extends Controller {
         'address' => [
           'street' => $clientAddress['street'] ?? null,
           'city' => $clientAddress['city'] ?? null,
-          'postal_code' => $clientAddress['state'] ?? null, // Assuming state is postal_code based on your code
+          'state' => $clientAddress['state'] ?? null, // Corrected: map state to state
+          'postal_code' => $clientAddress['postal_code'] ?? null, // Corrected: map postal_code to postal_code
           'country' => $clientAddress['country'] ?? null,
         ],
         'email' => $client->email,

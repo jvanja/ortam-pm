@@ -3,13 +3,11 @@
 </template>
 
 <script setup lang="ts">
-import { useCurrencyInput } from 'vue-currency-input';
+import { useCurrencyInput, CurrencyInputOptions } from 'vue-currency-input';
 
-const props = defineProps({
-  modelValue: Number,
-  options: Object,
-});
+const props = defineProps<{
+  modelValue: number,
+  options: CurrencyInputOptions,
+}>();
 const { inputRef } = useCurrencyInput({ ...props.options });
 </script>
-<style lang="css" scoped>
-</style>

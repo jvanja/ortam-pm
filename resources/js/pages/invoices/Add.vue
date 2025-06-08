@@ -171,7 +171,7 @@ const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getIte
                   <Input v-model="item.quantity" class="mt-1" type="number" min="1" />
                 </TableCell>
                 <TableCell class="px-2 py-4 text-sm">
-                  <CurrencyInput v-model="item.unit_price" class="mt-1" :options="{ currency }" />
+                  <CurrencyInput v-model="item.unit_price" class="mt-1" :options="{ currency, valueRange: {min: 1}}" />
                 </TableCell>
                 <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">{{ formatCurrency(getItemTotal(item), currency) }}</TableCell>
                 <TableCell class="whitespace-nowrap px-2 py-4 text-right text-sm">

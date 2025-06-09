@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\InvoiceSent;
+use App\Mail\ProposalSent; // Changed from InvoiceSent to ProposalSent
 use App\Models\Client;
 use App\Models\Project;
 use App\Enums\ProposalState;
@@ -66,8 +66,14 @@ class ProposalController extends Controller {
   /**
    * Display the specified resource.
    */
-  public function show(string $id) {
+  public function show(string $id, Request $request) { // Added Request $request
     $proposal = Proposal::with(['client', 'project'])->findOrFail($id);
+
+    // Check for token and mark as viewed
+    if ($request->has('token') && $request->token === $proposal->token) {
+        $proposal->markAsViewed();
+    }
+
     $proposal_view = $proposal->toPdfInvoice()->view()->toHtml();
 
     return Inertia::render('proposals/Show', [
@@ -83,21 +89,22 @@ class ProposalController extends Controller {
   public function send(Proposal $proposal): RedirectResponse {
     $this->authorize('proposal.edit', $proposal);
 
-    $project = Project::find($proposal->project_id);
-    $client = Client::find($proposal->client_id);
-
-    $proposal->project = $project;
-    $proposal->client = $client;
+    // Ensure client and project are loaded for the Mailable
+    $proposal->load(['client', 'project']);
 
     // Check if the client has an email address
     if (empty($proposal->client->email)) {
       return redirect()->back()->with('error', 'Client does not have an email address.');
     }
 
-    // Send the email
-    // - TODO: remove my email below after testing
-    Mail::to('jelicvanja@gmail.com')->send(new InvoiceSent($proposal));
-    // Mail::to($proposal->client->email)->send(new InvoiceSent($proposal));
+    // Generate a unique token and mark the proposal as sent
+    $token = $proposal->generateUniqueToken();
+    $proposal->markAsSent();
+
+    // Send the email with the tokenized link
+    // TODO: Remove this line after testing
+    Mail::to('jelicvanja@gmail.com')->send(new ProposalSent($proposal, $token)); // Using new Mailable and client's email
+    // Mail::to($proposal->client->email)->send(new ProposalSent($proposal, $token)); // Using new Mailable and client's email
 
     return redirect()->back()->with('success', 'Proposal sent successfully!');
   }

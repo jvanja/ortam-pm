@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Services\PdfProposal;
+use Illuminate\Support\Str;
 
 class Proposal extends Model {
   use HasFactory;
@@ -43,6 +44,7 @@ class Proposal extends Model {
     'accepted_at',
     'rejected_at',
     'expires_at',
+    'token', // Added token to fillable
   ];
 
   /**
@@ -55,6 +57,7 @@ class Proposal extends Model {
     'accepted_at' => 'datetime',
     'rejected_at' => 'datetime',
     'expires_at' => 'datetime',
+    'token' => 'string', // Added token to casts
   ];
 
   /**
@@ -128,5 +131,34 @@ class Proposal extends Model {
       rejected_at: $this->rejected_at,
       expires_at: $this->expires_at,
     );
+  }
+
+  /**
+   * Generate a unique token for the proposal.
+   */
+  public function generateUniqueToken(): string {
+    $this->token = Str::random(60); // Generate a random 60-character string
+    $this->save();
+    return $this->token;
+  }
+
+  /**
+   * Mark the proposal as sent.
+   */
+  public function markAsSent(): void {
+    $this->state = ProposalState::Sent->value;
+    $this->sent_at = now();
+    $this->save();
+  }
+
+  /**
+   * Mark the proposal as viewed.
+   */
+  public function markAsViewed(): void {
+    // Only mark as viewed if it was previously sent and not already viewed/accepted/rejected
+    if ($this->state === ProposalState::Sent->value) {
+      $this->state = ProposalState::Viewed->value;
+      $this->save();
+    }
   }
 }

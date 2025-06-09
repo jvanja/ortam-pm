@@ -233,10 +233,10 @@ onMounted(() => {
     </CardContent>
     <CardContent>
       <div class="flex gap-4">
-        <div v-if="currentPipelineStage && currentPipelineStage.tasks" class="border">
+        <div v-if="currentPipelineStage && currentPipelineStage.tasks" class="flex-1 border">
           <PipelineStageTasks :tasks="currentPipelineStage.tasks"></PipelineStageTasks>
         </div>
-        <div v-if="currentPipelineStage && currentPipelineStage.notes" class="border">
+        <div v-if="currentPipelineStage && currentPipelineStage.notes" class="flex-1 border p-2">
           Notes:
           {{ currentPipelineStage.notes}}
         </div>

@@ -161,4 +161,13 @@ class Proposal extends Model {
       $this->save();
     }
   }
+
+  /**
+   * Mark the proposal as accepted.
+   */
+  public function markAsAccepted(): void {
+    $this->state = ProposalState::Accepted->value;
+    $this->accepted_at = now();
+    $this->save();
+  }
 }

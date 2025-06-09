@@ -72,6 +72,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
   // Proposals
   Route::resource('proposals', ProposalController::class);
   Route::post('/proposals/{proposal}/send', [ProposalController::class, 'send'])->name('proposals.send');
+  Route::patch('/proposals/{proposal}/accept', [ProposalController::class, 'accept'])->name('proposals.accept');
 
   // Invoices
   Route::resource('invoices', InvoiceController::class);

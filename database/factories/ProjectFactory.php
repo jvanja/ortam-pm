@@ -23,7 +23,7 @@ class ProjectFactory extends Factory {
     return [
       'type' => fake()->randomElement(ProjectType::cases()),
       'department' => fake()->word(),
-      'manager' => User::inRandomOrder()->first(),
+      'manager_id' => User::inRandomOrder()->first(),
       'language' => fake()->randomElement(Language::cases()),
       'address' => fake()->address(),
       'budget' => fake()->randomFloat(2, 1000, 10000),

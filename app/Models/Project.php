@@ -19,7 +19,7 @@ class Project extends Model {
   protected $fillable = [
     'department',
     'type',
-    'manager',
+    'manager_id',
     'language',
     'address',
     'status',
@@ -58,6 +58,10 @@ class Project extends Model {
 
   public function client(): BelongsTo {
     return $this->belongsTo(Client::class);
+  }
+
+  public function manager(): BelongsTo {
+    return $this->belongsTo(User::class);
   }
 
   public function organization(): BelongsTo {

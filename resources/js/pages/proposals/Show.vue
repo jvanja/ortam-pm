@@ -16,7 +16,8 @@ import { BreadcrumbItem, Client, Project, Proposal } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { defineProps } from 'vue';
 type ProposalWithProject = Proposal & { project: Project; client: Client };
-import { can } from 'laravel-permission-to-vuejs'
+import { is, can } from 'laravel-permission-to-vuejs'
+import { toast } from 'vue-sonner';
 
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Proposal', href: '/proposals' }];
@@ -25,25 +26,44 @@ const props = defineProps<{
   proposal_view: string;
 }>();
 
-const form = useForm({ id: props.proposal.id });
+const form = useForm({ id: props.proposal.id, state: props.proposal.state });
+
 const printProposal = () => window.print();
 
 const sendProposal = () => {
   form.post(route('proposals.send', [props.proposal.id]), {
     onSuccess: () => {
-      console.log('Proposal sent successfully!');
+      toast.success(`Proposal sent successfully!`);
     },
     onError: (errors) => {
-      console.error('Error sending proposal:', errors);
-      // You might want to display a user-friendly error message
+      toast.error('Error sending proposal:', errors);
       if (errors && errors.error) {
-        alert(errors.error); // Display the error message from the backend
+        alert(errors.error);
       } else {
         alert('Failed to send proposal.');
       }
     },
   });
 };
+
+const acceptProposal = () => {
+  form.state = 'accepted';
+  form.patch(route('proposals.accept', [props.proposal.id]), {
+    onSuccess: () => {
+      toast.success(`Proposal accepted. The manger has been notified`, {
+        style: { background: '#6ee7b7', color: '#000' },
+      });
+    },
+    onError: (errors) => {
+      toast.error('Error sending proposal:', errors);
+      if (errors && errors.error) {
+        alert(errors.error);
+      } else {
+        alert('Failed to send proposal.');
+      }
+    },
+  });
+}
 </script>
 
 <template>
@@ -69,6 +89,9 @@ const sendProposal = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
+        </div>
+        <div v-if="is('client')">
+          <Button @click="acceptProposal" :disabled="!(true || proposal.state !== 'accepted')">Accept Proposal</Button>
         </div>
         <Button @click="printProposal">Print Proposal</Button>
       </div>

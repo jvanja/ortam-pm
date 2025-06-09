@@ -26,7 +26,7 @@ class ProjectController extends Controller {
     $dateFilter = $request->input('date') === 'all' ? '' : $request->input('date');
 
     // Fetch distinct managers and statuses for filter options
-    $managersIds = Project::distinct()->pluck('manager')->filter()->sort()->values()->toArray();
+    $managersIds = Project::distinct()->pluck('manager_id')->filter()->sort()->values()->toArray();
     $managers = User::whereIn('id', $managersIds)->get();
     $statuses = Project::distinct()->pluck('status')->filter()->sort()->values()->toArray();
     $dates = Project::distinct()->pluck('deadline')->filter()->sort()->values()->map(function (string $date) {
@@ -42,7 +42,7 @@ class ProjectController extends Controller {
         });
       })
       ->when($managerFilter, function (Builder $query, string $manager) {
-        $query->where('manager', $manager);
+        $query->where('manager_id', $manager);
       })
       ->when($statusFilter, function (Builder $query, string $status) {
         $query->where('status', $status);
@@ -131,7 +131,7 @@ class ProjectController extends Controller {
     $validated = $request->validate([
       'type' => 'required|string',
       'department' => 'nullable|string',
-      'manager' => 'nullable|string',
+      'manager_id' => 'nullable|string',
       'language' => 'required|string',
       'address' => 'nullable|string',
       'opening_date' => 'nullable|date',
@@ -161,7 +161,7 @@ class ProjectController extends Controller {
     $validated = $request->validate([
       'type' => 'sometimes|string',
       'department' => 'sometimes|string',
-      'manager' => 'sometimes|string',
+      'manager_id' => 'sometimes|string',
       'language' => 'sometimes|string',
       'address' => 'sometimes|string',
       'status' => 'sometimes|string',

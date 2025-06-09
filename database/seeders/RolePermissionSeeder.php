@@ -159,6 +159,11 @@ class RolePermissionSeeder extends Seeder {
           );
           $superAdminRole->givePermissionTo($permission);
           $adminRole->givePermissionTo($permission);
+
+          if ($permissionGroup === 'proposals' && $permission === 'view') {
+            $clientRole->givePermissionTo($permission);
+          }
+
           if ($permissionGroup === 'timesheet') {
             $employeeRole->givePermissionTo($permission);
           }

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ProposalSent; // Changed from InvoiceSent to ProposalSent
+use App\Mail\ProposalSent;
+use App\Mail\ProposalAccepted;
 use App\Models\Client;
 use App\Models\Project;
 use App\Enums\ProposalState;
@@ -129,9 +130,39 @@ class ProposalController extends Controller {
   /**
    * Update the specified resource in storage.
    */
-  // public function update(Request $request, Proposal $proposal): RedirectResponse {
-  // }
+  public function update(Request $request, Proposal $proposal): RedirectResponse {
 
+    $this->authorize('proposal.view', Proposal::class);
+
+    $validated = $request->validate([
+      'state' => ['required', 'string', Rule::in(array_column(ProposalState::cases(), 'value'))],
+    ]);
+
+    $proposal->update([
+      'state' => $validated['state'],
+    ]);
+
+    return redirect()->route('proposals.show', $proposal->id)
+      ->with('message', 'Proposal updated successfully');
+  }
+
+
+  /**
+   * Accept the proposal
+   */
+  public function accept(Proposal $proposal): RedirectResponse {
+
+    // $this->authorize('proposal.view', Proposal::class);
+
+    $proposal->markAsAccepted();
+
+    // Send the email with the tokenized link
+    // TODO: Remove this line after testing
+    Mail::to('jelicvanja@gmail.com')->send(new ProposalAccepted($proposal)); // Using new Mailable and client's email
+    // Mail::to($proposal->project->manager->email)->send(new ProposalSent($proposal, $token)); // Using new Mailable and client's email
+
+    return redirect()->back()->with('success', 'Proposal sent successfully!');
+  }
 
   /**
    * Remove the specified resource from storage.

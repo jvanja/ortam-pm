@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html>
+@component('mail::message')
+Hello {{ $managerName }},
 
-<head>
-  <title>Your Proposal</title>
-</head>
+Your proposal **{{ $proposalTitle }}** has been accepted by {{ $clientName }}.
 
-<body>
-  <h1>Hello {{ $managerName }},</h1>
-  <p>Your proposal titled: <strong>{{ $proposalTitle }}</strong>.</p>
-  <p>has been accepted by {{ $clientName }}.</p>
-  <p><a href="{{ $proposalUrl }}">View Proposal</a></p>
-</body>
+@component('mail::button', ['url' => $proposalUrl])
+  View Proposal
+@endcomponent
 
-</html>
+@endcomponent

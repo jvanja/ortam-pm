@@ -34,7 +34,7 @@ class ProposalAccepted extends Mailable {
    */
   public function content(): Content {
     return new Content(
-      view: 'emails.proposals.accepted',
+      markdown: 'emails.proposals.accepted',
       with: [
         'proposalUrl' => route('proposals.show', ['proposal' => $this->proposal->id]),
         'proposalTitle' => $this->proposal->title,

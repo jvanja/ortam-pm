@@ -6,9 +6,15 @@
           <h1 class="mb-1 text-2xl">
             <strong>Proposal</strong>
           </h1>
-          <p class="mb-5 text-sm">
-            {{ $proposal->state }}
-          </p>
+          @if ($proposal->state != 'Accepted')
+            <p class="mb-5 text-sm">
+              {{ $proposal->state }}
+            </p>
+          @else
+            <div class="mb-5 text-sm text-green-600">
+              {{ __('Accepted on') }} {{ $proposal->accepted_at }}
+            </div>
+          @endif
         </td>
       </tr>
     </tbody>
@@ -75,17 +81,17 @@
       <tr>
         <td class="p-0 align-top">
           <p class="mb-5 text-sm">
-              <strong> {{ __('Sub total') }} </strong>
+            <strong> {{ __('Sub total') }} </strong>
           </p>
         </td>
         <td class="p-0 align-top">
           <p class="mb-5 text-sm">
-              <strong> {{ __('Tax amount') }} </strong>
+            <strong> {{ __('Tax amount') }} </strong>
           </p>
         </td>
         <td class="p-0 align-top">
           <p class="mb-5 text-sm">
-              <strong> {{ __('Total') }} </strong>
+            <strong> {{ __('Total') }} </strong>
           </p>
         </td>
       </tr>
@@ -117,7 +123,8 @@
         <tr>
           <td class="p-0 align-top">
             <p class="mb-4 text-sm">
-              <strong> {{ __('This proposal will expire on:') }} {{ date_format($proposal->expires_at, 'F d Y') }}</strong>
+              <strong> {{ __('This proposal will expire on:') }}
+                {{ date_format($proposal->expires_at, 'F d Y') }}</strong>
             </p>
           </td>
         </tr>

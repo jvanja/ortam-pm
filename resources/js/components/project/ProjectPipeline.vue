@@ -237,7 +237,9 @@ onMounted(() => {
           <PipelineStageTasks :tasks="currentPipelineStage.tasks"></PipelineStageTasks>
         </div>
         <div v-if="currentPipelineStage && currentPipelineStage.notes" class="flex-1 border p-2">
-          Notes:
+          <strong>Notes:</strong>
+          // - TODO:
+          // add editor here
           {{ currentPipelineStage.notes}}
         </div>
       </div>

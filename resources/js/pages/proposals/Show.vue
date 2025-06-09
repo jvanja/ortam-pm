@@ -16,6 +16,8 @@ import { BreadcrumbItem, Client, Project, Proposal } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
 import { defineProps } from 'vue';
 type ProposalWithProject = Proposal & { project: Project; client: Client };
+import { can } from 'laravel-permission-to-vuejs'
+
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Proposal', href: '/proposals' }];
 const props = defineProps<{
@@ -51,6 +53,7 @@ const sendProposal = () => {
     <div class="p-8">
       <div class="mx-auto mb-[60px] max-w-3xl" v-html="proposal_view"></div>
       <div class="no-print mb-4 flex justify-center gap-4">
+        <div v-if="can('proposal.edit')">
         <AlertDialog>
           <AlertDialogTrigger as-child>
             <Button :disabled="!proposal.client.email">Send Proposal</Button>
@@ -66,6 +69,7 @@ const sendProposal = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
+        </div>
         <Button @click="printProposal">Print Proposal</Button>
       </div>
     </div>

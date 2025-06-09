@@ -1,23 +1,17 @@
-@component('mail::message')
-# Invoice #{{ $invoice->serial_number }}
+<!DOCTYPE html>
+<html>
 
-Dear {{ $invoice->client->contact_person ?? $invoice->client->company_name }},
+<head>
+  <title>Your Proposal</title>
+</head>
 
-Please find attached Invoice #{{ $invoice->serial_number }} for the amount of {{ $invoice->total_amount }}.
+<body>
+  <h1>Hello {{ $clientName }},</h1>
+  <p>We are pleased to send you our proposal titled: <strong>{{ $proposalTitle }}</strong>.</p>
+  <p>You can view the proposal by clicking on the link below:</p>
+  <p><a href="{{ $proposalUrl }}">View Proposal</a></p>
+  <p>If you have any questions, please do not hesitate to contact us.</p>
+  <p>Thank you,<br>{{ config('app.name') }} Team</p>
+</body>
 
-This invoice is for the project: **{{ $invoice->project->type }}**.
-
-You can view the invoice details online by clicking the button below:
-
-@component('mail::button', ['url' => route('invoices.show', $invoice)])
-View Invoice
-@endcomponent
-
-If you have any questions regarding this invoice, please do not hesitate to contact us.
-
-Thank you for your business!
-
-Regards,
-
-{{ $invoice->project->organization->name ?? config('app.name') }}
-@endcomponent
+</html>

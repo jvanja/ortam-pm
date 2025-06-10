@@ -1,17 +1,17 @@
 <script lang="ts" setup>
 import StarterKit from '@tiptap/starter-kit'; // StarterKit is a set of extensions for tiptap
 import { EditorContent, useEditor } from '@tiptap/vue-3';
-import { onBeforeUnmount } from 'vue';
+import { watch, onBeforeUnmount } from 'vue';
 
 const props = defineProps<{
-  modelValue: string;
+  content: string;
 }>();
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
 }>();
 
 const editor = useEditor({
-  content: props.modelValue,
+  content: props.content,
   extensions: [StarterKit],
   onUpdate: () => {
     emit('update:modelValue', editor.value!.getHTML());
@@ -20,6 +20,12 @@ const editor = useEditor({
 onBeforeUnmount(() => {
   editor.value!.destroy();
 });
+
+/* ==========================================================================
+ Watch for content changes
+ ========================================================================== */
+watch(() => props.content, (newContent) => (editor.value!.commands.setContent(newContent)));
+
 </script>
 <template>
   <div class="border-1 min-h-[200px] rounded-lg border border-gray-200 p-4">

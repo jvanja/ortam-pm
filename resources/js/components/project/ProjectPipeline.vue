@@ -9,6 +9,7 @@ import { onMounted, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import Draggable from 'vuedraggable';
 import PipelineStageTasks from './PipelineStageTasks.vue';
+import { debounce } from 'lodash-es';
 
 const props = defineProps<{
   project: Project;
@@ -149,9 +150,21 @@ const stageRename = (event: Event) => {
   });
 };
 
-const notesChanged = (newNotes: string) => {
-  console.log(newNotes)
-}
+const updateStageNotesForm = useForm({ name: props.currentPipelineStage?.name, notes: props.currentPipelineStage?.notes || ''});
+const notesChanged = debounce((newNotes: string) => {
+  updateStageNotesForm.notes = newNotes;
+
+  updateStageNotesForm.patch(route('projects.pipeline-stages.update', [currentStageId.value]), {
+    preserveScroll: true,
+    onSuccess: () => {
+      console.log('Note updated successfully!');
+    },
+    onError: (errors) => {
+      console.error('Delete stage error:', errors);
+      toast.error('Failed to update note.');
+    },
+  });
+}, 1000)
 
 /* ==========================================================================
  Watchers

@@ -8,13 +8,13 @@ import { onMounted, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import Draggable from 'vuedraggable';
 import PipelineStageTasks from './PipelineStageTasks.vue';
+import Tiptap from '@/components/Tiptap.vue';
 
 const props = defineProps<{
   project: Project;
   pipelineStages: ProjectPipelineStage[];
-  currentPipelineStage: ProjectPipelineStage | null;
+  currentPipelineStage: ProjectPipelineStage & { tasks: [] } | null;
 }>();
-console.log(props)
 
 const stages = ref([...props.pipelineStages]);
 const currentStageId = ref(props.currentPipelineStage ? props.currentPipelineStage.id : stages.value.length > 0 ? stages.value[0].id : null);
@@ -236,11 +236,9 @@ onMounted(() => {
         <div v-if="currentPipelineStage && currentPipelineStage.tasks" class="flex-1 border">
           <PipelineStageTasks :tasks="currentPipelineStage.tasks"></PipelineStageTasks>
         </div>
-        <div v-if="currentPipelineStage && currentPipelineStage.notes" class="flex-1 border p-2">
-          <strong>Notes:</strong>
-          // - TODO:
-          // add editor here
-          {{ currentPipelineStage.notes}}
+        <div v-if="currentPipelineStage" class="flex-1">
+          <p class="mb-2"> <strong>Notes:</strong> </p>
+          <Tiptap :content="currentPipelineStage.notes || ''"></Tiptap>
         </div>
       </div>
     </CardContent>

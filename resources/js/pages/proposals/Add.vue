@@ -174,7 +174,7 @@ onMounted(() => {
           <!-- Description -->
           <div class="mb-4">
             <Label>Description</Label>
-            <Tiptap v-model="form.description" />
+            <Tiptap :content="form.description" />
             <InputError class="mt-2" :message="form.errors.description" />
           </div>
 

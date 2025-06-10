@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Tiptap from '@/components/Tiptap.vue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Project, ProjectPipelineStage } from '@/types';
@@ -8,12 +9,11 @@ import { onMounted, ref, watch } from 'vue';
 import { toast } from 'vue-sonner';
 import Draggable from 'vuedraggable';
 import PipelineStageTasks from './PipelineStageTasks.vue';
-import Tiptap from '@/components/Tiptap.vue';
 
 const props = defineProps<{
   project: Project;
   pipelineStages: ProjectPipelineStage[];
-  currentPipelineStage: ProjectPipelineStage & { tasks: [] } | null;
+  currentPipelineStage: (ProjectPipelineStage & { tasks: [] }) | null;
 }>();
 
 const stages = ref([...props.pipelineStages]);
@@ -26,7 +26,7 @@ const isDragging = ref(false);
  ========================================================================== */
 // Dragging
 const updateStageOrderForm = useForm({ stage_ids: stages.value.map((stage) => stage.id) });
-const handleDragEnd = (event: {newTarget: HTMLElement, newIndex: number, item: HTMLElement}) => {
+const handleDragEnd = (event: { newTarget: HTMLElement; newIndex: number; item: HTMLElement }) => {
   let dragginCurrent = false;
   if (event.item.getAttribute('data-current') === 'true') {
     dragginCurrent = true;
@@ -149,6 +149,10 @@ const stageRename = (event: Event) => {
   });
 };
 
+const notesChanged = (newNotes: string) => {
+  console.log(newNotes)
+}
+
 /* ==========================================================================
  Watchers
  ========================================================================== */
@@ -237,8 +241,8 @@ onMounted(() => {
           <PipelineStageTasks :tasks="currentPipelineStage.tasks"></PipelineStageTasks>
         </div>
         <div v-if="currentPipelineStage" class="flex-1">
-          <p class="mb-2"> <strong>Notes:</strong> </p>
-          <Tiptap :content="currentPipelineStage.notes || ''"></Tiptap>
+          <p class="mb-2"><strong>Notes:</strong></p>
+          <Tiptap :content="currentPipelineStage.notes || ''" @update:model-value="notesChanged"></Tiptap>
         </div>
       </div>
     </CardContent>

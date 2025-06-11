@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\Language;
 use App\Models\Client;
 use App\Models\ProjectPipelineStage;
+use App\Models\Proposal;
 use App\Models\User;
 use App\Models\File;
 use Illuminate\Http\Request;
@@ -114,10 +115,16 @@ class ProjectController extends Controller {
   /**
    * Show the new project form
    */
-  public function create() {
+  public function create(Request $request) {
     $clients = Client::select('id', 'company_name')->get();
+    $users = User::where('organization_id', $request->user()->organization_id)->select('id', 'name')->get();
     $languages = Language::cases();
-    return Inertia::render('projects/Add', ['clients' => $clients, 'languages' => $languages]);
+    $proposal = $request->input('from-proposal');
+    $data = ['clients' => $clients, 'languages' => $languages, 'users' => $users];
+    if ($proposal) {
+      $data['proposal'] = Proposal::findOrFail($proposal);
+    }
+    return Inertia::render('projects/Add', $data);
   }
 
 

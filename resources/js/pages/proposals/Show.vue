@@ -66,10 +66,11 @@ const acceptProposal = () => {
 
 const sendableStates = ['draft', 'viewed'];
 const canSendProposal = computed(() => sendableStates.includes(props.proposal.state))
+const sendDescription = props.proposal.state === 'viewed' ? '<strong>This proposal was already seen by the client!</strong><br> ' : `You are about to send this proposal to ${ props.proposal.client.email }.`
 </script>
 
 <template>
-  <Head :title="`Proposal ${proposal.title}`" />
+  <Head :title="`Proposal: ${proposal.title}`" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-8">
@@ -82,8 +83,8 @@ const canSendProposal = computed(() => sendableStates.includes(props.proposal.st
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you sure you want to send this proposal?</AlertDialogTitle>
-                <AlertDialogDescription> You are about to send this proposal to {{ proposal.client.email }}. </AlertDialogDescription>
+                <AlertDialogTitle>Are you sure you want to send this proposal {{ proposal.state === 'viewed' ? ' again ' : '' }}?</AlertDialogTitle>
+                <AlertDialogDescription v-html="sendDescription" />
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel :disabled="form.processing">Cancel</AlertDialogCancel>

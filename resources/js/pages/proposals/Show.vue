@@ -69,7 +69,7 @@ const canSendProposal = computed(() => sendableStates.includes(props.proposal.st
 </script>
 
 <template>
-  <Head title="Proposal" />
+  <Head :title="`Proposal ${proposal.title}`" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-8">

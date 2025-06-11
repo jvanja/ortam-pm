@@ -4,7 +4,7 @@
       <tr>
         <td class="p-0 align-top">
           <h1 class="mb-1 text-2xl">
-            <strong>Proposal</strong>
+            <strong>{{ $proposal->title }}</strong>
           </h1>
           @if ($proposal->state != 'Accepted')
             <p class="mb-5 text-sm">
@@ -104,7 +104,7 @@
         </td>
         <td class="p-0 align-top">
           <p class="mb-5 text-sm">
-            {{ $proposal->tax_amount }}
+            {{ $proposal->tax_amount }}%
           </p>
         </td>
         <td class="p-0 align-top">

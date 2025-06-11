@@ -25,8 +25,8 @@ class ProposalFactory extends Factory {
    */
   public function definition(): array {
 
-    $subtotal = $this->faker->randomFloat(2, 100, 5000);
-    $taxAmount = $this->faker->randomFloat(2, 100, 5000);
+    $subtotal = $this->faker->randomFloat(null, 100, 5000);
+    $taxAmount = $this->faker->randomElement([10, 20, 30]);
     $totalAmount = $subtotal + $taxAmount;
 
     $state = $this->faker->randomElement(['draft', 'sent', 'viewed', 'accepted', 'rejected', 'expired']);

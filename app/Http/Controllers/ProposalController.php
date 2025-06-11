@@ -53,8 +53,9 @@ class ProposalController extends Controller {
       'state' => ['required', 'string', Rule::in(array_column(ProposalState::cases(), 'value'))],
       'client_id' => ['required', 'exists:clients,id'],
       'project_id' => ['nullable', 'exists:projects,id'],
-      'currency' => ['required', 'string'],
       'subtotal_amount' => ['required', 'numeric', 'min:0'],
+      'currency' => ['required', 'string'],
+      'tax_amount' => ['required', 'numeric', 'min:0'],
       'total_amount' => ['required', 'numeric', 'min:0'],
       'expires_at' => ['nullable', 'date'],
       'organization_id' => ['exists:organizations,id'],
@@ -135,12 +136,17 @@ class ProposalController extends Controller {
     $this->authorize('proposal.view', Proposal::class);
 
     $validated = $request->validate([
+      'title' => ['required', 'string'],
+      'description' => ['required', 'string'],
       'state' => ['required', 'string', Rule::in(array_column(ProposalState::cases(), 'value'))],
+      'subtotal_amount' => ['required', 'numeric', 'min:0'],
+      'currency' => ['required', 'string'],
+      'tax_amount' => ['required', 'numeric', 'min:0'],
+      'total_amount' => ['required', 'numeric', 'min:0'],
+      'expires_at' => ['nullable', 'date'],
     ]);
 
-    $proposal->update([
-      'state' => $validated['state'],
-    ]);
+    $proposal->update($validated);
 
     return redirect()->route('proposals.show', $proposal->id)
       ->with('message', 'Proposal updated successfully');

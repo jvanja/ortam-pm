@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import NewClient from '@/components/client/NewClient.vue';
 import InputError from '@/components/InputError.vue';
 import Tiptap from '@/components/Tiptap.vue';
 import { Button } from '@/components/ui/button';
@@ -14,16 +13,14 @@ import { Calendar } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { cn, getQuery } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import type { BreadcrumbItem, Proposal } from '@/types';
-import { Head, router, useForm, usePage } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import currencies from 'currency-codes';
-import { PlusCircle } from 'lucide-vue-next';
-import { AcceptableValue } from 'reka-ui';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { toast } from 'vue-sonner';
 
 const props = defineProps<{
@@ -38,7 +35,7 @@ const form = useForm({
   state: props.proposal.state,
   title: props.proposal.title,
   client_id: props.proposal.client_id,
-  description: props.proposal.description,
+  description: props.proposal.description || '',
   currency: props.proposal.currency,
   subtotal_amount: props.proposal.subtotal_amount || 1,
   tax_amount: props.proposal.tax_amount || 1,
@@ -50,7 +47,8 @@ const form = useForm({
 const submit = () => {
   form.expires_at = expires_date.value!.toDate(getLocalTimeZone())
   form.total_amount = totalAmount.value;
-  form.post(route('proposals.store'), {
+  form.state = 'draft'; // todo: always draft if updated?
+  form.patch(route('proposals.update', [props.proposal.id]), {
     preserveScroll: true,
     onSuccess: () => {
       toast.success('Proposal updated successfully!', {
@@ -81,9 +79,9 @@ const df = new DateFormatter('en-US', {
   dateStyle: 'long',
 })
 
-const today = new Date()
-const defaultExpiresDate = new CalendarDate(today.getFullYear(), today.getMonth() + 2, today.getDate())
-const expires_date = ref<DateValue>(defaultExpiresDate)
+const saved_expires_date = form.expires_at ? new Date(form.expires_at) : new Date();
+const calendarExpiresDate = new CalendarDate(saved_expires_date.getFullYear(), saved_expires_date.getMonth() + 1, saved_expires_date.getDate())
+const expires_date = ref<DateValue>(calendarExpiresDate);
 
 </script>
 
@@ -160,7 +158,7 @@ const expires_date = ref<DateValue>(defaultExpiresDate)
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent class="w-auto p-0">
-                  <Calendar v-model="expires_date" :default-value="defaultExpiresDate" initial-focus :min-value="new CalendarDate(today.getFullYear(), today.getMonth() + 1, today.getDate())" />
+                  <Calendar v-model="expires_date as DateValue" initial-focus :min-value="new CalendarDate(saved_expires_date.getFullYear(), saved_expires_date.getMonth() + 1, saved_expires_date.getDate())" />
                 </PopoverContent>
               </Popover>
               <p class="text-sm text-muted-foreground">This proposal expiration date</p>
@@ -170,7 +168,7 @@ const expires_date = ref<DateValue>(defaultExpiresDate)
 
           <!-- Submit Button -->
           <div class="mt-6 flex items-center justify-end">
-            <Button :class="{ 'opacity-25': form.processing }" :disabled="form.processing"> Create Proposal </Button>
+            <Button :class="{ 'opacity-25': form.processing }" :disabled="form.processing"> Update Proposal </Button>
           </div>
         </form>
       </div>

@@ -118,7 +118,6 @@ const df = new DateFormatter('en-US', {
 const today = new Date()
 const defaultExpiresDate = new CalendarDate(today.getFullYear(), today.getMonth() + 2, today.getDate())
 const expires_date = ref<DateValue>(defaultExpiresDate)
-console.log(defaultExpiresDate)
 
 /* ==========================================================================
  Lifecycle hooks
@@ -231,7 +230,7 @@ onMounted(() => {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent class="w-auto p-0">
-                  <Calendar v-model="expires_date" :default-value="defaultExpiresDate" initial-focus :min-value="new CalendarDate(today.getFullYear(), today.getMonth() + 1, today.getDate())" />
+                  <Calendar v-model="expires_date as DateValue" :default-value="defaultExpiresDate" initial-focus :min-value="new CalendarDate(today.getFullYear(), today.getMonth() + 1, today.getDate())" />
                 </PopoverContent>
               </Popover>
               <p class="text-sm text-muted-foreground">This proposal expiration date</p>

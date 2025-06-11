@@ -14,11 +14,10 @@ import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { BreadcrumbItem, Client, Project, Proposal } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
-import { defineProps } from 'vue';
-type ProposalWithProject = Proposal & { project: Project; client: Client };
-import { is, can } from 'laravel-permission-to-vuejs'
+import { can, is } from 'laravel-permission-to-vuejs';
+import { computed, defineProps } from 'vue';
 import { toast } from 'vue-sonner';
-
+type ProposalWithProject = Proposal & { project: Project; client: Client };
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Proposal', href: '/proposals' }];
 const props = defineProps<{
@@ -63,7 +62,10 @@ const acceptProposal = () => {
       }
     },
   });
-}
+};
+
+const sendableStates = ['draft', 'viewed'];
+const canSendProposal = computed(() => sendableStates.includes(props.proposal.state))
 </script>
 
 <template>
@@ -73,22 +75,22 @@ const acceptProposal = () => {
     <div class="p-8">
       <div class="mx-auto mb-[60px] max-w-3xl" v-html="proposal_view"></div>
       <div class="no-print mb-4 flex justify-center gap-4">
-        <div v-if="can('proposal.edit')">
-        <AlertDialog>
-          <AlertDialogTrigger as-child>
-            <Button :disabled="!proposal.client.email">Send Proposal</Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you sure you want to send this proposal?</AlertDialogTitle>
-              <AlertDialogDescription> You are about to send this proposal to {{ proposal.client.email }}. </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel :disabled="form.processing">Cancel</AlertDialogCancel>
-              <AlertDialogAction @click="sendProposal" :disabled="form.processing">Yes, send the proposal</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <div v-if="can('proposal.edit') && canSendProposal">
+          <AlertDialog>
+            <AlertDialogTrigger as-child>
+              <Button :disabled="!proposal.client.email">Send Proposal</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you sure you want to send this proposal?</AlertDialogTitle>
+                <AlertDialogDescription> You are about to send this proposal to {{ proposal.client.email }}. </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel :disabled="form.processing">Cancel</AlertDialogCancel>
+                <AlertDialogAction @click="sendProposal" :disabled="form.processing">Yes, send the proposal</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
         <div v-if="is('client')">
           <Button @click="acceptProposal" :disabled="!(true || proposal.state !== 'accepted')">Accept Proposal</Button>
@@ -99,7 +101,8 @@ const acceptProposal = () => {
   </AppLayout>
 </template>
 <style scoped>
-:deep(ul), :deep(ol) {
+:deep(ul),
+:deep(ol) {
   padding-left: 2rem;
   list-style: auto;
 }

@@ -13,7 +13,7 @@ import {
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { BreadcrumbItem, Client, Project, Proposal } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import { can, is } from 'laravel-permission-to-vuejs';
 import { computed, defineProps } from 'vue';
 import { toast } from 'vue-sonner';
@@ -65,8 +65,11 @@ const acceptProposal = () => {
 };
 
 const sendableStates = ['draft', 'viewed'];
-const canSendProposal = computed(() => sendableStates.includes(props.proposal.state))
-const sendDescription = props.proposal.state === 'viewed' ? '<strong>This proposal was already seen by the client!</strong><br> ' : `You are about to send this proposal to ${ props.proposal.client.email }.`
+const canSendProposal = computed(() => sendableStates.includes(props.proposal.state));
+const sendDescription =
+  props.proposal.state === 'viewed'
+    ? '<strong>This proposal was already seen by the client!</strong><br> '
+    : `You are about to send this proposal to ${props.proposal.client.email}.`;
 </script>
 
 <template>
@@ -75,7 +78,7 @@ const sendDescription = props.proposal.state === 'viewed' ? '<strong>This propos
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-8">
       <div class="mx-auto mb-[60px] max-w-3xl" v-html="proposal_view"></div>
-      <div class="no-print mb-4 flex justify-center gap-4">
+      <div class="no-print mb-4 flex justify-center align-middle gap-4">
         <div v-if="can('proposal.edit') && canSendProposal">
           <AlertDialog>
             <AlertDialogTrigger as-child>
@@ -97,6 +100,14 @@ const sendDescription = props.proposal.state === 'viewed' ? '<strong>This propos
           <Button @click="acceptProposal" :disabled="!(true || proposal.state !== 'accepted')">Accept Proposal</Button>
         </div>
         <Button @click="printProposal">Print Proposal</Button>
+        <div v-if="can('proposal.edit') && proposal.state === 'accepted'">
+          <Link
+            :href="route('projects.create') + `?from-proposal=${proposal.id}`"
+            class="text-sm text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:!decoration-current dark:decoration-neutral-500 block py-2"
+          >
+            Convert to project
+          </Link>
+        </div>
       </div>
     </div>
   </AppLayout>

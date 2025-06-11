@@ -17,6 +17,7 @@ const props = defineProps<{
 }>();
 
 const form = useForm({ ...props.project });
+console.log(form.data())
 const submit = () => {
   form.patch(route('projects.update', [props.project.id]), {
     preserveScroll: true,
@@ -61,7 +62,7 @@ const submit = () => {
           </div>
           <div class="flex flex-col space-y-1.5">
             <Label htmlFor="pm">Project Manager</Label>
-            <Select id="pm" :defaultValue="project.manager" v-model="form.manager">
+            <Select id="pm" :defaultValue="project.manager_id" v-model="form.manager_id">
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>

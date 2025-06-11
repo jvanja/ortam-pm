@@ -138,7 +138,7 @@ class ProjectController extends Controller {
     $validated = $request->validate([
       'type' => 'required|string',
       'department' => 'nullable|string',
-      'manager_id' => 'nullable|string',
+      'manager_id' => 'required|string',
       'language' => 'required|string',
       'address' => 'nullable|string',
       'opening_date' => 'nullable|date',
@@ -152,6 +152,8 @@ class ProjectController extends Controller {
     ]);
 
     $project = Project::create($validated);
+
+    $this->addEmployee($project, $validated['manager_id']);
 
     return redirect()->route('projects.show', $project->id)
       ->with('message', 'Project created successfully');

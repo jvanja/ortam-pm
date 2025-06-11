@@ -71,7 +71,7 @@ export interface invoice_itemsEntity {
 }
 export interface invoicesEntity {
   'buyer_id'?: string | null;
-  'buyer_information'?: object | null;
+  'buyer_information'?: Object | null;
   'buyer_type'?: string | null;
   'client_id'?: string;
   'created_at'?: Date | null;
@@ -165,7 +165,7 @@ export interface p_c_a_reportsEntity {
   'name': string;
   'non_residential_units'?: number;
   'numbers_of_floors': number;
-
+  
   /* Percentage of total lot area */
   'occupation_of_the_building': number;
   'occupation_of_the_property': string;
@@ -173,10 +173,10 @@ export interface p_c_a_reportsEntity {
   'project_id': string;
   'residential_units': number;
   'structure': string;
-
+  
   /* Measured in square meters */
   'surface_area_of_the_building': number;
-
+  
   /* Measured in square meters */
   'total_site_area': number;
   'updated_at'?: Date | null;
@@ -223,7 +223,7 @@ export interface projectsEntity {
   'department'?: string | null;
   'id'?: string;
   'language': 'english' | 'french';
-  'manager': string;
+  'manager_id': string;
   'notes'?: string | null;
   'opening_date'?: Date | null;
   'organization_id': string;
@@ -249,6 +249,7 @@ export interface proposalsEntity {
   'subtotal_amount'?: number;
   'tax_amount'?: number;
   'title': string;
+  'token'?: string | null;
   'total_amount'?: number;
   'updated_at'?: Date | null;
 }

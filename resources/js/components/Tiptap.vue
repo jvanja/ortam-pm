@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import StarterKit from '@tiptap/starter-kit'; // StarterKit is a set of extensions for tiptap
+import StarterKit from '@tiptap/starter-kit';
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import { watch, onBeforeUnmount } from 'vue';
 

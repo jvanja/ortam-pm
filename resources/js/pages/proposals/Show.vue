@@ -32,7 +32,9 @@ const printProposal = () => window.print();
 const sendProposal = () => {
   form.post(route('proposals.send', [props.proposal.id]), {
     onSuccess: () => {
-      toast.success(`Proposal sent successfully!`);
+      toast.success(`Proposal sent successfully!`, {
+        style: { background: '#6ee7b7', color: '#000' },
+      });
     },
     onError: (errors) => {
       toast.error('Error sending proposal:', errors);
@@ -78,7 +80,7 @@ const sendDescription =
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-8">
       <div class="mx-auto mb-[60px] max-w-3xl" v-html="proposal_view"></div>
-      <div class="no-print mb-4 flex justify-center align-middle gap-4">
+      <div class="no-print mb-4 flex justify-center gap-4 align-middle">
         <div v-if="can('proposal.edit') && canSendProposal">
           <AlertDialog>
             <AlertDialogTrigger as-child>
@@ -103,7 +105,7 @@ const sendDescription =
         <div v-if="can('proposal.edit') && proposal.state === 'accepted'">
           <Link
             :href="route('projects.create') + `?from-proposal=${proposal.id}`"
-            class="text-sm text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:!decoration-current dark:decoration-neutral-500 block py-2"
+            class="block py-2 text-sm text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:!decoration-current dark:decoration-neutral-500"
           >
             Convert to project
           </Link>

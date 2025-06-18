@@ -47,7 +47,7 @@ const form = useForm({
 const submit = () => {
   form.expires_at = expires_date.value!.toDate(getLocalTimeZone())
   form.total_amount = totalAmount.value;
-  form.state = 'draft'; // todo: always draft if updated?
+  form.state = 'draft';
   form.patch(route('proposals.update', [props.proposal.id]), {
     preserveScroll: true,
     onSuccess: () => {

@@ -30,6 +30,8 @@
     "dependencies": {
         "@headlessui/vue": "^1.7.23",
         "@inertiajs/vue3": "^2.0.0-beta.3",
+        "@tiptap/extension-bubble-menu": "^2.14.0",
+        "@tiptap/extension-link": "^2.14.0",
         "@tiptap/pm": "^2.13.0",
         "@tiptap/starter-kit": "^2.13.0",
         "@tiptap/vue-3": "^2.13.0",

@@ -1,10 +1,14 @@
 <script lang="ts" setup>
+import Link from '@tiptap/extension-link';
 import StarterKit from '@tiptap/starter-kit';
-import { EditorContent, useEditor } from '@tiptap/vue-3';
-import { watch, onBeforeUnmount } from 'vue';
+import { BubbleMenu, EditorContent, useEditor } from '@tiptap/vue-3';
+import { cn } from '@/lib/utils'
+
+import { onBeforeUnmount } from 'vue';
 
 const props = defineProps<{
   content: string;
+  class?: string
 }>();
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
@@ -12,7 +16,13 @@ const emit = defineEmits<{
 
 const editor = useEditor({
   content: props.content,
-  extensions: [StarterKit],
+  extensions: [
+    StarterKit,
+    Link.configure({
+      openOnClick: false,
+      defaultProtocol: 'https',
+    }),
+  ],
   onUpdate: () => {
     emit('update:modelValue', editor.value!.getHTML());
   },
@@ -24,11 +34,18 @@ onBeforeUnmount(() => {
 /* ==========================================================================
  Watch for content changes
  ========================================================================== */
-watch(() => props.content, (newContent) => (editor.value!.commands.setContent(newContent)));
-
+// watch(() => props.content, (newContent) => (editor.value!.commands.setContent(newContent)));
 </script>
 <template>
-  <div class="border-1 min-h-[200px] rounded-lg border border-gray-200 p-4">
+  <bubble-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
+    <div class="bubble-menu bg-gray-50 flex gap-2 text-xs p-2 rounded shadow border border-gray-200">
+      <button type="button" @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">Bold</button>
+      <button type="button" @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">Italic</button>
+      <button type="button" @click="editor.chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">Strike</button>
+      <button type="button" @click="editor.chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('link') }">Link</button>
+    </div>
+  </bubble-menu>
+  <div :class="cn('border-1 min-h-[200px] rounded-lg border border-gray-200 p-4', props.class)">
     <editor-content :editor="editor" />
   </div>
 </template>

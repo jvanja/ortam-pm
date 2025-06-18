@@ -61,16 +61,17 @@ const form = useForm({
   payment_instructions: props.payment_instructions,
 });
 
+const instructions = ref(props.payment_instructions);
 const page = usePage<SharedData>();
 const user = page.props.auth.user as User;
 
 const submit = () => {
   console.log(form.data());
-  form.patch(route('organization.update', [user.organization_id]), {
-    preserveScroll: true,
-    onSuccess: () => console.log('Organization created!'),
-    onError: () => console.error('Failed to create organization'),
-  });
+  // form.patch(route('organization.update', [user.organization_id]), {
+  //   preserveScroll: true,
+  //   onSuccess: () => console.log('Organization created!'),
+  //   onError: () => console.error('Failed to create organization'),
+  // });
 };
 </script>
 
@@ -174,7 +175,7 @@ const submit = () => {
             <HeadingSmall title="Payment instructions" description="These section will show on invoices you sent out" class="mb-2" />
             <div class="grid grid-cols-4 items-center gap-2">
               <Label for="payment-description">Payment info</Label>
-              <Tiptap :content="form.payment_instructions" @update:model-value="form.payment_instructions = $event" class="col-span-3 py-2 min-h-[20px]"/>
+              <Tiptap :content="instructions" @update:model-value="form.payment_instructions = $event" class="col-span-3 py-2 min-h-[20px]"/>
             </div>
             <InputError class="mt-2" :message="form.errors.payment_instructions" />
           </div>

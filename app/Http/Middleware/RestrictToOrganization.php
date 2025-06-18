@@ -39,8 +39,10 @@ class RestrictToOrganization {
     //  TODO:
     // Perhaps restrict only certain routes with this dd($request->route()->getName());
     if (isset($model->organization_id)) {
+        $organization = Organization::findOrFail($model->organization_id);
+        $request->attributes->add(['organization' => $organization]); // Attach to the request
 
-      // Check if the model belongs to the user's organization
+        // Check if the model belongs to the user's organization
       if (!$user->hasRole('superadmin') && $user->organization_id !== $model->organization_id) {
         abort(403, 'You do not have access to this resource.');
       }

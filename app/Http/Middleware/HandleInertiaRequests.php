@@ -33,34 +33,34 @@ class HandleInertiaRequests extends Middleware {
    *
    * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
    */
-  public function handle(Request $request, Closure $next): Response {
-    if ($request->user() && $request->user()->organization_id) {
-      $userOrgId = $request->user()->organization_id;
-      $organization = Organization::findOrFail($userOrgId);
-      if ($organization) {
-        $request->attributes->add(['organization' => $organization]); // Attach to the request
-        Inertia::share([
-          'name' => config('app.name'),
-          'user' => env('USERNAME'),
-          'password' => env('PASSWORD'),
-          'organization' => $organization->name,
-          'auth' => [
-            'user' => $request->user(),
-            'roles' => $request->user() ? $request->user()->roles->pluck('name') : [],
-            'permissions' => $request->user() ? $request->user()->getPermissionsViaRoles()->pluck('name') : [],
-          ],
-          'ziggy' => function () use ($request) {
-            return array_merge((new Ziggy)->toArray(), [
-              'location' => $request->url(),
-              'query' => $request->query()
-            ]);
-          }
-        ]);
-      }
-    }
-
-    return $next($request);
-  }
+  // public function handle(Request $request, Closure $next): Response {
+  //   if ($request->user() && $request->user()->organization_id) {
+  //     $userOrgId = $request->user()->organization_id;
+  //     $organization = Organization::findOrFail($userOrgId);
+  //     if ($organization) {
+  //       $request->attributes->add(['organization' => $organization]); // Attach to the request
+  //       Inertia::share([
+  //         'name' => config('app.name'),
+  //         'user' => env('USERNAME'),
+  //         'password' => env('PASSWORD'),
+  //         'organization' => $organization->name,
+  //         'auth' => [
+  //           'user' => $request->user(),
+  //           'roles' => $request->user() ? $request->user()->roles->pluck('name') : [],
+  //           'permissions' => $request->user() ? $request->user()->getPermissionsViaRoles()->pluck('name') : [],
+  //         ],
+  //         'ziggy' => function () use ($request) {
+  //           return array_merge((new Ziggy)->toArray(), [
+  //             'location' => $request->url(),
+  //             'query' => $request->query()
+  //           ]);
+  //         }
+  //       ]);
+  //     }
+  //   }
+  //
+  //   return $next($request);
+  // }
 
   /**
    * Define the props that are shared by default.
@@ -69,34 +69,34 @@ class HandleInertiaRequests extends Middleware {
    *
    * @return array<string, mixed>
    */
-  // public function share(Request $request): array {
-  //   if ($request->user()) {
-  //     $organization_id =  $request->user()->organization_id;
-  //     if ($organization_id) {
-  //       $organization = Organization::find($organization_id)->name;
-  //     } else {
-  //       $organization = false;
-  //     }
-  //   } else {
-  //     $organization = env('APP_NAME');
-  //   }
-  //   return [
-  //     ...parent::share($request),
-  //     'name' => config('app.name'),
-  //     'user' => env('USERNAME'),
-  //     'password' => env('PASSWORD'),
-  //     'organization' => $organization,
-  //     'auth' => [
-  //       'user' => $request->user(),
-  //       'roles' => $request->user() ? $request->user()->roles->pluck('name') : [],
-  //       'permissions' => $request->user() ? $request->user()->getPermissionsViaRoles()->pluck('name') : [],
-  //     ],
-  //     'ziggy' => function () use ($request) {
-  //       return array_merge((new Ziggy)->toArray(), [
-  //         'location' => $request->url(),
-  //         'query' => $request->query()
-  //       ]);
-  //     },
-  //   ];
-  // }
+  public function share(Request $request): array {
+    if ($request->user()) {
+      $organization_id =  $request->user()->organization_id;
+      if ($organization_id) {
+        $organization = Organization::find($organization_id)->name;
+      } else {
+        $organization = false;
+      }
+    } else {
+      $organization = env('APP_NAME');
+    }
+    return [
+      ...parent::share($request),
+      'name' => config('app.name'),
+      'user' => env('USERNAME'),
+      'password' => env('PASSWORD'),
+      'organization' => $organization,
+      'auth' => [
+        'user' => $request->user(),
+        'roles' => $request->user() ? $request->user()->roles->pluck('name') : [],
+        'permissions' => $request->user() ? $request->user()->getPermissionsViaRoles()->pluck('name') : [],
+      ],
+      'ziggy' => function () use ($request) {
+        return array_merge((new Ziggy)->toArray(), [
+          'location' => $request->url(),
+          'query' => $request->query()
+        ]);
+      },
+    ];
+  }
 }

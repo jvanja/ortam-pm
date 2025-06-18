@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organization;
 use Elegantly\Invoices\Enums\InvoiceState;
 use App\Mail\InvoiceSent;
 use App\Models\Client;
@@ -48,27 +49,35 @@ class InvoiceController extends Controller {
       'items.*.quantity' => ['required', 'numeric', 'min:1'],
     ]);
 
-    // Use findOrFail to ensure the models exist, otherwise an exception will be thrown
     $project = Project::findOrFail($validated['project_id']);
     $client = Client::findOrFail($validated['client_id']);
+    $organization = Organization::findOrFail($project->organization_id);
 
-    // Decode client address safely
+    // Decode buyer and seller addresses safely
+    $seller_address = json_decode($organization->address ?? '{}', true);;
     $clientAddress = json_decode($client->address ?? '{}', true);
 
     $invoice = new Invoice([
       'type' => 'invoice',
       'state' => $validated['state'],
-      'description' => $validated['description'] ?? null, // Use validated description, default to null
+      'description' => $validated['description'] ?? null,
       'total_amount' => $validated['total_amount'],
       'currency' => $project->currency ?? 'USD',
-      'seller_information' => config('invoices.default_seller'),
+      // 'seller_information' => config('invoices.default_seller'),
+      'seller_information' => [
+        "name"=> $organization->name ?? null,
+        "email"=> $organization->email ?? null,
+        "phone"=> $organization->phone ?? null,
+        "address"=> $seller_address ?? null,
+        "tax_number"=> null
+      ],
       'buyer_information' => [
         'name' => $client->company_name,
         'address' => [
           'street' => $clientAddress['street'] ?? null,
           'city' => $clientAddress['city'] ?? null,
-          'state' => $clientAddress['state'] ?? null, // Corrected: map state to state
-          'postal_code' => $clientAddress['postal_code'] ?? null, // Corrected: map postal_code to postal_code
+          'state' => $clientAddress['state'] ?? null,
+          'postal_code' => $clientAddress['postal_code'] ?? null,
           'country' => $clientAddress['country'] ?? null,
         ],
         'email' => $client->email,

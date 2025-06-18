@@ -165,7 +165,7 @@ const totalAmount = computed(() => form.items.reduce((sum, item) => sum + getIte
             <TableBody>
               <TableRow v-for="(item, index) in form.items" :key="index">
                 <TableCell class="px-2 py-4 text-sm">
-                  <Input v-model="item.label" class="mt-1" />
+                  <Input v-model="item.label" class="mt-1" required />
                 </TableCell>
                 <TableCell class="px-2 py-4 text-sm">
                   <Input v-model="item.quantity" class="mt-1" type="number" min="1" />

@@ -14,6 +14,7 @@ import SettingsLayout from '@/layouts/settings/CompanyLayout.vue';
 import countries from '@/lib/countries';
 import { SharedData, User, type BreadcrumbItem } from '@/types';
 import { reactive, ref } from 'vue';
+import { toast } from 'vue-sonner';
 
 interface Props {
   name: string;
@@ -67,8 +68,15 @@ const user = page.props.auth.user as User;
 const submit = () => {
   form.patch(route('organization.update', [user.organization_id]), {
     preserveScroll: true,
-    onSuccess: () => console.log('Organization created!'),
-    onError: () => console.error('Failed to create organization'),
+    onSuccess: (res) => {
+      toast.success('Organization settings updated!', {
+        style: { background: '#6ee7b7', color: '#000' },
+      });
+      form.reset();
+    },
+    onError: () => {
+      toast.error('Failed to update settings.');
+    },
   });
 };
 </script>

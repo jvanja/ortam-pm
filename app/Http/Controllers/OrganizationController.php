@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,7 @@ class OrganizationController extends Controller {
   /**
    * Store a newly created resource in storage.
    */
-  public function store(Request $request) {
+  public function store(Request $request): RedirectResponse {
     $validated = $request->validate([
       'name' => ['required', 'string', 'max:255', 'unique:organizations,name'],
       'email' => ['required', 'string', 'email', 'unique:organizations,email'],
@@ -66,7 +67,7 @@ class OrganizationController extends Controller {
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, Organization $organization) {
+  public function update(Request $request, Organization $organization): RedirectResponse {
     $validated = $request->validate([
       'name' => 'string|max:255',
       'email' => 'required|string|max:255|email',
@@ -86,14 +87,15 @@ class OrganizationController extends Controller {
       'address' => json_encode($validated['address']),
       'payment_instructions' => $validated['payment_instructions'],
     ]);
-    return back()->with('status', 'Organization updated!');
+
+    return redirect()->back()->with('status', 'Organization updated!');
   }
 
 
   /**
    * Update the specified resource in storage.
    */
-  public function updateBranding(Request $request, Organization $organization) {
+  public function updateBranding(Request $request, Organization $organization): RedirectResponse {
     $validated = $request->validate([
       'logo' => 'nullable|mimes:jpg,jpeg,png|max:2048',
       'brand_color' => 'nullable|string|max:255',

@@ -260,9 +260,9 @@
                   @endif
 
                   @if ($paymentInstruction->description)
-                    <p class="mb-3 text-xs">
+                    <div class="mb-3 text-xs">
                       {!! $paymentInstruction->description !!}
-                    </p>
+                    </div>
                   @endif
 
                   <table>

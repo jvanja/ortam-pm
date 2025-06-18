@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Tiptap from '@/components/Tiptap.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/CompanyLayout.vue';
 import countries from '@/lib/countries';
@@ -19,6 +20,7 @@ interface Props {
   email: string;
   phone: string;
   address: string;
+  payment_instructions: string;
 }
 
 const props = defineProps<Props>();
@@ -56,6 +58,7 @@ const form = useForm({
   email: props.email,
   phone: props.phone,
   address: orgAddress,
+  payment_instructions: props.payment_instructions,
 });
 
 const page = usePage<SharedData>();
@@ -165,6 +168,15 @@ const submit = () => {
               </Select>
             </div>
             <InputError class="mt-2" :message="form.errors.address" />
+          </div>
+
+          <div class="my-12 grid gap-2 py-4">
+            <HeadingSmall title="Payment instructions" description="These section will show on invoices you sent out" class="mb-2" />
+            <div class="grid grid-cols-4 items-center gap-2">
+              <Label for="payment-description">Payment info</Label>
+              <Tiptap :content="form.payment_instructions" @update:model-value="form.payment_instructions = $event" class="col-span-3 py-2 min-h-[20px]"/>
+            </div>
+            <InputError class="mt-2" :message="form.errors.payment_instructions" />
           </div>
 
           <div class="flex items-center gap-4">

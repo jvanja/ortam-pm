@@ -19,7 +19,6 @@ class OrganizationFactory extends Factory {
       'email' => fake()->safeEmail(),
       'phone' => fake()->phoneNumber(),
       'address' => json_encode([
-        'name' => 'Ortam Groupe',
         'street' => fake()->streetAddress(),
         'city' => fake()->city(),
         'postal_code' => fake()->postcode(),

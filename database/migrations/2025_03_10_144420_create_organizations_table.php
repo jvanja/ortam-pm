@@ -16,6 +16,7 @@ return new class extends Migration {
       $table->string('email')->unique();
       $table->string('phone')->nullable();
       $table->json('address')->nullable();
+      $table->string('payment_instructions')->nullable();
       $table->string('logo')->nullable();
       $table->string('brand_color')->nullable();
     });

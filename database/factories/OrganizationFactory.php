@@ -27,6 +27,7 @@ class OrganizationFactory extends Factory {
       ]),
       'logo' => 'https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png',
       'brand_color' => '#ff00ff',
+      'payment_instructions' => '',
     ];
   }
 }

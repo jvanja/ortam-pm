@@ -44,6 +44,7 @@ class OrganizationController extends Controller {
       'address' => $organization->address,
       'email' => $organization->email,
       'phone' => $organization->phone,
+      'payment_instructions' => $organization->payment_instructions,
     ]);
   }
 
@@ -75,6 +76,7 @@ class OrganizationController extends Controller {
       'address.state' => 'required|string|max:255',
       'address.postal_code' => 'required|string|max:20',
       'address.country' => 'required|string|max:255',
+      'payment_instructions' => 'nullable|string|max:255',
     ]);
 
     $organization->update([
@@ -82,6 +84,7 @@ class OrganizationController extends Controller {
       'email' => $validated['email'],
       'phone' => $validated['phone'],
       'address' => json_encode($validated['address']),
+      'payment_instructions' => $validated['payment_instructions'],
     ]);
     return back()->with('status', 'Organization updated!');
   }

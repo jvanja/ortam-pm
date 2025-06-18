@@ -30,6 +30,10 @@ class Invoice extends BaseInvoice {
    * @return PdfInvoice
    */
   public function toPdfInvoice(): PdfInvoice {
+
+    $organization = app()->request->attributes->get('organization');
+    $organizationPaymentInstructions = $organization->payment_instructions ?? '';
+
     return new PdfInvoice(
       type: $this->getType(),
       state: $this->getState(),
@@ -46,18 +50,20 @@ class Invoice extends BaseInvoice {
       paymentInstructions: [
         new PaymentInstruction(
           name: __('Bank Transfer'),
-          description: __('Make a direct bank transfer using the details below.'),
+          description: $organizationPaymentInstructions,
+
+          // description: __('Make a direct bank transfer using the details below.'),
           // qrcode: 'data:image/png;base64,' . base64_encode(
           //   file_get_contents(__DIR__ . '/../resources/images/qrcode.png')
           // ),
-          fields: [
-            __('Bank Name') => 'Acme Bank',
-            __('Account Number') => '12345678',
-            'IBAN' => 'GB12ACME12345678123456',
-            'SWIFT/BIC' => 'ACMEGB2L',
-            __('Reference') => $this->serial_number,
-            // '<a href="#">Pay online</a>',
-          ],
+          // fields: [
+          //   __('Bank Name') => 'Acme Bank',
+          //   __('Account Number') => '12345678',
+          //   'IBAN' => 'GB12ACME12345678123456',
+          //   'SWIFT/BIC' => 'ACMEGB2L',
+          //   __('Reference') => $this->serial_number,
+          //   // '<a href="#">Pay online</a>',
+          // ],
         ),
       ]
     );

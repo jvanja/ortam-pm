@@ -16,6 +16,7 @@ class Organization extends Model {
     'address',
     'logo',
     'brand_color',
+    'payment_instructions',
   ];
 
   public function projects(): HasMany {

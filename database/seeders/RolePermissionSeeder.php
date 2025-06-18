@@ -153,26 +153,29 @@ class RolePermissionSeeder extends Seeder {
           $permission = Permission::create(
             [
               'name' => $permissions[$i]['permissions'][$j],
-              // 'group_name' => $permissionGroup,
+              'group_name' => $permissionGroup,
               // 'guard_name' => 'admin'
             ]
           );
           $superAdminRole->givePermissionTo($permission);
           $adminRole->givePermissionTo($permission);
-
-          if ($permissionGroup === 'proposals' && $permission === 'view') {
-            $clientRole->givePermissionTo($permission);
-          }
-
-          if ($permissionGroup === 'timesheet') {
-            $employeeRole->givePermissionTo($permission);
-          }
         }
       }
     }
+
     // Assign permissions to roles
-    // $adminRole->givePermissionTo($editPermission, $viewPermission);
-    // $employeeRole->givePermissionTo($viewPermission);
+
+    /* ==========================================================================
+     Employees Role
+     ========================================================================== */
+    $timesheetPermisions = Permission::where('group_name', 'timesheet')->get();
+    $employeeRole->givePermissionTo($timesheetPermisions);
+
+    /* ==========================================================================
+     Client Role
+     ========================================================================== */
+    $viewProposalPermission = Permission::firstWhere('name', 'proposal.view');
+    $clientRole->givePermissionTo($viewProposalPermission);
 
     User::factory()
       ->count(4)

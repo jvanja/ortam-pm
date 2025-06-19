@@ -35,6 +35,27 @@ onBeforeUnmount(() => {
  Watch for content changes
  ========================================================================== */
 // watch(() => props.content, (newContent) => (editor.value!.commands.setContent(newContent)));
+
+const setLink = () => {
+  if (!editor.value) return;
+
+  const previousUrl = editor.value.getAttributes('link').href;
+  const url = window.prompt('Please enter your link\'s URL', previousUrl);
+
+  // cancelled
+  if (url === null) {
+    return;
+  }
+
+  // empty
+  if (url === '') {
+    editor.value.chain().focus().unsetLink().run();
+    return;
+  }
+
+  // update link
+  editor.value.chain().focus().setLink({ href: url }).run();
+};
 </script>
 <template>
   <bubble-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
@@ -42,7 +63,7 @@ onBeforeUnmount(() => {
       <button type="button" @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">Bold</button>
       <button type="button" @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">Italic</button>
       <button type="button" @click="editor.chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">Strike</button>
-      <button type="button" @click="editor.chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('link') }">Link</button>
+      <button type="button" @click="setLink()" :class="{ 'is-active': editor.isActive('link') }">Link</button>
     </div>
   </bubble-menu>
   <div :class="cn('border-1 min-h-[200px] rounded-lg border border-gray-200 p-4', props.class)">

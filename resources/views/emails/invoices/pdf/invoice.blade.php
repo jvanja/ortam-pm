@@ -242,7 +242,7 @@
   @endif
 
   @if ($invoice->paymentInstructions)
-    <div class="mt-12">
+    <div id="payment-instructions" class="mt-12">
       @foreach ($invoice->paymentInstructions as $paymentInstruction)
         <div @class([
             'border-b' => !$loop->last,

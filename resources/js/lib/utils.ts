@@ -21,3 +21,9 @@ export function formatDate (date:string | Date) {
 export function formatCurrency (amount: number, currency: string) {
   return new Intl.NumberFormat('us-EN', { style: 'currency', currency }).format(amount);
 }
+
+export function addAlpha(color: string, opacity:number) {
+    const _opacity = Math.round(Math.min(Math.max(opacity ?? 1, 0), 1) * 255);
+    return color + _opacity.toString(16).toUpperCase();
+}
+

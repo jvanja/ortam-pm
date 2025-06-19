@@ -13,8 +13,9 @@ import {
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { BreadcrumbItem, Client, Invoice, InvoiceItem, Organization, Project } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { defineProps } from 'vue';
+import { addAlpha } from '@/lib/utils';
 type InvoiceWithProject = Invoice & { project: Project; client: Client; organization: Organization; invoice_items: InvoiceItem[] };
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Invoices', href: '/invoices' }];
@@ -22,6 +23,16 @@ const props = defineProps<{
   invoice: InvoiceWithProject;
   invoice_view: string;
 }>();
+
+const page = usePage();
+const parser = new DOMParser();
+const invoiceHTML = parser.parseFromString(props.invoice_view, 'text/html');
+const invoicePaymentInstructions = invoiceHTML.querySelector('#payment-instructions > div') as HTMLDivElement;
+const brandColor = (page.props.organization as Organization).brand_color;
+
+if (invoicePaymentInstructions && brandColor) {
+  invoicePaymentInstructions.style.backgroundColor = addAlpha(brandColor, 0.1);
+}
 
 const printInvoice = () => window.print();
 
@@ -46,12 +57,12 @@ const sendInvoice = () => {
 </script>
 
 <template>
-  <Head title="Create Invoice" class="no-print" />
+  <Head title="View Invoice" class="no-print" />
 
   <AppLayout :breadcrumbs="breadcrumbs">
     <div class="p-8">
-      <div class="mx-auto max-w-3xl mb-[60px]" v-html="invoice_view"></div>
-      <div class="no-print flex gap-4 mb-4 justify-center">
+      <div class="mx-auto mb-[60px] max-w-3xl" v-html="invoiceHTML.body.innerHTML"></div>
+      <div class="no-print mb-4 flex justify-center gap-4">
         <AlertDialog>
           <AlertDialogTrigger as-child>
             <Button :disabled="!invoice.buyer_information.email">Send Invoice</Button>
@@ -75,17 +86,13 @@ const sendInvoice = () => {
     </div>
   </AppLayout>
 </template>
-<style scoped>
+<style>
 @media print {
   .no-print {
     display: none !important;
   }
-
-  .invoice-container {
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
-    border: none;
+  #payment-instructions {
+    margin-top: 2rem;
   }
 }
 </style>

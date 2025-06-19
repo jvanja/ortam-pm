@@ -11,14 +11,20 @@ class DashboardController extends Controller {
   public function show() {
 
     $user = Auth::user();
-    if(!$user->organization_id) {
+    if (!$user->organization_id) {
       return Inertia::render('dashboard/FirstTime');
     }
 
+
     if ($user->hasRole(['superadmin', 'admin'])) {
+
+      /* ==========================================================================
+        Admin dashboard
+      ========================================================================== */
+
       $latestProjects = Project::with(['pipelineStages', 'currentPipelineStage'])->latest()->take(3)->get();
-      foreach($latestProjects as $project) {
-        if(count($project->pipelineStages) == 0) {
+      foreach ($latestProjects as $project) {
+        if (count($project->pipelineStages) == 0) {
           $defaultStages = ProjectPipelineStage::where('is_system_default', '1')->get();
           $project->defaultStages = $defaultStages;
         }
@@ -27,18 +33,27 @@ class DashboardController extends Controller {
         'projects' => $latestProjects,
       ]);
     } else if ($user->hasRole('client')) {
+
+      /* ==========================================================================
+        Client dashboard
+      ========================================================================== */
+
       // Fetch projects related to the client if needed for DashboardClient
       // $clientProjects = Project::where('client_id', $user->client_id)->get(); // Example if client relationship exists
       return Inertia::render('DashboardClient', [
         // 'projects' => $clientProjects,
       ]);
     } else {
+
+      /* ==========================================================================
+        Employee dashboard
+      ========================================================================== */
+
       // Employee role: Fetch projects assigned to this user
       $employeeProjects = $user->projects()->get(['id', 'address']); // Fetch only needed columns (id for value, address for display)
 
       return Inertia::render('DashboardEmployee', [
         'projects' => $employeeProjects,
-        // No need to pass organizations anymore
       ]);
     }
   }

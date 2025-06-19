@@ -25,7 +25,7 @@ const chartOptions = (project: ProjectWithPipelineStages) => {
     fill: {
       colors: fillColors[project.status]
     },
-    labels: [project.current_pipeline_stage.name],
+    labels: [project.current_pipeline_stage?.name || project.pipelineStages[0].name],
   };
 };
 const getSeries = (project: ProjectWithPipelineStages) => {

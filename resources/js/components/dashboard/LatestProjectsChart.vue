@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
 import type { Project, ProjectPipelineStage } from '@/types';
-type ProjectWithPipelineStages = Project & { pipeline_stages: ProjectPipelineStage[]; current_pipeline_stage: ProjectPipelineStage };
+type ProjectWithPipelineStages = Project & { pipeline_stages: ProjectPipelineStage[]; defaultStages: ProjectPipelineStage[];current_pipeline_stage: ProjectPipelineStage };
 
 const { projects } = defineProps<{ projects: ProjectWithPipelineStages[] }>();
 const fillColors = {
@@ -25,12 +25,11 @@ const chartOptions = (project: ProjectWithPipelineStages) => {
     fill: {
       colors: fillColors[project.status]
     },
-    labels: [project.current_pipeline_stage?.name || project.pipelineStages[0].name],
+    labels: [project.current_pipeline_stage?.name || project.defaultStages[0].name],
   };
 };
 const getSeries = (project: ProjectWithPipelineStages) => {
-  // @ts-expect-error pipelineStages is added as default stages for new projects
-  const stages = project.pipeline_stages.length === 0 ? project.pipelineStages : project.pipeline_stages;
+  const stages = project.pipeline_stages.length === 0 ? project.defaultStages : project.pipeline_stages;
   const projectStagesLength = stages.length;
   const currentStageIndex =
     stages.findIndex((stage: ProjectPipelineStage) => stage.id === project.current_project_pipeline_stage_id) + 1;

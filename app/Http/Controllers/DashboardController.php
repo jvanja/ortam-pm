@@ -16,11 +16,11 @@ class DashboardController extends Controller {
     }
 
     if ($user->hasRole(['superadmin', 'admin'])) {
-      $defaultStages = ProjectPipelineStage::where('is_system_default', '1')->get();
       $latestProjects = Project::with(['pipelineStages', 'currentPipelineStage'])->latest()->take(3)->get();
       foreach($latestProjects as $project) {
         if(count($project->pipelineStages) == 0) {
-          $project->pipelineStages = $defaultStages;
+          $defaultStages = ProjectPipelineStage::where('is_system_default', '1')->get();
+          $project->defaultStages = $defaultStages;
         }
       }
       return Inertia::render('Dashboard', [

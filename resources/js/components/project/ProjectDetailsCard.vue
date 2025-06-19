@@ -17,7 +17,6 @@ const props = defineProps<{
 }>();
 
 const form = useForm({ ...props.project });
-console.log(form.data())
 const submit = () => {
   form.patch(route('projects.update', [props.project.id]), {
     preserveScroll: true,

@@ -73,7 +73,7 @@ class HandleInertiaRequests extends Middleware {
     if ($request->user()) {
       $organization_id =  $request->user()->organization_id;
       if ($organization_id) {
-        $organization = Organization::find($organization_id)->name;
+        $organization = Organization::find($organization_id);
       } else {
         $organization = false;
       }

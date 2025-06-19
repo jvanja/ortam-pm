@@ -108,6 +108,11 @@ const setLink = () => {
 .tiptap p {
   margin: 0.5em 0;
 }
+
+.tiptap a {
+  text-decoration: underline;
+}
+
 .tiptap ol,
 .tiptap ul,
 .tiptap menu {

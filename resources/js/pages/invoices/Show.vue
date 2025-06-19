@@ -16,6 +16,7 @@ import { BreadcrumbItem, Client, Invoice, InvoiceItem, Organization, Project } f
 import { Head, useForm, usePage } from '@inertiajs/vue3';
 import { defineProps } from 'vue';
 import { addAlpha } from '@/lib/utils';
+import { toast } from 'vue-sonner';
 type InvoiceWithProject = Invoice & { project: Project; client: Client; organization: Organization; invoice_items: InvoiceItem[] };
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Invoices', href: '/invoices' }];
@@ -41,7 +42,9 @@ const form = useForm({ id: props.invoice.id });
 const sendInvoice = () => {
   form.post(route('invoices.send', [props.invoice.id]), {
     onSuccess: () => {
-      console.log('Invoice sent successfully!');
+      toast.success('Invoice sent successfully!', {
+        style: { background: '#6ee7b7', color: '#000' },
+      });
     },
     onError: (errors) => {
       console.error('Error sending invoice:', errors);
